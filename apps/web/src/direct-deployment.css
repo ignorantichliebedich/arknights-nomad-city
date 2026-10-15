@@ -1,0 +1,144 @@
+.placement-panel {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 4px;
+  width: clamp(204px, calc(var(--map-gutter) - 8px), 252px);
+  max-height: 36dvh;
+  overflow: auto;
+  padding: 12px;
+  color: #f0e1be;
+  background: #2b251ef5;
+  border: 1px solid #ab9163;
+  border-top: 3px solid var(--seat-color);
+  box-shadow: 0 6px 20px #0005;
+  pointer-events: auto;
+  animation: deployment-reveal 180ms ease-out;
+}
+.placement-panel header small {
+  color: #c4aa79;
+  font-size: 10px;
+}
+.placement-panel h3 {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 4px;
+  font-size: 15px;
+}
+.placement-panel h3 span {
+  color: #f7d994;
+}
+.placement-panel p {
+  margin: 8px 0;
+  color: #dbccaf;
+  font-size: 11px;
+  line-height: 1.7;
+}
+.placement-slots {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.placement-slots button {
+  flex: 1;
+  padding: 7px 4px;
+  color: #ead6ae;
+  background: #43382a;
+  border: 1px solid #806c48;
+  font-size: 11px;
+}
+.placement-slots button[aria-pressed="true"] {
+  color: #30271b;
+  background: #ecd7a4;
+  border-color: #f4e0b1;
+  box-shadow: inset 0 -3px #9c7b3f;
+}
+.placement-controls {
+  display: flex;
+  gap: 6px;
+}
+.placement-controls button {
+  min-height: 36px;
+  padding: 8px;
+  font-size: 12px;
+  border-radius: 2px;
+}
+.placement-controls .secondary-button {
+  color: #dfc99f;
+  background: #44392a;
+  border: 1px solid #806b48;
+}
+.placement-controls .primary-button {
+  flex: 1;
+  color: #fff2d1;
+  background: #8b672b;
+  border: 1px solid #b99a5b;
+}
+.placement-controls .primary-button:hover:not(:disabled) {
+  background: #a27a32;
+}
+.placement-panel button:focus-visible {
+  outline: 2px solid #f4d38c;
+  outline-offset: 2px;
+}
+.placement-hint {
+  display: block;
+  margin-top: 8px;
+  color: #bba781;
+  font-size: 10px;
+}
+.board-hit.deployable:not(.selected) {
+  fill: #ffe2a417;
+  stroke: #d8bf89;
+  stroke-width: 1.6;
+}
+.board-hit.deployable:hover,
+.board-hit.deployable:focus-visible {
+  fill: #ffe2a449;
+  stroke: #fff0bc;
+  stroke-width: 3;
+}
+.deployment-slot {
+  cursor: pointer;
+  outline: none;
+}
+.deployment-slot circle {
+  fill: #30291fd9;
+  stroke: #e6cb8e;
+  stroke-width: 1.4;
+  stroke-dasharray: 3 2;
+}
+.deployment-slot path {
+  fill: none;
+  stroke: #ffe8b5;
+  stroke-width: 1.8;
+  pointer-events: none;
+}
+.deployment-slot:hover circle,
+.deployment-slot:focus-visible circle {
+  fill: #715327;
+  stroke: #fff4d7;
+  stroke-width: 2.5;
+  stroke-dasharray: none;
+}
+.deployment-slot.picked circle {
+  fill: transparent;
+  stroke: #fff4d7;
+  stroke-width: 2.5;
+  stroke-dasharray: none;
+}
+@keyframes deployment-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .placement-panel {
+    animation: none;
+  }
+}

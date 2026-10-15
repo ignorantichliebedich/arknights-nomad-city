@@ -1,0 +1,47 @@
+游城拓荒：独立 Windows 运行包
+
+1. 在服务器电脑安装 Node.js 24.14 或更新的 24.x。
+   官方下载：https://nodejs.org/en/download
+   安装完成后重新打开终端；node --version 应显示 v24.x。
+2. 把 ZIP 完整解压到固定目录，例如 D:\NomadCity。
+3. 双击 start-game.cmd，然后用本机浏览器打开 http://127.0.0.1:3000。
+   默认只监听本机，供隧道接入。程序窗口需要保持运行。
+   局域网测试可在 CMD 执行 start-game.cmd --lan，朋友访问该电脑的局域网 IP。
+4. 公网试玩：下载 Cloudflare 官方 Windows 64-bit Executable，命名为
+   cloudflared.exe，放在运行包根目录，然后双击 start-tunnel.cmd。
+   下载：https://developers.cloudflare.com/tunnel/downloads/
+   把隧道窗口显示的 HTTPS 网址发给朋友，即可用浏览器建房、加入和游玩。
+   Windows on ARM 请使用适配该设备的官方程序。
+
+运行包已包含编译后的界面、运行素材、服务端、规则模块及 ws 依赖。
+服务器电脑无需安装 pnpm 或编译前端。包内不附带 Node.js 或 cloudflared。
+启动只访问本机文件；start-tunnel.cmd 才会建立公开访问入口。
+
+日常运行
+- 接网线，关闭电源设置中的自动睡眠；锁屏不影响游戏运行。
+- start-game.cmd 和隧道都需要保持运行。停止服务使用 Ctrl+C。
+- 双击 backup-game.cmd 创建在线备份。运行服务连续运行时每 24 小时自动备份。
+- .data/state 是对局数据库，backups 是备份目录。定期把备份复制到另一台设备。
+- 更新程序前先备份并停止游戏服务，保留旧运行包；沿用已有存档目录。
+- 不要同时启动多个游戏进程来操作同一份存档。
+
+临时隧道说明
+- 无需 Cloudflare 账号、域名、公网 IP 或路由器端口转发。
+- Quick Tunnel 用于测试，没有运行时间保证，每次启动会生成不同的域名。
+- 浏览器的席位凭证保存在对应域名下；临时域名改变后不能自动恢复旧席位。
+- 长期开服应创建正式隧道并使用固定域名，同时配置游戏及隧道自动启动。
+- 中国大陆朋友的访问效果需要实测。电脑的上行带宽也影响图片加载速度。
+  官方说明：https://developers.cloudflare.com/tunnel/get-started/quick-tunnels/
+  正式隧道：https://developers.cloudflare.com/tunnel/get-started/
+
+配置检测
+在这台服务器电脑的 PowerShell 执行：
+  powershell -NoProfile -ExecutionPolicy Bypass -File .\check-pc.ps1
+脚本仅输出 CPU、内存、Windows 版本、磁盘容量与剩余空间。
+
+测速（安装 Ookla Speedtest CLI 后另开终端）
+  winget install --id Ookla.Speedtest.CLI --exact
+  speedtest
+首次运行按工具提示阅读并确认条款，关注 Upload（上传）及 Latency（延迟）。
+测之前暂停其他下载、上传和 VPN，优先使用网线；可以间隔测试几次。
+上传结果不能由网卡“1 Gbps”连接速率推算。

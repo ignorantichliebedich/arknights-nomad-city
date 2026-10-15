@@ -1,0 +1,2706 @@
+{
+  "rulesVersion": "founders-2023.1",
+  "sources": {
+    "official": "https://ak.hypergryph.com/boardgame_nomadcity/",
+    "wiki": "https://prts.wiki/w/游城拓荒：铸基者",
+    "archive": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "manual": "https://steamusercontent-a.akamaihd.net/ugc/2282825689394632887/8F1D80001580DF5B3F528E7B80302B646C2AF857/"
+  },
+  "components": {
+    "base": {
+      "facilities": 48,
+      "roles": 20,
+      "events": 22,
+      "patterns": 6,
+      "playerAids": 4,
+      "total": 100
+    },
+    "enterprise": {
+      "roles": 8,
+      "operatives": 8,
+      "facilities": 3,
+      "replacementEvents": 2,
+      "patterns": 6,
+      "total": 27,
+      "companyBoards": 8,
+      "laboratoryBoards": 3,
+      "publicRoadTokens": 8
+    }
+  },
+  "facilities": [
+    {
+      "id": "administration",
+      "name": "城邦行政区",
+      "color": "wild",
+      "cost": {
+        "rock": 3,
+        "ore": 3,
+        "iron": 3
+      },
+      "cashCost": 30,
+      "points": 3,
+      "copies": 3,
+      "index": 0,
+      "effect": "none",
+      "unique": true,
+      "expansion": false,
+      "image": "/assets/cards-166/0.webp",
+      "text": "没有入场效果。\n唯一：同名设施在自己的城市内只能建设一张。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/0.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "energy",
+      "name": "附属能源设施",
+      "color": "wild",
+      "cost": {
+        "rock": 2,
+        "ore": 2,
+        "iron": 3
+      },
+      "cashCost": 23,
+      "points": 1,
+      "copies": 3,
+      "index": 3,
+      "effect": "copy-entry",
+      "unique": true,
+      "expansion": false,
+      "image": "/assets/cards-166/3.webp",
+      "text": "入场：选择一个十字相邻的非彩色设施，结算其入场效果。\n唯一：同名设施在自己的城市内只能建设一张。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/3.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "federal",
+      "name": "联邦理事处",
+      "color": "wild",
+      "cost": {
+        "rock": 4,
+        "ore": 2
+      },
+      "cashCost": 17,
+      "points": 0,
+      "copies": 3,
+      "index": 6,
+      "effect": "first-player",
+      "unique": true,
+      "expansion": false,
+      "image": "/assets/cards-166/6.webp",
+      "text": "入场：获得起始玩家标记，在下回合成为起始玩家。\n唯一：同名设施在自己的城市内只能建设一张。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/6.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "camp",
+      "name": "简陋工程营",
+      "color": "blue",
+      "cost": {
+        "rock": 2,
+        "ore": 1
+      },
+      "cashCost": 8,
+      "points": -1,
+      "copies": 2,
+      "index": 9,
+      "effect": "free-build",
+      "unique": false,
+      "expansion": false,
+      "image": "/assets/cards-166/9.webp",
+      "text": "入场：从设施供应区免费建设一张设施，并结算其入场效果。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/9.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "logistics",
+      "name": "物流枢纽",
+      "color": "blue",
+      "cost": {
+        "prime": 1,
+        "cash": 2
+      },
+      "cashCost": 24,
+      "points": 2,
+      "copies": 2,
+      "index": 11,
+      "effect": "extend",
+      "unique": true,
+      "expansion": false,
+      "image": "/assets/cards-166/11.webp",
+      "text": "入场：可选择余下的蓝、黄、红色延伸枢纽之一，建在城市空格，失去 1 分。\n唯一：同名设施在自己的城市内只能建设一张。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/11.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "refinery-blue",
+      "name": "源石精炼厂",
+      "color": "blue",
+      "cost": {
+        "rock": 1,
+        "ore": 1,
+        "iron": 1
+      },
+      "cashCost": 10,
+      "points": 0,
+      "copies": 1,
+      "index": 13,
+      "effect": "ore6",
+      "unique": false,
+      "expansion": false,
+      "image": "/assets/cards-166/13.webp",
+      "text": "入场：获得 6 源石。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/13.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "urban",
+      "name": "城市化区域",
+      "color": "blue",
+      "cost": {
+        "rock": 3,
+        "iron": 2
+      },
+      "cashCost": 16,
+      "points": 1,
+      "copies": 3,
+      "index": 14,
+      "effect": "adjacent-cash",
+      "unique": false,
+      "expansion": false,
+      "image": "/assets/cards-166/14.webp",
+      "text": "入场：每个十字相邻的非彩色设施带来 4 金券。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/14.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smelter-blue",
+      "name": "异铁冶炼厂",
+      "color": "blue",
+      "cost": {
+        "rock": 2,
+        "ore": 2,
+        "iron": 1
+      },
+      "cashCost": 15,
+      "points": 1,
+      "copies": 1,
+      "index": 17,
+      "effect": "iron4",
+      "unique": false,
+      "expansion": false,
+      "image": "/assets/cards-166/17.webp",
+      "text": "入场：获得 4 异铁。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/17.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "trade",
+      "name": "贸易街区",
+      "color": "blue",
+      "cost": {
+        "rock": 1,
+        "iron": 1
+      },
+      "cashCost": 6,
+      "points": 0,
+      "copies": 3,
+      "index": 18,
+      "effect": "trade",
+      "unique": false,
+      "expansion": false,
+      "image": "/assets/cards-166/18.webp",
+      "text": "入场：可任意出售资源，基础资源每个 1 金券，至纯源石每个 15 金券。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/18.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "extension-blue",
+      "name": "延伸枢纽",
+      "color": "blue",
+      "cost": {},
+      "cashCost": 0,
+      "points": -1,
+      "copies": 1,
+      "index": 21,
+      "effect": "none",
+      "unique": false,
+      "expansion": false,
+      "image": "/assets/cards-166/21.webp",
+      "text": "没有入场效果。\n只能通过物流枢纽的入场效果建设。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/21.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "extension-yellow",
+      "name": "延伸枢纽",
+      "color": "yellow",
+      "cost": {},
+      "cashCost": 0,
+      "points": -1,
+      "copies": 1,
+      "index": 32,
+      "effect": "none",
+      "unique": false,
+      "expansion": false,
+      "image": "/assets/cards-166/32.webp",
+      "text": "没有入场效果。\n只能通过物流枢纽的入场效果建设。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/32.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "extension-red",
+      "name": "延伸枢纽",
+      "color": "red",
+      "cost": {},
+      "cashCost": 0,
+      "points": -1,
+      "copies": 1,
+      "index": 43,
+      "effect": "none",
+      "unique": false,
+      "expansion": false,
+      "image": "/assets/cards-166/43.webp",
+      "text": "没有入场效果。\n只能通过物流枢纽的入场效果建设。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/43.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "industrial",
+      "name": "城邦工业区",
+      "color": "yellow",
+      "cost": {
+        "rock": 4,
+        "ore": 3,
+        "cash": 2
+      },
+      "cashCost": 24,
+      "points": 2,
+      "copies": 3,
+      "index": 22,
+      "effect": "none",
+      "unique": false,
+      "expansion": false,
+      "image": "/assets/cards-166/22.webp",
+      "text": "没有入场效果。\n资源支付时，城市里每种非彩色设施颜色降低 1 源岩费用；红、黄、蓝各计算一次，最多降低 3 源岩。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/22.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "power",
+      "name": "高性能动力设施",
+      "color": "yellow",
+      "cost": {
+        "ore": 4,
+        "iron": 2
+      },
+      "cashCost": 20,
+      "points": 0,
+      "copies": 2,
+      "index": 25,
+      "effect": "free-move",
+      "unique": false,
+      "expansion": false,
+      "image": "/assets/cards-166/25.webp",
+      "text": "入场：免费移动城市，并在经过的航道放置一个自己的影响力。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/25.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quarry-yellow",
+      "name": "固源岩提纯厂",
+      "color": "yellow",
+      "cost": {
+        "rock": 1,
+        "ore": 1,
+        "iron": 1
+      },
+      "cashCost": 10,
+      "points": 0,
+      "copies": 1,
+      "index": 27,
+      "effect": "rock7",
+      "unique": false,
+      "expansion": false,
+      "image": "/assets/cards-166/27.webp",
+      "text": "入场：获得 7 源岩。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/27.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "refinery-yellow",
+      "name": "源石精炼厂",
+      "color": "yellow",
+      "cost": {
+        "rock": 1,
+        "ore": 1,
+        "iron": 1
+      },
+      "cashCost": 10,
+      "points": 0,
+      "copies": 1,
+      "index": 28,
+      "effect": "ore6",
+      "unique": false,
+      "expansion": false,
+      "image": "/assets/cards-166/28.webp",
+      "text": "入场：获得 6 源石。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/28.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "excavator",
+      "name": "开采电铲",
+      "color": "yellow",
+      "cost": {
+        "ore": 2,
+        "iron": 1
+      },
+      "cashCost": 10,
+      "points": 0,
+      "copies": 3,
+      "index": 29,
+      "effect": "basic5",
+      "unique": false,
+      "expansion": false,
+      "image": "/assets/cards-166/29.webp",
+      "text": "入场：获得合计 5 个基础资源，种类自行分配。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/29.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smelter-red",
+      "name": "异铁冶炼厂",
+      "color": "red",
+      "cost": {
+        "rock": 2,
+        "ore": 2,
+        "iron": 1
+      },
+      "cashCost": 15,
+      "points": 1,
+      "copies": 1,
+      "index": 33,
+      "effect": "iron4",
+      "unique": false,
+      "expansion": false,
+      "image": "/assets/cards-166/33.webp",
+      "text": "入场：获得 4 异铁。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/33.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quarry-red",
+      "name": "固源岩提纯厂",
+      "color": "red",
+      "cost": {
+        "rock": 1,
+        "ore": 1,
+        "iron": 1
+      },
+      "cashCost": 10,
+      "points": 0,
+      "copies": 1,
+      "index": 34,
+      "effect": "rock7",
+      "unique": false,
+      "expansion": false,
+      "image": "/assets/cards-166/34.webp",
+      "text": "入场：获得 7 源岩。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/34.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mercenary",
+      "name": "佣兵指挥部",
+      "color": "red",
+      "cost": {
+        "rock": 2,
+        "iron": 2,
+        "cash": 4
+      },
+      "cashCost": 18,
+      "points": 1,
+      "copies": 3,
+      "index": 35,
+      "effect": "replace-place",
+      "unique": false,
+      "expansion": false,
+      "image": "/assets/cards-166/35.webp",
+      "text": "入场：替换一个影响力，再放置一个自己的影响力。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/35.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "escort",
+      "name": "护航调度中心",
+      "color": "red",
+      "cost": {
+        "rock": 2,
+        "ore": 2,
+        "iron": 2
+      },
+      "cashCost": 18,
+      "points": 0,
+      "copies": 2,
+      "index": 38,
+      "effect": "place2",
+      "unique": false,
+      "expansion": false,
+      "image": "/assets/cards-166/38.webp",
+      "text": "入场：放置两次自己的影响力。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/38.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "garage",
+      "name": "载具仓库",
+      "color": "red",
+      "cost": {
+        "rock": 1,
+        "ore": 2
+      },
+      "cashCost": 9,
+      "points": 0,
+      "copies": 3,
+      "index": 40,
+      "effect": "remove-move-explore",
+      "unique": false,
+      "expansion": false,
+      "image": "/assets/cards-166/40.webp",
+      "text": "入场：移除一个影响力并移动一次自己的影响力，或执行一次探索。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/40.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core",
+      "name": "核心指挥塔",
+      "color": "wild",
+      "cost": {},
+      "cashCost": 0,
+      "points": 0,
+      "copies": 4,
+      "index": 44,
+      "effect": "none",
+      "unique": true,
+      "expansion": false,
+      "image": "/assets/cards-166/44.webp",
+      "text": "没有入场效果。\n唯一：同名设施在自己的城市内只能建设一张。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/44.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "office-red",
+      "name": "企业办事处",
+      "color": "red",
+      "cost": {
+        "rock": 3,
+        "ore": 1,
+        "iron": 3
+      },
+      "cashCost": 23,
+      "points": 1,
+      "copies": 1,
+      "index": 48,
+      "effect": "enterprise",
+      "unique": false,
+      "expansion": true,
+      "image": "/assets/cards-166/48.webp",
+      "text": "入场：选择一家合作企业，触发其中一个已解锁特效。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/48.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "office-blue",
+      "name": "企业办事处",
+      "color": "blue",
+      "cost": {
+        "rock": 3,
+        "ore": 1,
+        "iron": 3
+      },
+      "cashCost": 23,
+      "points": 1,
+      "copies": 1,
+      "index": 49,
+      "effect": "enterprise",
+      "unique": false,
+      "expansion": true,
+      "image": "/assets/cards-166/49.webp",
+      "text": "入场：选择一家合作企业，触发其中一个已解锁特效。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/49.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "office-yellow",
+      "name": "企业办事处",
+      "color": "yellow",
+      "cost": {
+        "rock": 3,
+        "ore": 1,
+        "iron": 3
+      },
+      "cashCost": 23,
+      "points": 1,
+      "copies": 1,
+      "index": 50,
+      "effect": "enterprise",
+      "unique": false,
+      "expansion": true,
+      "image": "/assets/cards-166/50.webp",
+      "text": "入场：选择一家合作企业，触发其中一个已解锁特效。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-166/50.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            7,
+            13
+          ]
+        }
+      ]
+    }
+  ],
+  "roles": [
+    {
+      "id": "liskarm",
+      "name": "雷蛇",
+      "image": "/assets/role-1231.webp",
+      "strategy": "放置两次影响力；收尾移除一个自己的影响力。",
+      "tactic": "支付 3 金券，替换一个影响力。",
+      "copies": 4,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "pages": [
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "elysium",
+      "name": "极境",
+      "image": "/assets/role-1271.webp",
+      "strategy": "获得 4 个持有数量最少的基础资源。",
+      "tactic": "支付 3 源石，免费移动到相邻且有自己影响力的资源点。",
+      "copies": 4,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "pages": [
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "texas",
+      "name": "德克萨斯",
+      "image": "/assets/role-1232.webp",
+      "strategy": "获得 12 金券，将一张市场设施放到牌堆底。",
+      "tactic": "支付 3 金券，移除一个影响力，再移动两次自己的影响力。",
+      "copies": 4,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "pages": [
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cannott",
+      "name": "坎诺特",
+      "image": "/assets/role-1272.webp",
+      "strategy": "自选数量出售资源：源岩/源石 3，异铁 4，至纯源石 15 金券。",
+      "tactic": "选择基础资源种类，所有玩家以 2 金券单价出售全部该资源；获得 1 分。",
+      "copies": 4,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "pages": [
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tinman",
+      "name": "锡人",
+      "image": "/assets/role-1273.webp",
+      "strategy": "获得 1 分；可依次支付 12 和 15 金券各获得 1 至纯源石。",
+      "tactic": "收回全部弃牌，每张选择 5 金券或移动一个自己的影响力。",
+      "copies": 4,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "pages": [
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mountain",
+      "name": "山",
+      "image": "/assets/role-1306.webp",
+      "strategy": "移除一条航道的全部影响力，改为公路；被移除影响力的玩家各得 1 分，你得 1 分。",
+      "tactic": "支付 2 金券，提升并触发同一家企业。",
+      "expansion": true,
+      "copies": 4,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "pages": [
+            19
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mlynar",
+      "name": "玛恩纳",
+      "image": "/assets/role-1307.webp",
+      "strategy": "所有玩家提升同一家企业；触发一家企业。",
+      "tactic": "提升一家企业；获得 1 源岩、1 源石、1 异铁。",
+      "expansion": true,
+      "copies": 4,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "pages": [
+            19
+          ]
+        }
+      ]
+    },
+    {
+      "id": "w",
+      "name": "W",
+      "image": "/assets/operatives/w.webp",
+      "strategy": "放置三次影响力；收尾移除两个自己的影响力。",
+      "tactic": "支付 4 金券，移除两名不同对手各一个影响力；一次性。",
+      "operative": true,
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "pages": [
+            19,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kaltsit",
+      "name": "凯尔希",
+      "image": "/assets/operatives/kaltsit.webp",
+      "strategy": "提升同一家企业两级，获得 1 分。",
+      "tactic": "选择一家企业，按自选顺序触发其已解锁的全部特效；一次性。",
+      "operative": true,
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "pages": [
+            19,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "id": "closure",
+      "name": "可露希尔",
+      "image": "/assets/operatives/closure.webp",
+      "strategy": "获得 1 源岩、1 源石、1 异铁；提升一家企业。",
+      "tactic": "取走市场两种不同设施保留，之后可支付费用建设；持续。",
+      "operative": true,
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "pages": [
+            19,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dorothy",
+      "name": "多萝西",
+      "image": "/assets/operatives/dorothy.webp",
+      "strategy": "移除自己两次影响力，放置三次影响力。",
+      "tactic": "可放至多 4 个标记；自己的影响力被移除或替换时可存入标记，收尾支付两个标记放置一次影响力；持续。",
+      "operative": true,
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "pages": [
+            19,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "id": "silverash",
+      "name": "银灰",
+      "image": "/assets/operatives/silverash.webp",
+      "strategy": "选择资源种类和玩家，令其以 4 金券单价售出全部该资源；获得 1 分。",
+      "tactic": "移动每位玩家一个影响力；一次性。",
+      "operative": true,
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "pages": [
+            19,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mudrock",
+      "name": "泥岩",
+      "image": "/assets/operatives/mudrock.webp",
+      "strategy": "支付 1 源岩，放置两次影响力。",
+      "tactic": "每次收尾可支付 2 源岩，放置一次影响力；持续。",
+      "operative": true,
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "pages": [
+            19,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "id": "passenger",
+      "name": "异客",
+      "image": "/assets/operatives/passenger.webp",
+      "strategy": "选择对手和基础资源，取走至多 4 个该资源；你和对手各获得 1 分。",
+      "tactic": "可放至多 5 个标记，每次资源支付可使用至多两个标记代替基础资源；持续。",
+      "operative": true,
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "pages": [
+            19,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eunectes",
+      "name": "森蚺",
+      "image": "/assets/operatives/eunectes.webp",
+      "strategy": "免费移动城市；移动每位对手一个影响力。",
+      "tactic": "移除市场两种不同设施，获得 3 异铁。",
+      "operative": true,
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "pages": [
+            19,
+            20
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "green-0",
+      "name": "中立采石场",
+      "tier": "green",
+      "resource": "rock",
+      "amount": 1,
+      "options": [
+        {
+          "label": "获得 3 源石",
+          "gain": {
+            "ore": 3
+          }
+        },
+        {
+          "label": "获得 2 异铁、2 金券",
+          "gain": {
+            "iron": 2,
+            "cash": 2
+          }
+        }
+      ],
+      "fourOnly": false,
+      "image": "/assets/cards-154/0.webp",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-154/0.webp"
+        }
+      ]
+    },
+    {
+      "id": "green-1",
+      "name": "清理虫巢",
+      "tier": "green",
+      "resource": "iron",
+      "amount": 1,
+      "options": [
+        {
+          "label": "获得 7 金券",
+          "gain": {
+            "cash": 7
+          }
+        },
+        {
+          "label": "获得 3 源石",
+          "gain": {
+            "ore": 3
+          }
+        }
+      ],
+      "fourOnly": false,
+      "image": "/assets/cards-154/1.webp",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-154/1.webp"
+        }
+      ]
+    },
+    {
+      "id": "green-2",
+      "name": "外露矿床",
+      "tier": "green",
+      "resource": "ore",
+      "amount": 1,
+      "options": [
+        {
+          "label": "获得 4 源岩",
+          "gain": {
+            "rock": 4
+          }
+        },
+        {
+          "label": "获得 3 源石",
+          "gain": {
+            "ore": 3
+          }
+        }
+      ],
+      "fourOnly": false,
+      "image": "/assets/cards-154/2.webp",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-154/2.webp"
+        }
+      ]
+    },
+    {
+      "id": "green-3",
+      "name": "富饶岩层",
+      "tier": "green",
+      "resource": "rock",
+      "amount": 1,
+      "options": [
+        {
+          "label": "获得 4 源岩",
+          "gain": {
+            "rock": 4
+          }
+        },
+        {
+          "label": "获得 3 源石",
+          "gain": {
+            "ore": 3
+          }
+        }
+      ],
+      "fourOnly": false,
+      "image": "/assets/cards-154/3.webp",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-154/3.webp"
+        }
+      ]
+    },
+    {
+      "id": "green-4",
+      "name": "矿业聚落",
+      "tier": "green",
+      "resource": "ore",
+      "amount": 1,
+      "options": [
+        {
+          "label": "获得 3 源石",
+          "gain": {
+            "ore": 3
+          }
+        },
+        {
+          "label": "获得 7 金券",
+          "gain": {
+            "cash": 7
+          }
+        }
+      ],
+      "fourOnly": false,
+      "image": "/assets/cards-154/4.webp",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-154/4.webp"
+        }
+      ]
+    },
+    {
+      "id": "green-5",
+      "name": "废弃矿坑",
+      "tier": "green",
+      "resource": "ore",
+      "amount": 1,
+      "options": [
+        {
+          "label": "获得 2 异铁、2 金券",
+          "gain": {
+            "iron": 2,
+            "cash": 2
+          }
+        },
+        {
+          "label": "获得 4 源岩",
+          "gain": {
+            "rock": 4
+          }
+        }
+      ],
+      "fourOnly": true,
+      "image": "/assets/cards-154/5.webp",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-154/5.webp"
+        }
+      ]
+    },
+    {
+      "id": "yellow-0",
+      "name": "大型源岩场",
+      "tier": "yellow",
+      "resource": "rock",
+      "amount": 1,
+      "options": [
+        {
+          "label": "获得 5 源岩",
+          "gain": {
+            "rock": 5
+          }
+        },
+        {
+          "label": "获得 4 金券、1 分",
+          "gain": {
+            "cash": 4,
+            "score": 1
+          }
+        }
+      ],
+      "fourOnly": false,
+      "image": "/assets/cards-167/0.webp",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-167/0.webp"
+        }
+      ]
+    },
+    {
+      "id": "yellow-1",
+      "name": "洞穴遗迹",
+      "tier": "yellow",
+      "resource": "rock",
+      "amount": 1,
+      "options": [
+        {
+          "label": "获得 5 源岩",
+          "gain": {
+            "rock": 5
+          }
+        },
+        {
+          "label": "获得 10 金券",
+          "gain": {
+            "cash": 10
+          }
+        }
+      ],
+      "fourOnly": false,
+      "image": "/assets/cards-167/1.webp",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-167/1.webp"
+        }
+      ]
+    },
+    {
+      "id": "yellow-2",
+      "name": "荒地人村落",
+      "tier": "yellow",
+      "resource": "rock",
+      "amount": 1,
+      "options": [
+        {
+          "label": "获得 3 源岩、1 异铁",
+          "gain": {
+            "rock": 3,
+            "iron": 1
+          }
+        },
+        {
+          "label": "获得 4 源石",
+          "gain": {
+            "ore": 4
+          }
+        }
+      ],
+      "fourOnly": false,
+      "image": "/assets/cards-167/2.webp",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-167/2.webp"
+        }
+      ]
+    },
+    {
+      "id": "yellow-3",
+      "name": "锈锤领地",
+      "tier": "yellow",
+      "resource": "ore",
+      "amount": 1,
+      "options": [
+        {
+          "label": "支付 4 金券，移除影响力",
+          "cost": {
+            "cash": 4
+          },
+          "effect": "remove"
+        },
+        {
+          "label": "获得 10 金券",
+          "gain": {
+            "cash": 10
+          }
+        },
+        {
+          "label": "获得 4 源石",
+          "gain": {
+            "ore": 4
+          }
+        }
+      ],
+      "fourOnly": false,
+      "image": "/assets/cards-167/3.webp",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-167/3.webp"
+        }
+      ]
+    },
+    {
+      "id": "yellow-4",
+      "name": "情报交换",
+      "tier": "yellow",
+      "resource": "ore",
+      "amount": 1,
+      "options": [
+        {
+          "label": "在本点或相邻航道放置影响力",
+          "effect": "local-place"
+        },
+        {
+          "label": "获得 1 源岩、3 源石",
+          "gain": {
+            "rock": 1,
+            "ore": 3
+          }
+        },
+        {
+          "label": "获得 3 异铁",
+          "gain": {
+            "iron": 3
+          }
+        }
+      ],
+      "fourOnly": true,
+      "image": "/assets/cards-167/4.webp",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-167/4.webp"
+        }
+      ]
+    },
+    {
+      "id": "yellow-5",
+      "name": "风险任务",
+      "tier": "yellow",
+      "resource": "ore",
+      "amount": 1,
+      "options": [
+        {
+          "label": "获得 3 异铁",
+          "gain": {
+            "iron": 3
+          }
+        },
+        {
+          "label": "获得 4 源石",
+          "gain": {
+            "ore": 4
+          }
+        }
+      ],
+      "fourOnly": false,
+      "image": "/assets/cards-167/5.webp",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-167/5.webp"
+        }
+      ]
+    },
+    {
+      "id": "yellow-6",
+      "name": "异铁开采权",
+      "tier": "yellow",
+      "resource": "iron",
+      "amount": 1,
+      "options": [
+        {
+          "label": "获得 1 异铁、3 源岩",
+          "gain": {
+            "iron": 1,
+            "rock": 3
+          }
+        },
+        {
+          "label": "获得 13 金券，对手各得 1 异铁",
+          "gain": {
+            "cash": 13
+          },
+          "others": {
+            "iron": 1
+          }
+        }
+      ],
+      "fourOnly": false,
+      "image": "/assets/cards-167/6.webp",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-167/6.webp"
+        }
+      ]
+    },
+    {
+      "id": "yellow-7",
+      "name": "敌对生态圈",
+      "tier": "yellow",
+      "resource": "iron",
+      "amount": 1,
+      "options": [
+        {
+          "label": "获得 3 异铁",
+          "gain": {
+            "iron": 3
+          }
+        },
+        {
+          "label": "获得 2 源岩、1 分",
+          "gain": {
+            "rock": 2,
+            "score": 1
+          }
+        }
+      ],
+      "fourOnly": true,
+      "image": "/assets/cards-167/7.webp",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-167/7.webp"
+        }
+      ]
+    },
+    {
+      "id": "yellow-8",
+      "name": "富异铁区",
+      "tier": "yellow",
+      "resource": "iron",
+      "amount": 1,
+      "options": [
+        {
+          "label": "获得 3 异铁",
+          "gain": {
+            "iron": 3
+          }
+        },
+        {
+          "label": "获得 2 源石、5 金券",
+          "gain": {
+            "ore": 2,
+            "cash": 5
+          }
+        }
+      ],
+      "fourOnly": false,
+      "image": "/assets/cards-167/8.webp",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-167/8.webp"
+        }
+      ]
+    },
+    {
+      "id": "yellow-9",
+      "name": "遗弃矿场",
+      "tier": "yellow",
+      "resource": "ore",
+      "amount": 1,
+      "options": [
+        {
+          "label": "获得 3 异铁",
+          "gain": {
+            "iron": 3
+          }
+        },
+        {
+          "label": "获得 4 源石",
+          "gain": {
+            "ore": 4
+          }
+        }
+      ],
+      "fourOnly": false,
+      "image": "/assets/cards-167/9.webp",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-167/9.webp"
+        }
+      ]
+    },
+    {
+      "id": "red-0",
+      "name": "险中净土",
+      "tier": "red",
+      "resource": "rock",
+      "amount": 2,
+      "options": [
+        {
+          "label": "获得 6 源石",
+          "gain": {
+            "ore": 6
+          }
+        },
+        {
+          "label": "获得 7 源岩",
+          "gain": {
+            "rock": 7
+          }
+        },
+        {
+          "label": "获得 6 金券并放置影响力",
+          "gain": {
+            "cash": 6
+          },
+          "effect": "local-place"
+        }
+      ],
+      "fourOnly": false,
+      "image": "/assets/cards-156/0.webp",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-156/0.webp"
+        }
+      ]
+    },
+    {
+      "id": "red-1",
+      "name": "裂谷矿脉",
+      "tier": "red",
+      "resource": "prime",
+      "amount": 1,
+      "options": [
+        {
+          "label": "获得 1 异铁、1 至纯源石",
+          "gain": {
+            "iron": 1,
+            "prime": 1
+          }
+        },
+        {
+          "label": "获得 3 源岩、3 源石",
+          "gain": {
+            "rock": 3,
+            "ore": 3
+          }
+        }
+      ],
+      "fourOnly": false,
+      "image": "/assets/cards-156/1.webp",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-156/1.webp"
+        }
+      ]
+    },
+    {
+      "id": "red-2",
+      "name": "采集平台残骸",
+      "tier": "red",
+      "resource": "iron",
+      "amount": 1,
+      "options": [
+        {
+          "label": "获得 4 异铁、5 金券",
+          "gain": {
+            "iron": 4,
+            "cash": 5
+          }
+        },
+        {
+          "label": "获得 4 源岩、3 源石",
+          "gain": {
+            "rock": 4,
+            "ore": 3
+          }
+        }
+      ],
+      "fourOnly": false,
+      "image": "/assets/cards-156/2.webp",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-156/2.webp"
+        }
+      ]
+    },
+    {
+      "id": "red-3",
+      "name": "高污染环境",
+      "tier": "red",
+      "resource": "rock",
+      "amount": 2,
+      "options": [
+        {
+          "label": "获得各 2 个基础资源",
+          "gain": {
+            "rock": 2,
+            "ore": 2,
+            "iron": 2
+          }
+        },
+        {
+          "label": "获得 18 金券",
+          "gain": {
+            "cash": 18
+          }
+        },
+        {
+          "label": "获得 1 至纯源石、4 金券",
+          "gain": {
+            "prime": 1,
+            "cash": 4
+          }
+        }
+      ],
+      "fourOnly": false,
+      "image": "/assets/cards-156/3.webp",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-156/3.webp"
+        }
+      ]
+    },
+    {
+      "id": "red-4",
+      "name": "深层矿床",
+      "tier": "red",
+      "resource": "prime",
+      "amount": 1,
+      "options": [
+        {
+          "label": "获得 1 至纯源石、1 源岩",
+          "gain": {
+            "prime": 1,
+            "rock": 1
+          }
+        },
+        {
+          "label": "获得 3 源石、2 异铁",
+          "gain": {
+            "ore": 3,
+            "iron": 2
+          }
+        },
+        {
+          "label": "获得 18 金券，对手各得 3 金券",
+          "gain": {
+            "cash": 18
+          },
+          "others": {
+            "cash": 3
+          }
+        }
+      ],
+      "fourOnly": true,
+      "image": "/assets/cards-156/4.webp",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-156/4.webp"
+        }
+      ]
+    },
+    {
+      "id": "red-5",
+      "name": "地质瑰宝",
+      "tier": "red",
+      "resource": "prime",
+      "amount": 1,
+      "options": [
+        {
+          "label": "获得 1 源石、1 至纯源石",
+          "gain": {
+            "ore": 1,
+            "prime": 1
+          }
+        },
+        {
+          "label": "获得 3 源岩、3 异铁",
+          "gain": {
+            "rock": 3,
+            "iron": 3
+          }
+        }
+      ],
+      "fourOnly": false,
+      "image": "/assets/cards-156/5.webp",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-156/5.webp"
+        }
+      ]
+    }
+  ],
+  "replacementEvents": [
+    {
+      "id": "yellow-1",
+      "image": "/assets/cards-167/11.webp",
+      "addedOption": "支付 1 异铁，提升一家企业一级"
+    },
+    {
+      "id": "red-2",
+      "image": "/assets/cards-156/6.webp",
+      "addedOption": "失去 1 分，提升同一家企业两级"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "military",
+      "name": "军工化区域",
+      "score": 2,
+      "level": 1,
+      "image": "/assets/cards-165/0.webp",
+      "shape": [
+        [
+          0,
+          0,
+          "blue|yellow"
+        ],
+        [
+          0,
+          1,
+          "red"
+        ]
+      ],
+      "effect": "military",
+      "description": "放置该样式标记数量的影响力，最多 3 个。",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-165/0.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            8,
+            9,
+            11,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mobilize",
+      "name": "动员配套体系",
+      "score": 3,
+      "level": 1,
+      "image": "/assets/cards-165/1.webp",
+      "shape": [
+        [
+          0,
+          0,
+          "yellow"
+        ],
+        [
+          0,
+          1,
+          "yellow"
+        ],
+        [
+          0,
+          2,
+          "red"
+        ]
+      ],
+      "effect": "mobilize",
+      "description": "放置一个影响力。",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-165/1.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            8,
+            9,
+            11,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "id": "composite",
+      "name": "复合动力系统",
+      "score": 3,
+      "level": 1,
+      "image": "/assets/cards-165/2.webp",
+      "shape": [
+        [
+          0,
+          0,
+          "yellow"
+        ],
+        [
+          1,
+          0,
+          "red"
+        ],
+        [
+          1,
+          1,
+          "yellow"
+        ]
+      ],
+      "effect": "composite",
+      "description": "支付 1 源石及合计 3 源岩/异铁，免费移动城市并在经过的航道放置一个影响力。",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-165/2.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            8,
+            9,
+            11,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "id": "relay",
+      "name": "物资中继站",
+      "score": 2,
+      "level": 1,
+      "image": "/assets/cards-165/8.webp",
+      "shape": [
+        [
+          0,
+          0,
+          "blue|red"
+        ],
+        [
+          0,
+          1,
+          "yellow"
+        ]
+      ],
+      "effect": "relay",
+      "description": "宣告时获得各一种基础资源。",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-165/8.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            8,
+            9,
+            11,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "id": "city-expansion",
+      "name": "城建开拓区",
+      "score": 5,
+      "level": 1,
+      "expansion": true,
+      "image": "/assets/cards-165/4.webp",
+      "shape": [
+        [
+          0,
+          1,
+          "yellow"
+        ],
+        [
+          1,
+          0,
+          "blue"
+        ],
+        [
+          1,
+          1,
+          "blue"
+        ],
+        [
+          1,
+          2,
+          "red"
+        ]
+      ],
+      "effect": "city-expansion",
+      "description": "失去 1 分，从牌堆选择并付费建造一张设施，之后洗牌。",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-165/4.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            8,
+            9,
+            11,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "id": "outpost",
+      "name": "拓荒者据点",
+      "score": 2,
+      "level": 1,
+      "expansion": true,
+      "image": "/assets/cards-165/5.webp",
+      "shape": [
+        [
+          0,
+          1,
+          "yellow"
+        ],
+        [
+          1,
+          0,
+          "blue"
+        ]
+      ],
+      "effect": "outpost",
+      "description": "在自己城市的资源点放置两次影响力；移动该样式标记数量的影响力。",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-165/5.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            8,
+            9,
+            11,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "id": "commercial",
+      "name": "核心商业区",
+      "score": 3,
+      "level": 1,
+      "expansion": true,
+      "image": "/assets/cards-165/6.webp",
+      "shape": [
+        [
+          0,
+          0,
+          "blue"
+        ],
+        [
+          0,
+          1,
+          "blue"
+        ],
+        [
+          0,
+          2,
+          "red"
+        ]
+      ],
+      "effect": "commercial",
+      "description": "自选 4 金券或一种基础资源，然后执行一次其他主要行动。",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-165/6.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            8,
+            9,
+            11,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "id": "enterprise-park",
+      "name": "大型企业园",
+      "score": 3,
+      "level": 1,
+      "expansion": true,
+      "image": "/assets/cards-165/7.webp",
+      "shape": [
+        [
+          0,
+          0,
+          "blue"
+        ],
+        [
+          1,
+          0,
+          "red"
+        ],
+        [
+          1,
+          1,
+          "blue"
+        ]
+      ],
+      "effect": "enterprise-park",
+      "description": "提升同一家企业两级。",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-165/7.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            8,
+            9,
+            11,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "id": "industrial-core",
+      "name": "源石工业中枢",
+      "score": 6,
+      "level": 2,
+      "image": "/assets/cards-640/0.webp",
+      "shape": [
+        [
+          0,
+          0,
+          "blue"
+        ],
+        [
+          1,
+          0,
+          "red"
+        ],
+        [
+          1,
+          1,
+          "blue"
+        ],
+        [
+          2,
+          0,
+          "yellow"
+        ],
+        [
+          2,
+          1,
+          "yellow"
+        ],
+        [
+          2,
+          2,
+          "red"
+        ]
+      ],
+      "effect": "industrial-core",
+      "description": "本轮禁用角色；支付 6 金券，额外执行两次主要行动。",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-640/0.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            8,
+            9,
+            11,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "id": "efficient",
+      "name": "高效移动管理体系",
+      "score": 7,
+      "level": 2,
+      "image": "/assets/cards-640/1.webp",
+      "shape": [
+        [
+          0,
+          0,
+          "yellow"
+        ],
+        [
+          1,
+          0,
+          "red"
+        ],
+        [
+          1,
+          1,
+          "yellow"
+        ],
+        [
+          2,
+          0,
+          "blue"
+        ],
+        [
+          2,
+          1,
+          "blue"
+        ],
+        [
+          2,
+          2,
+          "red"
+        ]
+      ],
+      "effect": "efficient",
+      "description": "本轮禁用角色；支付 3 源石，连续执行两次免费城市移动。",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-640/1.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            8,
+            9,
+            11,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "id": "command-center",
+      "name": "拓荒指挥中枢",
+      "score": 7,
+      "level": 2,
+      "expansion": true,
+      "image": "/assets/cards-640/3.webp",
+      "shape": [
+        [
+          0,
+          0,
+          "yellow"
+        ],
+        [
+          1,
+          0,
+          "red"
+        ],
+        [
+          1,
+          1,
+          "yellow"
+        ],
+        [
+          2,
+          0,
+          "blue"
+        ],
+        [
+          2,
+          1,
+          "blue"
+        ],
+        [
+          2,
+          2,
+          "red"
+        ]
+      ],
+      "effect": "command-center",
+      "description": "额外执行一次非特殊主要行动，本轮可连续使用角色的策略与计谋。",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-640/3.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            8,
+            9,
+            11,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "id": "security",
+      "name": "警备队辖区",
+      "score": 6,
+      "level": 2,
+      "expansion": true,
+      "image": "/assets/cards-640/2.webp",
+      "shape": [
+        [
+          0,
+          0,
+          "blue"
+        ],
+        [
+          1,
+          0,
+          "red"
+        ],
+        [
+          1,
+          1,
+          "blue"
+        ],
+        [
+          2,
+          0,
+          "yellow"
+        ],
+        [
+          2,
+          1,
+          "yellow"
+        ],
+        [
+          2,
+          2,
+          "red"
+        ]
+      ],
+      "effect": "security",
+      "description": "本轮禁用角色；依次执行两次支付 2 源岩及 1 异铁替换、放置获源石、移除获异铁中的行动。",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-640/2.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            8,
+            9,
+            11,
+            18
+          ]
+        }
+      ]
+    }
+  ],
+  "enterprises": [
+    {
+      "id": "rhodes",
+      "name": "罗德岛",
+      "text": "1 级：提升另一家企业一级。\n2 级：在航道放置一个影响力，按自己在全部航道的影响力数量获得金券。\n3、5 级升级奖励：抽取干员并选择招募或得 1 分；两人局抽 3 张，其余抽 2 张。\n4 级：收回一张弃牌，弃置其余手牌，获得 10 金券。",
+      "enabled": true,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-625/0.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            16,
+            21,
+            22
+          ]
+        }
+      ]
+    },
+    {
+      "id": "heide",
+      "name": "海德兄弟",
+      "text": "1 级：获得 4 源岩。\n2 级：可支付 2 源岩，获得 15 金券。\n3 级升级奖励：1 分。\n4 级：可支付 6 源岩，洗回全部供应设施并重抽，再从新的供应区免费建设一张。\n5 级升级奖励：2 分。",
+      "enabled": true,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-625/1.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            16,
+            21,
+            22
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rhine",
+      "name": "莱茵生命",
+      "text": "1 级解锁特效：切换为另一科室，获得与自己当前合作等级对应的科室奖励。\n2–5 级升级奖励：按全体玩家当前共用的激活科室，结算到达等级的奖励。\n切换科室只给操作者奖励，其他玩家后续升级按新科室结算。",
+      "enabled": true,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-625/2.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            16,
+            21,
+            22
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bank",
+      "name": "富森银行",
+      "text": "1 级：获得 8 金券。\n3 级：获得 20 金券，其他玩家各获得 4 金券。\n4 级：自己获得 1 分，选择一名对手失去 1 分。\n5 级升级奖励：3 分。",
+      "enabled": true,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-625/3.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            16,
+            21,
+            22
+          ]
+        }
+      ]
+    },
+    {
+      "id": "raythean",
+      "name": "雷神工业",
+      "text": "1 级：获得 3 源石。\n2、4 级升级奖励：各 1 分。\n3 级：可支付 2 源石，执行一次付费建设。\n5 级：从设施牌堆选择并付费建设一张设施，然后洗牌。",
+      "enabled": true,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-625/4.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            16,
+            21,
+            22
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mama",
+      "name": "约翰老妈",
+      "text": "2 级：可失去 1 分，获得 20 金券。\n3 级：获得 1 分。\n4 级：可支付 25 金券，获得 3 分。\n5 级升级奖励：3 分。",
+      "enabled": true,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-625/5.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            16,
+            21,
+            22
+          ]
+        }
+      ]
+    },
+    {
+      "id": "blacksteel",
+      "name": "黑钢国际",
+      "text": "1 级：移除或放置一个影响力。\n2 级：移动两次自己的影响力。\n3、5 级升级奖励：各 1 分。\n4 级：依次执行两次移除或放置影响力。",
+      "enabled": true,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-625/6.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            16,
+            21,
+            22
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rim",
+      "name": "雷姆必拓",
+      "text": "1 级：获得各一种基础资源。\n2 级：可支付 4 金券，替换资源点的一个影响力。\n3 级升级奖励：1 分。\n4 级：可失去 1 分，立即执行一次采集并按当前局面支付路费。\n5 级升级奖励：2 分。",
+      "enabled": true,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/cards-625/7.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "pages": [
+            16,
+            21,
+            22
+          ]
+        }
+      ]
+    }
+  ],
+  "laboratory": {
+    "component": "rhine-original-departments",
+    "activation": "原版三张科室板共用一个激活科室；提升时所有玩家按当前科室结算，切换时仅操作者结算当前等级奖励。",
+    "activationEvidence": {
+      "type": "printed-manual",
+      "printedPage": 22
+    },
+    "departments": [
+      {
+        "id": "engineering",
+        "name": "工程科",
+        "rewardEvidenceComplete": true,
+        "source": {
+          "url": "https://steamusercontent-a.akamaihd.net/ugc/2282825689394632887/8F1D80001580DF5B3F528E7B80302B646C2AF857/",
+          "sha256": "51bd7968a71fab1f8ca98784e33d5ef2366b1b1102c7a936fd54b30ff43cc326",
+          "printedPage": 15,
+          "evidenceCrop": ".data/sources/official-guides/engineering-source-evidence.png"
+        },
+        "rewards": {
+          "2": {
+            "gain": {
+              "rock": 3
+            }
+          },
+          "3": {
+            "gain": {
+              "iron": 2
+            }
+          },
+          "4": {
+            "cost": {
+              "rock": 3
+            },
+            "effect": "build",
+            "free": false
+          },
+          "5": {
+            "cost": {
+              "prime": 1
+            },
+            "effect": "build",
+            "free": true,
+            "maximumCashPrice": 23
+          }
+        }
+      },
+      {
+        "id": "defense",
+        "name": "防卫科",
+        "rewardEvidenceComplete": true,
+        "source": {
+          "url": "https://i0.hdslb.com/bfs/new_dyn/59e6dbf4987dae8a97decab6b965deca161775300.jpg",
+          "sha256": "698429358464431a9760eacb43643db2543550bd074ec93762ce10f047d98c61",
+          "indexPage": "https://prts.wiki/w/游城拓荒：铸基者",
+          "evidenceCrop": ".data/sources/official-guides/high-yield-evidence.png"
+        },
+        "rewards": {
+          "2": {
+            "gain": {
+              "cash": 7
+            }
+          },
+          "3": {
+            "cost": {
+              "cash": 3
+            },
+            "chooseOne": [
+              {
+                "effect": "replace",
+                "count": 1
+              },
+              {
+                "effect": "shift",
+                "count": 2
+              }
+            ]
+          },
+          "4": {
+            "cost": {
+              "cash": 12
+            },
+            "effect": "choose-place-or-remove",
+            "count": 2
+          },
+          "5": {
+            "cost": {
+              "cash": 25
+            },
+            "gain": {
+              "prime": 3
+            }
+          }
+        }
+      },
+      {
+        "id": "structural",
+        "name": "结构科",
+        "rewardEvidenceComplete": true,
+        "source": {
+          "type": "physical-product-video",
+          "url": "https://www.youtube.com/watch?v=IVr7s998U0c&t=440s",
+          "actualSeconds": 440.812479,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "sha256": "ff34b0379607ca411298e58875f0bc6b0968926fb588d5dc0fb61a5e016b81e1",
+          "evidenceFrame": ".data/sources/public-video/youtube-IVr7s998U0c/frame-440.png"
+        },
+        "rewards": {
+          "2": {
+            "gain": {
+              "ore": 3
+            }
+          },
+          "3": {
+            "gain": {
+              "score": 1
+            }
+          },
+          "4": {
+            "cost": {
+              "ore": 3
+            },
+            "gain": {
+              "prime": 1
+            }
+          },
+          "5": {
+            "effect": "downgrade-and-reward"
+          }
+        },
+        "transcription": {
+          "2": "获得3源石。",
+          "3": "获得1分。",
+          "4": "支付3源石，获得1至纯源石。",
+          "5": "你降低1级该企业的企业合作等级，并获得该等级的奖励。"
+        },
+        "note": "正式实物开箱三张科室板正面，结合相邻原始帧逐档核对。五级先降低合作等级，再结算降低后等级奖励；四级费用仍由玩家选择支付。"
+      }
+    ],
+    "packEnabled": true,
+    "enableCondition": "三张科室的全部奖励、图标含义及切换时机均取得原版证据并通过对应规则测试。"
+  },
+  "evidenceIssues": [
+    {
+      "id": "rhine-original-labs",
+      "status": "verified",
+      "component": "莱茵生命三张原版科室",
+      "evidence": "工程科依据原说明书，防卫科依据官方指导图，结构科依据公开高清实物开箱及独立实物镜头；共享激活、切换与升级结算按原规则书页 22 实现。逐档数据、原文及来源见 laboratory。",
+      "impact": "完整八企业抽选池和三张原版科室接入正式企业扩展。"
+    }
+  ]
+}

@@ -1,0 +1,318 @@
+.fullscreen-welcome {
+  --welcome-paper: #efe3c8;
+  --welcome-ink: #362a1e;
+  width: min(550px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  border: 1px solid #b59658;
+  border-radius: 3px;
+  color: var(--welcome-ink);
+  background: var(--welcome-paper);
+  box-shadow: 0 28px 110px #090b08aa;
+  overflow: auto;
+  animation: welcome-arrive 400ms cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+.fullscreen-welcome::backdrop {
+  background: #111710b8;
+  backdrop-filter: blur(7px);
+}
+.welcome-registration {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 28px;
+  color: #bca66e;
+  background: #30271d;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+.welcome-scene {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 166px;
+  margin: 26px 28px 0;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, #9c825422, #bdac7d0a),
+    repeating-linear-gradient(0deg, transparent 0 27px, #a5905e24 28px),
+    repeating-linear-gradient(90deg, transparent 0 27px, #a5905e24 28px);
+  border: 1px solid #bcaa7766;
+}
+.welcome-scene img {
+  width: 166px;
+  filter: drop-shadow(0 15px 12px #47341c44);
+  animation: welcome-city 6s ease-in-out infinite;
+}
+.welcome-scene > span:last-child {
+  position: absolute;
+  bottom: 10px;
+  font-size: 8px;
+  color: #7f6b43;
+  letter-spacing: 0.22em;
+}
+.welcome-viewfinder {
+  position: absolute;
+  width: 220px;
+  height: 110px;
+  border: 1px dashed #a68b49;
+  border-radius: 50%;
+  transform: rotate(-15deg);
+}
+.welcome-copy {
+  padding: 26px 32px 20px;
+}
+.welcome-copy .eyebrow {
+  color: #8d743d;
+  font-size: 10px;
+}
+.welcome-copy h2 {
+  margin: 9px 0 14px;
+  font:
+    600 32px/1.2 "Noto Serif SC",
+    "Songti SC",
+    serif;
+  letter-spacing: 0.06em;
+}
+.welcome-copy p {
+  font-size: 13px;
+  line-height: 1.8;
+}
+.welcome-copy small {
+  display: block;
+  margin-top: 10px;
+  color: #776b52;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.welcome-actions {
+  display: grid;
+  grid-template-columns: 1fr 1.65fr;
+  gap: 10px;
+  padding: 0 32px 24px;
+}
+.welcome-actions button {
+  min-height: 45px;
+  border-radius: 0;
+  font-weight: 600;
+}
+.welcome-actions .secondary-button {
+  color: #5b4b2f;
+  border: 1px solid #b9a171;
+  background: #e5d6b5;
+}
+.welcome-actions .primary-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background: #835035;
+  color: #fff3d3;
+  border: 1px solid #885e3c;
+}
+.welcome-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid #b6a27766;
+  padding: 14px 32px;
+  color: #8b7957;
+  font-size: 10px;
+}
+.welcome-footer i {
+  width: 7px;
+  height: 7px;
+  background: #a38749;
+  transform: rotate(45deg);
+}
+.welcome-error {
+  margin: 0 32px 18px;
+  padding: 10px;
+  background: #b7653822;
+  border-left: 2px solid #a65b3c;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.audio-window {
+  width: min(560px, calc(100vw - 32px));
+}
+.app-shell .modal.audio-window .modal-heading {
+  color: #f3e5c8;
+  background: #30271d;
+  border-bottom: 3px double #a58a54;
+}
+.audio-settings {
+  padding: 24px;
+  background: #f0e7d2;
+  color: #433420;
+}
+.audio-heading .eyebrow {
+  color: #95783e;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+}
+.audio-heading h3 {
+  margin: 9px 0;
+  font:
+    600 23px/1.3 "Noto Serif SC",
+    "Songti SC",
+    serif;
+}
+.audio-heading p,
+.audio-channel p {
+  font-size: 12px;
+  color: #7d6e53;
+  line-height: 1.7;
+}
+.audio-master {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  gap: 16px;
+  width: 100%;
+  margin: 20px 0;
+  padding: 15px;
+  background: #332b20;
+  color: #f3e4be;
+  border: 1px solid #ae9459;
+}
+.audio-master > span:first-child {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  font-size: 30px;
+  color: #d8b975;
+}
+.audio-master strong,
+.audio-master small {
+  display: block;
+}
+.audio-master strong {
+  font-size: 14px;
+}
+.audio-master small {
+  font-size: 10px;
+  color: #b9a989;
+  margin-top: 4px;
+}
+.audio-master b {
+  margin-left: auto;
+  font-size: 11px;
+  white-space: nowrap;
+  color: #d8bd7e;
+}
+.audio-master.is-muted {
+  background: #514b40;
+}
+.audio-slider {
+  display: block;
+  margin-top: 17px;
+}
+.audio-slider > span {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+.audio-slider b {
+  color: #8c703e;
+  font: 11px/1.4 monospace;
+}
+.audio-slider input {
+  padding: 0;
+  height: 26px;
+  accent-color: #937641;
+  cursor: pointer;
+}
+.audio-channel {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid #bda87d77;
+}
+.audio-channel > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.audio-channel > div > small {
+  font-size: 11px;
+  color: #8c7b5c;
+}
+.audio-channel .subtle-button {
+  color: #7b5c2c;
+  font-size: 12px;
+  padding: 5px;
+}
+.audio-switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+.audio-switch input {
+  width: 16px;
+  height: 16px;
+  accent-color: #866b37;
+}
+.audio-channel p {
+  margin-top: 8px;
+}
+.audio-track {
+  margin-top: 15px;
+  font-size: 12px;
+}
+.audio-track select {
+  display: block;
+  width: 100%;
+  margin-top: 7px;
+  padding: 9px;
+  background: #faf3e3;
+  border: 1px solid #bda87d;
+  color: #433420;
+  font: inherit;
+}
+.audio-footnote {
+  margin-top: 20px;
+  font-size: 10px;
+  color: #897b61;
+  line-height: 1.7;
+}
+@keyframes welcome-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes welcome-city {
+  50% {
+    transform: translateY(-5px);
+  }
+}
+@media (max-width: 600px) {
+  .welcome-scene {
+    height: 130px;
+    margin: 20px 20px 0;
+  }
+  .welcome-scene img {
+    width: 145px;
+  }
+  .welcome-copy {
+    padding: 20px 24px;
+  }
+  .welcome-actions {
+    padding: 0 24px 20px;
+  }
+  .audio-settings {
+    padding: 20px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fullscreen-welcome,
+  .welcome-scene img {
+    animation: none;
+  }
+}

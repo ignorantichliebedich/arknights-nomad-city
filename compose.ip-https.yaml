@@ -1,0 +1,9 @@
+services:
+  game:
+    environment:
+      ALLOWED_ORIGINS: http://${GAME_DOMAIN:?Set GAME_DOMAIN},https://${GAME_DOMAIN:?Set GAME_DOMAIN}
+  caddy:
+    environment:
+      GAME_IP: ${GAME_DOMAIN:?Set GAME_DOMAIN to the public IP}
+    volumes:
+      - ./deploy/Caddyfile.ip-https:/etc/caddy/Caddyfile:ro

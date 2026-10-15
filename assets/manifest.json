@@ -1,0 +1,3747 @@
+[
+  {
+    "id": "rules-reference.pdf",
+    "path": ".data/sources/rules-reference.pdf",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689394632887/8F1D80001580DF5B3F528E7B80302B646C2AF857/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/rules-reference.pdf",
+    "sourceSha256": "51bd7968a71fab1f8ca98784e33d5ef2366b1b1102c7a936fd54b30ff43cc326",
+    "sourceKind": "original scan reference",
+    "processing": "unmodified archival source",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "51bd7968a71fab1f8ca98784e33d5ef2366b1b1102c7a936fd54b30ff43cc326",
+    "bytes": 73276746
+  },
+  {
+    "id": "newspaper.pdf",
+    "path": ".data/sources/newspaper.pdf",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689394682137/BBEC43378900A5CF25DCAC44111458B5490FAAB3/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/newspaper.pdf",
+    "sourceSha256": "ea0fdf8d11ae304aae336efc57b087873da232673f941968170268394ab78082",
+    "sourceKind": "reference newspaper; excluded from rule adjudication",
+    "processing": "unmodified archival source",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "ea0fdf8d11ae304aae336efc57b087873da232673f941968170268394ab78082",
+    "bytes": 14926169
+  },
+  {
+    "id": "board-4.png",
+    "path": ".data/sources/art/board-4.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2490001830071419102/12FC41A0DCAC03C5C6D8BA57562B9CDD95402E18/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/board-4.png",
+    "sourceSha256": "605f6fb43c8021706847d7d9db0d4483a5bfa05fcd09bf15b13e96b6996464bf",
+    "sourceKind": "original scan reference",
+    "processing": "unmodified archival source",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "605f6fb43c8021706847d7d9db0d4483a5bfa05fcd09bf15b13e96b6996464bf",
+    "bytes": 7535343,
+    "size": [
+      5000,
+      5000
+    ]
+  },
+  {
+    "id": "board-3.png",
+    "path": ".data/sources/art/board-3.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2490001830071445916/16B39A36EFFC1819E5E5E0B1774EB54A1E72C341/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/board-3.png",
+    "sourceSha256": "790ec3eb6923d01dddcae6cc710036ea9ddfed828c9896f25a7f4eae1bc38e4d",
+    "sourceKind": "original scan reference",
+    "processing": "unmodified archival source",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "790ec3eb6923d01dddcae6cc710036ea9ddfed828c9896f25a7f4eae1bc38e4d",
+    "bytes": 6796459,
+    "size": [
+      5000,
+      5000
+    ]
+  },
+  {
+    "id": "atlas-154.png",
+    "path": ".data/sources/art/atlas-154.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824015458325627/46991FF2EE525B6E97888DE67D84EC417F1D1BA0/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-154.png",
+    "sourceSha256": "63b1bd527eff0c8b75e9d3746cb4ebf296473f6108fecbbcfe613c75f7a8db2d",
+    "sourceKind": "original scan reference",
+    "processing": "unmodified archival source",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "63b1bd527eff0c8b75e9d3746cb4ebf296473f6108fecbbcfe613c75f7a8db2d",
+    "bytes": 1176924,
+    "size": [
+      1700,
+      1800
+    ]
+  },
+  {
+    "id": "atlas-156.png",
+    "path": ".data/sources/art/atlas-156.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824015458372733/23A7DC5B31CE01671FD88283193492DF243CAFA0/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-156.png",
+    "sourceSha256": "8c7b40b058feef043701c249fe8c4602be5eac1ea7002baf75580f6111e06eff",
+    "sourceKind": "original scan reference",
+    "processing": "unmodified archival source",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "8c7b40b058feef043701c249fe8c4602be5eac1ea7002baf75580f6111e06eff",
+    "bytes": 1513540,
+    "size": [
+      1700,
+      2400
+    ]
+  },
+  {
+    "id": "atlas-167.png",
+    "path": ".data/sources/art/atlas-167.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2283951990943247060/6BEBAEB466B80FCC000AB09F1E18A127F2ED6672/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-167.png",
+    "sourceSha256": "bbbeae9e4a6dfc7898e8020e1e1c757854b447e0ce6f9e4ab5cad064fe5d6612",
+    "sourceKind": "original scan reference",
+    "processing": "unmodified archival source",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "bbbeae9e4a6dfc7898e8020e1e1c757854b447e0ce6f9e4ab5cad064fe5d6612",
+    "bytes": 2232197,
+    "size": [
+      1700,
+      3600
+    ]
+  },
+  {
+    "id": "atlas-166.png",
+    "path": ".data/sources/art/atlas-166.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "original scan reference",
+    "processing": "unmodified archival source",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "bytes": 10689932,
+    "size": [
+      5400,
+      5100
+    ]
+  },
+  {
+    "id": "atlas-165.png",
+    "path": ".data/sources/art/atlas-165.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689379042814/9545D0E61E3AD6E5FDA16355B4BC55F28BAE07E9/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-165.png",
+    "sourceSha256": "7644904a93cb936dce3dd4ced190ae8533ebbcc58a6eb3f78506e6528a8f75e0",
+    "sourceKind": "original scan reference",
+    "processing": "unmodified archival source",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "7644904a93cb936dce3dd4ced190ae8533ebbcc58a6eb3f78506e6528a8f75e0",
+    "bytes": 2376516,
+    "size": [
+      2790,
+      1800
+    ]
+  },
+  {
+    "id": "atlas-640.png",
+    "path": ".data/sources/art/atlas-640.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2433705655644520318/96FA12A89A50C9776E05AB89B95EFDB93690E888/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-640.png",
+    "sourceSha256": "3945062c584e2309efee54db608403e9977a7b35143b1da17af3ddc9177a9eda",
+    "sourceKind": "original scan reference",
+    "processing": "unmodified archival source",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "3945062c584e2309efee54db608403e9977a7b35143b1da17af3ddc9177a9eda",
+    "bytes": 1113268,
+    "size": [
+      1860,
+      1200
+    ]
+  },
+  {
+    "id": "atlas-625.png",
+    "path": ".data/sources/art/atlas-625.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741255042060/480DBC0752A56513E67B3E3676C93604328AD9B4/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-625.png",
+    "sourceSha256": "e5f0cfd4262b6e58f859249606fd7886070c6eb91adcf33cf51cd51b9a4bc261",
+    "sourceKind": "original scan reference",
+    "processing": "unmodified archival source",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "e5f0cfd4262b6e58f859249606fd7886070c6eb91adcf33cf51cd51b9a4bc261",
+    "bytes": 2547459,
+    "size": [
+      2600,
+      3700
+    ]
+  },
+  {
+    "id": "role-1307.png",
+    "path": ".data/sources/art/role-1307.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855109763819/5EF6AFB8516929C85EBFC18C36782FE8922DCD90/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/role-1307.png",
+    "sourceSha256": "65ad539d8160e95325fe61699a12b9d05e7ffc7cdb27d2a63b4f98e7e5ab653e",
+    "sourceKind": "original scan reference",
+    "processing": "unmodified archival source",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "65ad539d8160e95325fe61699a12b9d05e7ffc7cdb27d2a63b4f98e7e5ab653e",
+    "bytes": 494621,
+    "size": [
+      1200,
+      1700
+    ]
+  },
+  {
+    "id": "role-1306.png",
+    "path": ".data/sources/art/role-1306.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855109763118/1FFF1FA48BA07219A4645B00FF700FCDDC6FF4F1/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/role-1306.png",
+    "sourceSha256": "7836bc7341864c4cbee25b079d6df91143af7fe7907f6c784166b255b7e2e38b",
+    "sourceKind": "original scan reference",
+    "processing": "unmodified archival source",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "7836bc7341864c4cbee25b079d6df91143af7fe7907f6c784166b255b7e2e38b",
+    "bytes": 504123,
+    "size": [
+      1200,
+      1700
+    ]
+  },
+  {
+    "id": "role-1271.png",
+    "path": ".data/sources/art/role-1271.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855103677019/6B474E8CFE70AED69596AC6AE92594A4C0E3BA6F/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/role-1271.png",
+    "sourceSha256": "f9ae335d29673f00978b2cbe4c6ff76a135da1ce59874ae8806162940570fcc4",
+    "sourceKind": "original scan reference",
+    "processing": "unmodified archival source",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "f9ae335d29673f00978b2cbe4c6ff76a135da1ce59874ae8806162940570fcc4",
+    "bytes": 561348,
+    "size": [
+      1200,
+      1700
+    ]
+  },
+  {
+    "id": "role-1232.png",
+    "path": ".data/sources/art/role-1232.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855098016279/850D31E90CCE210DB56CE11A4DF9EB2FE7DFA17D/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/role-1232.png",
+    "sourceSha256": "4d86219ee15a1a47352d57c1b8b6ae96c3a47548a3e64e2fc6bbe9075487288b",
+    "sourceKind": "original scan reference",
+    "processing": "unmodified archival source",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "4d86219ee15a1a47352d57c1b8b6ae96c3a47548a3e64e2fc6bbe9075487288b",
+    "bytes": 509489,
+    "size": [
+      1200,
+      1700
+    ]
+  },
+  {
+    "id": "role-1272.png",
+    "path": ".data/sources/art/role-1272.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855103675239/EE95403F536ABF79D9833A3D279CF7827B7DDB3E/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/role-1272.png",
+    "sourceSha256": "76b8228208a3dba94eea2ad4e19d8e57377a21aa89b7fbe845823df55866dc98",
+    "sourceKind": "original scan reference",
+    "processing": "unmodified archival source",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "76b8228208a3dba94eea2ad4e19d8e57377a21aa89b7fbe845823df55866dc98",
+    "bytes": 519247,
+    "size": [
+      1200,
+      1700
+    ]
+  },
+  {
+    "id": "role-1231.png",
+    "path": ".data/sources/art/role-1231.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855098012006/809CBE927426C8C55AD3675D43EB7028456EBD05/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/role-1231.png",
+    "sourceSha256": "1e336e9c968dbc29a2993d1e3ef7f399d613ba715ea6c3ced7a39cd8fc3d91de",
+    "sourceKind": "original scan reference",
+    "processing": "unmodified archival source",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "1e336e9c968dbc29a2993d1e3ef7f399d613ba715ea6c3ced7a39cd8fc3d91de",
+    "bytes": 450920,
+    "size": [
+      1200,
+      1700
+    ]
+  },
+  {
+    "id": "role-1273.png",
+    "path": ".data/sources/art/role-1273.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855103676348/0165EA0557C2BE06FB44A894822895A08714279E/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/role-1273.png",
+    "sourceSha256": "96adb0a4c8c318bca6e910a3157360a2ac0aa9f20a855fef94bb91efdeab8847",
+    "sourceKind": "original scan reference",
+    "processing": "unmodified archival source",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "96adb0a4c8c318bca6e910a3157360a2ac0aa9f20a855fef94bb91efdeab8847",
+    "bytes": 534896,
+    "size": [
+      1200,
+      1700
+    ]
+  },
+  {
+    "id": "board-3.webp",
+    "path": "apps/web/public/assets/board-3.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2490001830071445916/16B39A36EFFC1819E5E5E0B1774EB54A1E72C341/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/board-3.png",
+    "sourceSha256": "790ec3eb6923d01dddcae6cc710036ea9ddfed828c9896f25a7f4eae1bc38e4d",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "proportional resize to maximum 2400px; WebP quality 91",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "6e34145f9f257680bb3ee74f7828ae5f17e7b2cc93176fbb33b3139ee0d0e8b8",
+    "bytes": 1379380,
+    "size": [
+      2400,
+      2400
+    ]
+  },
+  {
+    "id": "board-4.webp",
+    "path": "apps/web/public/assets/board-4.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2490001830071419102/12FC41A0DCAC03C5C6D8BA57562B9CDD95402E18/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/board-4.png",
+    "sourceSha256": "605f6fb43c8021706847d7d9db0d4483a5bfa05fcd09bf15b13e96b6996464bf",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "proportional resize to maximum 2400px; WebP quality 91",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "5baf38d5848e8a0d594a6fce59cc17f810595481e1e8f16926961b23ae67543e",
+    "bytes": 1367258,
+    "size": [
+      2400,
+      2400
+    ]
+  },
+  {
+    "id": "cards-154/0.webp",
+    "path": "apps/web/public/assets/cards-154/0.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824015458325627/46991FF2EE525B6E97888DE67D84EC417F1D1BA0/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-154.png",
+    "sourceSha256": "63b1bd527eff0c8b75e9d3746cb4ebf296473f6108fecbbcfe613c75f7a8db2d",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "dbfc336de1bc5742df77a094cddb2c9398eee6a66e95d5437e6d08e313fdde5c",
+    "bytes": 82940,
+    "gridIndex": 0,
+    "cropPixels": [
+      0,
+      0,
+      850,
+      600
+    ],
+    "size": [
+      600,
+      424
+    ]
+  },
+  {
+    "id": "cards-154/1.webp",
+    "path": "apps/web/public/assets/cards-154/1.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824015458325627/46991FF2EE525B6E97888DE67D84EC417F1D1BA0/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-154.png",
+    "sourceSha256": "63b1bd527eff0c8b75e9d3746cb4ebf296473f6108fecbbcfe613c75f7a8db2d",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "fd470fa5a1a6796a4826217b0bc8798e9b0b8a6fb86f9f67aa25684c163dbc7c",
+    "bytes": 78522,
+    "gridIndex": 1,
+    "cropPixels": [
+      850,
+      0,
+      1700,
+      600
+    ],
+    "size": [
+      600,
+      424
+    ]
+  },
+  {
+    "id": "cards-154/2.webp",
+    "path": "apps/web/public/assets/cards-154/2.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824015458325627/46991FF2EE525B6E97888DE67D84EC417F1D1BA0/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-154.png",
+    "sourceSha256": "63b1bd527eff0c8b75e9d3746cb4ebf296473f6108fecbbcfe613c75f7a8db2d",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "f594ca3803a00aaac0905ac4cc34ae31bab3ebf3df922db279f883d6621515fc",
+    "bytes": 81662,
+    "gridIndex": 2,
+    "cropPixels": [
+      0,
+      600,
+      850,
+      1200
+    ],
+    "size": [
+      600,
+      424
+    ]
+  },
+  {
+    "id": "cards-154/3.webp",
+    "path": "apps/web/public/assets/cards-154/3.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824015458325627/46991FF2EE525B6E97888DE67D84EC417F1D1BA0/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-154.png",
+    "sourceSha256": "63b1bd527eff0c8b75e9d3746cb4ebf296473f6108fecbbcfe613c75f7a8db2d",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "a61c092b35c73c98879d6e906aeacc2ecaa1307d53a89d2d520aa02e358626af",
+    "bytes": 78884,
+    "gridIndex": 3,
+    "cropPixels": [
+      850,
+      600,
+      1700,
+      1200
+    ],
+    "size": [
+      600,
+      424
+    ]
+  },
+  {
+    "id": "cards-154/4.webp",
+    "path": "apps/web/public/assets/cards-154/4.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824015458325627/46991FF2EE525B6E97888DE67D84EC417F1D1BA0/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-154.png",
+    "sourceSha256": "63b1bd527eff0c8b75e9d3746cb4ebf296473f6108fecbbcfe613c75f7a8db2d",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "3e8c0eab09749f6ab1222ceeb14626b7fb18a509a7157b659f3ab8cc81b1423c",
+    "bytes": 83456,
+    "gridIndex": 4,
+    "cropPixels": [
+      0,
+      1200,
+      850,
+      1800
+    ],
+    "size": [
+      600,
+      424
+    ]
+  },
+  {
+    "id": "cards-154/5.webp",
+    "path": "apps/web/public/assets/cards-154/5.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824015458325627/46991FF2EE525B6E97888DE67D84EC417F1D1BA0/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-154.png",
+    "sourceSha256": "63b1bd527eff0c8b75e9d3746cb4ebf296473f6108fecbbcfe613c75f7a8db2d",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "e1545e16b8239c0bf5dcd3847d7c649ecbe45ceefa51fc5efa553385fab4e843",
+    "bytes": 81626,
+    "gridIndex": 5,
+    "cropPixels": [
+      850,
+      1200,
+      1700,
+      1800
+    ],
+    "size": [
+      600,
+      424
+    ]
+  },
+  {
+    "id": "cards-156/0.webp",
+    "path": "apps/web/public/assets/cards-156/0.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824015458372733/23A7DC5B31CE01671FD88283193492DF243CAFA0/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-156.png",
+    "sourceSha256": "8c7b40b058feef043701c249fe8c4602be5eac1ea7002baf75580f6111e06eff",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "5cabb43204723ea2cdcc359e33a7792c16686773bd4dd41105c9ab3a2cfc83ca",
+    "bytes": 85384,
+    "gridIndex": 0,
+    "cropPixels": [
+      0,
+      0,
+      850,
+      600
+    ],
+    "size": [
+      600,
+      424
+    ]
+  },
+  {
+    "id": "cards-156/1.webp",
+    "path": "apps/web/public/assets/cards-156/1.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824015458372733/23A7DC5B31CE01671FD88283193492DF243CAFA0/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-156.png",
+    "sourceSha256": "8c7b40b058feef043701c249fe8c4602be5eac1ea7002baf75580f6111e06eff",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "38f8d1ec1dd31cd3fa787110c32bd219c8434dbff22dd8e646d90fd236a11035",
+    "bytes": 79742,
+    "gridIndex": 1,
+    "cropPixels": [
+      850,
+      0,
+      1700,
+      600
+    ],
+    "size": [
+      600,
+      424
+    ]
+  },
+  {
+    "id": "cards-156/2.webp",
+    "path": "apps/web/public/assets/cards-156/2.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824015458372733/23A7DC5B31CE01671FD88283193492DF243CAFA0/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-156.png",
+    "sourceSha256": "8c7b40b058feef043701c249fe8c4602be5eac1ea7002baf75580f6111e06eff",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "bf41bac5a0526e53822b95adbec5a3d5ec1128ccf01e52fbc5fc32359b8da637",
+    "bytes": 81792,
+    "gridIndex": 2,
+    "cropPixels": [
+      0,
+      600,
+      850,
+      1200
+    ],
+    "size": [
+      600,
+      424
+    ]
+  },
+  {
+    "id": "cards-156/3.webp",
+    "path": "apps/web/public/assets/cards-156/3.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824015458372733/23A7DC5B31CE01671FD88283193492DF243CAFA0/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-156.png",
+    "sourceSha256": "8c7b40b058feef043701c249fe8c4602be5eac1ea7002baf75580f6111e06eff",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "d3f532ee7bae66f95f3dea89f8921eacb7552ec068f317245620bdafbd0ec08a",
+    "bytes": 83914,
+    "gridIndex": 3,
+    "cropPixels": [
+      850,
+      600,
+      1700,
+      1200
+    ],
+    "size": [
+      600,
+      424
+    ]
+  },
+  {
+    "id": "cards-156/4.webp",
+    "path": "apps/web/public/assets/cards-156/4.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824015458372733/23A7DC5B31CE01671FD88283193492DF243CAFA0/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-156.png",
+    "sourceSha256": "8c7b40b058feef043701c249fe8c4602be5eac1ea7002baf75580f6111e06eff",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "ce4b7ee64ee44da7452f405a9b69eca82ba5f139183e1d82d94d30da106ad6cf",
+    "bytes": 86610,
+    "gridIndex": 4,
+    "cropPixels": [
+      0,
+      1200,
+      850,
+      1800
+    ],
+    "size": [
+      600,
+      424
+    ]
+  },
+  {
+    "id": "cards-156/5.webp",
+    "path": "apps/web/public/assets/cards-156/5.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824015458372733/23A7DC5B31CE01671FD88283193492DF243CAFA0/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-156.png",
+    "sourceSha256": "8c7b40b058feef043701c249fe8c4602be5eac1ea7002baf75580f6111e06eff",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "e7d274a0ffcae5ad33ad19e16f65c8f0a6faac8b56e5f124ad84a4d0f0dcf31d",
+    "bytes": 82104,
+    "gridIndex": 5,
+    "cropPixels": [
+      850,
+      1200,
+      1700,
+      1800
+    ],
+    "size": [
+      600,
+      424
+    ]
+  },
+  {
+    "id": "cards-156/6.webp",
+    "path": "apps/web/public/assets/cards-156/6.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824015458372733/23A7DC5B31CE01671FD88283193492DF243CAFA0/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-156.png",
+    "sourceSha256": "8c7b40b058feef043701c249fe8c4602be5eac1ea7002baf75580f6111e06eff",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "191225f724680bfde7cfdd560f6d9cac174bd119580527a9a6d891e600f72cae",
+    "bytes": 88644,
+    "gridIndex": 6,
+    "cropPixels": [
+      0,
+      1800,
+      850,
+      2400
+    ],
+    "size": [
+      600,
+      424
+    ]
+  },
+  {
+    "id": "cards-167/0.webp",
+    "path": "apps/web/public/assets/cards-167/0.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2283951990943247060/6BEBAEB466B80FCC000AB09F1E18A127F2ED6672/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-167.png",
+    "sourceSha256": "bbbeae9e4a6dfc7898e8020e1e1c757854b447e0ce6f9e4ab5cad064fe5d6612",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "46f1466c9173c0047c8f2adcc5a0398d5a4fdfb1d45656490313309574632df4",
+    "bytes": 79912,
+    "gridIndex": 0,
+    "cropPixels": [
+      0,
+      0,
+      850,
+      600
+    ],
+    "size": [
+      600,
+      424
+    ]
+  },
+  {
+    "id": "cards-167/1.webp",
+    "path": "apps/web/public/assets/cards-167/1.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2283951990943247060/6BEBAEB466B80FCC000AB09F1E18A127F2ED6672/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-167.png",
+    "sourceSha256": "bbbeae9e4a6dfc7898e8020e1e1c757854b447e0ce6f9e4ab5cad064fe5d6612",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "52a473a34a8ac88013b6dbc0b7c60b5ae96b2b59c1cbcf561d213f9dd908c9c5",
+    "bytes": 75532,
+    "gridIndex": 1,
+    "cropPixels": [
+      850,
+      0,
+      1700,
+      600
+    ],
+    "size": [
+      600,
+      424
+    ]
+  },
+  {
+    "id": "cards-167/2.webp",
+    "path": "apps/web/public/assets/cards-167/2.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2283951990943247060/6BEBAEB466B80FCC000AB09F1E18A127F2ED6672/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-167.png",
+    "sourceSha256": "bbbeae9e4a6dfc7898e8020e1e1c757854b447e0ce6f9e4ab5cad064fe5d6612",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "02ad51221e1306971d883cac2c3111f9dec540fc6508a61bfd2068a82ece0e50",
+    "bytes": 80698,
+    "gridIndex": 2,
+    "cropPixels": [
+      0,
+      600,
+      850,
+      1200
+    ],
+    "size": [
+      600,
+      424
+    ]
+  },
+  {
+    "id": "cards-167/3.webp",
+    "path": "apps/web/public/assets/cards-167/3.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2283951990943247060/6BEBAEB466B80FCC000AB09F1E18A127F2ED6672/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-167.png",
+    "sourceSha256": "bbbeae9e4a6dfc7898e8020e1e1c757854b447e0ce6f9e4ab5cad064fe5d6612",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "80f59bbacb41567df477cb29e04f9a67bb3513f3d6bad0d2706106b773771327",
+    "bytes": 82256,
+    "gridIndex": 3,
+    "cropPixels": [
+      850,
+      600,
+      1700,
+      1200
+    ],
+    "size": [
+      600,
+      424
+    ]
+  },
+  {
+    "id": "cards-167/4.webp",
+    "path": "apps/web/public/assets/cards-167/4.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2283951990943247060/6BEBAEB466B80FCC000AB09F1E18A127F2ED6672/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-167.png",
+    "sourceSha256": "bbbeae9e4a6dfc7898e8020e1e1c757854b447e0ce6f9e4ab5cad064fe5d6612",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "42c75157cce19721163cd3ace13940aa801b60300d9e68c270a719be8b128f2d",
+    "bytes": 86760,
+    "gridIndex": 4,
+    "cropPixels": [
+      0,
+      1200,
+      850,
+      1800
+    ],
+    "size": [
+      600,
+      424
+    ]
+  },
+  {
+    "id": "cards-167/5.webp",
+    "path": "apps/web/public/assets/cards-167/5.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2283951990943247060/6BEBAEB466B80FCC000AB09F1E18A127F2ED6672/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-167.png",
+    "sourceSha256": "bbbeae9e4a6dfc7898e8020e1e1c757854b447e0ce6f9e4ab5cad064fe5d6612",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "17913fb2816492040fce46863c6735b550050d795b8b893baf522db421c96a34",
+    "bytes": 77082,
+    "gridIndex": 5,
+    "cropPixels": [
+      850,
+      1200,
+      1700,
+      1800
+    ],
+    "size": [
+      600,
+      424
+    ]
+  },
+  {
+    "id": "cards-167/6.webp",
+    "path": "apps/web/public/assets/cards-167/6.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2283951990943247060/6BEBAEB466B80FCC000AB09F1E18A127F2ED6672/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-167.png",
+    "sourceSha256": "bbbeae9e4a6dfc7898e8020e1e1c757854b447e0ce6f9e4ab5cad064fe5d6612",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "0b405b787e5ecbaab074be1a428b92ee89ad93a34ca3d39f111e7aec9071f1bc",
+    "bytes": 84998,
+    "gridIndex": 6,
+    "cropPixels": [
+      0,
+      1800,
+      850,
+      2400
+    ],
+    "size": [
+      600,
+      424
+    ]
+  },
+  {
+    "id": "cards-167/7.webp",
+    "path": "apps/web/public/assets/cards-167/7.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2283951990943247060/6BEBAEB466B80FCC000AB09F1E18A127F2ED6672/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-167.png",
+    "sourceSha256": "bbbeae9e4a6dfc7898e8020e1e1c757854b447e0ce6f9e4ab5cad064fe5d6612",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "643076bfb3e9bfdce7363c2d8770c914b7a06f7e4ea9a1b8e4dd2b9988b3310d",
+    "bytes": 78170,
+    "gridIndex": 7,
+    "cropPixels": [
+      850,
+      1800,
+      1700,
+      2400
+    ],
+    "size": [
+      600,
+      424
+    ]
+  },
+  {
+    "id": "cards-167/8.webp",
+    "path": "apps/web/public/assets/cards-167/8.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2283951990943247060/6BEBAEB466B80FCC000AB09F1E18A127F2ED6672/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-167.png",
+    "sourceSha256": "bbbeae9e4a6dfc7898e8020e1e1c757854b447e0ce6f9e4ab5cad064fe5d6612",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "421a6e2930baba7c4d45a0b99e959b8ed78ca2d82165a3e6fcab215184899d8e",
+    "bytes": 80454,
+    "gridIndex": 8,
+    "cropPixels": [
+      0,
+      2400,
+      850,
+      3000
+    ],
+    "size": [
+      600,
+      424
+    ]
+  },
+  {
+    "id": "cards-167/9.webp",
+    "path": "apps/web/public/assets/cards-167/9.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2283951990943247060/6BEBAEB466B80FCC000AB09F1E18A127F2ED6672/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-167.png",
+    "sourceSha256": "bbbeae9e4a6dfc7898e8020e1e1c757854b447e0ce6f9e4ab5cad064fe5d6612",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "1b514366b11887506c80c6b768dd23c6d54dc2256c786b74d8ec93fa20fb5262",
+    "bytes": 77816,
+    "gridIndex": 9,
+    "cropPixels": [
+      850,
+      2400,
+      1700,
+      3000
+    ],
+    "size": [
+      600,
+      424
+    ]
+  },
+  {
+    "id": "cards-167/11.webp",
+    "path": "apps/web/public/assets/cards-167/11.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2283951990943247060/6BEBAEB466B80FCC000AB09F1E18A127F2ED6672/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-167.png",
+    "sourceSha256": "bbbeae9e4a6dfc7898e8020e1e1c757854b447e0ce6f9e4ab5cad064fe5d6612",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "dde227764800520468a31bcf0cfaec75aea31969826e3acef804e1a56a64f959",
+    "bytes": 79048,
+    "gridIndex": 11,
+    "cropPixels": [
+      850,
+      3000,
+      1700,
+      3600
+    ],
+    "size": [
+      600,
+      424
+    ]
+  },
+  {
+    "id": "cards-166/0.webp",
+    "path": "apps/web/public/assets/cards-166/0.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "af5c06c8d1b51b8c76276c602c8a231db6be4096c5f6907538f40cacc96092d6",
+    "bytes": 182828,
+    "gridIndex": 0,
+    "cropPixels": [
+      0,
+      0,
+      600,
+      850
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/1.webp",
+    "path": "apps/web/public/assets/cards-166/1.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "4f983b65ff9dbc6c44480671ea10738c3b6907639edf7a24f82bba6121074891",
+    "bytes": 182676,
+    "gridIndex": 1,
+    "cropPixels": [
+      600,
+      0,
+      1200,
+      850
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/2.webp",
+    "path": "apps/web/public/assets/cards-166/2.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "8a58863c33be4edcafe67caa1dc0468e254826db6a56534662672c56940a0098",
+    "bytes": 182164,
+    "gridIndex": 2,
+    "cropPixels": [
+      1200,
+      0,
+      1800,
+      850
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/3.webp",
+    "path": "apps/web/public/assets/cards-166/3.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "84ad3160c99f6eb03eddca51267faf8203bc60307d8708bce77d23867ad60551",
+    "bytes": 188694,
+    "gridIndex": 3,
+    "cropPixels": [
+      1800,
+      0,
+      2400,
+      850
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/4.webp",
+    "path": "apps/web/public/assets/cards-166/4.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "0bdff98c0832f3e4c1eb6a79e1f2024c082e711058e4ed89fe7b988a09ae823f",
+    "bytes": 189044,
+    "gridIndex": 4,
+    "cropPixels": [
+      2400,
+      0,
+      3000,
+      850
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/5.webp",
+    "path": "apps/web/public/assets/cards-166/5.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "fd4a55e583767bfcdc716053be8eaa309374b0897e45d3f55269eb572703601a",
+    "bytes": 190088,
+    "gridIndex": 5,
+    "cropPixels": [
+      3000,
+      0,
+      3600,
+      850
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/6.webp",
+    "path": "apps/web/public/assets/cards-166/6.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "fedb62e4632e325a3660688d162808b2e7ba601db45f48e6f202b4020d866781",
+    "bytes": 171296,
+    "gridIndex": 6,
+    "cropPixels": [
+      3600,
+      0,
+      4200,
+      850
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/7.webp",
+    "path": "apps/web/public/assets/cards-166/7.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "9f626c224c22aa516dedb0cede70d3d659885756f2c974b1c87cd639d969f57d",
+    "bytes": 171728,
+    "gridIndex": 7,
+    "cropPixels": [
+      4200,
+      0,
+      4800,
+      850
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/8.webp",
+    "path": "apps/web/public/assets/cards-166/8.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "e35d096b86ac5ae958e898f201900e7a269d0ba8e0e2bf281899da19b6f00591",
+    "bytes": 170296,
+    "gridIndex": 8,
+    "cropPixels": [
+      4800,
+      0,
+      5400,
+      850
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/9.webp",
+    "path": "apps/web/public/assets/cards-166/9.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "5968cf06a59f831f8687fc5145012a700f0af81bc7286b0504fd1446b0dcecab",
+    "bytes": 191194,
+    "gridIndex": 9,
+    "cropPixels": [
+      0,
+      850,
+      600,
+      1700
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/10.webp",
+    "path": "apps/web/public/assets/cards-166/10.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "e10b442f23f570abe72be7b8a76c9b8692b47a01d6ac818c2b6a158466a2ff6d",
+    "bytes": 191640,
+    "gridIndex": 10,
+    "cropPixels": [
+      600,
+      850,
+      1200,
+      1700
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/11.webp",
+    "path": "apps/web/public/assets/cards-166/11.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "6ff8e628ce13dfcb1aa1f5747b73580092366e84c5d984612b53ec6763014e94",
+    "bytes": 159680,
+    "gridIndex": 11,
+    "cropPixels": [
+      1200,
+      850,
+      1800,
+      1700
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/12.webp",
+    "path": "apps/web/public/assets/cards-166/12.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "d4404f74d2af20f3a7ca9b4fd189bec018bcd8a4d564de681265143d231a056a",
+    "bytes": 159620,
+    "gridIndex": 12,
+    "cropPixels": [
+      1800,
+      850,
+      2400,
+      1700
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/13.webp",
+    "path": "apps/web/public/assets/cards-166/13.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "09c35b6f9b796529d47152f964d8b42c5170c1c7930475de1cdbc3fa8c8a2bce",
+    "bytes": 155400,
+    "gridIndex": 13,
+    "cropPixels": [
+      2400,
+      850,
+      3000,
+      1700
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/14.webp",
+    "path": "apps/web/public/assets/cards-166/14.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "dbaebb489ce34934b1242d45d067a5ac9a3545ae7a358049db038ded0baebd56",
+    "bytes": 148726,
+    "gridIndex": 14,
+    "cropPixels": [
+      3000,
+      850,
+      3600,
+      1700
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/15.webp",
+    "path": "apps/web/public/assets/cards-166/15.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "28fd6df82c1e20dc9d5ba786b197cd96f1764e25f71fda08845e4f922452b6c0",
+    "bytes": 148222,
+    "gridIndex": 15,
+    "cropPixels": [
+      3600,
+      850,
+      4200,
+      1700
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/16.webp",
+    "path": "apps/web/public/assets/cards-166/16.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "994779707d901a63ce914d855801d681f45a6a12a829dd2b7aa3629e5abe45bd",
+    "bytes": 147326,
+    "gridIndex": 16,
+    "cropPixels": [
+      4200,
+      850,
+      4800,
+      1700
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/17.webp",
+    "path": "apps/web/public/assets/cards-166/17.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "805a97c1018b9316ee094156cc33e51d56b84a6fc11e774fa3c78b4d07b058ee",
+    "bytes": 129376,
+    "gridIndex": 17,
+    "cropPixels": [
+      4800,
+      850,
+      5400,
+      1700
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/18.webp",
+    "path": "apps/web/public/assets/cards-166/18.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "0c6e2e94f94d45974be7aecccf9906dd76b81dfb72cd960790a26efe1c97b067",
+    "bytes": 142630,
+    "gridIndex": 18,
+    "cropPixels": [
+      0,
+      1700,
+      600,
+      2550
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/19.webp",
+    "path": "apps/web/public/assets/cards-166/19.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "43a5b3fbd6b690734aca4d3e29cd93da8e0ea3d8b073310e0f8c09c2390abafa",
+    "bytes": 142980,
+    "gridIndex": 19,
+    "cropPixels": [
+      600,
+      1700,
+      1200,
+      2550
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/20.webp",
+    "path": "apps/web/public/assets/cards-166/20.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "698d9a6f35d4a7b0b19e79319d2e3b265c11de7e607619513ee6d84872cf0cbe",
+    "bytes": 142914,
+    "gridIndex": 20,
+    "cropPixels": [
+      1200,
+      1700,
+      1800,
+      2550
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/21.webp",
+    "path": "apps/web/public/assets/cards-166/21.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "224fd4b56f59286b1f2e1574bd92e062ef5c8eea29ec4e91256dfefa945bc606",
+    "bytes": 138740,
+    "gridIndex": 21,
+    "cropPixels": [
+      1800,
+      1700,
+      2400,
+      2550
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/22.webp",
+    "path": "apps/web/public/assets/cards-166/22.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "43672b051f1e6547f7e085497575299ca8ec7c57ffe4eb4f1a2f210cdad62bd1",
+    "bytes": 177284,
+    "gridIndex": 22,
+    "cropPixels": [
+      2400,
+      1700,
+      3000,
+      2550
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/23.webp",
+    "path": "apps/web/public/assets/cards-166/23.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "e77626dab1c18ab0975efa3be0dcc10649b309f575b941cadd2b92a4eb0d171a",
+    "bytes": 177278,
+    "gridIndex": 23,
+    "cropPixels": [
+      3000,
+      1700,
+      3600,
+      2550
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/24.webp",
+    "path": "apps/web/public/assets/cards-166/24.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "45ec7a0472dcfd9738d353e85073f01a958fafcb15e2d7e2b0e1aa4acee0ccec",
+    "bytes": 177556,
+    "gridIndex": 24,
+    "cropPixels": [
+      3600,
+      1700,
+      4200,
+      2550
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/25.webp",
+    "path": "apps/web/public/assets/cards-166/25.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "4b4e119f3bbb6952a7740fbdbd0b1abac55bf1956f7b3e972e16d0279b64803b",
+    "bytes": 162658,
+    "gridIndex": 25,
+    "cropPixels": [
+      4200,
+      1700,
+      4800,
+      2550
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/26.webp",
+    "path": "apps/web/public/assets/cards-166/26.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "cd4848b8ae41ebb031d6fb2878d4bf4b375bd3df2ab2f820fd50d2a6bd30df82",
+    "bytes": 163250,
+    "gridIndex": 26,
+    "cropPixels": [
+      4800,
+      1700,
+      5400,
+      2550
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/27.webp",
+    "path": "apps/web/public/assets/cards-166/27.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "ebab1cd1183874ec5d65134b93b683695c6b55823c052ae8ddee277f5da17edf",
+    "bytes": 157740,
+    "gridIndex": 27,
+    "cropPixels": [
+      0,
+      2550,
+      600,
+      3400
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/28.webp",
+    "path": "apps/web/public/assets/cards-166/28.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "edb9fe553ffa3730954817ab4b79c5ea86b34c5249333aba88ef11456a37773f",
+    "bytes": 154496,
+    "gridIndex": 28,
+    "cropPixels": [
+      600,
+      2550,
+      1200,
+      3400
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/29.webp",
+    "path": "apps/web/public/assets/cards-166/29.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "2679bc78c00e0cb0e66d6c5851d3ca5838d881ce94dde3f0a938fdb9daa92256",
+    "bytes": 160472,
+    "gridIndex": 29,
+    "cropPixels": [
+      1200,
+      2550,
+      1800,
+      3400
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/30.webp",
+    "path": "apps/web/public/assets/cards-166/30.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "cdf60455289131e3f2b0306c8e91200ece2336048691a5e653c431dd37497d16",
+    "bytes": 159742,
+    "gridIndex": 30,
+    "cropPixels": [
+      1800,
+      2550,
+      2400,
+      3400
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/31.webp",
+    "path": "apps/web/public/assets/cards-166/31.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "438952e5426e1653a7f07b2dc69c67b22188ae7d953363564d5ae0881772d2ad",
+    "bytes": 160516,
+    "gridIndex": 31,
+    "cropPixels": [
+      2400,
+      2550,
+      3000,
+      3400
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/32.webp",
+    "path": "apps/web/public/assets/cards-166/32.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "d8737f5ad00fa03acd43f41131535ab4cb569f2dbcd703a482ca1b1bc8940782",
+    "bytes": 137318,
+    "gridIndex": 32,
+    "cropPixels": [
+      3000,
+      2550,
+      3600,
+      3400
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/33.webp",
+    "path": "apps/web/public/assets/cards-166/33.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "f9fcf49b53aa040848e59d23f41326121b629d7d132993222aec42ecbce0ef5c",
+    "bytes": 130876,
+    "gridIndex": 33,
+    "cropPixels": [
+      3600,
+      2550,
+      4200,
+      3400
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/34.webp",
+    "path": "apps/web/public/assets/cards-166/34.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "3ead666acb98108778f27cd50a1fdad5f0865411d13aa8c3f8dafeff8386305f",
+    "bytes": 160568,
+    "gridIndex": 34,
+    "cropPixels": [
+      4200,
+      2550,
+      4800,
+      3400
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/35.webp",
+    "path": "apps/web/public/assets/cards-166/35.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "4270e83b8ed2f2f93e2f7c204d28b87622f7a3d5770c345721a599b54625cca7",
+    "bytes": 165912,
+    "gridIndex": 35,
+    "cropPixels": [
+      4800,
+      2550,
+      5400,
+      3400
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/36.webp",
+    "path": "apps/web/public/assets/cards-166/36.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "d95eb40d8120b8b83f19119be788b3b13cf67b030015808fb9a04e8881a0130f",
+    "bytes": 165944,
+    "gridIndex": 36,
+    "cropPixels": [
+      0,
+      3400,
+      600,
+      4250
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/37.webp",
+    "path": "apps/web/public/assets/cards-166/37.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "cd5c58a6abfb9e4fd85241d84118fbfaf840299d218fd31f3d34fd36cb0b9c13",
+    "bytes": 167610,
+    "gridIndex": 37,
+    "cropPixels": [
+      600,
+      3400,
+      1200,
+      4250
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/38.webp",
+    "path": "apps/web/public/assets/cards-166/38.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "7f1d575cc3c682c1626458002ba0e34ece2f9f4b6f91e28287c4832e82b25d4c",
+    "bytes": 157554,
+    "gridIndex": 38,
+    "cropPixels": [
+      1200,
+      3400,
+      1800,
+      4250
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/39.webp",
+    "path": "apps/web/public/assets/cards-166/39.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "116795ccafa50acf5c53e1b5990fad486a58b9521597943c61c3c36a92cd51e0",
+    "bytes": 157390,
+    "gridIndex": 39,
+    "cropPixels": [
+      1800,
+      3400,
+      2400,
+      4250
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/40.webp",
+    "path": "apps/web/public/assets/cards-166/40.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "8769642914d077f69c6aa406e598e5d47be4426f39c351ff9f0d56192364cf41",
+    "bytes": 161906,
+    "gridIndex": 40,
+    "cropPixels": [
+      2400,
+      3400,
+      3000,
+      4250
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/41.webp",
+    "path": "apps/web/public/assets/cards-166/41.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "e52262363580cd6985be5074decf4dcd1ba73a1bbdc1a55ad49da059cada2d7d",
+    "bytes": 162162,
+    "gridIndex": 41,
+    "cropPixels": [
+      3000,
+      3400,
+      3600,
+      4250
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/42.webp",
+    "path": "apps/web/public/assets/cards-166/42.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "d51fc159eb0bb3be1849ff86a3a35af5c44d633f32eb40d92439bf837d760b33",
+    "bytes": 162014,
+    "gridIndex": 42,
+    "cropPixels": [
+      3600,
+      3400,
+      4200,
+      4250
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/43.webp",
+    "path": "apps/web/public/assets/cards-166/43.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "c29dbffac183c0603cf7cc15d5005aa9a2fdefd605e45c1da5a24890ed5c7931",
+    "bytes": 139538,
+    "gridIndex": 43,
+    "cropPixels": [
+      4200,
+      3400,
+      4800,
+      4250
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/44.webp",
+    "path": "apps/web/public/assets/cards-166/44.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "293d6aa95632767b2c5deae1b3413a84e3ac00e12b885b7e6242433749fd8891",
+    "bytes": 197074,
+    "gridIndex": 44,
+    "cropPixels": [
+      4800,
+      3400,
+      5400,
+      4250
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/45.webp",
+    "path": "apps/web/public/assets/cards-166/45.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "298a16b696474af0b1d85bddd4d584e703c7066efd1a7b2607efddaf82826e89",
+    "bytes": 198472,
+    "gridIndex": 45,
+    "cropPixels": [
+      0,
+      4250,
+      600,
+      5100
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/46.webp",
+    "path": "apps/web/public/assets/cards-166/46.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "6150a8be4007cfeec3a249b5e5c37adf36ff3ea0af5e17e9d6f2d3962b783f4d",
+    "bytes": 198432,
+    "gridIndex": 46,
+    "cropPixels": [
+      600,
+      4250,
+      1200,
+      5100
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/47.webp",
+    "path": "apps/web/public/assets/cards-166/47.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "4de2f3d1109ac0dc4dc90b60fe304f50d1fb1ad6ea21f17e7cc1647cf762be7f",
+    "bytes": 198410,
+    "gridIndex": 47,
+    "cropPixels": [
+      1200,
+      4250,
+      1800,
+      5100
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/48.webp",
+    "path": "apps/web/public/assets/cards-166/48.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "1125fa0c89218bdbeabab771cd3db9ced1a3924b5b12415385a2f8741056bdf0",
+    "bytes": 153092,
+    "gridIndex": 48,
+    "cropPixels": [
+      1800,
+      4250,
+      2400,
+      5100
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/49.webp",
+    "path": "apps/web/public/assets/cards-166/49.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "8dfba060ac8d33c3ad83cfabef7231d6b20e83e6a74b0d3d960981f4893806ec",
+    "bytes": 150846,
+    "gridIndex": 49,
+    "cropPixels": [
+      2400,
+      4250,
+      3000,
+      5100
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-166/50.webp",
+    "path": "apps/web/public/assets/cards-166/50.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689389888813/64BB3B209DD32E203615136FBC0A3F17E891A000/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-166.png",
+    "sourceSha256": "5025430462e59fb39e424f0ff44c30d7027fb1e04d40ed26b880ae98146eb269",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "fbfc2d421630a4c3a33ab7344f01fd5ba7aba1a528a222525f64538b61ea226e",
+    "bytes": 149592,
+    "gridIndex": 50,
+    "cropPixels": [
+      3000,
+      4250,
+      3600,
+      5100
+    ],
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "cards-165/0.webp",
+    "path": "apps/web/public/assets/cards-165/0.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689379042814/9545D0E61E3AD6E5FDA16355B4BC55F28BAE07E9/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-165.png",
+    "sourceSha256": "7644904a93cb936dce3dd4ced190ae8533ebbcc58a6eb3f78506e6528a8f75e0",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "19d3b007cd8ae6ae9fa7f07180c33f16558fa94007a83a6b1abaa1351657e86f",
+    "bytes": 81860,
+    "gridIndex": 0,
+    "cropPixels": [
+      0,
+      0,
+      930,
+      600
+    ],
+    "size": [
+      600,
+      387
+    ]
+  },
+  {
+    "id": "cards-165/1.webp",
+    "path": "apps/web/public/assets/cards-165/1.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689379042814/9545D0E61E3AD6E5FDA16355B4BC55F28BAE07E9/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-165.png",
+    "sourceSha256": "7644904a93cb936dce3dd4ced190ae8533ebbcc58a6eb3f78506e6528a8f75e0",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "44668f42fe33f774291a46eb57a89e3e54b430d69c5f43abc173d15ea0ca2a01",
+    "bytes": 74754,
+    "gridIndex": 1,
+    "cropPixels": [
+      930,
+      0,
+      1860,
+      600
+    ],
+    "size": [
+      600,
+      387
+    ]
+  },
+  {
+    "id": "cards-165/2.webp",
+    "path": "apps/web/public/assets/cards-165/2.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689379042814/9545D0E61E3AD6E5FDA16355B4BC55F28BAE07E9/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-165.png",
+    "sourceSha256": "7644904a93cb936dce3dd4ced190ae8533ebbcc58a6eb3f78506e6528a8f75e0",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "e0ae07db9990c0d568a3f7ff9eb1e94717a622ec36ee25dd539a2536e0ee7aac",
+    "bytes": 78820,
+    "gridIndex": 2,
+    "cropPixels": [
+      1860,
+      0,
+      2790,
+      600
+    ],
+    "size": [
+      600,
+      387
+    ]
+  },
+  {
+    "id": "cards-165/4.webp",
+    "path": "apps/web/public/assets/cards-165/4.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689379042814/9545D0E61E3AD6E5FDA16355B4BC55F28BAE07E9/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-165.png",
+    "sourceSha256": "7644904a93cb936dce3dd4ced190ae8533ebbcc58a6eb3f78506e6528a8f75e0",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "8e804d4afead4a4a7b9bfec4c96b608f146bb5b3051e05d65e60d43ff1268724",
+    "bytes": 79728,
+    "gridIndex": 4,
+    "cropPixels": [
+      930,
+      600,
+      1860,
+      1200
+    ],
+    "size": [
+      600,
+      387
+    ]
+  },
+  {
+    "id": "cards-165/5.webp",
+    "path": "apps/web/public/assets/cards-165/5.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689379042814/9545D0E61E3AD6E5FDA16355B4BC55F28BAE07E9/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-165.png",
+    "sourceSha256": "7644904a93cb936dce3dd4ced190ae8533ebbcc58a6eb3f78506e6528a8f75e0",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "820100e76e51f651938dc95bcbe7729472d60cde364e639580226b0711d361aa",
+    "bytes": 79558,
+    "gridIndex": 5,
+    "cropPixels": [
+      1860,
+      600,
+      2790,
+      1200
+    ],
+    "size": [
+      600,
+      387
+    ]
+  },
+  {
+    "id": "cards-165/6.webp",
+    "path": "apps/web/public/assets/cards-165/6.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689379042814/9545D0E61E3AD6E5FDA16355B4BC55F28BAE07E9/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-165.png",
+    "sourceSha256": "7644904a93cb936dce3dd4ced190ae8533ebbcc58a6eb3f78506e6528a8f75e0",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "7e8c5da2bf26685847f0b8a656c3bfc1bd802114c57a682387e6673972384d0c",
+    "bytes": 83248,
+    "gridIndex": 6,
+    "cropPixels": [
+      0,
+      1200,
+      930,
+      1800
+    ],
+    "size": [
+      600,
+      387
+    ]
+  },
+  {
+    "id": "cards-165/7.webp",
+    "path": "apps/web/public/assets/cards-165/7.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689379042814/9545D0E61E3AD6E5FDA16355B4BC55F28BAE07E9/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-165.png",
+    "sourceSha256": "7644904a93cb936dce3dd4ced190ae8533ebbcc58a6eb3f78506e6528a8f75e0",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "ce09199c8e156094a0c9226296fef11ec78917279f585f3a3e9afd03a5ad2283",
+    "bytes": 77192,
+    "gridIndex": 7,
+    "cropPixels": [
+      930,
+      1200,
+      1860,
+      1800
+    ],
+    "size": [
+      600,
+      387
+    ]
+  },
+  {
+    "id": "cards-165/8.webp",
+    "path": "apps/web/public/assets/cards-165/8.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689379042814/9545D0E61E3AD6E5FDA16355B4BC55F28BAE07E9/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-165.png",
+    "sourceSha256": "7644904a93cb936dce3dd4ced190ae8533ebbcc58a6eb3f78506e6528a8f75e0",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "bf826ff80e9e3164d4e71c0692283239f9faf931faf5ee899fece46ad04586fd",
+    "bytes": 64690,
+    "gridIndex": 8,
+    "cropPixels": [
+      1860,
+      1200,
+      2790,
+      1800
+    ],
+    "size": [
+      600,
+      387
+    ]
+  },
+  {
+    "id": "cards-640/0.webp",
+    "path": "apps/web/public/assets/cards-640/0.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2433705655644520318/96FA12A89A50C9776E05AB89B95EFDB93690E888/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-640.png",
+    "sourceSha256": "3945062c584e2309efee54db608403e9977a7b35143b1da17af3ddc9177a9eda",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "bab6db0ab1f1f70410c716f7a693ba1ca28324243d071a12688c17fe2779b0a3",
+    "bytes": 82988,
+    "gridIndex": 0,
+    "cropPixels": [
+      0,
+      0,
+      930,
+      600
+    ],
+    "size": [
+      600,
+      387
+    ]
+  },
+  {
+    "id": "cards-640/1.webp",
+    "path": "apps/web/public/assets/cards-640/1.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2433705655644520318/96FA12A89A50C9776E05AB89B95EFDB93690E888/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-640.png",
+    "sourceSha256": "3945062c584e2309efee54db608403e9977a7b35143b1da17af3ddc9177a9eda",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "10c53d60ec2659450514bf04b51ce6651a4de14e0ed14503776dec9bb6edaf07",
+    "bytes": 79286,
+    "gridIndex": 1,
+    "cropPixels": [
+      930,
+      0,
+      1860,
+      600
+    ],
+    "size": [
+      600,
+      387
+    ]
+  },
+  {
+    "id": "cards-640/2.webp",
+    "path": "apps/web/public/assets/cards-640/2.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2433705655644520318/96FA12A89A50C9776E05AB89B95EFDB93690E888/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-640.png",
+    "sourceSha256": "3945062c584e2309efee54db608403e9977a7b35143b1da17af3ddc9177a9eda",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "de153d816ba4e54cfa1b63cafc2ddde7d6090875ed4b2e96ae9bcf04be4fa4fe",
+    "bytes": 83458,
+    "gridIndex": 2,
+    "cropPixels": [
+      0,
+      600,
+      930,
+      1200
+    ],
+    "size": [
+      600,
+      387
+    ]
+  },
+  {
+    "id": "cards-640/3.webp",
+    "path": "apps/web/public/assets/cards-640/3.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2433705655644520318/96FA12A89A50C9776E05AB89B95EFDB93690E888/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-640.png",
+    "sourceSha256": "3945062c584e2309efee54db608403e9977a7b35143b1da17af3ddc9177a9eda",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "491f2dd3998a1e21416233d358fe81740123552d263a609df4073447df2302c1",
+    "bytes": 78972,
+    "gridIndex": 3,
+    "cropPixels": [
+      930,
+      600,
+      1860,
+      1200
+    ],
+    "size": [
+      600,
+      387
+    ]
+  },
+  {
+    "id": "cards-625/0.webp",
+    "path": "apps/web/public/assets/cards-625/0.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741255042060/480DBC0752A56513E67B3E3676C93604328AD9B4/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-625.png",
+    "sourceSha256": "e5f0cfd4262b6e58f859249606fd7886070c6eb91adcf33cf51cd51b9a4bc261",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "044ec24e4603f4697755dc7486965fdd93a3270db2e74bef7832035679141510",
+    "bytes": 51760,
+    "gridIndex": 0,
+    "cropPixels": [
+      0,
+      0,
+      650,
+      1850
+    ],
+    "size": [
+      299,
+      850
+    ]
+  },
+  {
+    "id": "cards-625/1.webp",
+    "path": "apps/web/public/assets/cards-625/1.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741255042060/480DBC0752A56513E67B3E3676C93604328AD9B4/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-625.png",
+    "sourceSha256": "e5f0cfd4262b6e58f859249606fd7886070c6eb91adcf33cf51cd51b9a4bc261",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "ceb341c1d70a84384afb3e71d64fd45f9b615cc1ba80cbb6c1af0da0780fd0b6",
+    "bytes": 45102,
+    "gridIndex": 1,
+    "cropPixels": [
+      650,
+      0,
+      1300,
+      1850
+    ],
+    "size": [
+      299,
+      850
+    ]
+  },
+  {
+    "id": "cards-625/2.webp",
+    "path": "apps/web/public/assets/cards-625/2.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741255042060/480DBC0752A56513E67B3E3676C93604328AD9B4/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-625.png",
+    "sourceSha256": "e5f0cfd4262b6e58f859249606fd7886070c6eb91adcf33cf51cd51b9a4bc261",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "cffbce580b6e12460b9c25283bb8c00d9da8319e5586f570eb11caca94fd9f87",
+    "bytes": 43420,
+    "gridIndex": 2,
+    "cropPixels": [
+      1300,
+      0,
+      1950,
+      1850
+    ],
+    "size": [
+      299,
+      850
+    ]
+  },
+  {
+    "id": "cards-625/3.webp",
+    "path": "apps/web/public/assets/cards-625/3.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741255042060/480DBC0752A56513E67B3E3676C93604328AD9B4/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-625.png",
+    "sourceSha256": "e5f0cfd4262b6e58f859249606fd7886070c6eb91adcf33cf51cd51b9a4bc261",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "ef8d4871673f4321f71e812f8167f269fee62abbf91b5e82b6ab4e6b5b9c175e",
+    "bytes": 42128,
+    "gridIndex": 3,
+    "cropPixels": [
+      1950,
+      0,
+      2600,
+      1850
+    ],
+    "size": [
+      299,
+      850
+    ]
+  },
+  {
+    "id": "cards-625/4.webp",
+    "path": "apps/web/public/assets/cards-625/4.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741255042060/480DBC0752A56513E67B3E3676C93604328AD9B4/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-625.png",
+    "sourceSha256": "e5f0cfd4262b6e58f859249606fd7886070c6eb91adcf33cf51cd51b9a4bc261",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "6c13d6c11bc29025d1270ed1c3382d06d7720068a15de93d1cb43aa22844221e",
+    "bytes": 41408,
+    "gridIndex": 4,
+    "cropPixels": [
+      0,
+      1850,
+      650,
+      3700
+    ],
+    "size": [
+      299,
+      850
+    ]
+  },
+  {
+    "id": "cards-625/5.webp",
+    "path": "apps/web/public/assets/cards-625/5.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741255042060/480DBC0752A56513E67B3E3676C93604328AD9B4/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-625.png",
+    "sourceSha256": "e5f0cfd4262b6e58f859249606fd7886070c6eb91adcf33cf51cd51b9a4bc261",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "333b1d39da1c0c4d59216939fc4b66ddb260230973d27d2310d5a5e514b82cb0",
+    "bytes": 42066,
+    "gridIndex": 5,
+    "cropPixels": [
+      650,
+      1850,
+      1300,
+      3700
+    ],
+    "size": [
+      299,
+      850
+    ]
+  },
+  {
+    "id": "cards-625/6.webp",
+    "path": "apps/web/public/assets/cards-625/6.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741255042060/480DBC0752A56513E67B3E3676C93604328AD9B4/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-625.png",
+    "sourceSha256": "e5f0cfd4262b6e58f859249606fd7886070c6eb91adcf33cf51cd51b9a4bc261",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "6aa7de97eddaa28722509ea2fec54f8d98de06ce1067b5dd08ca12915202889b",
+    "bytes": 41062,
+    "gridIndex": 6,
+    "cropPixels": [
+      1300,
+      1850,
+      1950,
+      3700
+    ],
+    "size": [
+      299,
+      850
+    ]
+  },
+  {
+    "id": "cards-625/7.webp",
+    "path": "apps/web/public/assets/cards-625/7.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741255042060/480DBC0752A56513E67B3E3676C93604328AD9B4/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-625.png",
+    "sourceSha256": "e5f0cfd4262b6e58f859249606fd7886070c6eb91adcf33cf51cd51b9a4bc261",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "grid crop; proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "ebf698d55057160c189aa14d3e3e95ba5fde92d50cd5f16d195339a6e2b5b637",
+    "bytes": 45680,
+    "gridIndex": 7,
+    "cropPixels": [
+      1950,
+      1850,
+      2600,
+      3700
+    ],
+    "size": [
+      299,
+      850
+    ]
+  },
+  {
+    "id": "role-1307.webp",
+    "path": "apps/web/public/assets/role-1307.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855109763819/5EF6AFB8516929C85EBFC18C36782FE8922DCD90/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/role-1307.png",
+    "sourceSha256": "65ad539d8160e95325fe61699a12b9d05e7ffc7cdb27d2a63b4f98e7e5ab653e",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "5eed0028bed0270b38c66956bf85effe1d2ccebfcc28c8ac81621d4be78ecadf",
+    "bytes": 125716,
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "role-1306.webp",
+    "path": "apps/web/public/assets/role-1306.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855109763118/1FFF1FA48BA07219A4645B00FF700FCDDC6FF4F1/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/role-1306.png",
+    "sourceSha256": "7836bc7341864c4cbee25b079d6df91143af7fe7907f6c784166b255b7e2e38b",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "0b7a21499d6ccd4603c4d361c0ec559c1b6b87b3e4c0780344efaf1eba061785",
+    "bytes": 134282,
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "role-1271.webp",
+    "path": "apps/web/public/assets/role-1271.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855103677019/6B474E8CFE70AED69596AC6AE92594A4C0E3BA6F/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/role-1271.png",
+    "sourceSha256": "f9ae335d29673f00978b2cbe4c6ff76a135da1ce59874ae8806162940570fcc4",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "769453b877b49948374d96ca7d8a880fdf0c65550e6742d9336d041761136e96",
+    "bytes": 150984,
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "role-1232.webp",
+    "path": "apps/web/public/assets/role-1232.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855098016279/850D31E90CCE210DB56CE11A4DF9EB2FE7DFA17D/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/role-1232.png",
+    "sourceSha256": "4d86219ee15a1a47352d57c1b8b6ae96c3a47548a3e64e2fc6bbe9075487288b",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "2131eb253a34bb6c6239735a7043eb55fda058af942ec0548899d41ecd1d43b6",
+    "bytes": 130168,
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "role-1272.webp",
+    "path": "apps/web/public/assets/role-1272.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855103675239/EE95403F536ABF79D9833A3D279CF7827B7DDB3E/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/role-1272.png",
+    "sourceSha256": "76b8228208a3dba94eea2ad4e19d8e57377a21aa89b7fbe845823df55866dc98",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "acf1684cdce1e09b53c974745551a078d8da1b409539ab992f2c540c5bf4d43a",
+    "bytes": 135416,
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "role-1231.webp",
+    "path": "apps/web/public/assets/role-1231.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855098012006/809CBE927426C8C55AD3675D43EB7028456EBD05/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/role-1231.png",
+    "sourceSha256": "1e336e9c968dbc29a2993d1e3ef7f399d613ba715ea6c3ced7a39cd8fc3d91de",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "7f20d3c5f983209ba480a8a1806d6b31eedec8cb15d5fd54e55c863557e9eca1",
+    "bytes": 118152,
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "role-1273.webp",
+    "path": "apps/web/public/assets/role-1273.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855103676348/0165EA0557C2BE06FB44A894822895A08714279E/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/role-1273.png",
+    "sourceSha256": "96adb0a4c8c318bca6e910a3157360a2ac0aa9f20a855fef94bb91efdeab8847",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "proportional maximum 600×850px; WebP quality 92",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "72f751ca55437bfbcbe7eab7c493dc60efa7c1a5c691d24817a4ce932a467a6b",
+    "bytes": 138312,
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "operatives/w.webp",
+    "path": "apps/web/public/assets/operatives/w.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689394632887/8F1D80001580DF5B3F528E7B80302B646C2AF857/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/rules-reference.pdf",
+    "sourceSha256": "51bd7968a71fab1f8ca98784e33d5ef2366b1b1102c7a936fd54b30ff43cc326",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "native PDF region rendered at 4×; WebP quality 94",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "c90872bd801c1afa71f4481346752223b1640d9cb31e652a3c620a4ecf9c2033",
+    "bytes": 106764,
+    "pdfPage": 21,
+    "printedPage": 19,
+    "pdfClip": [
+      59.375,
+      578.125,
+      178.125,
+      745.0
+    ],
+    "size": [
+      476,
+      668
+    ]
+  },
+  {
+    "id": "operatives/kaltsit.webp",
+    "path": "apps/web/public/assets/operatives/kaltsit.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689394632887/8F1D80001580DF5B3F528E7B80302B646C2AF857/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/rules-reference.pdf",
+    "sourceSha256": "51bd7968a71fab1f8ca98784e33d5ef2366b1b1102c7a936fd54b30ff43cc326",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "native PDF region rendered at 4×; WebP quality 94",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "bc9eab11b9059793b272d492fbc02733cc274790127b911a1b11eac473972a4b",
+    "bytes": 111934,
+    "pdfPage": 21,
+    "printedPage": 19,
+    "pdfClip": [
+      417.5,
+      578.125,
+      536.25,
+      745.0
+    ],
+    "size": [
+      475,
+      668
+    ]
+  },
+  {
+    "id": "operatives/closure.webp",
+    "path": "apps/web/public/assets/operatives/closure.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689394632887/8F1D80001580DF5B3F528E7B80302B646C2AF857/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/rules-reference.pdf",
+    "sourceSha256": "51bd7968a71fab1f8ca98784e33d5ef2366b1b1102c7a936fd54b30ff43cc326",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "native PDF region rendered at 4×; WebP quality 94",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "f8b776fb7b7f8d3d45dfdab2cf548c697e2775085f0db43205a5cb4956fae6d2",
+    "bytes": 110002,
+    "pdfPage": 22,
+    "printedPage": 20,
+    "pdfClip": [
+      64.375,
+      138.75,
+      185.0,
+      305.625
+    ],
+    "size": [
+      483,
+      668
+    ]
+  },
+  {
+    "id": "operatives/dorothy.webp",
+    "path": "apps/web/public/assets/operatives/dorothy.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689394632887/8F1D80001580DF5B3F528E7B80302B646C2AF857/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/rules-reference.pdf",
+    "sourceSha256": "51bd7968a71fab1f8ca98784e33d5ef2366b1b1102c7a936fd54b30ff43cc326",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "native PDF region rendered at 4×; WebP quality 94",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "eb436a7774a0a3e475014cec2a783860095891010313d515bf6e3be4da825e9b",
+    "bytes": 103794,
+    "pdfPage": 22,
+    "printedPage": 20,
+    "pdfClip": [
+      219.375,
+      138.75,
+      339.375,
+      305.625
+    ],
+    "size": [
+      481,
+      668
+    ]
+  },
+  {
+    "id": "operatives/silverash.webp",
+    "path": "apps/web/public/assets/operatives/silverash.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689394632887/8F1D80001580DF5B3F528E7B80302B646C2AF857/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/rules-reference.pdf",
+    "sourceSha256": "51bd7968a71fab1f8ca98784e33d5ef2366b1b1102c7a936fd54b30ff43cc326",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "native PDF region rendered at 4×; WebP quality 94",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "08dc617eb6506d573b7779fe840ad324db4bfa87d4d75f052cb4614fbf005800",
+    "bytes": 107780,
+    "pdfPage": 22,
+    "printedPage": 20,
+    "pdfClip": [
+      423.75,
+      138.75,
+      543.75,
+      305.625
+    ],
+    "size": [
+      480,
+      668
+    ]
+  },
+  {
+    "id": "operatives/mudrock.webp",
+    "path": "apps/web/public/assets/operatives/mudrock.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689394632887/8F1D80001580DF5B3F528E7B80302B646C2AF857/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/rules-reference.pdf",
+    "sourceSha256": "51bd7968a71fab1f8ca98784e33d5ef2366b1b1102c7a936fd54b30ff43cc326",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "native PDF region rendered at 4×; WebP quality 94",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "98bf0aef798423a73d47f43a1393d6b561fba8eb9778072104fc4198ac1f1b29",
+    "bytes": 106044,
+    "pdfPage": 22,
+    "printedPage": 20,
+    "pdfClip": [
+      605.625,
+      138.75,
+      725.625,
+      305.625
+    ],
+    "size": [
+      481,
+      668
+    ]
+  },
+  {
+    "id": "operatives/passenger.webp",
+    "path": "apps/web/public/assets/operatives/passenger.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689394632887/8F1D80001580DF5B3F528E7B80302B646C2AF857/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/rules-reference.pdf",
+    "sourceSha256": "51bd7968a71fab1f8ca98784e33d5ef2366b1b1102c7a936fd54b30ff43cc326",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "native PDF region rendered at 4×; WebP quality 94",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "ad89327c3fb1d4841d0ad80d6a8b014476e979128fd95c5ac84150a3dacab367",
+    "bytes": 127272,
+    "pdfPage": 22,
+    "printedPage": 20,
+    "pdfClip": [
+      64.375,
+      511.875,
+      185.0,
+      684.375
+    ],
+    "size": [
+      483,
+      691
+    ]
+  },
+  {
+    "id": "operatives/eunectes.webp",
+    "path": "apps/web/public/assets/operatives/eunectes.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282825689394632887/8F1D80001580DF5B3F528E7B80302B646C2AF857/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/rules-reference.pdf",
+    "sourceSha256": "51bd7968a71fab1f8ca98784e33d5ef2366b1b1102c7a936fd54b30ff43cc326",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "native PDF region rendered at 4×; WebP quality 94",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "ef07274bfd9a823c87bedeeed9f8bff876cf5e4b9eb1822f4229a60ca24fffb2",
+    "bytes": 127596,
+    "pdfPage": 22,
+    "printedPage": 20,
+    "pdfClip": [
+      424.375,
+      511.875,
+      545.0,
+      685.0
+    ],
+    "size": [
+      483,
+      693
+    ]
+  },
+  {
+    "id": "board-3-hd.webp",
+    "path": "apps/web/public/assets/board-3-hd.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2490001830071445916/16B39A36EFFC1819E5E5E0B1774EB54A1E72C341/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/board-3.png",
+    "sourceSha256": "790ec3eb6923d01dddcae6cc710036ea9ddfed828c9896f25a7f4eae1bc38e4d",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "native scan dimensions retained without resizing; WebP quality 96",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "2614fa024663eb7973b400000cb6b96757ae2ecfb2a277661ddcdd0716b6072a",
+    "bytes": 6253800,
+    "size": [
+      5000,
+      5000
+    ]
+  },
+  {
+    "id": "board-4-hd.webp",
+    "path": "apps/web/public/assets/board-4-hd.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2490001830071419102/12FC41A0DCAC03C5C6D8BA57562B9CDD95402E18/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/board-4.png",
+    "sourceSha256": "605f6fb43c8021706847d7d9db0d4483a5bfa05fcd09bf15b13e96b6996464bf",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "native scan dimensions retained without resizing; WebP quality 96",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "2d6573f2d386d23ef83ca4e1f94fc10c3a6a498e909309649ba979def962d1bc",
+    "bytes": 7033626,
+    "size": [
+      5000,
+      5000
+    ]
+  },
+  {
+    "id": "role-1307-hd.webp",
+    "path": "apps/web/public/assets/role-1307-hd.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855109763819/5EF6AFB8516929C85EBFC18C36782FE8922DCD90/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/role-1307.png",
+    "sourceSha256": "65ad539d8160e95325fe61699a12b9d05e7ffc7cdb27d2a63b4f98e7e5ab653e",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "native scan dimensions retained without resizing; WebP quality 96",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "f81276afaf51fed8008f9b99badc4d8270ae8ef94d4fb1fb9ad55210e80d3572",
+    "bytes": 460100,
+    "size": [
+      1200,
+      1700
+    ]
+  },
+  {
+    "id": "role-1306-hd.webp",
+    "path": "apps/web/public/assets/role-1306-hd.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855109763118/1FFF1FA48BA07219A4645B00FF700FCDDC6FF4F1/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/role-1306.png",
+    "sourceSha256": "7836bc7341864c4cbee25b079d6df91143af7fe7907f6c784166b255b7e2e38b",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "native scan dimensions retained without resizing; WebP quality 96",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "5451fe6284c557311654febadda61cd020c8c6e7c22c6fa43f4742c3f1adff6d",
+    "bytes": 455302,
+    "size": [
+      1200,
+      1700
+    ]
+  },
+  {
+    "id": "role-1271-hd.webp",
+    "path": "apps/web/public/assets/role-1271-hd.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855103677019/6B474E8CFE70AED69596AC6AE92594A4C0E3BA6F/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/role-1271.png",
+    "sourceSha256": "f9ae335d29673f00978b2cbe4c6ff76a135da1ce59874ae8806162940570fcc4",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "native scan dimensions retained without resizing; WebP quality 96",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "70e36f5635436d9cbb4b0bd75a5d21cba18f584a63a41532830d6efffe3429fb",
+    "bytes": 524808,
+    "size": [
+      1200,
+      1700
+    ]
+  },
+  {
+    "id": "role-1232-hd.webp",
+    "path": "apps/web/public/assets/role-1232-hd.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855098016279/850D31E90CCE210DB56CE11A4DF9EB2FE7DFA17D/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/role-1232.png",
+    "sourceSha256": "4d86219ee15a1a47352d57c1b8b6ae96c3a47548a3e64e2fc6bbe9075487288b",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "native scan dimensions retained without resizing; WebP quality 96",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "828832ce4acea251c7f7d68b20d5df69dcbb824f732f7996f61fbe8744c1dbf1",
+    "bytes": 465724,
+    "size": [
+      1200,
+      1700
+    ]
+  },
+  {
+    "id": "role-1272-hd.webp",
+    "path": "apps/web/public/assets/role-1272-hd.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855103675239/EE95403F536ABF79D9833A3D279CF7827B7DDB3E/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/role-1272.png",
+    "sourceSha256": "76b8228208a3dba94eea2ad4e19d8e57377a21aa89b7fbe845823df55866dc98",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "native scan dimensions retained without resizing; WebP quality 96",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "19ab7559d53e159f5dce89215f4e62ae4e35c5817276ad16a3f5252f41581446",
+    "bytes": 480134,
+    "size": [
+      1200,
+      1700
+    ]
+  },
+  {
+    "id": "role-1231-hd.webp",
+    "path": "apps/web/public/assets/role-1231-hd.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855098012006/809CBE927426C8C55AD3675D43EB7028456EBD05/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/role-1231.png",
+    "sourceSha256": "1e336e9c968dbc29a2993d1e3ef7f399d613ba715ea6c3ced7a39cd8fc3d91de",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "native scan dimensions retained without resizing; WebP quality 96",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "5047f3988ba5075a0c0bb6e032930e9631d32c3284ecaca8502184552e284820",
+    "bytes": 405598,
+    "size": [
+      1200,
+      1700
+    ]
+  },
+  {
+    "id": "role-1273-hd.webp",
+    "path": "apps/web/public/assets/role-1273-hd.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855103676348/0165EA0557C2BE06FB44A894822895A08714279E/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/role-1273.png",
+    "sourceSha256": "96adb0a4c8c318bca6e910a3157360a2ac0aa9f20a855fef94bb91efdeab8847",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "native scan dimensions retained without resizing; WebP quality 96",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "9cb8eb5187c867980812971968ae20750d3ca8071bf75feee43d22e3cc71328e",
+    "bytes": 495192,
+    "size": [
+      1200,
+      1700
+    ]
+  },
+  {
+    "id": "entrepreneur-0.webp",
+    "path": "apps/web/public/assets/entrepreneur-0.webp",
+    "sourceFile": ".data/sources/table-feel/token-55.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741263849026/A321DEF590A914501BBAE92F0EFF8C4C804B0236/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceSha256": "3aa098e6a1b2b682997b1b6fc4f50e7035b0bc222901b9c18c819e22b7bf8452",
+    "sourceKind": "Original printed board game artwork via public tabletop reference",
+    "processing": "Lossless WebP; source pixel crop full image; no upscaling",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "7b0b708508d23c59d474063e401eb9859c1b67e24711e3a9b82c89dbd54c64d4",
+    "bytes": 482002,
+    "size": [
+      863,
+      1204
+    ]
+  },
+  {
+    "id": "entrepreneur-bust-0.webp",
+    "path": "apps/web/public/assets/entrepreneur-bust-0.webp",
+    "sourceFile": ".data/sources/table-feel/token-55.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741263849026/A321DEF590A914501BBAE92F0EFF8C4C804B0236/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceSha256": "3aa098e6a1b2b682997b1b6fc4f50e7035b0bc222901b9c18c819e22b7bf8452",
+    "sourceKind": "Original printed board game artwork via public tabletop reference",
+    "processing": "Lossless WebP; source pixel crop (75, 25, 810, 835); no upscaling",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "14be3559683f75138d7e66b66c7470b6b7ed0802f0e9fa489f371faaab2f7817",
+    "bytes": 283146,
+    "size": [
+      735,
+      810
+    ]
+  },
+  {
+    "id": "avatar-0.webp",
+    "path": "apps/web/public/assets/avatar-0.webp",
+    "sourceFile": ".data/sources/table-feel/token-55.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741263849026/A321DEF590A914501BBAE92F0EFF8C4C804B0236/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceSha256": "3aa098e6a1b2b682997b1b6fc4f50e7035b0bc222901b9c18c819e22b7bf8452",
+    "sourceKind": "Original printed board game artwork via public tabletop reference",
+    "processing": "Lossless WebP; source pixel crop (225, 35, 590, 400); no upscaling",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "b1c28e5959cbdd8a7fbbe45ab34166c3c3434ad6d5a6a60e70674cbebd355a8e",
+    "bytes": 88508,
+    "size": [
+      365,
+      365
+    ]
+  },
+  {
+    "id": "entrepreneur-1.webp",
+    "path": "apps/web/public/assets/entrepreneur-1.webp",
+    "sourceFile": ".data/sources/table-feel/token-56.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741263856609/CD0965F6AAE64E2F2B5A005DD2A3A27EC761E91D/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceSha256": "aa52cd4718387d366ab50eb694ee9c3e6e99b82b08afca7e260fab2a9dfa768f",
+    "sourceKind": "Original printed board game artwork via public tabletop reference",
+    "processing": "Lossless WebP; source pixel crop full image; no upscaling",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "c73c9cda5b0ae3a61557a2d38ce25e99793609b91878aede5349e5596222e59e",
+    "bytes": 533214,
+    "size": [
+      862,
+      1204
+    ]
+  },
+  {
+    "id": "entrepreneur-bust-1.webp",
+    "path": "apps/web/public/assets/entrepreneur-bust-1.webp",
+    "sourceFile": ".data/sources/table-feel/token-56.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741263856609/CD0965F6AAE64E2F2B5A005DD2A3A27EC761E91D/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceSha256": "aa52cd4718387d366ab50eb694ee9c3e6e99b82b08afca7e260fab2a9dfa768f",
+    "sourceKind": "Original printed board game artwork via public tabletop reference",
+    "processing": "Lossless WebP; source pixel crop (75, 25, 810, 835); no upscaling",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "970b3ca4c9bd57bb85112fda2039e6ed3803b58a08ce930e7c657e87883db399",
+    "bytes": 321562,
+    "size": [
+      735,
+      810
+    ]
+  },
+  {
+    "id": "avatar-1.webp",
+    "path": "apps/web/public/assets/avatar-1.webp",
+    "sourceFile": ".data/sources/table-feel/token-56.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741263856609/CD0965F6AAE64E2F2B5A005DD2A3A27EC761E91D/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceSha256": "aa52cd4718387d366ab50eb694ee9c3e6e99b82b08afca7e260fab2a9dfa768f",
+    "sourceKind": "Original printed board game artwork via public tabletop reference",
+    "processing": "Lossless WebP; source pixel crop (290, 45, 615, 370); no upscaling",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "9e89caf56d81636fffe034f1129273f1745bc3070c14a73724734d27f677a80a",
+    "bytes": 73286,
+    "size": [
+      325,
+      325
+    ]
+  },
+  {
+    "id": "entrepreneur-2.webp",
+    "path": "apps/web/public/assets/entrepreneur-2.webp",
+    "sourceFile": ".data/sources/table-feel/token-57.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741263857536/502DA3F78C5E3B532A4D055268A2F3854646DCDC/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceSha256": "6dcaf1a548aca0b428339bf03b0074e15f79fa596c044015957cd837c5b1ac69",
+    "sourceKind": "Original printed board game artwork via public tabletop reference",
+    "processing": "Lossless WebP; source pixel crop full image; no upscaling",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "e418cd3ec05982bbd490a6b468c795a23c6c60710d6a9c86288ae1d95ea4e98b",
+    "bytes": 488892,
+    "size": [
+      865,
+      1204
+    ]
+  },
+  {
+    "id": "entrepreneur-bust-2.webp",
+    "path": "apps/web/public/assets/entrepreneur-bust-2.webp",
+    "sourceFile": ".data/sources/table-feel/token-57.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741263857536/502DA3F78C5E3B532A4D055268A2F3854646DCDC/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceSha256": "6dcaf1a548aca0b428339bf03b0074e15f79fa596c044015957cd837c5b1ac69",
+    "sourceKind": "Original printed board game artwork via public tabletop reference",
+    "processing": "Lossless WebP; source pixel crop (75, 25, 810, 835); no upscaling",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "d72b41c90c9c64adef52c9c191558e3e15d7ef3d829c71befb20e7039c3c3b44",
+    "bytes": 271432,
+    "size": [
+      735,
+      810
+    ]
+  },
+  {
+    "id": "avatar-2.webp",
+    "path": "apps/web/public/assets/avatar-2.webp",
+    "sourceFile": ".data/sources/table-feel/token-57.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741263857536/502DA3F78C5E3B532A4D055268A2F3854646DCDC/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceSha256": "6dcaf1a548aca0b428339bf03b0074e15f79fa596c044015957cd837c5b1ac69",
+    "sourceKind": "Original printed board game artwork via public tabletop reference",
+    "processing": "Lossless WebP; source pixel crop (240, 40, 610, 410); no upscaling",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "a97ba54520a220641acdc19413e98ffc863b7876ab6b6ad82039684f1b5fb348",
+    "bytes": 82844,
+    "size": [
+      370,
+      370
+    ]
+  },
+  {
+    "id": "entrepreneur-3.webp",
+    "path": "apps/web/public/assets/entrepreneur-3.webp",
+    "sourceFile": ".data/sources/table-feel/token-58.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741263858296/6C11083FA6D18D0BC0F8132791621486C170AB73/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceSha256": "44409b5f51c3c1782456054088d3cef2e1995f1e499a1721603b94a32c04c7f4",
+    "sourceKind": "Original printed board game artwork via public tabletop reference",
+    "processing": "Lossless WebP; source pixel crop full image; no upscaling",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "908a447dbb33d4f07a970c1a6ba4df978124ebf1d47a71e7cc45b6b2476dc2d5",
+    "bytes": 520670,
+    "size": [
+      859,
+      1200
+    ]
+  },
+  {
+    "id": "entrepreneur-bust-3.webp",
+    "path": "apps/web/public/assets/entrepreneur-bust-3.webp",
+    "sourceFile": ".data/sources/table-feel/token-58.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741263858296/6C11083FA6D18D0BC0F8132791621486C170AB73/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceSha256": "44409b5f51c3c1782456054088d3cef2e1995f1e499a1721603b94a32c04c7f4",
+    "sourceKind": "Original printed board game artwork via public tabletop reference",
+    "processing": "Lossless WebP; source pixel crop (75, 25, 810, 835); no upscaling",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "e30a8884e76a4cd433efdf4ad5cfa88306295362d29cbd71c7bd15eab7122762",
+    "bytes": 301766,
+    "size": [
+      735,
+      810
+    ]
+  },
+  {
+    "id": "avatar-3.webp",
+    "path": "apps/web/public/assets/avatar-3.webp",
+    "sourceFile": ".data/sources/table-feel/token-58.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741263858296/6C11083FA6D18D0BC0F8132791621486C170AB73/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceSha256": "44409b5f51c3c1782456054088d3cef2e1995f1e499a1721603b94a32c04c7f4",
+    "sourceKind": "Original printed board game artwork via public tabletop reference",
+    "processing": "Lossless WebP; source pixel crop (265, 55, 620, 410); no upscaling",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "8a600641fdf50c42bc9b9ebd05bc3d4d9785f375951a0ddde6b176aeffbaaa82",
+    "bytes": 84662,
+    "size": [
+      355,
+      355
+    ]
+  },
+  {
+    "id": "president.webp",
+    "path": "apps/web/public/assets/president.webp",
+    "sourceFile": ".data/sources/table-feel/token-47.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2118440178989515114/7994DF114BD431E004C8A06E32AB4F9371587C18/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceSha256": "58f2faadfd3f160fb881298d868270d1327d2137fb50ceb27dbdd0b1ddbc1330",
+    "sourceKind": "Original printed board game artwork via public tabletop reference",
+    "processing": "Lossless WebP; source pixel crop (240, 30, 760, 1000); no upscaling",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "98d8b525bca22c3883825af4170a077290b6dfd4cf447e427e2eab8609a99708",
+    "bytes": 159928,
+    "size": [
+      520,
+      970
+    ]
+  },
+  {
+    "id": "resource-rock.webp",
+    "path": "apps/web/public/assets/resource-rock.webp",
+    "sourceFile": ".data/sources/table-feel/item-rock.png",
+    "sourceUrl": "https://media.prts.wiki/e/e5/%E9%81%93%E5%85%B7_%E6%8F%90%E7%BA%AF%E6%BA%90%E5%B2%A9.png",
+    "sourceContainer": "https://prts.wiki/w/文件:%E9%81%93%E5%85%B7_%E6%8F%90%E7%BA%AF%E6%BA%90%E5%B2%A9.png",
+    "sourceSha256": "8169788424ab3bd5a628b4fd087cb71bcf0e08f2c90561f3e5d212f5a3ac1a1b",
+    "sourceKind": "Original Arknights item artwork via PRTS",
+    "processing": "Lossless WebP; source pixel crop full image; no upscaling",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "80d8bca7f126b0b6310b1d8c6c7d1517ddfea741dbe1a1f9c5fa2294b6144fad",
+    "bytes": 18150,
+    "size": [
+      163,
+      180
+    ]
+  },
+  {
+    "id": "resource-ore.webp",
+    "path": "apps/web/public/assets/resource-ore.webp",
+    "sourceFile": ".data/sources/table-feel/item-ore.png",
+    "sourceUrl": "https://media.prts.wiki/b/b5/%E9%81%93%E5%85%B7_%E6%BA%90%E7%9F%B3%E7%A2%8E%E7%89%87.png",
+    "sourceContainer": "https://prts.wiki/w/文件:%E9%81%93%E5%85%B7_%E6%BA%90%E7%9F%B3%E7%A2%8E%E7%89%87.png",
+    "sourceSha256": "0d42200e77c0907ffcb507c2b795908845862d53b4bbfdc315960e5b7fb71b2f",
+    "sourceKind": "Original Arknights item artwork via PRTS",
+    "processing": "Lossless WebP; source pixel crop full image; no upscaling",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "aaca1d4a91d956d5dd93c83a6e5282d9132a51b14b55bebaf2363ca497bd9b4f",
+    "bytes": 16224,
+    "size": [
+      150,
+      160
+    ]
+  },
+  {
+    "id": "resource-iron.webp",
+    "path": "apps/web/public/assets/resource-iron.webp",
+    "sourceFile": ".data/sources/table-feel/item-iron.png",
+    "sourceUrl": "https://media.prts.wiki/d/df/%E9%81%93%E5%85%B7_%E5%BC%82%E9%93%81%E7%BB%84.png",
+    "sourceContainer": "https://prts.wiki/w/文件:%E9%81%93%E5%85%B7_%E5%BC%82%E9%93%81%E7%BB%84.png",
+    "sourceSha256": "9b38b152b545bad3547e2e36c2ba4847e0d2928e6d6ca086fe4793610246be15",
+    "sourceKind": "Original Arknights item artwork via PRTS",
+    "processing": "Lossless WebP; source pixel crop full image; no upscaling",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "342ef7020b74c4533adf3532cfad301182f4aad12a21afdbd6e706f483d2bc70",
+    "bytes": 16512,
+    "size": [
+      168,
+      163
+    ]
+  },
+  {
+    "id": "resource-prime.webp",
+    "path": "apps/web/public/assets/resource-prime.webp",
+    "sourceFile": ".data/sources/table-feel/item-prime.png",
+    "sourceUrl": "https://media.prts.wiki/8/8a/%E9%81%93%E5%85%B7_%E8%87%B3%E7%BA%AF%E6%BA%90%E7%9F%B3.png",
+    "sourceContainer": "https://prts.wiki/w/文件:%E9%81%93%E5%85%B7_%E8%87%B3%E7%BA%AF%E6%BA%90%E7%9F%B3.png",
+    "sourceSha256": "5dabc2168e7147ec49d18cfd0f9a22921115e655c8a1de5a61fc003666b215db",
+    "sourceKind": "Original Arknights item artwork via PRTS",
+    "processing": "Lossless WebP; source pixel crop full image; no upscaling",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "f83773856666edf7159206ab50528fb1d3e19f0e448861f9035a5ab0521f2ba2",
+    "bytes": 27852,
+    "size": [
+      180,
+      182
+    ]
+  },
+  {
+    "id": "resource-cash.webp",
+    "path": "apps/web/public/assets/resource-cash.webp",
+    "sourceFile": ".data/sources/table-feel/token-21.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2118440598850160696/468686102CD72A9EA35481994027FA5341C76D27/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceSha256": "25f240e00998fda0137a2498ecc0c650095133ece2d879643e50a76b3b9789b5",
+    "sourceKind": "Original printed board game artwork via public tabletop reference",
+    "processing": "Lossless WebP; source pixel crop full image; no upscaling",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "484b07f2f3223b089f991ee238172f471e68f07d1eab39604e1f8f7f9524dec9",
+    "bytes": 452824,
+    "size": [
+      1000,
+      428
+    ]
+  },
+  {
+    "id": "resource-score.webp",
+    "path": "apps/web/public/assets/resource-score.webp",
+    "sourceFile": ".data/sources/art/board-4.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2490001830071419102/12FC41A0DCAC03C5C6D8BA57562B9CDD95402E18/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceSha256": "605f6fb43c8021706847d7d9db0d4483a5bfa05fcd09bf15b13e96b6996464bf",
+    "sourceKind": "Original printed board game artwork via public tabletop reference",
+    "processing": "Lossless WebP; source pixel crop (135, 4856, 209, 4912); no upscaling",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "526d766aa4733ecde4525f66a46ae8eabaf2d447513c6f557a9b7f4c9aaeb7b2",
+    "bytes": 6054,
+    "size": [
+      74,
+      56
+    ]
+  },
+  {
+    "id": "board-hint-4.webp",
+    "path": "apps/web/public/assets/board-hint-4.webp",
+    "sourceFile": ".data/sources/art/board-4.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2490001830071419102/12FC41A0DCAC03C5C6D8BA57562B9CDD95402E18/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceSha256": "605f6fb43c8021706847d7d9db0d4483a5bfa05fcd09bf15b13e96b6996464bf",
+    "sourceKind": "Original printed board game artwork via public tabletop reference",
+    "processing": "Lossless WebP; source pixel crop (105, 4180, 2635, 4840); no upscaling",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "79868acb57052994ecaaee59d8e828406e750d08fcf4acf900c202aded238fbd",
+    "bytes": 1533918,
+    "size": [
+      2530,
+      660
+    ]
+  },
+  {
+    "id": "board-hint-3.webp",
+    "path": "apps/web/public/assets/board-hint-3.webp",
+    "sourceFile": ".data/sources/art/board-3.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2490001830071445916/16B39A36EFFC1819E5E5E0B1774EB54A1E72C341/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceSha256": "790ec3eb6923d01dddcae6cc710036ea9ddfed828c9896f25a7f4eae1bc38e4d",
+    "sourceKind": "Original printed board game artwork via public tabletop reference",
+    "processing": "Lossless WebP; source pixel crop (115, 160, 2660, 855); no upscaling",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "4d061cbd38b9add8929fe9d96fcb98acbbc1b2828ea9623f04a22d2880abc591",
+    "bytes": 1719718,
+    "size": [
+      2545,
+      695
+    ]
+  },
+  {
+    "id": "city-model-0.svg",
+    "path": "apps/web/public/assets/city-model-0.svg",
+    "sourceFile": ".data/sources/table-feel/city-model.obj",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2433704206239540891/7D806E968AE818199BBF34B12B641B5D7359F8DA/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceSha256": "2d5472be175cbdaee48c565eea95b9a10dc2c73705a69316ed812f2a20f2d92d",
+    "sourceKind": "Community reference mesh",
+    "processing": "Shared OBJ orthographic projection; front faces, painter depth order, diffuse lighting; seat material #db674d",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "b5cee949ea401e2cbd2281a85b2220b912d504303279254831f956050bf1e276",
+    "bytes": 226530
+  },
+  {
+    "id": "city-model-1.svg",
+    "path": "apps/web/public/assets/city-model-1.svg",
+    "sourceFile": ".data/sources/table-feel/city-model.obj",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2433704206239540891/7D806E968AE818199BBF34B12B641B5D7359F8DA/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceSha256": "2d5472be175cbdaee48c565eea95b9a10dc2c73705a69316ed812f2a20f2d92d",
+    "sourceKind": "Community reference mesh",
+    "processing": "Shared OBJ orthographic projection; front faces, painter depth order, diffuse lighting; seat material #66a89d",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "0a743143b6b182c851eb00206718480178de4ca23db357d7d3ee13553b52e30c",
+    "bytes": 228028
+  },
+  {
+    "id": "city-model-2.svg",
+    "path": "apps/web/public/assets/city-model-2.svg",
+    "sourceFile": ".data/sources/table-feel/city-model.obj",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2433704206239540891/7D806E968AE818199BBF34B12B641B5D7359F8DA/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceSha256": "2d5472be175cbdaee48c565eea95b9a10dc2c73705a69316ed812f2a20f2d92d",
+    "sourceKind": "Community reference mesh",
+    "processing": "Shared OBJ orthographic projection; front faces, painter depth order, diffuse lighting; seat material #6e9fcd",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "1c8b867a683c4cd5c63cb7f1b449adc058eb1b0e0aa72675b2b1b3db30a3075d",
+    "bytes": 228580
+  },
+  {
+    "id": "city-model-3.svg",
+    "path": "apps/web/public/assets/city-model-3.svg",
+    "sourceFile": ".data/sources/table-feel/city-model.obj",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2433704206239540891/7D806E968AE818199BBF34B12B641B5D7359F8DA/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceSha256": "2d5472be175cbdaee48c565eea95b9a10dc2c73705a69316ed812f2a20f2d92d",
+    "sourceKind": "Community reference mesh",
+    "processing": "Shared OBJ orthographic projection; front faces, painter depth order, diffuse lighting; seat material #d4b65b",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "132105861fcd134d26fb9152ced616cb51dbb8e4448f78a3ef9659147bb368d7",
+    "bytes": 228714
+  },
+  {
+    "id": "terrain-margin-v1.webp",
+    "path": "apps/web/public/assets/terrain-margin-v1.webp",
+    "sourceUrl": "imagegen://exec-e04f6d70-dd70-4491-ab1e-d8db2ed10b64",
+    "sourceFile": ".data/sources/generated/terrain-margin-v1.png",
+    "sourceSha256": "7e206cabb6b72e2b0b1ce7d6055c76f3a304aec806eb281d4c59298129eac479",
+    "sourceKind": "AI-generated decorative terrain",
+    "processing": "Built-in imagegen terrain reconstruction using board-3 reference; unchanged dimensions, WebP quality 95. Prompt: assets/fan-table-art.md.",
+    "sha256": "ef9215d6ae2461861a6e285e8b3eed9657cef4bedfd0e61c884c8e541811505c",
+    "bytes": 951368,
+    "rights": "Hypergryph original artwork and private friend-play adaptation. Generated terrain is a decorative margin only; no generated rules or map topology."
+  },
+  {
+    "id": "nomad-table-backdrop.webp",
+    "path": "apps/web/public/assets/nomad-table-backdrop.webp",
+    "sourceUrl": "https://web.hycdn.cn/arknights/boardgame_nomadcity/_next/static/media/pv-bg.8156ad94.jpg",
+    "sourceFile": ".data/sources/table-feel/pv-bg.8156ad94.jpg",
+    "sourceSha256": "de0020aaaaf721cee630c4d7d2ae811b7d87474b6eb34c6bc6ad3f9aa6c00c06",
+    "sourceKind": "official website artwork",
+    "processing": "Official Founders PV key visual, unchanged framing; WebP quality 95; subdued and animated in CSS.",
+    "sha256": "b0f4068b98097f10e9ffc7c4ec25782c57b1f9caaa47ab834d93220b8ca00048",
+    "bytes": 121550,
+    "rights": "Hypergryph original artwork and private friend-play adaptation. Generated terrain is a decorative margin only; no generated rules or map topology."
+  },
+  {
+    "id": "role-back.webp",
+    "path": "apps/web/public/assets/role-back.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2490002538882613072/D28A381BADD5629CBA56EA18366B3E34F3D3EE75/",
+    "sourceFile": ".data/sources/table-feel/role-back.png",
+    "sourceSha256": "981cf34614008cbae47de4d196094b4c7aea19f65e2654fa20a88a29bdc7c040",
+    "sourceKind": "public tabletop digitization",
+    "processing": "Original role card back, unchanged framing; WebP quality 95.",
+    "sha256": "d9aa242a56f65a35c9c19a7736d7bcb126bf8a2c084ede81569a0dafc59da89d",
+    "bytes": 173832,
+    "rights": "Hypergryph original artwork and private friend-play adaptation. Generated terrain is a decorative margin only; no generated rules or map topology."
+  },
+  {
+    "id": "board-mask-3.svg",
+    "path": "apps/web/public/assets/board-mask-3.svg",
+    "sourceUrl": "local://tools/prepare-fan-assets.py",
+    "sourceFile": ".data/sources/art/board-3.png",
+    "sourceSha256": "790ec3eb6923d01dddcae6cc710036ea9ddfed828c9896f25a7f4eae1bc38e4d",
+    "sourceKind": "native SVG mask",
+    "processing": "Code-native alpha mask over original board: metal frame, printed reference slips and footer title only. 1.3-unit edge feather.",
+    "sha256": "70f5b5de24c565646847edf27479f586b67f450ee713a3cd6ca36d9ed8cdfb42",
+    "bytes": 591,
+    "rights": "Hypergryph original artwork and private friend-play adaptation. Generated terrain is a decorative margin only; no generated rules or map topology."
+  },
+  {
+    "id": "board-mask-4.svg",
+    "path": "apps/web/public/assets/board-mask-4.svg",
+    "sourceUrl": "local://tools/prepare-fan-assets.py",
+    "sourceFile": ".data/sources/art/board-4.png",
+    "sourceSha256": "605f6fb43c8021706847d7d9db0d4483a5bfa05fcd09bf15b13e96b6996464bf",
+    "sourceKind": "native SVG mask",
+    "processing": "Code-native alpha mask over original board: metal frame, printed reference slips and footer title only. 1.3-unit edge feather.",
+    "sha256": "c1162028dfba66ac16947ad187df87fddc4c3501f1e9d2756c389c9f234e5002",
+    "bytes": 594,
+    "rights": "Hypergryph original artwork and private friend-play adaptation. Generated terrain is a decorative margin only; no generated rules or map topology."
+  },
+  {
+    "id": "cards-625/0-hd.webp",
+    "path": "apps/web/public/assets/cards-625/0-hd.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741255042060/480DBC0752A56513E67B3E3676C93604328AD9B4/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-625.png",
+    "sourceSha256": "e5f0cfd4262b6e58f859249606fd7886070c6eb91adcf33cf51cd51b9a4bc261",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "recorded atlas grid crop at native 650x1850 resolution; no resizing or repainting; WebP quality 96",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "406a4f751b3f6e942ae6eec51c9dcbe08cf0aa2565f77b46d3e0a148cc8674de",
+    "bytes": 287348,
+    "gridIndex": 0,
+    "cropPixels": [
+      0,
+      0,
+      650,
+      1850
+    ],
+    "size": [
+      650,
+      1850
+    ]
+  },
+  {
+    "id": "cards-625/1-hd.webp",
+    "path": "apps/web/public/assets/cards-625/1-hd.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741255042060/480DBC0752A56513E67B3E3676C93604328AD9B4/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-625.png",
+    "sourceSha256": "e5f0cfd4262b6e58f859249606fd7886070c6eb91adcf33cf51cd51b9a4bc261",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "recorded atlas grid crop at native 650x1850 resolution; no resizing or repainting; WebP quality 96",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "0d028be12bbcdaa267c8ac2a18492aee9670edcbff26b760ea08f771e34f9aa9",
+    "bytes": 273978,
+    "gridIndex": 1,
+    "cropPixels": [
+      650,
+      0,
+      1300,
+      1850
+    ],
+    "size": [
+      650,
+      1850
+    ]
+  },
+  {
+    "id": "cards-625/2-hd.webp",
+    "path": "apps/web/public/assets/cards-625/2-hd.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741255042060/480DBC0752A56513E67B3E3676C93604328AD9B4/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-625.png",
+    "sourceSha256": "e5f0cfd4262b6e58f859249606fd7886070c6eb91adcf33cf51cd51b9a4bc261",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "recorded atlas grid crop at native 650x1850 resolution; no resizing or repainting; WebP quality 96",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "3912417fc47757a6f9cd72d3413799b3f575adbff06470719489901e8af760a6",
+    "bytes": 264730,
+    "gridIndex": 2,
+    "cropPixels": [
+      1300,
+      0,
+      1950,
+      1850
+    ],
+    "size": [
+      650,
+      1850
+    ]
+  },
+  {
+    "id": "cards-625/3-hd.webp",
+    "path": "apps/web/public/assets/cards-625/3-hd.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741255042060/480DBC0752A56513E67B3E3676C93604328AD9B4/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-625.png",
+    "sourceSha256": "e5f0cfd4262b6e58f859249606fd7886070c6eb91adcf33cf51cd51b9a4bc261",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "recorded atlas grid crop at native 650x1850 resolution; no resizing or repainting; WebP quality 96",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "9d20b4a7bd9588cb6def3075810d3027e36afa872fc4ec9ef067f37429c7f37f",
+    "bytes": 260516,
+    "gridIndex": 3,
+    "cropPixels": [
+      1950,
+      0,
+      2600,
+      1850
+    ],
+    "size": [
+      650,
+      1850
+    ]
+  },
+  {
+    "id": "cards-625/4-hd.webp",
+    "path": "apps/web/public/assets/cards-625/4-hd.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741255042060/480DBC0752A56513E67B3E3676C93604328AD9B4/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-625.png",
+    "sourceSha256": "e5f0cfd4262b6e58f859249606fd7886070c6eb91adcf33cf51cd51b9a4bc261",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "recorded atlas grid crop at native 650x1850 resolution; no resizing or repainting; WebP quality 96",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "182c2bbca834a80edf833529ed52f7f4b8d217790167c85789fb03389c047166",
+    "bytes": 259338,
+    "gridIndex": 4,
+    "cropPixels": [
+      0,
+      1850,
+      650,
+      3700
+    ],
+    "size": [
+      650,
+      1850
+    ]
+  },
+  {
+    "id": "cards-625/5-hd.webp",
+    "path": "apps/web/public/assets/cards-625/5-hd.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741255042060/480DBC0752A56513E67B3E3676C93604328AD9B4/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-625.png",
+    "sourceSha256": "e5f0cfd4262b6e58f859249606fd7886070c6eb91adcf33cf51cd51b9a4bc261",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "recorded atlas grid crop at native 650x1850 resolution; no resizing or repainting; WebP quality 96",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "1b24d0ddfa30d7725a5b582723f3040283ae9de2183073ceba0886394e76fbca",
+    "bytes": 255716,
+    "gridIndex": 5,
+    "cropPixels": [
+      650,
+      1850,
+      1300,
+      3700
+    ],
+    "size": [
+      650,
+      1850
+    ]
+  },
+  {
+    "id": "cards-625/6-hd.webp",
+    "path": "apps/web/public/assets/cards-625/6-hd.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741255042060/480DBC0752A56513E67B3E3676C93604328AD9B4/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-625.png",
+    "sourceSha256": "e5f0cfd4262b6e58f859249606fd7886070c6eb91adcf33cf51cd51b9a4bc261",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "recorded atlas grid crop at native 650x1850 resolution; no resizing or repainting; WebP quality 96",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "89edd0f885c4640dfd95d98eb8b0ba0da2109b54877a3efbab8a14470b05abc2",
+    "bytes": 251818,
+    "gridIndex": 6,
+    "cropPixels": [
+      1300,
+      1850,
+      1950,
+      3700
+    ],
+    "size": [
+      650,
+      1850
+    ]
+  },
+  {
+    "id": "cards-625/7-hd.webp",
+    "path": "apps/web/public/assets/cards-625/7-hd.webp",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2282824741255042060/480DBC0752A56513E67B3E3676C93604328AD9B4/",
+    "sourceContainer": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "sourceFile": ".data/sources/art/atlas-625.png",
+    "sourceSha256": "e5f0cfd4262b6e58f859249606fd7886070c6eb91adcf33cf51cd51b9a4bc261",
+    "sourceKind": "community-hosted original scan, verified against printed rulebook",
+    "processing": "recorded atlas grid crop at native 650x1850 resolution; no resizing or repainting; WebP quality 96",
+    "rights": "Original boardgame artwork: Hypergryph; public community digitization: Jakobs. Public access does not grant a redistribution license. Intended project use: private friend play; ownership retained by the respective authors.",
+    "sha256": "bbb7ef10e83744afca4798a238d4d176754a91c686cb6ddb7133d70349c87f75",
+    "bytes": 275752,
+    "gridIndex": 7,
+    "cropPixels": [
+      1950,
+      1850,
+      2600,
+      3700
+    ],
+    "size": [
+      650,
+      1850
+    ]
+  }
+]

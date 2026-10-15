@@ -1,0 +1,19 @@
+{
+    servers {
+        max_header_size 16384
+        timeouts {
+            read_header 10s
+            read_body 15s
+            idle 2m
+        }
+    }
+}
+
+{$GAME_SITE} {
+    request_body {
+        max_size 16384
+    }
+    encode zstd gzip
+    reverse_proxy game:3000
+    header -Server
+}

@@ -1,0 +1,36 @@
+{
+    auto_https disable_redirects
+    default_sni {$GAME_IP}
+    servers {
+        max_header_size 16384
+        timeouts {
+            read_header 10s
+            read_body 15s
+            idle 2m
+        }
+    }
+}
+
+(game_proxy) {
+    request_body {
+        max_size 16384
+    }
+    encode zstd gzip
+    reverse_proxy game:3000
+    header -Server
+}
+
+# Preserve existing HTTP browser seats while offering encrypted play to new rooms.
+http://{$GAME_IP} {
+    import game_proxy
+}
+
+https://{$GAME_IP} {
+    tls {
+        issuer acme {
+            dir https://acme-v02.api.letsencrypt.org/directory
+            profile shortlived
+        }
+    }
+    import game_proxy
+}

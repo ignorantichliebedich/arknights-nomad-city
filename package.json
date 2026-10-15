@@ -1,0 +1,44 @@
+{
+  "name": "nomad-city-friends",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.14 <25"
+  },
+  "packageManager": "pnpm@11.25.0",
+  "scripts": {
+    "dev": "node tools/dev.mjs",
+    "build": "tsc --noEmit && vite build --config apps/web/vite.config.ts",
+    "start": "node apps/server/src/index.ts",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "check": "tsc --noEmit",
+    "backup": "node tools/backup.ts",
+    "package:deploy": "node tools/package-deploy.ts",
+    "package:windows": "node tools/package-windows.ts",
+    "assets:catalog": "node tools/catalog.ts",
+    "assets:check": "node tools/verify-assets.ts",
+    "assets:restore": "node tools/restore-assets.ts",
+    "public:audit": "node tools/check-public-repo.ts",
+    "browsers:prepare": "node tools/prepare-browsers.ts",
+    "format": "prettier --write apps packages tests tools/*.ts tools/*.mjs *.json *.ts"
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "@types/node": "^24.10.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@types/ws": "^8.18.1",
+    "@vitejs/plugin-react": "^5.1.0",
+    "prettier": "^3.9.10",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.0",
+    "vitest": "^3.2.4"
+  }
+}

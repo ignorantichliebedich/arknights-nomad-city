@@ -1,0 +1,64 @@
+services:
+  game:
+    build: .
+    restart: unless-stopped
+    read_only: true
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    pids_limit: 128
+    mem_limit: 512m
+    cpus: 1.25
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    environment:
+      ALLOWED_ORIGINS: ${GAME_SCHEME:-https}://${GAME_DOMAIN:?Set GAME_DOMAIN in .env}
+      TRUST_PROXY: "true"
+      MAX_ROOMS: ${MAX_ROOMS:-1000}
+      MAX_WS_CONNECTIONS: ${MAX_WS_CONNECTIONS:-128}
+      MAX_WS_PER_IP: ${MAX_WS_PER_IP:-16}
+      MAX_ROOM_COMMANDS: ${MAX_ROOM_COMMANDS:-10000}
+      AUTO_BACKUPS_KEEP: ${AUTO_BACKUPS_KEEP:-7}
+    volumes:
+      - game-data:/app/data
+      - game-backups:/app/backups
+    expose:
+      - "3000"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    read_only: true
+    cap_drop: ["ALL"]
+    cap_add: ["NET_BIND_SERVICE"]
+    security_opt: ["no-new-privileges:true"]
+    pids_limit: 64
+    mem_limit: 256m
+    cpus: 0.75
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=32m
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      GAME_SITE: ${GAME_SCHEME:-https}://${GAME_DOMAIN:?Set GAME_DOMAIN in .env}
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      game:
+        condition: service_healthy
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+volumes:
+  game-data:
+  game-backups:
+  caddy-data:
+  caddy-config:

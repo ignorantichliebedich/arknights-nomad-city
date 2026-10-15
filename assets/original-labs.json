@@ -1,0 +1,84 @@
+{
+  "component": "rhine-original-departments",
+  "activation": "原版三张科室板共用一个激活科室；提升时所有玩家按当前科室结算，切换时仅操作者结算当前等级奖励。",
+  "activationEvidence": { "type": "printed-manual", "printedPage": 22 },
+  "departments": [
+    {
+      "id": "engineering",
+      "name": "工程科",
+      "rewardEvidenceComplete": true,
+      "source": {
+        "url": "https://steamusercontent-a.akamaihd.net/ugc/2282825689394632887/8F1D80001580DF5B3F528E7B80302B646C2AF857/",
+        "sha256": "51bd7968a71fab1f8ca98784e33d5ef2366b1b1102c7a936fd54b30ff43cc326",
+        "printedPage": 15,
+        "evidenceCrop": ".data/sources/official-guides/engineering-source-evidence.png"
+      },
+      "rewards": {
+        "2": { "gain": { "rock": 3 } },
+        "3": { "gain": { "iron": 2 } },
+        "4": { "cost": { "rock": 3 }, "effect": "build", "free": false },
+        "5": {
+          "cost": { "prime": 1 },
+          "effect": "build",
+          "free": true,
+          "maximumCashPrice": 23
+        }
+      }
+    },
+    {
+      "id": "defense",
+      "name": "防卫科",
+      "rewardEvidenceComplete": true,
+      "source": {
+        "url": "https://i0.hdslb.com/bfs/new_dyn/59e6dbf4987dae8a97decab6b965deca161775300.jpg",
+        "sha256": "698429358464431a9760eacb43643db2543550bd074ec93762ce10f047d98c61",
+        "indexPage": "https://prts.wiki/w/游城拓荒：铸基者",
+        "evidenceCrop": ".data/sources/official-guides/high-yield-evidence.png"
+      },
+      "rewards": {
+        "2": { "gain": { "cash": 7 } },
+        "3": {
+          "cost": { "cash": 3 },
+          "chooseOne": [
+            { "effect": "replace", "count": 1 },
+            { "effect": "shift", "count": 2 }
+          ]
+        },
+        "4": {
+          "cost": { "cash": 12 },
+          "effect": "choose-place-or-remove",
+          "count": 2
+        },
+        "5": { "cost": { "cash": 25 }, "gain": { "prime": 3 } }
+      }
+    },
+    {
+      "id": "structural",
+      "name": "结构科",
+      "rewardEvidenceComplete": true,
+      "source": {
+        "type": "physical-product-video",
+        "url": "https://www.youtube.com/watch?v=IVr7s998U0c&t=440s",
+        "actualSeconds": 440.812479,
+        "dimensions": [1920, 1080],
+        "sha256": "ff34b0379607ca411298e58875f0bc6b0968926fb588d5dc0fb61a5e016b81e1",
+        "evidenceFrame": ".data/sources/public-video/youtube-IVr7s998U0c/frame-440.png"
+      },
+      "rewards": {
+        "2": { "gain": { "ore": 3 } },
+        "3": { "gain": { "score": 1 } },
+        "4": { "cost": { "ore": 3 }, "gain": { "prime": 1 } },
+        "5": { "effect": "downgrade-and-reward" }
+      },
+      "transcription": {
+        "2": "获得3源石。",
+        "3": "获得1分。",
+        "4": "支付3源石，获得1至纯源石。",
+        "5": "你降低1级该企业的企业合作等级，并获得该等级的奖励。"
+      },
+      "note": "正式实物开箱三张科室板正面，结合相邻原始帧逐档核对。五级先降低合作等级，再结算降低后等级奖励；四级费用仍由玩家选择支付。"
+    }
+  ],
+  "packEnabled": true,
+  "enableCondition": "三张科室的全部奖励、图标含义及切换时机均取得原版证据并通过对应规则测试。"
+}

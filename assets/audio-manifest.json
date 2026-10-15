@@ -1,0 +1,110 @@
+[
+  {
+    "id": "click",
+    "path": "apps/web/public/audio/sfx/click.mp3",
+    "sourceUrl": "https://raw.githubusercontent.com/viewweiwu/arknights-react/f2957fe9787aa6bd2ea77d1407ca59094e44d9e3/src/components/AcAudio/audio/g_ui_btn_n.wav",
+    "sourceContainer": "https://github.com/viewweiwu/arknights-react/tree/f2957fe9787aa6bd2ea77d1407ca59094e44d9e3/src/components/AcAudio/audio/",
+    "sourceSha256": "f1379a849fff5d804bdf18aa4a1a9aeda685c928f347dffaf35b9f760b909bdb",
+    "sha256": "d47f4d7f8b60f2fec825ec2c3143790148114269c76665a46b182f63920a1c9e",
+    "bytes": 3224,
+    "duration": 0.220181,
+    "processing": "Original Arknights UI SFX; mono 44.1 kHz MP3, VBR quality 5; complete clip",
+    "rights": "Original Arknights audio belongs to Hypergryph and its respective rights holders. Public resource mirror, not an independent redistribution license; excluded from the public source repository. Used for private friend play."
+  },
+  {
+    "id": "select",
+    "path": "apps/web/public/audio/sfx/select.mp3",
+    "sourceUrl": "https://raw.githubusercontent.com/viewweiwu/arknights-react/f2957fe9787aa6bd2ea77d1407ca59094e44d9e3/src/components/AcAudio/audio/g_ui_tabswitch.wav",
+    "sourceContainer": "https://github.com/viewweiwu/arknights-react/tree/f2957fe9787aa6bd2ea77d1407ca59094e44d9e3/src/components/AcAudio/audio/",
+    "sourceSha256": "89e71fb881540fe6875f0c9f8fdfadf7cd2ffaed735d085ce45b8807a7318b36",
+    "sha256": "37b422dc4a09d79b19905586706874fa3e39169d5312101c9ff6ced5c6f11ff5",
+    "bytes": 3978,
+    "duration": 0.364717,
+    "processing": "Original Arknights UI SFX; mono 44.1 kHz MP3, VBR quality 5; complete clip",
+    "rights": "Original Arknights audio belongs to Hypergryph and its respective rights holders. Public resource mirror, not an independent redistribution license; excluded from the public source repository. Used for private friend play."
+  },
+  {
+    "id": "confirm",
+    "path": "apps/web/public/audio/sfx/confirm.mp3",
+    "sourceUrl": "https://raw.githubusercontent.com/viewweiwu/arknights-react/f2957fe9787aa6bd2ea77d1407ca59094e44d9e3/src/components/AcAudio/audio/g_ui_confirm.wav",
+    "sourceContainer": "https://github.com/viewweiwu/arknights-react/tree/f2957fe9787aa6bd2ea77d1407ca59094e44d9e3/src/components/AcAudio/audio/",
+    "sourceSha256": "b648fc8ce1d935e89175a95b7c1d73983df46b5a4771117ecb1fd9e731bf1cb4",
+    "sha256": "29d28bea674c7f35def5613ece4e5f635f7b273cd55194e5435ecaa8f9cc9b60",
+    "bytes": 7023,
+    "duration": 0.680249,
+    "processing": "Original Arknights UI SFX; mono 44.1 kHz MP3, VBR quality 5; complete clip",
+    "rights": "Original Arknights audio belongs to Hypergryph and its respective rights holders. Public resource mirror, not an independent redistribution license; excluded from the public source repository. Used for private friend play."
+  },
+  {
+    "id": "back",
+    "path": "apps/web/public/audio/sfx/back.mp3",
+    "sourceUrl": "https://raw.githubusercontent.com/viewweiwu/arknights-react/f2957fe9787aa6bd2ea77d1407ca59094e44d9e3/src/components/AcAudio/audio/g_ui_back.wav",
+    "sourceContainer": "https://github.com/viewweiwu/arknights-react/tree/f2957fe9787aa6bd2ea77d1407ca59094e44d9e3/src/components/AcAudio/audio/",
+    "sourceSha256": "6b2dd66c7940bda69eb3d96463483e297f254b9e5335ae0085216bade3a3d486",
+    "sha256": "fc176fc1e1c522d5f66535edadbb938b5cef85e1cd4ca83531f38d4f5fb3cf88",
+    "bytes": 9291,
+    "duration": 0.901701,
+    "processing": "Original Arknights UI SFX; mono 44.1 kHz MP3, VBR quality 5; complete clip",
+    "rights": "Original Arknights audio belongs to Hypergryph and its respective rights holders. Public resource mirror, not an independent redistribution license; excluded from the public source repository. Used for private friend play."
+  },
+  {
+    "id": "open",
+    "path": "apps/web/public/audio/sfx/open.mp3",
+    "sourceUrl": "https://raw.githubusercontent.com/viewweiwu/arknights-react/f2957fe9787aa6bd2ea77d1407ca59094e44d9e3/src/components/AcAudio/audio/g_ui_popup.wav",
+    "sourceContainer": "https://github.com/viewweiwu/arknights-react/tree/f2957fe9787aa6bd2ea77d1407ca59094e44d9e3/src/components/AcAudio/audio/",
+    "sourceSha256": "0a55478f008f0e2954593203d0329a1acd83e41a59af141c390a456de7b908f2",
+    "sha256": "71a24e392215ab2cf817e3a51799b68aeffee6d0662ea01c01936a00b280f2fb",
+    "bytes": 6190,
+    "duration": 0.78517,
+    "processing": "Original Arknights UI SFX; mono 44.1 kHz MP3, VBR quality 5; complete clip",
+    "rights": "Original Arknights audio belongs to Hypergryph and its respective rights holders. Public resource mirror, not an independent redistribution license; excluded from the public source repository. Used for private friend play."
+  },
+  {
+    "id": "move",
+    "path": "apps/web/public/audio/sfx/move.mp3",
+    "sourceUrl": "https://raw.githubusercontent.com/viewweiwu/arknights-react/f2957fe9787aa6bd2ea77d1407ca59094e44d9e3/src/components/AcAudio/audio/g_ui_stagepull.wav",
+    "sourceContainer": "https://github.com/viewweiwu/arknights-react/tree/f2957fe9787aa6bd2ea77d1407ca59094e44d9e3/src/components/AcAudio/audio/",
+    "sourceSha256": "d1027a1cc4656bf4a5191004085ae68bb8f6431fb2a3fdf42b66c282efeb8aff",
+    "sha256": "a24e67754f4bb069d6f6efc18cf89b2a951d19d3c8502a9e102da5ef6e7520d0",
+    "bytes": 8784,
+    "duration": 1.245011,
+    "processing": "Original Arknights UI SFX; mono 44.1 kHz MP3, VBR quality 5; complete clip",
+    "rights": "Original Arknights audio belongs to Hypergryph and its respective rights holders. Public resource mirror, not an independent redistribution license; excluded from the public source repository. Used for private friend play."
+  },
+  {
+    "id": "reward",
+    "path": "apps/web/public/audio/sfx/reward.mp3",
+    "sourceUrl": "https://raw.githubusercontent.com/viewweiwu/arknights-react/f2957fe9787aa6bd2ea77d1407ca59094e44d9e3/src/components/AcAudio/audio/g_ui_rewardrecieve_each.wav",
+    "sourceContainer": "https://github.com/viewweiwu/arknights-react/tree/f2957fe9787aa6bd2ea77d1407ca59094e44d9e3/src/components/AcAudio/audio/",
+    "sourceSha256": "1bc3f00d5663e8292374a1ddefd8f41a0a0e442b9bc39990b17a8215c51e9c00",
+    "sha256": "a2413418af17313b85c7cab1546295c6396c9915b70f9119153bbed926348eca",
+    "bytes": 5901,
+    "duration": 0.777642,
+    "processing": "Original Arknights UI SFX; mono 44.1 kHz MP3, VBR quality 5; complete clip",
+    "rights": "Original Arknights audio belongs to Hypergryph and its respective rights holders. Public resource mirror, not an independent redistribution license; excluded from the public source repository. Used for private friend play."
+  },
+  {
+    "id": "card",
+    "path": "apps/web/public/audio/sfx/card.mp3",
+    "sourceUrl": "https://raw.githubusercontent.com/viewweiwu/arknights-react/f2957fe9787aa6bd2ea77d1407ca59094e44d9e3/src/components/AcAudio/audio/g_card_checkout.wav",
+    "sourceContainer": "https://github.com/viewweiwu/arknights-react/tree/f2957fe9787aa6bd2ea77d1407ca59094e44d9e3/src/components/AcAudio/audio/",
+    "sourceSha256": "eb88ce5263ece233c8750c7028aa149b1d1dca747d6cd4d08018dcc38031c2a8",
+    "sha256": "bd89fe53f627370a43d423b06af177ac25a1b164ee19a8ef05ba777763328e33",
+    "bytes": 5070,
+    "duration": 0.6,
+    "processing": "Original Arknights UI SFX; mono 44.1 kHz MP3, VBR quality 5; first 0.6 s with 40 ms fade-out",
+    "rights": "Original Arknights audio belongs to Hypergryph and its respective rights holders. Public resource mirror, not an independent redistribution license; excluded from the public source repository. Used for private friend play."
+  },
+  {
+    "id": "lift",
+    "path": "apps/web/public/audio/sfx/lift.mp3",
+    "sourceUrl": "https://raw.githubusercontent.com/viewweiwu/arknights-react/f2957fe9787aa6bd2ea77d1407ca59094e44d9e3/src/components/AcAudio/audio/g_ui_slide.wav",
+    "sourceContainer": "https://github.com/viewweiwu/arknights-react/tree/f2957fe9787aa6bd2ea77d1407ca59094e44d9e3/src/components/AcAudio/audio/",
+    "sourceSha256": "cd2c4681cb94deaeada2c79f449d34d40b08fbe8250aeefeeac10ff02d53d151",
+    "sha256": "8957cddecae1d0018ec444d4091449a80f0c4ab8a1612a0f6ef5ec197a44e672",
+    "bytes": 6014,
+    "duration": 0.38,
+    "processing": "Original Arknights UI SFX; mono 44.1 kHz MP3, VBR quality 5; first 0.38 s with 40 ms fade-out",
+    "rights": "Original Arknights audio belongs to Hypergryph and its respective rights holders. Public resource mirror, not an independent redistribution license; excluded from the public source repository. Used for private friend play."
+  }
+]

@@ -1,0 +1,656 @@
+/* Operation sheets share the expedition kit's paper, ink and brass fittings. */
+.dossier-window {
+  --dossier-ink: #332e25;
+  --dossier-paper: #f0e8d7;
+  --dossier-brass: #a48851;
+  color: var(--dossier-ink);
+  background:
+    repeating-linear-gradient(0deg, #8d744606 0 1px, transparent 1px 4px),
+    linear-gradient(115deg, #f7f1e5, var(--dossier-paper));
+  border: 1px solid #bfa474;
+  border-radius: 3px;
+  box-shadow:
+    0 28px 100px #100e0bcc,
+    0 0 0 5px #2c261fc2,
+    inset 0 0 0 4px #b59a6530;
+  scrollbar-width: thin;
+  scrollbar-color: #b49d73 #eee4d0;
+  animation: dossier-arrives 260ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.dossier-window::backdrop {
+  background: #1714109c;
+  backdrop-filter: blur(4px) saturate(0.7);
+}
+.dossier-window .modal-heading {
+  flex-shrink: 0;
+  min-height: 65px;
+  padding: 11px 23px;
+  color: #f3e5c8;
+  background:
+    linear-gradient(115deg, #b19a6820, transparent 50%),
+    repeating-linear-gradient(90deg, #e8d9ad04 0 1px, transparent 1px 5px),
+    #2d2821;
+  border-bottom: 3px double #a58a54;
+  box-shadow: inset 0 5px #b79b6533;
+}
+.dossier-window .modal-heading h2 {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 20px;
+  font-family: Georgia, "Noto Serif SC", "Songti SC", SimSun, serif;
+  letter-spacing: 0.12em;
+}
+.dossier-window .modal-heading h2::before {
+  content: "";
+  display: block;
+  width: 23px;
+  height: 29px;
+  flex-shrink: 0;
+  transform: skew(-9deg);
+  border: 1px solid #c6ac72;
+  background: repeating-linear-gradient(
+      90deg,
+      transparent 0 3px,
+      #c6ac72 3px 4px,
+      transparent 4px 7px
+    )
+    center / 14px 19px no-repeat;
+  box-shadow: 3px 3px #b99b6226;
+}
+.dossier-window .modal-heading .icon-button {
+  color: #e0cba0;
+  background: #bda4770c;
+  border: 1px solid #bda4774d;
+  border-radius: 2px;
+  width: 34px;
+  height: 34px;
+  font-size: 22px;
+  transition:
+    background 160ms,
+    color 160ms;
+}
+.dossier-window .modal-heading .icon-button:hover {
+  color: #fff3d7;
+  background: #bda47725;
+}
+.dossier-window :focus-visible {
+  outline: 2px solid #91681c;
+  outline-offset: 3px;
+}
+.dossier-window .modal-heading :focus-visible,
+.dossier-window .commit-tray :focus-visible {
+  outline-color: #f1cf85;
+}
+.dossier-window.interaction-window {
+  width: min(920px, calc(100vw - 48px));
+  max-height: calc(100dvh - 48px);
+}
+.dossier-window.interaction-window:has(.enterprise-offers) {
+  width: min(1100px, calc(100vw - 48px));
+}
+.dossier-window.interaction-window:has(.enterprise-offers[data-count="1"]),
+.dossier-window.interaction-window:has(.enterprise-offers[data-count="2"]) {
+  width: min(780px, calc(100vw - 48px));
+}
+.dossier-window.interaction-window:has(.build-picker) {
+  width: min(1040px, calc(100vw - 48px));
+}
+.dossier-window .composer-body {
+  padding: 18px 22px 22px;
+  scrollbar-width: thin;
+  scrollbar-color: #b49d73 #eee4d0;
+}
+.dossier-window .decision-title {
+  padding: 0;
+  color: #3b3225;
+  font-size: 20px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+.dossier-window .interaction-hint {
+  padding: 6px 0 15px;
+  margin: 0 0 16px;
+  border-bottom: 1px solid #bba57d70;
+  color: #77664b;
+  font-size: 12px;
+}
+.dossier-window .action-list {
+  gap: 10px;
+  padding: 0;
+}
+.dossier-window .action-button {
+  min-height: 64px;
+  padding: 12px 15px;
+  color: #473b29;
+  background: #fffcf28c;
+  border: 1px solid #c9b999;
+  border-bottom-color: #b4a17c;
+  box-shadow: 0 2px 0 #d3c5a947;
+  transition:
+    background 160ms,
+    border-color 160ms,
+    box-shadow 160ms;
+}
+.dossier-window .action-button:hover:not(:disabled) {
+  background: #fffaf0;
+  border-color: #a2864f;
+  box-shadow: 0 3px 8px #67512821;
+}
+.dossier-window .action-button.picked,
+.dossier-window .action-button.picked:hover:not(:disabled) {
+  color: #513814;
+  border-color: #967036;
+  background: #efdfb9;
+  box-shadow:
+    inset 3px 0 #9e783d,
+    0 2px 0 #c8b38a55;
+}
+.dossier-window .action-button > span:last-child {
+  color: #886e42;
+}
+.dossier-window .action-button.end-action {
+  color: #f0dfba;
+  background: #514638;
+  border-color: #7e6c50;
+  margin-top: 0;
+}
+.dossier-window .action-button.end-action:hover:not(:disabled),
+.dossier-window .action-button.end-action.picked {
+  background: #65523b;
+}
+.dossier-window .action-button.end-action > span:last-child {
+  color: #e2c58c;
+}
+.dossier-window .action-emblem {
+  display: grid;
+  place-items: center;
+  flex: 0 0 42px !important;
+  height: 42px;
+  color: #896b36;
+  border: 1px solid #c1a77675;
+  background: #dac69d26;
+  box-shadow: inset 0 0 0 3px #fffcf04d;
+}
+.action-emblem svg {
+  display: block;
+  width: 30px;
+  height: 30px;
+}
+.action-emblem + span {
+  flex: 1;
+}
+.dossier-window .action-explanation {
+  margin: 0 0 18px;
+  padding: 14px 17px;
+  border: 1px solid #c3af86;
+  border-left: 3px solid #967136;
+  background: #e6d9bc70;
+  color: #5e4d32;
+}
+.dossier-window .action-explanation p {
+  margin: 3px 0;
+}
+.dossier-window .choice-detail-button {
+  color: #7a6034;
+  background: #e8dcc4;
+  border-color: #c7b58f;
+}
+.dossier-window .choice-detail-button:hover {
+  background: #f8edda;
+}
+.dossier-window .choice-search {
+  background: #fffcf4;
+  border-color: #c6b48f;
+  color: #493d29;
+  margin: 0 0 12px;
+}
+.dossier-window .return-to-map {
+  padding: 12px 23px;
+  background: #e4d8bf;
+  border-color: #c5b28b;
+  color: #69502a;
+}
+.dossier-window .return-to-map:hover {
+  background: #efe2c7;
+}
+.dossier-window .commit-tray {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 22px;
+  padding: 15px 23px;
+  color: #f2e2c1;
+  background: linear-gradient(110deg, #3d3328, #2c2720);
+  border-top: 3px double #a58a54;
+  box-shadow: 0 -4px 12px #49381b0d;
+}
+.dossier-window .commit-caption {
+  grid-column: 1;
+  color: #c5ad7f;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+.dossier-window .commit-tray > strong {
+  grid-column: 1;
+  margin: 4px 0 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+.dossier-window .commit-tray > div {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  align-items: center;
+}
+.dossier-window .commit-tray button {
+  padding: 11px 18px;
+  min-height: 42px;
+  border-radius: 2px;
+}
+.dossier-window .primary-button {
+  background: #87632d;
+  border: 1px solid #bb9857;
+  color: #fff6de;
+  box-shadow: inset 0 0 0 2px #f0d5a013;
+}
+.dossier-window .primary-button:hover:not(:disabled) {
+  background: #9c7334;
+}
+.dossier-window .commit-tray .primary-button {
+  min-width: 160px;
+}
+.dossier-window .commit-tray .secondary-button {
+  border: 1px solid #b79a654a;
+  color: #ddc89e;
+  background: transparent;
+}
+.dossier-window .commit-tray button:disabled {
+  opacity: 0.42;
+}
+.dossier-window .event-art {
+  margin: 18px 0 18px 20px;
+  padding: 14px;
+  color: #d6bd8b;
+  background: #494032;
+  border: 1px solid #ac9060;
+  box-shadow:
+    inset 0 0 0 4px #645642,
+    0 3px 5px #34271b1c;
+}
+.dossier-window .build-picker h3 {
+  color: #68502a;
+}
+.dossier-window .build-picker h3 b {
+  background: #79613a;
+}
+.dossier-window .build-card > button:first-child {
+  color: #4c3d25;
+  background: #fbf5e8;
+  border-color: #c6b18a;
+}
+.dossier-window .build-card > button.picked {
+  background: #efdfb9;
+  border-color: #957134;
+  box-shadow: inset 0 0 0 2px #957134;
+}
+.dossier-window .build-card > button:last-child {
+  color: #79613a;
+}
+.dossier-window .build-card {
+  background: #f5eddc;
+  border-color: #c9b58c;
+}
+.dossier-window .build-city-grid {
+  background: #d8c9ab;
+  border-color: #b39a6a;
+}
+.dossier-window .build-city-grid button {
+  border-color: #bfaa7c;
+  background: #f2e7cc;
+  color: #81673b;
+}
+.dossier-window .build-city-grid button:disabled {
+  background: #b9a98a;
+}
+.dossier-window .table-receipt {
+  padding: 22px 26px;
+}
+.dossier-window .supply-workshop {
+  padding: 22px 24px 26px;
+}
+.dossier-window .supply-intro h3 {
+  color: #4d3b24;
+}
+.dossier-window .supply-intro small,
+.dossier-window .supply-intro > span,
+.dossier-window .supply-workshop > p {
+  color: #7a6747;
+}
+.dossier-window .supply-card,
+.dossier-window .supply-patterns article {
+  background: #443b2f;
+  border-color: #a88e5f;
+  border-radius: 2px;
+  box-shadow: 0 3px 6px #58401e21;
+}
+.dossier-window .supply-card .secondary-button,
+.dossier-window .supply-patterns .secondary-button {
+  background: #5c503c;
+  color: #f3dfb1;
+  border-color: #a68c57;
+  border-radius: 2px;
+}
+.dossier-window .pattern-city-grid {
+  background: #d4c3a2;
+  border-color: #ad9162;
+}
+.dossier-window .pattern-city-grid > div {
+  border-color: #b29c74;
+  background: #554a37;
+}
+.dossier-window .pattern-city-grid small {
+  background: #34291edb;
+}
+.dossier-window .pattern-city-grid .matched {
+  border-color: #f1cf79;
+}
+.dossier-window .pattern-picker p {
+  color: #726044;
+}
+.dossier-window .journal-panel {
+  background: transparent;
+  border: 0;
+  padding: 8px 14px 16px;
+}
+.dossier-window .journal-panel .section-label {
+  border-color: #c7b58f;
+  color: #71552e;
+}
+.dossier-window .journal-entry {
+  color: #69583c;
+  border-color: #c9b79355;
+}
+.dossier-window .journal-entry p strong {
+  color: #60431d;
+}
+.dossier-window .journal-round {
+  color: #917449;
+}
+.dossier-window .card-detail {
+  color: #4e402c;
+}
+.dossier-window .card-artwork > button {
+  color: #71542a;
+  border: 1px solid #c3ad82;
+  background: #e4d5b6;
+}
+
+/* The official printed brand header is the face of each compact dossier. */
+.dossier-window .enterprise-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 13px;
+  align-items: stretch;
+}
+.enterprise-offers:is([data-count="1"], [data-count="2"])
+  .enterprise-choice-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.enterprise-offers[data-count="3"] .enterprise-choice-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.enterprise-offer {
+  min-width: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  border: 1px solid #bdae91;
+  border-bottom: 3px solid #af9b77;
+  background: #faf4e8;
+  box-shadow: 0 3px 8px #604c2f1a;
+  transition:
+    transform 180ms,
+    box-shadow 180ms,
+    border-color 180ms;
+}
+.enterprise-offer:hover,
+.enterprise-offer:focus-within {
+  border-color: var(--brand-color);
+  box-shadow: 0 6px 15px #604c2f2a;
+  transform: translateY(-3px);
+}
+.enterprise-offer.is-picked {
+  border-color: var(--brand-color);
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--brand-color), transparent 22%),
+    0 4px 12px #604c2f2a;
+}
+.dossier-window .enterprise-offer-select.action-button {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 0;
+  gap: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  min-height: 0;
+}
+.dossier-window .enterprise-offer-select:hover:not(:disabled),
+.dossier-window .enterprise-offer-select.picked {
+  background: transparent;
+  box-shadow: none;
+}
+.dossier-window .enterprise-offer-select > span:first-of-type {
+  flex: none;
+}
+.enterprise-offer-art {
+  display: block;
+  position: relative;
+  aspect-ratio: 650 / 320;
+  overflow: hidden;
+  background: var(--brand-color);
+  border-bottom: 2px solid var(--brand-color);
+}
+.dossier-window .enterprise-offer-art img {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: initial;
+  transform: translateY(-2.3%);
+}
+.enterprise-offer-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 13px 11px 12px;
+  color: #443722 !important;
+}
+.enterprise-offer-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+}
+.enterprise-offer-heading strong {
+  font-size: 18px;
+  letter-spacing: 0.04em;
+}
+.enterprise-offer-check {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  color: #988464;
+  border: 1px solid #c4b394;
+  font-size: 16px;
+  transition:
+    background 160ms,
+    color 160ms;
+}
+.is-picked .enterprise-offer-check {
+  background: var(--brand-color);
+  border-color: var(--brand-color);
+  color: #fff;
+}
+.enterprise-offer-profile {
+  display: block;
+  margin-top: 5px;
+  color: #877457;
+  font-size: 11px;
+}
+.enterprise-offer-action {
+  align-self: flex-start;
+  padding: 3px 7px;
+  margin-top: 8px;
+  border: 1px solid color-mix(in srgb, var(--brand-color), transparent 60%);
+  color: color-mix(in srgb, var(--brand-color), #332a1c 35%);
+  background: color-mix(in srgb, var(--brand-color), transparent 94%);
+  font-size: 12px;
+  font-weight: 600;
+}
+.enterprise-offer-feature {
+  display: grid;
+  gap: 6px;
+  border-top: 1px solid #ccb99473;
+  padding-top: 11px;
+  margin-top: 12px;
+  font-size: 12px;
+  line-height: 1.75;
+}
+.enterprise-offer-level {
+  font-size: 10px;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--brand-color), #322719 30%);
+}
+.dossier-window .enterprise-offer-detail {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 0 0 auto;
+  padding: 9px 12px;
+  border: 0;
+  border-top: 1px dashed #c4b392;
+  background: #ebe1cb;
+  color: #725c37;
+  font-size: 11px;
+}
+.dossier-window .enterprise-other-options {
+  margin-top: 12px;
+}
+.enterprise-offer-insight {
+  margin-top: 20px;
+}
+.enterprise-insight-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 9px;
+  padding-left: 10px;
+  border-left: 3px solid var(--brand-color);
+  font-size: 13px;
+  color: #594628;
+}
+.enterprise-insight-heading strong > span {
+  margin-left: 7px;
+  font-size: 11px;
+  font-weight: 400;
+}
+.enterprise-insight-heading > span {
+  color: #79684c;
+  font-size: 10px;
+}
+.enterprise-offer-insight ol {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #c7b48e;
+  background: #fffbf094;
+}
+.enterprise-offer-insight li {
+  padding: 9px 10px;
+  border-right: 1px solid #c7b48e7a;
+}
+.enterprise-offer-insight li:last-child {
+  border-right: 0;
+}
+.enterprise-insight-level {
+  font-size: 20px;
+  font-family: Georgia, serif;
+  color: color-mix(in srgb, var(--brand-color), #352b1b 30%);
+}
+.enterprise-insight-level small {
+  font: 10px sans-serif;
+  margin-left: 4px;
+}
+.enterprise-offer-insight p {
+  margin: 5px 0 0;
+  font-size: 11px;
+  color: #655437;
+  line-height: 1.8;
+}
+.enterprise-offer .enterprise-amount .stock-token,
+.enterprise-offer-insight .enterprise-amount .stock-token {
+  width: 15px;
+  height: 16px;
+}
+@keyframes dossier-arrives {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (max-width: 850px) {
+  .dossier-window .enterprise-offers .enterprise-choice-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .enterprise-offer-insight ol {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .enterprise-offer-insight li {
+    border-bottom: 1px solid #c7b48e7a;
+  }
+  .dossier-window .composer-body {
+    padding: 16px;
+  }
+  .dossier-window .commit-tray {
+    gap: 8px;
+    padding: 12px 16px;
+  }
+  .dossier-window .commit-tray > div {
+    grid-column: 1 / -1;
+    grid-row: 3;
+  }
+  .dossier-window .commit-tray .primary-button {
+    min-width: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dossier-window {
+    animation: none;
+  }
+  .enterprise-offer,
+  .enterprise-offer-check,
+  .dossier-window .action-button,
+  .dossier-window .icon-button {
+    transition: none;
+  }
+  .enterprise-offer:hover,
+  .enterprise-offer:focus-within {
+    transform: none;
+  }
+}
