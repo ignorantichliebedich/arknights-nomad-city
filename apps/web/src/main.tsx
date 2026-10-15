@@ -36,6 +36,14 @@ import { FullscreenWelcome } from "./components/FullscreenWelcome.tsx";
 import { AudioSettings } from "./components/AudioSettings.tsx";
 import { GameSoundFeedback } from "./components/GameSoundFeedback.tsx";
 import { gameAudio } from "./audio.ts";
+import {
+  useDisplayMode,
+  displaySnapshot,
+  enterGameFullscreen,
+  exitGameFullscreen,
+} from "./display-mode.ts";
+import { ResourceStock } from "./components/ResourceStock.tsx";
+import { useMapTouch } from "./useMapTouch.ts";
 import { InvitationPass } from "./components/InvitationPass.tsx";
 import { BoardMap, mapBounds } from "./components/BoardMap.tsx";
 import { RoutePanel } from "./components/MapRoutes.tsx";
@@ -62,6 +70,7 @@ import "./event-encounter.css";
 import "./direct-deployment.css";
 import "./bots-practice.css";
 import "./entry-audio.css";
+import "./phone.css";
 import {
   InfluencePreview,
   type InfluenceTransfer,
@@ -140,6 +149,7 @@ function Modal({
   );
 }
 function App() {
+  const display = useDisplayMode();
   const [code, setCode] = useState(currentCode);
   const [token, setToken] = useState(() => readCredential(currentCode()));
   const [name, setName] = useState(
@@ -209,13 +219,23 @@ function App() {
   }
   return (
     <div
-      className={`app-shell ${playing ? "" : "expedition-shell"}`}
+      className={`app-shell ${playing ? "" : "expedition-shell"} ${display.phone ? "phone-layout" : ""}`}
+      style={
+        display.phone
+          ? ({ "--app-height": `${display.height}px` } as React.CSSProperties)
+          : undefined
+      }
       onClickCapture={(event) => {
         buttonFeedback(event);
         gameAudio.handleClick(event.nativeEvent);
       }}
     >
       {!playing && <ExpeditionAtmosphere />}
+      {display.phone && display.portrait && display.fullscreen && (
+        <div className="phone-rotate-hint" role="status">
+          <span aria-hidden="true">↻</span> 横放手机，展开横屏棋桌
+        </div>
+      )}
       <header className={`topbar ${playing ? "in-game" : "staging-header"}`}>
         <button className="brand" onClick={home} aria-label="返回游戏入口">
           <span className="brand-mark">▥</span>
@@ -233,6 +253,28 @@ function App() {
           >
             声音
           </button>
+          {display.phone && (
+            <>
+              <button
+                className="subtle-button phone-fullscreen"
+                onClick={() =>
+                  void (
+                    display.nativeFullscreen
+                      ? exitGameFullscreen()
+                      : enterGameFullscreen()
+                  ).catch(() => {})
+                }
+              >
+                {display.nativeFullscreen ? "退出全屏" : "全屏"}
+              </button>
+              <button
+                className="subtle-button phone-guide"
+                onClick={() => setGuide("tutorial")}
+              >
+                指南
+              </button>
+            </>
+          )}
           {practice.active ? (
             <span className="practice-status">本地实操练习</span>
           ) : (
@@ -282,6 +324,7 @@ function App() {
           key={`practice-${practice.snapshot.lesson}-${practice.attempt}`}
           net={practice.net}
           training={<PracticeGuide practice={practice} />}
+          phone={display.phone}
         />
       ) : !code || !token ? (
         <ExpeditionEntry
@@ -298,7 +341,7 @@ function App() {
           onHome={home}
         />
       ) : activeRoom ? (
-        <GameRoom net={net} />
+        <GameRoom net={net} phone={display.phone} />
       ) : (
         <main className="connection-screen">
           <span className="brand-mark">▥</span>
@@ -386,16 +429,18 @@ function App() {
           <AudioSettings />
         </Modal>
       )}
-      <FullscreenWelcome />
+      <FullscreenWelcome phone={display.phone} />
     </div>
   );
 }
 function GameRoom({
   net,
   training,
+  phone = false,
 }: {
   net: ReturnType<typeof useRoom>;
   training?: React.ReactNode;
+  phone?: boolean;
 }) {
   const room = net.room!;
   const game = room.game;
@@ -445,6 +490,7 @@ function GameRoom({
   const [tableFullscreen, setTableFullscreen] = useState(false);
   const table = useRef<HTMLElement>(null);
   const [zoom, setZoom] = useState(1);
+  const touchMap = useMapTouch(zoom, setZoom);
   const [boardSide, setBoardSide] = useState(650);
   const [mapGutter, setMapGutter] = useState(180);
   const boardViewport = useRef<HTMLDivElement>(null);
@@ -671,8 +717,8 @@ function GameRoom({
     setConfirm(null);
   }
   async function fullscreen() {
-    if (document.fullscreenElement) await document.exitFullscreen();
-    else await table.current?.requestFullscreen();
+    if (displaySnapshot().fullscreen) await exitGameFullscreen();
+    else await enterGameFullscreen();
   }
   const me = game?.players.find((p) => p.id === room.me);
   const activeId = game?.parallel
@@ -818,12 +864,29 @@ function GameRoom({
         />
       ) : (
         <main className="game-layout" ref={table}>
+          {phone && (
+            <div className="phone-resource-hud">
+              <ResourceStock wallet={me!.wallet} />
+              <button
+                popoverTarget="phone-dashboard"
+                aria-label="查看资源、玩家与城市"
+                aria-haspopup="dialog"
+              >
+                {game.phase === "finished" ? "终局详情" : "配件盘"}{" "}
+                <span aria-hidden="true">↗</span>
+              </button>
+            </div>
+          )}
           <section
             className="table-area"
             style={{ "--map-gutter": `${mapGutter}px` } as React.CSSProperties}
           >
             {training}
-            <div className="board-toolbar">
+            <div
+              className="board-toolbar"
+              id="phone-camera-controls"
+              popover={phone ? "auto" : undefined}
+            >
               <div>
                 <span className="phase-dot" />
                 <strong>
@@ -875,6 +938,7 @@ function GameRoom({
             <div
               className={`board-viewport ${zoom > 1 ? "can-pan" : ""}`}
               ref={boardViewport}
+              {...touchMap}
               tabIndex={0}
               aria-label="棋盘视野，放大后可拖动空白处或使用滚动条"
               onPointerDown={(e) => {
@@ -1100,7 +1164,7 @@ function GameRoom({
                   </div>
                 )}
             </ActiveEntrepreneur>
-            <BoardEdgeHints game={game} />
+            {!phone && <BoardEdgeHints game={game} />}
             <RoutePanel
               game={game}
               selected={confirm}
@@ -1140,6 +1204,7 @@ function GameRoom({
               onCommit={commit}
               onDetail={setDetail}
               onAction={() => showInteraction("action")}
+              touch={phone}
             />
             <nav className="map-dock" aria-label="地图旁操作">
               <button
@@ -1172,9 +1237,41 @@ function GameRoom({
                 </span>
                 <strong>拓荒日志</strong>
               </button>
+              {phone && (
+                <button
+                  popoverTarget="phone-camera-controls"
+                  aria-label="调整棋盘视野"
+                >
+                  <strong>视野</strong>
+                </button>
+              )}
             </nav>
           </section>
-          <aside className="game-sidebar">
+          <aside
+            className="game-sidebar"
+            id="phone-dashboard"
+            popover={phone ? "auto" : undefined}
+            role={phone ? "dialog" : undefined}
+            aria-label={phone ? "资源、玩家与城市" : undefined}
+          >
+            {phone && (
+              <div className="phone-dashboard-heading">
+                <h2>资源、玩家与城市</h2>
+                <button
+                  popoverTarget="phone-dashboard"
+                  popoverTargetAction="hide"
+                  aria-label="关闭配件盘"
+                  autoFocus
+                >
+                  ×
+                </button>
+              </div>
+            )}
+            {phone && (
+              <div className="phone-board-reference">
+                <BoardEdgeHints game={game} />
+              </div>
+            )}
             <TableDashboard
               game={game}
               activeId={activeId}

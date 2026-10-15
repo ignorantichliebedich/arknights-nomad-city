@@ -1,0 +1,806 @@
+/* A touch table: the map keeps the screen, the equipment tray opens on demand. */
+.phone-resource-hud,
+.phone-dashboard-heading {
+  display: none;
+}
+.phone-layout {
+  --phone-ink: #372c20;
+  --phone-paper: #efe3c8;
+  --phone-brass: #ab8d56;
+  min-width: 0;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.phone-layout button {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.phone-layout input:not([type="checkbox"]):not([type="range"]),
+.phone-layout select,
+.phone-layout textarea {
+  font-size: 16px;
+}
+.phone-layout .topbar {
+  height: 44px;
+  min-height: 44px;
+  padding: 0 max(8px, env(safe-area-inset-right)) 0
+    max(8px, env(safe-area-inset-left));
+  border-bottom-width: 1px;
+  gap: 8px;
+}
+.phone-layout .topbar .brand {
+  gap: 5px;
+  flex-shrink: 0;
+}
+.phone-layout .topbar .brand strong {
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+.phone-layout .topbar .brand small,
+.phone-layout .topbar .brand-mark,
+.phone-layout .topbar .edition,
+.phone-layout .topbar .guide-entry,
+.phone-layout .topbar-right > .subtle-button:last-child {
+  display: none;
+}
+.phone-layout .topbar .topbar-right {
+  gap: 2px;
+  min-width: 0;
+}
+.phone-layout .topbar .subtle-button {
+  font-size: 12px;
+  min-height: 44px;
+  padding: 8px;
+  border: 0;
+}
+.phone-layout .connection {
+  font-size: 10px;
+  gap: 4px;
+  margin-right: 2px;
+}
+.phone-layout .practice-status {
+  font-size: 9px;
+}
+.phone-layout .room-toolbar {
+  padding: 8px 12px;
+  gap: 8px;
+  min-width: 0;
+}
+.phone-layout .room-toolbar .room-meta {
+  font-size: 10px;
+  gap: 4px;
+}
+.phone-layout .room-toolbar .eyebrow {
+  display: none;
+}
+.phone-layout .room-toolbar .room-code {
+  font-size: 11px;
+}
+.phone-layout .room-toolbar .subtle-button {
+  font-size: 11px;
+  padding: 8px;
+  min-height: 36px;
+}
+.phone-layout .room-toolbar.in-game {
+  left: 112px;
+  right: 224px;
+  top: 0;
+  height: 44px;
+  min-height: 44px;
+}
+.phone-layout .room-toolbar.in-game .room-meta > span {
+  display: none;
+}
+.phone-layout .room-toolbar.in-game .room-meta strong {
+  font-size: 10px;
+  white-space: nowrap;
+}
+.phone-rotate-hint {
+  flex: 0 0 auto;
+  padding: 6px 12px;
+  background: #bd9d6633;
+  color: #e7cea0;
+  font-size: 12px;
+  text-align: center;
+  border-bottom: 1px solid #b3986355;
+}
+.phone-rotate-hint span {
+  padding-right: 8px;
+}
+.phone-layout:has(.game-layout) {
+  height: var(--app-height, 100dvh);
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #282019;
+}
+.phone-layout .game-layout {
+  flex: 1 1 0;
+  min-height: 0;
+  height: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 36px minmax(0, 1fr);
+  gap: 0;
+  padding: 0 max(4px, env(safe-area-inset-right)) 0
+    max(4px, env(safe-area-inset-left));
+  overflow: hidden;
+}
+.phone-layout .phone-resource-hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 4px;
+  color: #ead8b5;
+  border-bottom: 1px solid #ae925b55;
+  background: #2d261ee8;
+  min-width: 0;
+}
+.phone-resource-hud .stock-grid {
+  display: flex;
+  gap: 8px;
+  margin: 0;
+}
+.phone-resource-hud .stock-cell {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+.phone-resource-hud .stock-token {
+  width: 22px;
+  height: 22px;
+}
+.phone-resource-hud .stock-cell > div {
+  display: block;
+}
+.phone-resource-hud .stock-cell > div > span:last-child {
+  display: none;
+}
+.phone-resource-hud .flip-number {
+  font-size: 15px;
+  color: #ead8b5;
+  line-height: 1;
+}
+.phone-resource-hud .flip-number strong {
+  color: #ead8b5;
+  font-size: 15px;
+  line-height: 1;
+}
+.phone-layout .table-area:has(.fan-hand.is-expanded) .map-prompt {
+  display: none;
+}
+.phone-layout .placement-panel {
+  z-index: 20;
+  position: fixed;
+  left: max(8px, env(safe-area-inset-left));
+  bottom: max(52px, env(safe-area-inset-bottom));
+  width: min(260px, calc(100vw - 24px));
+  max-height: calc(var(--app-height, 100dvh) - 144px);
+  padding: 8px;
+}
+.phone-layout .entrepreneur-station:has(.placement-panel) {
+  z-index: 8;
+}
+.phone-layout .placement-panel button {
+  min-height: 40px;
+}
+.phone-resource-hud > button {
+  flex-shrink: 0;
+  align-self: stretch;
+  min-width: 72px;
+  font-size: 11px;
+  color: #f2dfb6;
+  background: #615038;
+  border: 1px solid #a28c5d;
+}
+.phone-layout .table-area {
+  min-width: 0;
+  min-height: 0;
+  height: auto;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  --portrait-width: 80px;
+  --portrait-height: 130px;
+}
+.phone-layout .board-viewport {
+  width: 100%;
+  height: calc(100% - 42px);
+  min-height: 0;
+  border: 0;
+  touch-action: none;
+}
+.phone-layout .board-surface {
+  flex-shrink: 0;
+}
+.phone-layout .board-toolbar {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  bottom: auto;
+  left: auto;
+  height: 40px;
+  padding: 0;
+  gap: 0;
+  background: #2d261ef2;
+  border: 1px solid #a48b5e;
+  z-index: 6;
+}
+.phone-layout .board-toolbar > div:first-child {
+  display: none;
+}
+.phone-layout .board-toolbar[popover]:not(:popover-open) {
+  display: none;
+}
+.phone-layout .board-toolbar[popover]:popover-open {
+  display: block;
+  position: fixed;
+  inset: auto 8px max(52px, env(safe-area-inset-bottom)) auto;
+  width: auto;
+  margin: 0;
+  height: 46px;
+}
+.phone-layout .board-toolbar[popover]:popover-open button {
+  min-height: 44px;
+  min-width: 48px;
+}
+.phone-layout .zoom-controls {
+  margin: 0;
+  gap: 0;
+  display: flex;
+}
+.phone-layout .zoom-controls button {
+  min-width: 40px;
+  min-height: 38px;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+.phone-layout .zoom-controls > span,
+.phone-layout .zoom-controls button:last-child {
+  display: none;
+}
+.phone-layout .map-dock {
+  top: 4px;
+  left: 4px;
+  width: 68px;
+  display: grid;
+  gap: 4px;
+  z-index: 6;
+}
+.phone-layout .map-dock button {
+  min-height: 44px;
+  padding: 8px 4px;
+  border-radius: 2px;
+}
+.phone-layout .map-dock .dock-icon,
+.phone-layout .map-dock small {
+  display: none;
+}
+.phone-layout .map-dock strong {
+  font-size: 11px;
+}
+.phone-layout .entrepreneur-station {
+  bottom: 44px;
+  left: 4px;
+  width: 80px;
+  height: 120px;
+}
+.phone-layout .entrepreneur-station .active-entrepreneur {
+  width: 80px;
+  height: 120px;
+}
+.phone-layout .entrepreneur-bust {
+  width: 100%;
+  height: 100%;
+}
+.phone-layout .active-entrepreneur-caption {
+  font-size: 10px;
+  padding: 3px;
+}
+.phone-layout .active-entrepreneur-caption strong {
+  font-size: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.phone-layout .active-entrepreneur-caption small {
+  display: none;
+}
+.phone-layout .president-model {
+  transform: scale(0.48);
+  transform-origin: bottom left;
+}
+.phone-layout .president-badge > b {
+  font-size: 10px;
+}
+.phone-layout .entrepreneur-station .map-prompt {
+  left: 0;
+  bottom: 100%;
+  width: 200px;
+  max-width: calc(100vw - 24px);
+  padding: 7px;
+  display: block;
+}
+.phone-layout .map-prompt span {
+  font-size: 10px;
+}
+.phone-layout .entrepreneur-station .map-prompt strong {
+  font-size: 11px;
+  line-height: 1.4;
+}
+.phone-layout .map-prompt button {
+  min-height: 36px;
+  margin-top: 4px;
+  padding: 5px 8px;
+}
+.phone-layout .board-edge-hints {
+  top: 3px;
+}
+.phone-layout .phone-board-reference {
+  flex-shrink: 0;
+}
+.phone-layout .phone-board-reference .board-edge-hints {
+  position: static;
+  width: 100%;
+  transform: none;
+}
+.phone-layout .phone-board-reference .board-edge-hints > button {
+  width: 100%;
+  min-height: 44px;
+}
+.phone-layout .phone-board-reference .edge-hint-sheet {
+  position: static;
+  width: 100%;
+  max-width: none;
+  max-height: none;
+  transform: none;
+}
+.phone-layout .turn-announcement {
+  max-width: calc(100% - 32px);
+}
+.phone-layout .fan-hand {
+  --hand-width: clamp(76px, 15vw, 124px);
+  --hand-height: calc(var(--hand-width) * 1.4);
+  --fan-max-span: min(52vw, 340px);
+  --fan-center: 50%;
+  height: 42px;
+  bottom: 0;
+}
+.phone-layout .fan-hand .hand-cards {
+  left: 50%;
+  transform: none;
+}
+.phone-layout .fan-hand.is-expanded .hand-cards {
+  bottom: 92px;
+}
+.phone-layout .fan-hand.is-expanded .hand-slot:hover {
+  transform: translate(var(--fan-x), var(--fan-y)) rotate(var(--fan-angle));
+  z-index: var(--fan-index);
+}
+.phone-layout .fan-hand.is-expanded .hand-slot.is-picked {
+  transform: translate(var(--fan-x), -12px) scale(1.08);
+  z-index: 100;
+}
+.phone-layout .fan-hand .hand-card > span {
+  font-size: 11px;
+  padding: 4px 2px;
+}
+.phone-layout .hand-card span small {
+  display: none;
+}
+.phone-layout .fan-toggle {
+  bottom: 2px;
+  left: 4px;
+  min-height: 40px;
+  padding: 8px;
+  font-size: 11px;
+}
+.phone-layout .fan-toggle > span:last-child {
+  font-size: 10px;
+}
+.phone-layout .fan-confirm {
+  bottom: 44px;
+  left: 4px;
+  right: 4px;
+  width: auto;
+  padding: 6px 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 110;
+}
+.phone-layout .fan-confirm .action-explanation {
+  flex: 1;
+  min-width: 0;
+}
+.phone-layout .fan-confirm .action-explanation strong {
+  font-size: 12px;
+}
+.phone-layout .fan-confirm .action-explanation p,
+.phone-layout .fan-confirm > .subtle-button {
+  display: none;
+}
+.phone-layout .fan-confirm-buttons {
+  margin: 0;
+  flex: 0 0 180px;
+}
+.phone-layout .fan-confirm-buttons button {
+  min-height: 40px;
+}
+.phone-layout .selected-role-summary {
+  max-width: 42%;
+}
+.phone-layout .selected-role-summary .selected-role {
+  min-height: 40px;
+}
+.phone-layout .selected-role-summary small {
+  display: none;
+}
+.phone-layout .game-sidebar[popover]:not(:popover-open) {
+  display: none;
+}
+.phone-layout .game-sidebar[popover]:popover-open {
+  display: flex;
+  position: fixed;
+  inset: 8px 8px 8px auto;
+  margin: 0;
+  width: min(380px, calc(100vw - 16px));
+  height: calc(var(--app-height, 100dvh) - 16px);
+  max-height: none;
+  padding: 8px;
+  overflow: auto;
+  border: 1px solid var(--phone-brass);
+  background: #332a20;
+  color: var(--phone-ink);
+  box-shadow: 0 12px 48px #0009;
+  border-radius: 2px;
+}
+.phone-layout .game-sidebar[popover]::backdrop {
+  background: #16130e88;
+  backdrop-filter: blur(3px);
+}
+.phone-layout .phone-dashboard-heading {
+  position: sticky;
+  top: -8px;
+  background: #332a20;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  color: #ecd6aa;
+  padding-left: 4px;
+}
+.phone-dashboard-heading h2 {
+  font-size: 15px;
+}
+.phone-dashboard-heading button {
+  min-width: 44px;
+  min-height: 44px;
+  background: #67543a;
+  color: #f6e3b9;
+  font-size: 24px;
+}
+.phone-layout .game-sidebar .resource-tray,
+.phone-layout .game-sidebar .player-panel,
+.phone-layout .game-sidebar .table-overviews {
+  flex-shrink: 0;
+}
+.phone-layout .game-sidebar .stock-cell {
+  padding: 8px;
+}
+.phone-layout .game-sidebar .entrepreneur {
+  min-height: 64px;
+}
+.phone-layout .game-sidebar .table-thumbnail {
+  min-height: 68px;
+}
+.phone-layout .modal {
+  width: min(960px, calc(100vw - 16px));
+  max-width: calc(100vw - 16px);
+  max-height: calc(var(--app-height, 100dvh) - 16px);
+  margin: auto;
+}
+.phone-layout .modal .modal-heading {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  min-height: 44px;
+  padding: 4px 12px;
+}
+.phone-layout .modal .modal-heading h2 {
+  font-size: 16px;
+}
+.phone-layout .modal .modal-heading .icon-button {
+  width: 40px;
+  height: 40px;
+}
+.phone-layout .audio-window {
+  width: min(560px, calc(100vw - 16px));
+}
+.phone-layout .audio-settings {
+  padding: 16px;
+}
+.phone-layout .interaction-window .window-composer {
+  min-height: 0;
+  overflow: auto;
+}
+.phone-layout .commit-tray {
+  padding: 8px 12px;
+  gap: 8px;
+}
+.phone-layout .commit-tray button {
+  min-height: 42px;
+}
+.phone-layout .action-list {
+  padding: 12px;
+}
+.phone-layout .action-button {
+  min-height: 44px;
+}
+.phone-layout .route-panel {
+  max-width: min(300px, calc(100vw - 20px));
+  max-height: calc(var(--app-height, 100dvh) - 132px);
+  overflow: auto;
+  bottom: 46px;
+  right: 4px;
+}
+.phone-layout .influence-preview,
+.phone-layout .placement-preview {
+  max-width: min(290px, calc(100vw - 20px));
+}
+.phone-layout .practice-guide {
+  top: 50px;
+  left: 4px;
+  width: 210px;
+  max-height: calc(var(--app-height, 100dvh) - 180px);
+  overflow: auto;
+}
+.phone-layout .practice-guide-heading {
+  padding: 8px;
+}
+.phone-layout .practice-guide-body {
+  padding: 8px;
+}
+.phone-layout .practice-guide-actions button {
+  min-height: 40px;
+}
+.phone-layout .fullscreen-welcome {
+  width: min(520px, calc(100vw - 24px));
+  max-height: calc(var(--app-height, 100dvh) - 24px);
+}
+.phone-layout .welcome-registration {
+  padding: 12px 16px;
+}
+.phone-layout .welcome-scene {
+  height: 80px;
+  margin: 12px 16px 0;
+}
+.phone-layout .welcome-scene img {
+  width: 120px;
+}
+.phone-layout .welcome-copy {
+  padding: 16px;
+}
+.phone-layout .welcome-copy h2 {
+  font-size: 25px;
+  margin: 6px 0 8px;
+}
+.phone-layout .welcome-copy small {
+  margin-top: 6px;
+}
+.phone-layout .welcome-actions {
+  position: sticky;
+  bottom: 0;
+  background: var(--phone-paper);
+  padding: 8px 16px 12px;
+}
+.phone-layout .welcome-footer {
+  display: none;
+}
+.phone-layout .departure-entry {
+  min-height: 0;
+  padding: 20px 16px;
+  gap: 24px;
+}
+.phone-layout .departure-hero {
+  min-width: 0;
+}
+.phone-layout .departure-heading {
+  font-size: 32px;
+}
+.phone-layout .founder-portraits {
+  height: 190px;
+}
+.phone-layout .departure-permit {
+  min-width: 0;
+  padding: 20px;
+}
+.phone-layout .assembly-lobby {
+  padding: 16px;
+  gap: 16px;
+}
+.phone-layout .assembly-seats {
+  gap: 8px;
+}
+.phone-layout .assembly-dossier {
+  display: block;
+  padding: 16px;
+}
+.phone-layout .assembly-departure {
+  padding: 12px;
+}
+.phone-layout .assembly-departure button {
+  min-height: 44px;
+}
+@media (orientation: landscape) {
+  .phone-layout .departure-entry {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 1fr);
+    gap: 20px;
+  }
+  .phone-layout .departure-hero h1 {
+    font-size: 30px;
+  }
+  .phone-layout .departure-coordinate,
+  .phone-layout .departure-spec,
+  .phone-layout .permit-bottom,
+  .phone-layout .permit-tear {
+    display: none;
+  }
+  .phone-layout .founder-portraits {
+    height: 160px;
+  }
+  .phone-layout .departure-permit {
+    padding: 16px;
+  }
+  .phone-layout .permit-heading {
+    margin-top: 12px;
+  }
+  .phone-layout .permit-heading h2 {
+    font-size: 20px;
+  }
+  .phone-layout .permit-intro {
+    margin-block: 8px;
+    font-size: 12px;
+  }
+  .phone-layout .permit-seal {
+    display: none;
+  }
+  .phone-layout .permit-expansion {
+    margin-block: 8px;
+    padding-block: 8px;
+  }
+  .phone-layout .permit-expansion small {
+    display: none;
+  }
+  .phone-layout .permit-join {
+    margin-top: 12px;
+    padding: 12px;
+  }
+  .phone-layout .join-ticket-heading {
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+  }
+  .phone-layout .assembly-lobby {
+    grid-template-columns: 1fr;
+  }
+  .phone-layout .assembly-seats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .phone-layout .assembly-portrait,
+  .phone-layout .assembly-open-seat {
+    height: 160px;
+    min-height: 160px;
+  }
+  .phone-layout .assembly-nameplate {
+    padding: 8px;
+  }
+  .phone-layout .assembly-nameplate > img {
+    display: none;
+  }
+  .phone-layout .assembly-dossier .dossier-map {
+    height: 120px;
+  }
+  .phone-layout .event-card-window {
+    width: min(680px, calc(100vw - 16px));
+  }
+  .phone-layout .event-card-window .event-encounter {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 12px;
+    align-items: start;
+  }
+  .phone-layout .event-card-window .event-choice-panel {
+    padding: 0;
+  }
+  .phone-layout .event-card-window .event-options {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .phone-layout .event-card-window .event-option {
+    min-height: 48px;
+    padding: 8px;
+    font-size: 12px;
+  }
+  .phone-layout .event-resolution {
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+    margin-top: 8px;
+  }
+  .phone-layout .event-confirm-buttons {
+    width: 100%;
+  }
+  .phone-layout .event-confirm-buttons button {
+    min-height: 40px;
+  }
+  .phone-layout .city-overview {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+    gap: 12px;
+  }
+  .phone-layout .city-inspector {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+@media (orientation: portrait) {
+  .phone-layout .room-toolbar.in-game {
+    position: static;
+    height: 34px;
+    min-height: 34px;
+    background: #30271d;
+    padding: 0 8px;
+  }
+  .phone-layout .game-layout {
+    grid-template-rows: 38px minmax(0, 1fr);
+  }
+  .phone-layout .phone-resource-hud {
+    gap: 4px;
+    padding-inline: 0;
+  }
+  .phone-resource-hud .stock-grid {
+    gap: 5px;
+  }
+  .phone-resource-hud .stock-token {
+    width: 19px;
+    height: 19px;
+  }
+  .phone-resource-hud .flip-number {
+    font-size: 13px;
+  }
+  .phone-resource-hud > button {
+    min-width: 62px;
+  }
+  .phone-layout .assembly-seats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .phone-layout .assembly-portrait,
+  .phone-layout .assembly-open-seat {
+    height: 180px;
+    min-height: 180px;
+  }
+  .phone-layout .departure-hero h1 {
+    font-size: 32px;
+  }
+  .phone-layout .entrepreneur-station {
+    height: 90px;
+    width: 60px;
+  }
+  .phone-layout .entrepreneur-station .active-entrepreneur {
+    height: 90px;
+    width: 60px;
+  }
+  .phone-layout .map-prompt.is-waiting {
+    display: none;
+  }
+  .phone-layout .city-inspector,
+  .phone-layout .enterprise-showcase {
+    display: block;
+  }
+}

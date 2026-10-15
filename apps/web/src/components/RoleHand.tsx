@@ -8,6 +8,7 @@ import { highResolutionArt } from "../art.ts";
 import type { CardDetail } from "./ActionComposer.tsx";
 
 export function RoleHand({
+  touch = false,
   game,
   selected,
   disabled,
@@ -18,6 +19,7 @@ export function RoleHand({
   onDetail,
   onAction,
 }: {
+  touch?: boolean;
   game: PlayerView;
   selected: LegalAction | null;
   disabled: boolean;
@@ -137,7 +139,9 @@ export function RoleHand({
         <span aria-hidden="true">▱</span> 角色手牌 <b>{me.hand.length}</b>
         <span>
           {expanded
-            ? "移开收起 ▾"
+            ? touch
+              ? "点击收起 ▾"
+              : "移开收起 ▾"
             : picked
               ? `${picked.name} · 待确认 ▴`
               : "展开 ▴"}

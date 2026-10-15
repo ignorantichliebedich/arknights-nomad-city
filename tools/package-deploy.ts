@@ -32,6 +32,7 @@ const paths = [
   "THIRD_PARTY_NOTICES.md",
   "SECURITY.md",
   "docs/audio.md",
+  "docs/mobile.md",
   "docs/deployment.md",
   "docs/cloud-server.md",
 ];

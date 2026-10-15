@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { gameAudio } from "../audio.ts";
+import { enterGameFullscreen } from "../display-mode.ts";
 export const FULLSCREEN_PROMPT_KEY = "nomad:fullscreen-prompt:1";
-export function FullscreenWelcome() {
+export function FullscreenWelcome({ phone = false }: { phone?: boolean }) {
   const [open, setOpen] = useState(() => {
     try {
       return (
@@ -37,9 +38,7 @@ export function FullscreenWelcome() {
     void gameAudio.unlock();
     setBusy(true);
     try {
-      if (!document.documentElement.requestFullscreen)
-        throw new Error("unsupported");
-      await document.documentElement.requestFullscreen();
+      await enterGameFullscreen();
       close();
     } catch {
       setError("浏览器暂时无法进入全屏。你可以取消提示，继续使用窗口模式。");
@@ -70,8 +69,16 @@ export function FullscreenWelcome() {
       <div className="welcome-copy">
         <span className="eyebrow">展开你的拓荒桌</span>
         <h2 id="fullscreen-welcome-title">全屏体验更佳</h2>
-        <p>让地图、手牌与城市完整铺开，和同行者一起探索荒野。</p>
-        <small>随时按 Esc 退出全屏，也可以在棋桌上重新开启。</small>
+        <p>
+          {phone
+            ? "展开横屏棋桌，让地图与手牌随手机屏幕适配。"
+            : "让地图、手牌与城市完整铺开，和同行者一起探索荒野。"}
+        </p>
+        <small>
+          {phone
+            ? "进入后将尝试自动横屏；若手机未转向，横放手机即可。"
+            : "随时按 Esc 退出全屏，也可以在棋桌上重新开启。"}
+        </small>
       </div>
       {error && (
         <p className="welcome-error" role="status">

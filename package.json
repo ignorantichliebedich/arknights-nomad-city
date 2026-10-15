@@ -13,6 +13,7 @@
     "start": "node apps/server/src/index.ts",
     "test": "vitest run",
     "test:e2e": "playwright test",
+    "test:mobile": "playwright test --config playwright.mobile.config.ts",
     "check": "tsc --noEmit",
     "backup": "node tools/backup.ts",
     "package:deploy": "node tools/package-deploy.ts",

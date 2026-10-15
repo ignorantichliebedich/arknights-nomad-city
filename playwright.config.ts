@@ -11,6 +11,7 @@ process.env.E2E_DATABASE_PATH ??= resolve(
 );
 export default defineConfig({
   testDir: "tests/browser",
+  testIgnore: "**/mobile.spec.ts",
   timeout: 45000,
   fullyParallel: false,
   workers: 1,
