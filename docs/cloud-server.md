@@ -1,8 +1,10 @@
 # 106.52.74.24 云端运行
 
+后续更新先完成本地验证、递增版本并推送 GitHub，由用户本地试玩并明确确认对应版本上线后，再执行本文的更新操作。GitHub 检查不触发部署，详见 [发布流程](release.md)。
+
 游戏入口：[http://106.52.74.24](http://106.52.74.24)。朋友在桌面浏览器打开，创建房间后分享邀请链接或六位房间码。房主可在“邀请朋友 → 人机同行”安排人机席位；实操教程在顶部“实操练习”中打开。
 
-部署采用 Ubuntu 24.04、Docker Compose、Node.js 24 和 Caddy。项目位于 `/home/ubuntu/nomad-city`，本轮发布位于 `/home/ubuntu/nomad-city-releases/20261015-entry-audio-security`。数据库与备份分别保存于 `nomad-city_game-data`、`nomad-city_game-backups` 卷；更新和重启沿用这些卷。游戏容器以 UID 1000 运行，内部端口 3000 由 Caddy 代理。Docker 已设置开机启动，两项服务均设置 `unless-stopped`。
+部署采用 Ubuntu 24.04、Docker Compose、Node.js 24 和 Caddy。项目位于 `/home/ubuntu/nomad-city`，已部署的手机棋桌版本位于 `/home/ubuntu/nomad-city-releases/20261015-mobile`，对应提交 `5714a5b`。数据库与备份分别保存于 `nomad-city_game-data`、`nomad-city_game-backups` 卷；更新和重启沿用这些卷。游戏容器以 UID 1000 运行，内部端口 3000 由 Caddy 代理。Docker 已设置开机启动，两项服务均设置 `unless-stopped`。
 
 本次入口配置：
 

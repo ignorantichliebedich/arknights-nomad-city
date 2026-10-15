@@ -2,6 +2,7 @@ import { createServer } from "node:http";
 import type { IncomingMessage } from "node:http";
 import { isIP } from "node:net";
 import { createReadStream, existsSync, statSync } from "node:fs";
+import { mediaRange } from "./media-range.ts";
 import { resolve, sep, extname } from "node:path";
 import {
   randomBytes,
@@ -470,19 +471,41 @@ export function createGameServer(options: ServerOptions = {}) {
           ".wav": "audio/wav",
           ".m4a": "audio/mp4",
         };
-        res.writeHead(200, {
+        const size = statSync(path).size;
+        const type = mime[extname(path)] ?? "application/octet-stream";
+        const audio = type.startsWith("audio/");
+        const range =
+          audio && req.method === "GET" && !req.headers["if-range"]
+            ? mediaRange(req.headers.range, size)
+            : null;
+        if (range === "unsatisfiable") {
+          res.writeHead(416, {
+            ...SECURITY_HEADERS,
+            "Accept-Ranges": "bytes",
+            "Content-Range": `bytes */${size}`,
+            "Content-Length": 0,
+          });
+          res.end();
+          return;
+        }
+        res.writeHead(range ? 206 : 200, {
           ...SECURITY_HEADERS,
-          "Content-Length": statSync(path).size,
-          "Content-Type": mime[extname(path)] ?? "application/octet-stream",
+          ...(audio ? { "Accept-Ranges": "bytes" } : {}),
+          ...(range
+            ? { "Content-Range": `bytes ${range.start}-${range.end}/${size}` }
+            : {}),
+          "Content-Length": range ? range.end - range.start + 1 : size,
+          "Content-Type": type,
           "X-Content-Type-Options": "nosniff",
           "Cache-Control":
             extname(path) === ".html" ? "no-cache" : "public, max-age=3600",
         });
         if (req.method === "HEAD") res.end();
-        else
-          createReadStream(path)
-            .on("error", () => res.destroy())
-            .pipe(res);
+        else {
+          const stream = createReadStream(path, range ?? undefined);
+          res.once("close", () => stream.destroy());
+          stream.on("error", () => res.destroy()).pipe(res);
+        }
       } catch (error) {
         json(
           res,

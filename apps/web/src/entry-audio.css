@@ -280,6 +280,36 @@
   color: #897b61;
   line-height: 1.7;
 }
+.music-transport {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+.music-transport button {
+  min-height: 44px;
+  padding: 8px 12px;
+  color: #5a4527;
+  background: #e7d8b9;
+  border: 1px solid #ac925e;
+}
+.music-transport [role="status"] {
+  text-align: center;
+  color: #6f5937;
+  font-size: 11px;
+}
+.audio-version {
+  display: block;
+  margin-top: 4px;
+  letter-spacing: 0.06em;
+}
+.audio-channel .music-error {
+  padding: 8px;
+  color: #884124;
+  border-left: 2px solid #a06b3c;
+  background: #b76e2720;
+}
 @keyframes welcome-arrive {
   from {
     opacity: 0;

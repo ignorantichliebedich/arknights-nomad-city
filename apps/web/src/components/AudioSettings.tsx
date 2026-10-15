@@ -3,6 +3,10 @@ import { gameAudio } from "../audio.ts";
 import type { MusicTrack } from "../audio-config.ts";
 export function AudioSettings() {
   const prefs = useSyncExternalStore(gameAudio.subscribe, gameAudio.snapshot);
+  const playback = useSyncExternalStore(
+    gameAudio.subscribe,
+    gameAudio.musicSnapshot,
+  );
   const [tracks, setTracks] = useState<MusicTrack[]>(gameAudio.musicTracks());
   useEffect(() => {
     let live = true;
@@ -18,7 +22,7 @@ export function AudioSettings() {
       <div className="audio-heading">
         <span className="eyebrow">SOUND / PREFERENCES</span>
         <h3>为你的拓荒调音</h3>
-        <p>短促的按键回响，清晰的行动提示。</p>
+        <p>行动的回响，与荒野同行的旋律。</p>
       </div>
       <button
         className={"audio-master " + (prefs.muted ? "is-muted" : "")}
@@ -111,25 +115,82 @@ export function AudioSettings() {
           </small>
         </div>
         {tracks.length > 0 && (
-          <label className="audio-track">
-            播放曲目
-            <select
-              value={
-                tracks.some((track) => track.id === prefs.track)
-                  ? prefs.track
-                  : tracks[0].id
-              }
-              onChange={(event) =>
-                gameAudio.update({ track: event.target.value })
-              }
-            >
-              {tracks.map((track) => (
-                <option key={track.id} value={track.id}>
-                  {track.title}
-                </option>
-              ))}
-            </select>
-          </label>
+          <>
+            <label className="audio-track">
+              播放曲目
+              <select
+                value={
+                  tracks.some((track) => track.id === prefs.track)
+                    ? prefs.track
+                    : tracks[0].id
+                }
+                onChange={(event) =>
+                  gameAudio.update({ track: event.target.value })
+                }
+              >
+                {tracks.map((track) => (
+                  <option key={track.id} value={track.id}>
+                    {track.title}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <div className="music-transport" aria-label="背景音乐播放控制">
+              <button
+                className="secondary-button"
+                aria-label="上一首"
+                onClick={() => gameAudio.stepMusic(-1)}
+              >
+                ‹ 上一首
+              </button>
+              <span role="status">
+                {!prefs.music
+                  ? "音乐已关闭"
+                  : prefs.muted
+                    ? "已静音"
+                    : playback === "playing"
+                      ? "正在播放"
+                      : playback === "loading"
+                        ? "正在载入…"
+                        : playback === "error"
+                          ? "播放受阻"
+                          : "已暂停"}
+              </span>
+              <button
+                className="secondary-button"
+                aria-label="下一首"
+                onClick={() => gameAudio.stepMusic(1)}
+              >
+                下一首 ›
+              </button>
+            </div>
+            <label className="audio-track">
+              循环方式
+              <select
+                value={prefs.musicMode}
+                onChange={(event) =>
+                  gameAudio.update({
+                    musicMode:
+                      event.target.value === "repeat" ? "repeat" : "sequence",
+                  })
+                }
+              >
+                <option value="sequence">顺序循环 · 播完切换下一首</option>
+                <option value="repeat">单曲循环 · 留在这段旋律</option>
+              </select>
+            </label>
+            {prefs.music && playback === "error" && (
+              <p className="music-error" role="alert">
+                暂时无法播放，请重试或选择其他曲目。
+                <button
+                  className="subtle-button"
+                  onClick={() => void gameAudio.retryMusic()}
+                >
+                  重试播放 ↗
+                </button>
+              </p>
+            )}
+          </>
         )}
         <label className="audio-slider">
           <span>
@@ -151,6 +212,9 @@ export function AudioSettings() {
       </section>
       <p className="audio-footnote">
         设置保存在这台设备。离开页面时，音乐会暂停。
+        <span className="audio-version">
+          游城拓荒 v{import.meta.env.VITE_APP_VERSION}
+        </span>
       </p>
     </div>
   );

@@ -3,6 +3,7 @@ import {
   audioPreferences,
   DEFAULT_AUDIO,
   musicTracks,
+  adjacentTrack,
 } from "../apps/web/src/audio-config.ts";
 import { soundForTransition } from "../apps/web/src/components/GameSoundFeedback.tsx";
 import {
@@ -12,6 +13,22 @@ import {
   LEARNER,
 } from "../apps/web/src/practice.ts";
 describe("声音偏好与曲目接口", () => {
+  it("顺序播放在末尾回到第一首，上一首可从开头回到末尾", () => {
+    const tracks = [
+      { id: "a", title: "A", src: "/audio/music/a.mp3" },
+      { id: "b", title: "B", src: "/audio/music/b.mp3" },
+    ];
+    expect(adjacentTrack(tracks, "b", 1)?.id).toBe("a");
+    expect(adjacentTrack(tracks, "a", -1)?.id).toBe("b");
+    expect(adjacentTrack(tracks, "removed", 1)?.id).toBe("b");
+    expect(adjacentTrack([], "a", 1)).toBeUndefined();
+    expect(
+      audioPreferences({ musicMode: "repeat", music: false }).musicMode,
+    ).toBe("repeat");
+    expect(audioPreferences({ musicMode: "invalid" }).musicMode).toBe(
+      "sequence",
+    );
+  });
   it("损坏偏好回退，音量受限，字符串不能改变开关", () => {
     expect(audioPreferences(null)).toEqual(DEFAULT_AUDIO);
     expect(

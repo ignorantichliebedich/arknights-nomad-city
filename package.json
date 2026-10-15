@@ -1,6 +1,6 @@
 {
   "name": "nomad-city-friends",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -15,6 +15,10 @@
     "test:e2e": "playwright test",
     "test:mobile": "playwright test --config playwright.mobile.config.ts",
     "check": "tsc --noEmit",
+    "music:import": "node tools/import-music.ts",
+    "music:check": "node tools/import-music.ts --check",
+    "release:prepare": "node tools/release.ts",
+    "release:check": "node tools/check-release.ts",
     "backup": "node tools/backup.ts",
     "package:deploy": "node tools/package-deploy.ts",
     "package:windows": "node tools/package-windows.ts",

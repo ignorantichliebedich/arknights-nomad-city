@@ -25,6 +25,7 @@ export type AudioPreferences = {
   music: boolean;
   musicVolume: number;
   track: string;
+  musicMode: "sequence" | "repeat";
 };
 export const DEFAULT_AUDIO: AudioPreferences = {
   muted: false,
@@ -34,6 +35,7 @@ export const DEFAULT_AUDIO: AudioPreferences = {
   music: false,
   musicVolume: 0.35,
   track: "",
+  musicMode: "sequence",
 };
 export function audioPreferences(value: unknown): AudioPreferences {
   const input =
@@ -52,6 +54,7 @@ export function audioPreferences(value: unknown): AudioPreferences {
     muted: flag("muted"),
     effects: flag("effects"),
     music: flag("music"),
+    musicMode: input.musicMode === "repeat" ? "repeat" : "sequence",
     volume: unit("volume"),
     effectsVolume: unit("effectsVolume"),
     musicVolume: unit("musicVolume"),
@@ -63,6 +66,18 @@ export function audioPreferences(value: unknown): AudioPreferences {
   };
 }
 export type MusicTrack = { id: string; title: string; src: string };
+export function adjacentTrack(
+  tracks: MusicTrack[],
+  selected: string,
+  direction: -1 | 1,
+) {
+  if (!tracks.length) return undefined;
+  const index = Math.max(
+    0,
+    tracks.findIndex((track) => track.id === selected),
+  );
+  return tracks[(index + direction + tracks.length) % tracks.length];
+}
 export function musicTracks(value: unknown, origin: string): MusicTrack[] {
   const rows =
     value &&

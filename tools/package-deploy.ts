@@ -18,6 +18,9 @@ const paths = [
   ".dockerignore",
   ".env.example",
   "README.md",
+  "AGENTS.md",
+  "CONTRIBUTING.md",
+  "CHANGELOG.md",
   "apps/server/src",
   "apps/web/src",
   "apps/web/public",
@@ -33,6 +36,7 @@ const paths = [
   "SECURITY.md",
   "docs/audio.md",
   "docs/mobile.md",
+  "docs/release.md",
   "docs/deployment.md",
   "docs/cloud-server.md",
 ];

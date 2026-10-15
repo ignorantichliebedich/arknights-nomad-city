@@ -3,6 +3,7 @@ import {
   AUDIO_STORAGE_KEY,
   audioPreferences,
   musicTracks,
+  adjacentTrack,
   type AudioCue,
   type AudioPreferences,
   type MusicTrack,
@@ -17,9 +18,18 @@ class GameAudio {
   private listeners = new Set<() => void>();
   private lastSound = 0;
   private unlocked = false;
+  private musicActivated = false;
   private musicElement: HTMLAudioElement | null = null;
   private tracks: MusicTrack[] = [];
   private trackRequest: Promise<void> | null = null;
+  private playback: "idle" | "loading" | "playing" | "paused" | "error" =
+    "idle";
+  musicSnapshot = () => this.playback;
+  private setPlayback(value: typeof this.playback) {
+    if (this.playback === value) return;
+    this.playback = value;
+    this.listeners.forEach((listener) => listener());
+  }
   constructor() {
     let stored: unknown;
     try {
@@ -62,6 +72,9 @@ class GameAudio {
     this.listeners.forEach((listener) => listener());
   }
   async unlock() {
+    // HTML media starts within the gesture, independently of Web Audio resume.
+    this.musicActivated = true;
+    this.syncMusic();
     try {
       this.context ??= new AudioContext();
       if (this.context.state === "suspended") await this.context.resume();
@@ -181,29 +194,76 @@ class GameAudio {
   musicTracks() {
     return this.tracks;
   }
+  stepMusic(direction: -1 | 1) {
+    const track = adjacentTrack(this.tracks, this.preferences.track, direction);
+    if (!track) return;
+    if (this.musicElement) this.musicElement.currentTime = 0;
+    this.update({ track: track.id, music: true });
+  }
+  retryMusic() {
+    this.musicElement?.load();
+    return this.unlock();
+  }
   private syncMusic() {
     const prefs = this.preferences;
     const track =
       this.tracks.find((track) => track.id === prefs.track) ?? this.tracks[0];
     if (
       !track ||
-      !this.unlocked ||
+      !this.musicActivated ||
       prefs.muted ||
       !prefs.music ||
       document.hidden
     ) {
       this.musicElement?.pause();
+      this.setPlayback(this.musicActivated ? "paused" : "idle");
       return;
     }
-    this.musicElement ??= new Audio();
+    if (!this.musicElement) {
+      const audio = new Audio();
+      this.musicElement = audio;
+      audio.preload = "metadata";
+      audio.addEventListener("playing", () => this.setPlayback("playing"));
+      audio.addEventListener("pause", () => this.setPlayback("paused"));
+      const waiting = () => {
+        if (
+          this.preferences.music &&
+          !this.preferences.muted &&
+          !document.hidden
+        )
+          this.setPlayback("loading");
+      };
+      audio.addEventListener("waiting", waiting);
+      audio.addEventListener("loadstart", waiting);
+      audio.addEventListener("error", () => this.setPlayback("error"));
+      audio.addEventListener("ended", () => {
+        if (
+          this.preferences.music &&
+          !this.preferences.muted &&
+          !document.hidden
+        )
+          this.stepMusic(1);
+      });
+    }
     const element = this.musicElement;
     if (element.getAttribute("src") !== track.src) {
       element.src = track.src;
-      element.loop = true;
-      element.preload = "metadata";
+      this.setPlayback("loading");
     }
+    element.loop = prefs.musicMode === "repeat";
     element.volume = prefs.volume * prefs.musicVolume;
-    if (element.paused) void element.play().catch(() => {});
+    if (element.paused)
+      void element.play().catch((error: unknown) => {
+        if (error instanceof DOMException && error.name === "AbortError")
+          return;
+        if (
+          element.getAttribute("src") === track.src &&
+          this.preferences.music &&
+          !this.preferences.muted &&
+          !document.hidden
+        )
+          this.setPlayback("error");
+      });
   }
 }
 export const gameAudio = new GameAudio();

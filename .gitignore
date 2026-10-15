@@ -10,6 +10,7 @@ playwright-report/
 apps/web/public/assets/
 apps/web/public/audio/sfx/
 apps/web/public/audio/music/
+music/
 docs/screenshots/*
 !docs/screenshots/fullscreen-welcome-1366.png
 !docs/screenshots/audio-settings-1366.png

@@ -77,6 +77,9 @@ test("真实音效在交互后解码播放，静音与音量设置刷新保留",
   });
   const starts = () =>
     page.evaluate(() => (window as any).__soundStarts as number);
+  await page.route("**/audio/music.json", (route) =>
+    route.fulfill({ json: { tracks: [] } }),
+  );
   await page.goto("/");
   await expect(page.locator(".fullscreen-welcome")).toBeVisible();
   expect(await starts()).toBe(0);

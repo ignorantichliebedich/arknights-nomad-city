@@ -245,7 +245,9 @@ function App() {
           </span>
         </button>
         <div className="topbar-right">
-          <span className="edition">第 105 号拓荒区</span>
+          <span className="edition">
+            第 105 号拓荒区 · v{import.meta.env.VITE_APP_VERSION}
+          </span>
           <button
             className="subtle-button audio-entry"
             onClick={() => setAudioSettings(true)}

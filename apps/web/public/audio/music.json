@@ -1,3 +1,29 @@
 {
-  "tracks": []
+  "tracks": [
+    {
+      "id": "misty-memory-night",
+      "title": "Misty Memory (Night Version)",
+      "src": "/audio/music/misty-memory-night.mp3"
+    },
+    {
+      "id": "see-you-soon",
+      "title": "See You Soon",
+      "src": "/audio/music/see-you-soon.mp3"
+    },
+    {
+      "id": "il-signore-del-carnevale",
+      "title": "Il Signore del Carnevale",
+      "src": "/audio/music/il-signore-del-carnevale.mp3"
+    },
+    {
+      "id": "yasainus-revenge",
+      "title": "『雅赛努斯复仇记』",
+      "src": "/audio/music/yasainus-revenge.mp3"
+    },
+    {
+      "id": "speed-of-light",
+      "title": "Speed of Light",
+      "src": "/audio/music/speed-of-light.mp3"
+    }
+  ]
 }

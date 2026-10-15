@@ -1,0 +1,57 @@
+[
+  {
+    "id": "misty-memory-night",
+    "title": "Misty Memory (Night Version)",
+    "sourceFile": "Misty Memory (Night Version).mp3",
+    "path": "apps/web/public/audio/music/misty-memory-night.mp3",
+    "bytes": 3974439,
+    "sha256": "fc00d3faa0f0ba4531cfc6102c762b37d75ff28cb9ac6e6d9d77d729221b021b",
+    "durationSeconds": 242.087,
+    "source": "用户提供的本地音乐原件",
+    "processing": "仅规范文件名并复制，保留原始编码、标签及内嵌封面；字节不变。"
+  },
+  {
+    "id": "see-you-soon",
+    "title": "See You Soon",
+    "sourceFile": "See you soon .mp3",
+    "path": "apps/web/public/audio/music/see-you-soon.mp3",
+    "bytes": 2647333,
+    "sha256": "5aa0c1d813c0820442641241ac6e2104b96144c2b014eaac624da983b99da1dd",
+    "durationSeconds": 158.549,
+    "source": "用户提供的本地音乐原件",
+    "processing": "仅规范文件名并复制，保留原始编码、标签及内嵌封面；字节不变。"
+  },
+  {
+    "id": "il-signore-del-carnevale",
+    "title": "Il Signore del Carnevale",
+    "sourceFile": "Il Signore del Carnevale.mp3",
+    "path": "apps/web/public/audio/music/il-signore-del-carnevale.mp3",
+    "bytes": 3258433,
+    "sha256": "357a76224bc28952a9829a9d736660319a0cddebee0c5954f239a52b9b79e9ab",
+    "durationSeconds": 132.181,
+    "source": "用户提供的本地音乐原件",
+    "processing": "仅规范文件名并复制，保留原始编码、标签及内嵌封面；字节不变。"
+  },
+  {
+    "id": "yasainus-revenge",
+    "title": "『雅赛努斯复仇记』",
+    "sourceFile": "『雅赛努斯复仇记』.mp3",
+    "path": "apps/web/public/audio/music/yasainus-revenge.mp3",
+    "bytes": 2461443,
+    "sha256": "44b88467c6614a0e312407dc81fbc3e5471fd448ba0190b6179da82c5f4d8daf",
+    "durationSeconds": 122.069,
+    "source": "用户提供的本地音乐原件",
+    "processing": "仅规范文件名并复制，保留原始编码、标签及内嵌封面；字节不变。"
+  },
+  {
+    "id": "speed-of-light",
+    "title": "Speed of Light",
+    "sourceFile": "Speed of Light.mp3",
+    "path": "apps/web/public/audio/music/speed-of-light.mp3",
+    "bytes": 4010938,
+    "sha256": "c39756e9a09ce9e7162787521a9eceedeac573664d92dc5c3462afe7fbd222cb",
+    "durationSeconds": 245.838,
+    "source": "用户提供的本地音乐原件",
+    "processing": "仅规范文件名并复制，保留原始编码、标签及内嵌封面；字节不变。"
+  }
+]
