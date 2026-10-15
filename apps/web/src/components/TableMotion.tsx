@@ -8,6 +8,7 @@ import {
 import {
   PLAYER_COLORS,
   PLAYER_SYMBOLS,
+  redZoneOpensAt,
 } from "../../../../packages/rules/src/data.ts";
 import type { PlayerView } from "../../../../packages/rules/src/types.ts";
 
@@ -203,8 +204,11 @@ export function BoardEdgeHints({
           alt="官方地图上的终局区域分数、资源兑换与回合提示"
         />
         <p>
-          第 {game.players.length === 4 ? 4 : 5}{" "}
-          回合起可进入红区。终局按区域控制与剩余资源追加计分。
+          {game.players.length === 2 ? "双人变体：" : ""}第{" "}
+          {redZoneOpensAt(game.players.length)} 回合起可探索红区或移动城市进入。
+          {game.players.length === 2 &&
+            "双人规则覆盖三人地图上印刷的第 5 回合提示。"}
+          终局按区域控制与剩余资源追加计分。
         </p>
       </div>
     </div>

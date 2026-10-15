@@ -209,7 +209,9 @@ export function AudioSettings() {
             }
           />
         </label>
-        <p>盖放时回应选中，策略与计谋使用对应作战语音。坎诺特使用交易音效。</p>
+        <p>
+          盖牌语音仅自己可听。公开使用策略与计谋时，全员可听对应作战语音。坎诺特使用交易音效。
+        </p>
       </section>
       <p className="audio-footnote">
         设置保存在这台设备。离开页面时，音乐会暂停。

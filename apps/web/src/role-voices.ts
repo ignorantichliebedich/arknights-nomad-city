@@ -12,13 +12,20 @@ export function voicesForTransition(
 ): RoleVoice[] {
   if (before.me !== next.me || before.revision >= next.revision) return [];
   const result: RoleVoice[] = [];
+  const added = next.log.filter((e) => e.seq > (before.log.at(-1)?.seq ?? -1));
   const old = before.players.find((p) => p.id === next.me),
     me = next.players.find((p) => p.id === next.me);
-  if (me?.selected && me.selected !== old?.selected)
+  // Cover speech is private: require this viewer's actual hand-to-table action.
+  // A reveal, resync or another seat's public cover log cannot trigger it.
+  if (
+    me?.selected &&
+    me.selected !== old?.selected &&
+    old?.hand.includes(me.selected) &&
+    !me.hand.includes(me.selected) &&
+    added.some((e) => e.actor === next.me && e.text === "盖放了一张角色牌")
+  )
     result.push({ roleId: me.selected, kind: "cover" });
-  for (const event of next.log.filter(
-    (e) => e.seq > (before.log.at(-1)?.seq ?? -1),
-  )) {
+  for (const event of added) {
     const actor = next.players.find((p) => p.id === event.actor),
       role = actor?.selected ? ROLE_BY_ID[actor.selected] : undefined;
     if (

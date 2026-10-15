@@ -8,6 +8,8 @@ import {
 import { soundForTransition } from "../apps/web/src/components/GameSoundFeedback.tsx";
 import { voicesForTransition } from "../apps/web/src/role-voices.ts";
 import { roleCardBack } from "../apps/web/src/card-backs.ts";
+import { applyCommand, projectView } from "../packages/rules/src/engine.ts";
+import { chooseFor, rolePlanning } from "./fixtures/parallel.ts";
 import {
   createPractice,
   applyPractice,
@@ -40,6 +42,13 @@ describe("声音偏好与曲目接口", () => {
     const me = next.players.find((p) => p.id === next.me)!;
     me.selected = "texas";
     me.revealed = false;
+    me.hand = me.hand.filter((r) => r !== "texas");
+    next.log.push({
+      seq: (before.log.at(-1)?.seq ?? 0) + 1,
+      actor: next.me,
+      text: "盖放了一张角色牌",
+      round: next.round,
+    });
     expect(voicesForTransition(before, next)).toEqual([
       { roleId: "texas", kind: "cover" },
     ]);
@@ -68,6 +77,50 @@ describe("声音偏好与曲目接口", () => {
     expect(voicesForTransition(active, structuredClone(active))).toEqual([]);
     expect(voicesForTransition({ ...next, me: "other" }, active)).toEqual([]);
   });
+  it.each([2, 3, 4])(
+    "%i 人真实并行盖牌：包括最后一人，只有该玩家产生盖牌语音",
+    (count) => {
+      for (const reverse of [false, true]) {
+        let game = rolePlanning(count);
+        const seats = game.players.map((p) => p.id);
+        const order = reverse ? [...seats].reverse() : seats;
+        for (const actor of order) {
+          const before = seats.map((id) => projectView(game, id));
+          const role = projectView(game, actor).actions[0].command.optionId;
+          game = chooseFor(game, actor, role);
+          for (const [i, viewer] of seats.entries()) {
+            const next = projectView(game, viewer);
+            expect(voicesForTransition(before[i], next)).toEqual(
+              viewer === actor ? [{ roleId: role, kind: "cover" }] : [],
+            );
+            if (viewer !== actor)
+              expect(
+                next.players.find((p) => p.id === actor)!.selected,
+              ).toBeNull();
+            expect(voicesForTransition(next, structuredClone(next))).toEqual(
+              [],
+            );
+          }
+        }
+        // Publicly using a card later can play battle speech, never its private cover speech.
+        const actor = game.players[game.active].id;
+        const before = seats.map((id) => projectView(game, id));
+        const ability = before[game.active].actions.find(
+          (a) => a.command.type === "role",
+        );
+        expect(ability).toBeTruthy();
+        game = applyCommand(game, actor, ability!.command);
+        for (const [i, viewer] of seats.entries()) {
+          const voices = voicesForTransition(
+            before[i],
+            projectView(game, viewer),
+          );
+          expect(voices.length).toBeGreaterThan(0);
+          expect(voices.every((v) => v.kind !== "cover")).toBe(true);
+        }
+      }
+    },
+  );
   it("顺序播放在末尾回到第一首，上一首可从开头回到末尾", () => {
     const tracks = [
       { id: "a", title: "A", src: "/audio/music/a.mp3" },

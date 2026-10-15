@@ -66,6 +66,7 @@ export async function clickHandCard(page: Page, card: Locator, clicks = 1) {
 export async function fixture(
   page: Page,
   phase: "select" | "actions" = "actions",
+  playerCount = 4,
 ) {
   test.setTimeout(90000);
   const host = await roomRequest(page, "/api/rooms", "亲自落子的企业家");
@@ -76,7 +77,7 @@ export async function fixture(
   );
   let friendToken = "";
   const seatTokens = [host.token as string];
-  for (let i = 1; i < 4; i++) {
+  for (let i = 1; i < playerCount; i++) {
     const result = await roomRequest(
       page,
       `/api/rooms/${id}/join`,

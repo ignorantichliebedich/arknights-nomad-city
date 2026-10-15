@@ -11,6 +11,7 @@ import type {
 import { TablePiece } from "./TablePieces.tsx";
 import { RouteOverlay } from "./MapRoutes.tsx";
 import { ScoreTrack } from "./TableMotion.tsx";
+import { OriginiumFog } from "./OriginiumFog.tsx";
 import {
   useInfluenceDrag,
   useInfluenceTravel,
@@ -154,6 +155,7 @@ export function BoardMap({
         role="group"
         aria-label="第 105 号拓荒区棋盘"
       >
+        <OriginiumFog playerCount={game.players.length} round={game.round} />
         <RouteOverlay
           game={game}
           target={target || confirm?.target || ""}

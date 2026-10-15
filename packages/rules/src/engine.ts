@@ -17,6 +17,7 @@ import {
   RULES_VERSION,
   VERIFIED_ENTERPRISES,
   boardFor,
+  redZoneOpensAt,
 } from "./data.ts";
 import { COMPLETE_RHINE_RULES, RHINE_DEPARTMENTS } from "./original-labs.ts";
 import type { OriginalLabReward } from "./original-labs.ts";
@@ -241,9 +242,7 @@ function slotParts(slot: string): [string, number] {
 function nodeOpen(s: GameState, id: string) {
   const n = s.board.nodes.find((n) => n.id === id);
   return (
-    !!n &&
-    (n.tier !== "red" ||
-      s.round >= (s.players.length === 4 ? 4 : s.players.length === 3 ? 5 : 6))
+    !!n && (n.tier !== "red" || s.round >= redZoneOpensAt(s.players.length))
   );
 }
 function roadsFor(s: GameState, node: string) {

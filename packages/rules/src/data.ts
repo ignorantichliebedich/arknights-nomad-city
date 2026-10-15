@@ -1,6 +1,10 @@
 import type { Facility, Reward, Role, BoardDef, Resource } from "./types.ts";
 import { COMPLETE_RHINE_RULES } from "./original-labs.ts";
 export const RULES_VERSION = "founders-2023.1";
+/** Printed maps: four players open at 4, three at 5; two-player appendix p.23 overrides to 6. */
+export function redZoneOpensAt(playerCount: number): number {
+  return playerCount === 4 ? 4 : playerCount === 3 ? 5 : 6;
+}
 // Only components verified against the printed rulebook enter the playable pack.
 export const VERIFIED_ENTERPRISES = [
   "rhodes",

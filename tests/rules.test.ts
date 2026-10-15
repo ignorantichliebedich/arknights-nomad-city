@@ -8,7 +8,12 @@ import {
   routeTo,
   scoreGame,
 } from "../packages/rules/src/engine.ts";
-import { FACILITIES, BASE_ROLES, EVENTS } from "../packages/rules/src/data.ts";
+import {
+  FACILITIES,
+  BASE_ROLES,
+  EVENTS,
+  redZoneOpensAt,
+} from "../packages/rules/src/data.ts";
 import type { Command, GameState } from "../packages/rules/src/types.ts";
 
 function choose(s: GameState, id?: string) {
@@ -328,6 +333,69 @@ describe("规则引擎", () => {
       ).toBe(true);
     }
   });
+  it.each([
+    [2, 6],
+    [3, 5],
+    [4, 4],
+  ])(
+    "%i 人红区在第 %i 回合边界统一开放探索、城市与地图快捷目标，旧存档可直接继续",
+    (count, opensAt) => {
+      expect(redZoneOpensAt(count)).toBe(opensAt);
+      const saved = fixture(count);
+      const red = saved.board.nodes.find((n) => n.tier === "red")!;
+      const road = saved.board.roads.find(
+        (r) =>
+          r.nodes.includes(red.id) &&
+          r.nodes.some(
+            (id) => saved.board.nodes.find((n) => n.id === id)?.tier !== "red",
+          ),
+      )!;
+      saved.players.forEach((p) => (p.city = null));
+      saved.players[0].city = road.nodes.find(
+        (id) => saved.board.nodes.find((n) => n.id === id)?.tier !== "red",
+      )!;
+      saved.players[0].wallet.ore = 20;
+      saved.players[0].wallet.cash = 100;
+      for (const round of [opensAt - 1, opensAt, 8]) {
+        const s = JSON.parse(JSON.stringify(saved)) as GameState;
+        s.round = round;
+        const open = round >= opensAt;
+        const view = projectView(s, "p0");
+        expect(view.explorationTargets!.some((o) => o.target === red.id)).toBe(
+          open,
+        );
+        expect(view.cityDestinations!.some((o) => o.target === red.id)).toBe(
+          open,
+        );
+        expect(
+          view.influencePlacements!.some((o) => o.target === road.id),
+        ).toBe(true);
+        const explore = applyCommand(s, "p0", {
+          type: "main",
+          action: "explore",
+        });
+        expect(explore.decision!.options.some((o) => o.id === red.id)).toBe(
+          open,
+        );
+        if (!open) {
+          expect(() =>
+            applyCommand(explore, "p0", { type: "choose", optionId: red.id }),
+          ).toThrow();
+        } else {
+          const move = applyCommand(s, "p0", { type: "main", action: "city" });
+          const option = move.decision!.options.find(
+            (o) => o.target === red.id,
+          )!;
+          const moved = applyCommand(move, "p0", {
+            type: "choose",
+            optionId: option.id,
+          });
+          expect(moved.players[0].city).toBe(red.id);
+          expect(moved.players[0].wallet.ore).toBe(17);
+        }
+      }
+    },
+  );
   it("自己控制的航道免费，公路免费，其他航道每条2金券", () => {
     const s = fixture();
     s.players[0].city = "A-01";

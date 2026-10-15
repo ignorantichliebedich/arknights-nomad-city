@@ -1,0 +1,88 @@
+.originium-fog {
+  pointer-events: none;
+  --dust-ember: #ef8c58;
+}
+.originium-clouds {
+  animation: originium-billow 13s ease-in-out infinite alternate;
+  transform-origin: 250px 470px;
+}
+.originium-particle {
+  fill: var(--dust-ember);
+  animation: originium-drift var(--dust-duration) linear var(--dust-delay)
+    infinite;
+}
+.originium-warning path {
+  fill: #2d1c19;
+  fill-opacity: 0.94;
+  stroke: #bc7151;
+  stroke-width: 0.7;
+}
+.originium-warning text {
+  fill: #f5d8b7;
+  font:
+    600 9px "Microsoft YaHei",
+    sans-serif;
+  letter-spacing: 1px;
+}
+.originium-warning .originium-opening {
+  fill: #dc9c7d;
+  font-size: 8px;
+  letter-spacing: 0.4px;
+}
+.originium-fog.is-clearing {
+  animation: originium-clear 1.8s ease-out both;
+}
+@keyframes originium-billow {
+  from {
+    transform: translate(-12px, 9px) scale(1);
+    opacity: 0.7;
+  }
+  to {
+    transform: translate(16px, -12px) scale(1.08);
+    opacity: 1;
+  }
+}
+@keyframes originium-drift {
+  0% {
+    transform: translate(0, 18px);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translate(26px, -42px);
+    opacity: 0;
+  }
+}
+@keyframes originium-clear {
+  0% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0.65;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@media (max-width: 900px) {
+  .originium-dust > g:nth-child(n + 23) {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .originium-clouds,
+  .originium-particle {
+    animation: none;
+  }
+  .originium-particle {
+    opacity: 0.45;
+  }
+  .originium-fog.is-clearing {
+    animation-duration: 0.001s;
+  }
+}
