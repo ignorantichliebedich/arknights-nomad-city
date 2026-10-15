@@ -135,6 +135,9 @@
 .audio-window {
   width: min(560px, calc(100vw - 32px));
 }
+.room-toolbar.in-game {
+  right: 390px;
+}
 .app-shell .modal.audio-window .modal-heading {
   color: #f3e5c8;
   background: #30271d;

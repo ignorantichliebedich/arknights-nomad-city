@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { readFileSync } from "node:fs";
+import { fixture } from "./fixtures/table.ts";
 
 test("启程提示可取消，键盘可关闭，同一标签刷新不重复弹出", async ({
   page,
@@ -84,7 +85,10 @@ test("真实音效在交互后解码播放，静音与音量设置刷新保留",
   await page.getByRole("button", { name: "声音设置" }).click();
   const settings = page.getByRole("dialog", { name: "声音与音乐" });
   await expect(settings).toBeVisible();
-  await expect(settings.locator(".modal-heading")).toHaveCSS("background-color", "rgb(48, 39, 29)");
+  await expect(settings.locator(".modal-heading")).toHaveCSS(
+    "background-color",
+    "rgb(48, 39, 29)",
+  );
   await expect(
     settings.getByRole("checkbox", { name: "背景音乐", exact: true }),
   ).toBeDisabled();
@@ -158,4 +162,25 @@ test("预留音乐清单接入真实音频并可独立开关", async ({ page }) 
   await expect
     .poll(() => page.evaluate(() => (window as any).__music.paused))
     .toBe(true);
+});
+
+test("棋桌信息栏为声音入口留出空间，对局中可直接静音", async ({ page }) => {
+  await page.addInitScript(() =>
+    sessionStorage.setItem("nomad:fullscreen-prompt:1", "1"),
+  );
+  await fixture(page);
+  const sound = page.getByRole("button", { name: "声音设置" });
+  await expect(sound).toBeVisible();
+  const button = await sound.boundingBox();
+  const toolbar = await page.locator(".room-toolbar.in-game").boundingBox();
+  expect(toolbar!.x + toolbar!.width).toBeLessThan(button!.x);
+  await sound.click();
+  const settings = page.getByRole("dialog", { name: "声音与音乐" });
+  await expect(settings).toBeVisible();
+  await settings.getByRole("button", { name: /全部静音/ }).click();
+  await expect(
+    settings.getByRole("button", { name: /开启声音/ }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await page.keyboard.press("Escape");
+  await expect(settings).toHaveCount(0);
 });
