@@ -7,6 +7,7 @@ COPY tsconfig.json ./
 COPY apps ./apps
 COPY packages ./packages
 COPY assets/original-labs.json ./assets/original-labs.json
+COPY assets/board-layout.json ./assets/board-layout.json
 RUN pnpm exec vite build --config apps/web/vite.config.ts
 
 FROM node:24-bookworm-slim
