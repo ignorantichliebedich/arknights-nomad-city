@@ -3,6 +3,7 @@ import type { PlayerView } from "../../../../packages/rules/src/types.ts";
 import { RESOURCES } from "../../../../packages/rules/src/data.ts";
 import type { AudioCue } from "../audio-config.ts";
 import { gameAudio } from "../audio.ts";
+import { voicesForTransition } from "../role-voices.ts";
 
 export function soundForTransition(
   before: PlayerView,
@@ -68,8 +69,10 @@ export function GameSoundFeedback({
   const previous = useRef(game);
   useEffect(() => {
     const cue = soundForTransition(previous.current, game);
+    const voices = voicesForTransition(previous.current, game);
     previous.current = game;
     if (cue) void gameAudio.play(cue);
+    if (voices.length) void gameAudio.playRoleVoices(voices);
   }, [game]);
   useEffect(() => {
     if (error) void gameAudio.play("error");

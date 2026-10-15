@@ -168,17 +168,25 @@ export function TurnAnnouncement({ game }: { game: PlayerView }) {
   );
 }
 
-export function BoardEdgeHints({ game }: { game: PlayerView }) {
+export function BoardEdgeHints({
+  game,
+  expanded = false,
+}: {
+  game: PlayerView;
+  expanded?: boolean;
+}) {
   const [pinned, setPinned] = useState(false);
   return (
-    <div className={`board-edge-hints ${pinned ? "pinned" : ""}`}>
-      <button
-        aria-expanded={pinned}
-        aria-controls="board-edge-reference"
-        onClick={() => setPinned(!pinned)}
-      >
-        回合与终局计分 ▾
-      </button>
+    <div className={`board-edge-hints ${pinned || expanded ? "pinned" : ""}`}>
+      {!expanded && (
+        <button
+          aria-expanded={pinned}
+          aria-controls="board-edge-reference"
+          onClick={() => setPinned(!pinned)}
+        >
+          回合与终局计分 ▾
+        </button>
+      )}
       <div className="edge-hint-sheet" id="board-edge-reference">
         <div className="round-track" aria-label={`第 ${game.round} 回合`}>
           {Array.from({ length: 8 }, (_, i) => (

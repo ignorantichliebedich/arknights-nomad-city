@@ -7,7 +7,7 @@ import {
 } from "../../../packages/rules/src/engine.ts";
 
 /** Rotated cards overlap: aim at a visible part of the actual card, then its raised face. */
-export async function clickHandCard(page: Page, card: Locator) {
+export async function clickHandCard(page: Page, card: Locator, clicks = 1) {
   await page.locator(".fan-toggle").hover();
   if (
     (await page.locator(".fan-toggle").getAttribute("aria-expanded")) !== "true"
@@ -60,7 +60,7 @@ export async function clickHandCard(page: Page, card: Locator) {
   });
   const raised = await visiblePoint();
   expect(raised).toBeTruthy();
-  await page.mouse.click(raised.x, raised.y);
+  await page.mouse.click(raised.x, raised.y, { clickCount: clicks, delay: 90 });
 }
 
 export async function fixture(

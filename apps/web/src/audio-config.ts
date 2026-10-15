@@ -26,27 +26,35 @@ export type AudioPreferences = {
   musicVolume: number;
   track: string;
   musicMode: "sequence" | "repeat";
+  voices: boolean;
+  voiceLanguage: "zh" | "ja";
+  voiceVolume: number;
 };
 export const DEFAULT_AUDIO: AudioPreferences = {
   muted: false,
   effects: true,
   volume: 0.7,
   effectsVolume: 0.55,
-  music: false,
+  music: true,
   musicVolume: 0.35,
-  track: "",
+  track: "speed-of-light",
   musicMode: "sequence",
+  voices: true,
+  voiceLanguage: "zh",
+  voiceVolume: 0.8,
 };
 export function audioPreferences(value: unknown): AudioPreferences {
   const input =
     value && typeof value === "object"
       ? (value as Record<string, unknown>)
       : {};
-  const unit = (key: "volume" | "effectsVolume" | "musicVolume") =>
+  const unit = (
+    key: "volume" | "effectsVolume" | "musicVolume" | "voiceVolume",
+  ) =>
     typeof input[key] === "number" && Number.isFinite(input[key])
       ? Math.min(1, Math.max(0, input[key] as number))
       : DEFAULT_AUDIO[key];
-  const flag = (key: "muted" | "effects" | "music") =>
+  const flag = (key: "muted" | "effects" | "music" | "voices") =>
     typeof input[key] === "boolean"
       ? (input[key] as boolean)
       : DEFAULT_AUDIO[key];
@@ -54,6 +62,9 @@ export function audioPreferences(value: unknown): AudioPreferences {
     muted: flag("muted"),
     effects: flag("effects"),
     music: flag("music"),
+    voices: flag("voices"),
+    voiceLanguage: input.voiceLanguage === "ja" ? "ja" : "zh",
+    voiceVolume: unit("voiceVolume"),
     musicMode: input.musicMode === "repeat" ? "repeat" : "sequence",
     volume: unit("volume"),
     effectsVolume: unit("effectsVolume"),
@@ -62,10 +73,15 @@ export function audioPreferences(value: unknown): AudioPreferences {
       typeof input.track === "string" &&
       /^[a-zA-Z0-9_-]{1,60}$/.test(input.track)
         ? input.track
-        : "",
+        : DEFAULT_AUDIO.track,
   };
 }
-export type MusicTrack = { id: string; title: string; src: string };
+export type MusicTrack = {
+  id: string;
+  title: string;
+  src: string;
+  cover?: string;
+};
 export function adjacentTrack(
   tracks: MusicTrack[],
   selected: string,
@@ -112,8 +128,27 @@ export function musicTracks(value: unknown, origin: string): MusicTrack[] {
       )
         return [];
       ids.add(row.id);
+      let cover: string | undefined;
+      if (typeof row.cover === "string") {
+        const artwork = new URL(row.cover, origin);
+        if (
+          artwork.origin === origin &&
+          artwork.pathname.startsWith("/audio/music/covers/") &&
+          /\.(jpg|png|webp)$/i.test(artwork.pathname) &&
+          !artwork.search &&
+          !artwork.hash &&
+          !artwork.username &&
+          !artwork.password
+        )
+          cover = artwork.pathname;
+      }
       return [
-        { id: row.id, title: row.title.trim().slice(0, 80), src: url.pathname },
+        {
+          id: row.id,
+          title: row.title.trim().slice(0, 80),
+          src: url.pathname,
+          ...(cover ? { cover } : {}),
+        },
       ];
     } catch {
       return [];

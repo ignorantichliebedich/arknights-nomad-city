@@ -211,7 +211,7 @@ test("入口、两人房间、真实棋盘、准备开局、秘密选牌和刷�
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { name: "移动城市， 由此起航。" }),
+    page.getByRole("heading", { name: "明日方舟 游城拓荒" }),
   ).toBeVisible();
   await page.getByLabel("企业家昵称").fill("测试房主");
   await clickRoomButton(page, "创建新房间");
@@ -253,13 +253,17 @@ test("入口、两人房间、真实棋盘、准备开局、秘密选牌和刷�
     for (const tab of [page, friend]) {
       const canAct = tab.getByRole("button", { name: /^(进行行动|处理事件)$/ });
       if (
-        !(await tab.locator(".interaction-window").isVisible()) &&
+        !(await tab
+          .locator(".interaction-window, .event-window")
+          .isVisible()) &&
         (await canAct.isVisible()) &&
         (await canAct.isEnabled())
       )
         await canAct.click();
       const choice = tab
-        .locator(".action-list .action-button, .hand-card.playable")
+        .locator(
+          ".action-list .action-button, .hand-card.playable, .event-window .event-option",
+        )
         .first();
       if ((await choice.isVisible()) && (await choice.isEnabled())) {
         const revision = await tab
@@ -297,14 +301,11 @@ test("入口、两人房间、真实棋盘、准备开局、秘密选牌和刷�
     path: `test-results/${info.project.name}-game.png`,
     fullPage: true,
   });
-  await page.getByRole("button", { name: "进行行动", exact: true }).click();
-  await page.getByRole("button", { name: "部署 · 放置一次影响力" }).click();
-  await expect(page.locator(".commit-tray")).toContainText("部署");
-  await page.getByRole("button", { name: "执行行动" }).click();
-  await expect(page.locator(".map-decision-title")).toContainText("放置影响力");
-  await page.getByRole("button", { name: "目标列表" }).click();
-  await page.locator(".action-list .action-button").first().click();
-  await page.getByRole("button", { name: "确认选择" }).click();
+  await page.locator(".deployment-slot").first().click();
+  await expect(page.locator(".placement-panel")).toBeVisible();
+  await page
+    .getByRole("button", { name: /^确认放置/ })
+    .click({ timeout: 10000 });
   await page.getByRole("button", { name: "进行行动", exact: true }).click();
   await expect(
     page.getByRole("button", { name: "结束本轮行动" }),

@@ -1,0 +1,573 @@
+.game-wordmark {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #ebdbb6;
+  white-space: nowrap;
+  text-align: left;
+}
+.wordmark-city {
+  width: 34px;
+  height: 34px;
+  fill: currentColor;
+  filter: drop-shadow(1px 2px 0 #0005);
+}
+.wordmark-flag {
+  fill: #a63c2e;
+  stroke: #c15c43;
+  stroke-width: 2;
+}
+.game-wordmark strong {
+  display: block;
+  font:
+    900 21px/1.1 "Noto Serif SC",
+    "Songti SC",
+    serif;
+  letter-spacing: 3px;
+  transform: skew(-6deg);
+  text-shadow: 1px 2px #4f3624;
+}
+.game-wordmark small {
+  display: block;
+  margin-top: 3px;
+  font: 700 7px/1 monospace;
+  letter-spacing: 1px;
+  color: #c4a46d;
+}
+.game-wordmark small i {
+  font-style: normal;
+  margin-left: 4px;
+  background: #87372a;
+  color: #f0d9b6;
+  padding: 1px 3px;
+  letter-spacing: 0;
+}
+.hero-arknights,
+.hero-nomad {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  font-weight: 900;
+  line-height: 1.15;
+  transform: rotate(var(--title-tilt));
+  position: relative;
+  isolation: isolate;
+}
+.hero-arknights {
+  --title-tilt: -3deg;
+  font-size: clamp(36px, 3.7vw, 62px);
+  letter-spacing: 0.16em;
+  color: #c9b481;
+}
+.hero-nomad {
+  --title-tilt: 1.5deg;
+  margin-top: 10px;
+  font-size: clamp(58px, 6.4vw, 108px);
+  letter-spacing: 0.06em;
+  color: #f0dfba;
+  text-shadow: 3px 4px 0 #5b3d26;
+}
+.hero-nomad:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: -5%;
+  right: -3%;
+  bottom: 4%;
+  height: 29%;
+  background: linear-gradient(
+    95deg,
+    transparent,
+    #8a342adc 8% 92%,
+    transparent
+  );
+  transform: rotate(-1.5deg);
+}
+#departure-title > span > span {
+  display: inline-block;
+  animation: title-wave 5.8s ease-in-out infinite;
+  animation-delay: calc(var(--glyph) * -0.43s);
+}
+.hero-official-stamp {
+  width: 128px;
+  height: auto;
+  margin-top: 14px;
+  opacity: 0.82;
+  transform: rotate(-3deg);
+}
+.music-deck {
+  margin-top: 18px;
+  text-align: center;
+}
+.music-sleeve {
+  position: relative;
+  width: 228px;
+  height: 222px;
+  max-width: 100%;
+  margin: auto;
+  padding: 12px 18px 24px;
+  background: #d5c19a;
+  border: 1px solid #ac8e57;
+  box-shadow:
+    inset 0 0 0 5px #e9d9b6,
+    2px 3px 0 #b09a7155;
+}
+.record-platter {
+  width: 186px;
+  height: 186px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  margin: auto;
+  border-radius: 50%;
+  background: #24211d;
+  box-shadow:
+    0 3px 8px #33251377,
+    inset 0 0 0 2px #15120f,
+    inset 0 0 0 5px #685a4444;
+  animation: record-turn 22s linear infinite;
+  animation-play-state: paused;
+}
+.is-playing .record-platter {
+  animation-play-state: running;
+}
+.record-grooves {
+  position: absolute;
+  inset: 7px;
+  border-radius: 50%;
+  background: repeating-radial-gradient(
+    circle,
+    #171613 0 1px,
+    #66594066 2px,
+    #24211c 3px 4px
+  );
+  opacity: 0.8;
+}
+.record-label {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #b39760;
+  border: 2px solid #bd9d62;
+}
+.record-label img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.record-label i {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  top: calc(50% - 3.5px);
+  left: calc(50% - 3.5px);
+  border-radius: 50%;
+  background: #2d2418;
+  box-shadow: 0 0 0 3px #c8b27d;
+}
+.record-label > b {
+  font: 900 36px serif;
+  color: #332c21;
+}
+.record-arm {
+  position: absolute;
+  width: 4px;
+  height: 90px;
+  right: 20px;
+  top: 18px;
+  background: #9c824f;
+  transform: rotate(-28deg);
+  transform-origin: top;
+  box-shadow: 1px 1px #4b3f27;
+}
+.record-arm:after {
+  content: "";
+  position: absolute;
+  bottom: -9px;
+  left: -3px;
+  width: 10px;
+  height: 20px;
+  background: #665334;
+  border: 1px solid #ac9156;
+}
+.music-sleeve > small {
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  font: 7px monospace;
+  letter-spacing: 2px;
+  color: #735c38;
+}
+.record-caption {
+  margin: 16px 0 8px;
+}
+.record-caption > small {
+  font: 9px monospace;
+  letter-spacing: 2px;
+  color: #8d7449;
+}
+.music-deck-title {
+  margin: 8px 0 0;
+  font:
+    600 18px/1.4 "Noto Serif SC",
+    "Songti SC",
+    serif;
+  overflow-wrap: anywhere;
+  color: #4a3823;
+}
+.music-transport {
+  max-width: 320px;
+  margin: 14px auto 10px;
+  grid-template-columns: minmax(0, 1fr) 48px minmax(0, 1fr);
+}
+.music-transport .record-play {
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  color: #f4e4be;
+  background: #6e5130;
+  border: 1px solid #b6975e;
+}
+.music-status {
+  font-size: 11px;
+  color: #80683f;
+}
+.music-catalog {
+  text-align: left;
+  margin-top: 16px;
+  border-top: 1px solid #b69a6255;
+  padding-top: 10px;
+}
+.music-catalog summary {
+  font-size: 11px;
+  color: #7a613a;
+  cursor: pointer;
+}
+.audio-settings {
+  display: flex;
+  flex-direction: column;
+}
+.audio-heading {
+  order: 0;
+}
+.music-channel {
+  order: 1;
+}
+.audio-master {
+  order: 2;
+}
+.audio-settings > .audio-slider {
+  order: 3;
+}
+.effects-channel {
+  order: 4;
+}
+.voice-channel {
+  order: 5;
+}
+.audio-footnote {
+  order: 6;
+}
+.map-dock {
+  width: min(148px, var(--map-gutter));
+}
+.map-dock button {
+  min-height: 72px;
+  padding: 12px;
+}
+.map-dock strong {
+  font-size: 16px;
+}
+.board-hit.explorable {
+  stroke: #bbd2ab;
+  stroke-dasharray: 6 3;
+  fill: #b7d49b16;
+}
+.phone-phase-bar {
+  display: none;
+}
+.phone-layout .game-layout {
+  grid-template-rows: 36px 30px minmax(0, 1fr);
+}
+.phone-layout .phone-resource-hud {
+  grid-row: 1;
+}
+.phone-layout .phone-phase-bar {
+  grid-row: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px solid #aa8a5055;
+  color: #dfcea6;
+  background: #30261dd9;
+  padding: 0 4px;
+  min-width: 0;
+}
+.phone-phase-bar > span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+.phone-phase-bar img {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ad8d58;
+  object-fit: cover;
+}
+.phone-phase-bar > button {
+  min-height: 28px;
+  font-size: 10px;
+  color: #f0d9a7;
+  background: #6f5533;
+  flex-shrink: 0;
+  padding: 3px 8px;
+  border: 1px solid #a58954;
+}
+.phone-layout .table-area {
+  grid-row: 3;
+}
+.phone-layout .room-toolbar.in-game .room-meta {
+  display: none;
+}
+.phone-layout .room-toolbar.in-game {
+  left: 128px;
+  right: 192px;
+}
+.phone-layout .game-wordmark {
+  gap: 4px;
+}
+.phone-layout .wordmark-city {
+  width: 24px;
+  height: 28px;
+}
+.phone-layout .game-wordmark strong {
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+.phone-layout .game-wordmark small {
+  display: none;
+}
+.phone-layout .map-dock {
+  width: 84px;
+  gap: 4px;
+}
+.phone-layout .map-dock button {
+  height: 48px;
+  min-height: 48px;
+  padding: 6px;
+}
+.phone-layout .map-dock strong {
+  font-size: 13px;
+}
+.phone-layout .entrepreneur-station .map-prompt {
+  display: none;
+}
+.phone-layout .entrepreneur-station .active-entrepreneur {
+  display: none;
+}
+.phone-layout .table-area:has(.fan-hand.is-expanded) .map-dock {
+  visibility: hidden;
+}
+.phone-score-reference {
+  position: fixed;
+  inset: 76px 8px auto auto;
+  width: min(520px, calc(100vw - 16px));
+  margin: 0;
+  padding: 0;
+  background: #30271e;
+  color: #ecd9b2;
+  border: 1px solid #ac8c55;
+  max-height: calc(var(--app-height, 100dvh) - 92px);
+  overflow: auto;
+}
+.phone-score-reference::backdrop {
+  background: #20180e55;
+}
+.phone-score-reference > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 12px;
+  position: sticky;
+  top: 0;
+  background: #30271e;
+  z-index: 2;
+  font-size: 13px;
+}
+.phone-score-reference > header button {
+  min-height: 40px;
+  min-width: 40px;
+  background: transparent;
+  color: #ead2a1;
+  font-size: 20px;
+}
+.phone-score-reference .board-edge-hints {
+  display: block;
+  position: static;
+  transform: none;
+  width: 100%;
+}
+.phone-score-reference .edge-hint-sheet {
+  position: static;
+  transform: none;
+  width: 100%;
+  max-width: none;
+  max-height: none;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  display: block;
+}
+.phone-layout .placement-panel {
+  animation: placement-ready 380ms both;
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 52px;
+  width: auto;
+  max-width: 420px;
+  max-height: calc(100% - 60px);
+  padding: 8px 10px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(150px, 1fr);
+  gap: 6px 10px;
+}
+.phone-layout .entrepreneur-station:has(.placement-panel) {
+  inset: 0;
+  width: auto;
+  height: auto;
+  pointer-events: none;
+}
+.phone-layout .placement-panel header,
+.phone-layout .placement-panel > p {
+  grid-column: 1 / -1;
+}
+.phone-layout .placement-panel header small,
+.phone-layout .placement-hint {
+  display: none;
+}
+.phone-layout .placement-panel h3 {
+  font-size: 14px;
+  line-height: 18px;
+  margin: 0;
+}
+.phone-layout .placement-panel > p {
+  font-size: 10px;
+  line-height: 14px;
+  margin: 0;
+}
+.phone-layout .placement-panel .placement-slots {
+  margin: 0;
+  gap: 4px;
+}
+.phone-layout .placement-panel .placement-slots button {
+  font-size: 11px;
+  padding: 4px;
+}
+.phone-layout .placement-panel .placement-controls {
+  grid-column: 1 / -1;
+  margin: 0;
+  gap: 4px;
+}
+.phone-layout .placement-panel:has(.placement-slots) .placement-controls {
+  grid-column: 2;
+}
+.phone-layout .placement-panel .placement-controls button {
+  padding: 5px 6px;
+  font-size: 11px;
+}
+.phone-layout .table-area:has(.placement-panel) .map-dock {
+  visibility: hidden;
+}
+.phone-layout .fan-hand.is-folded .hand-cards {
+  display: none;
+}
+@keyframes title-wave {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-0.4deg);
+  }
+  35% {
+    transform: translateY(-2px) rotate(0.6deg);
+  }
+  70% {
+    transform: translateY(1px) rotate(-0.3deg);
+  }
+}
+@keyframes record-turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes placement-ready {
+  0%,
+  95% {
+    pointer-events: none;
+    opacity: 0.3;
+  }
+  100% {
+    pointer-events: auto;
+    opacity: 1;
+  }
+}
+@media (orientation: landscape) and (max-height: 500px) {
+  .phone-layout .active-entrepreneur,
+  .phone-layout .entrepreneur-station > .president-badge {
+    display: none;
+  }
+  .phone-layout .hero-arknights {
+    font-size: 32px;
+  }
+  .phone-layout .hero-nomad {
+    font-size: 52px;
+  }
+  .phone-layout .hero-official-stamp {
+    width: 92px;
+  }
+  .phone-layout .music-sleeve {
+    transform: scale(0.82);
+    margin-block: -20px;
+  }
+  .phone-layout .audio-heading p {
+    display: none;
+  }
+}
+@media (orientation: portrait) {
+  .phone-layout .hero-arknights {
+    font-size: 39px;
+  }
+  .phone-layout .hero-nomad {
+    font-size: 62px;
+  }
+  .phone-layout .game-layout {
+    grid-template-rows: 38px 30px minmax(0, 1fr);
+  }
+  .phone-layout .room-toolbar.in-game {
+    left: auto;
+    right: auto;
+  }
+  .phone-layout .topbar .subtle-button {
+    padding-inline: 6px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #departure-title > span > span,
+  .record-platter {
+    animation: none;
+  }
+  .phone-layout .placement-panel {
+    animation: none;
+  }
+}

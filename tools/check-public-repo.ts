@@ -14,7 +14,7 @@ if (batch.status !== 0 || batch.error)
   throw new Error("Cannot read staged Git content");
 let offset = 0;
 const forbidden =
-  /(^|\/)(\.data|node_modules|backups|test-results|playwright-report|\.ssh)(\/|$)|(^|\/)\.env(?!\.example$)|\.(sqlite(?:-wal|-shm)?|db|pem|key|zip|7z|tar\.gz)$|^music\/|^apps\/web\/public\/(assets|audio\/(sfx|music))\//i;
+  /(^|\/)(\.data|node_modules|backups|test-results|playwright-report|\.ssh)(\/|$)|(^|\/)\.env(?!\.example$)|\.(sqlite(?:-wal|-shm)?|db|pem|key|zip|7z|tar\.gz)$|^music\/|^apps\/web\/public\/(assets|audio\/(sfx|music|voices))\//i;
 const secrets = [
   /-----BEGIN (?:OPENSSH|RSA|EC|DSA|ENCRYPTED)? ?PRIVATE KEY-----/,
   /\bgh[pousr]_[A-Za-z0-9]{30,}\b/,

@@ -1,0 +1,1012 @@
+{
+  "voices": [
+    {
+      "roleId": "closure",
+      "language": "ja",
+      "cue": "battle-1",
+      "src": "/audio/voices/ja/closure/battle-1.mp3"
+    },
+    {
+      "roleId": "closure",
+      "language": "ja",
+      "cue": "battle-2",
+      "src": "/audio/voices/ja/closure/battle-2.mp3"
+    },
+    {
+      "roleId": "closure",
+      "language": "ja",
+      "cue": "battle-3",
+      "src": "/audio/voices/ja/closure/battle-3.mp3"
+    },
+    {
+      "roleId": "closure",
+      "language": "ja",
+      "cue": "battle-4",
+      "src": "/audio/voices/ja/closure/battle-4.mp3"
+    },
+    {
+      "roleId": "closure",
+      "language": "ja",
+      "cue": "select-1",
+      "src": "/audio/voices/ja/closure/select-1.mp3"
+    },
+    {
+      "roleId": "closure",
+      "language": "ja",
+      "cue": "select-2",
+      "src": "/audio/voices/ja/closure/select-2.mp3"
+    },
+    {
+      "roleId": "closure",
+      "language": "zh",
+      "cue": "battle-1",
+      "src": "/audio/voices/zh/closure/battle-1.mp3"
+    },
+    {
+      "roleId": "closure",
+      "language": "zh",
+      "cue": "battle-2",
+      "src": "/audio/voices/zh/closure/battle-2.mp3"
+    },
+    {
+      "roleId": "closure",
+      "language": "zh",
+      "cue": "battle-3",
+      "src": "/audio/voices/zh/closure/battle-3.mp3"
+    },
+    {
+      "roleId": "closure",
+      "language": "zh",
+      "cue": "battle-4",
+      "src": "/audio/voices/zh/closure/battle-4.mp3"
+    },
+    {
+      "roleId": "closure",
+      "language": "zh",
+      "cue": "select-1",
+      "src": "/audio/voices/zh/closure/select-1.mp3"
+    },
+    {
+      "roleId": "closure",
+      "language": "zh",
+      "cue": "select-2",
+      "src": "/audio/voices/zh/closure/select-2.mp3"
+    },
+    {
+      "roleId": "dorothy",
+      "language": "ja",
+      "cue": "battle-1",
+      "src": "/audio/voices/ja/dorothy/battle-1.mp3"
+    },
+    {
+      "roleId": "dorothy",
+      "language": "ja",
+      "cue": "battle-2",
+      "src": "/audio/voices/ja/dorothy/battle-2.mp3"
+    },
+    {
+      "roleId": "dorothy",
+      "language": "ja",
+      "cue": "battle-3",
+      "src": "/audio/voices/ja/dorothy/battle-3.mp3"
+    },
+    {
+      "roleId": "dorothy",
+      "language": "ja",
+      "cue": "battle-4",
+      "src": "/audio/voices/ja/dorothy/battle-4.mp3"
+    },
+    {
+      "roleId": "dorothy",
+      "language": "ja",
+      "cue": "select-1",
+      "src": "/audio/voices/ja/dorothy/select-1.mp3"
+    },
+    {
+      "roleId": "dorothy",
+      "language": "ja",
+      "cue": "select-2",
+      "src": "/audio/voices/ja/dorothy/select-2.mp3"
+    },
+    {
+      "roleId": "dorothy",
+      "language": "zh",
+      "cue": "battle-1",
+      "src": "/audio/voices/zh/dorothy/battle-1.mp3"
+    },
+    {
+      "roleId": "dorothy",
+      "language": "zh",
+      "cue": "battle-2",
+      "src": "/audio/voices/zh/dorothy/battle-2.mp3"
+    },
+    {
+      "roleId": "dorothy",
+      "language": "zh",
+      "cue": "battle-3",
+      "src": "/audio/voices/zh/dorothy/battle-3.mp3"
+    },
+    {
+      "roleId": "dorothy",
+      "language": "zh",
+      "cue": "battle-4",
+      "src": "/audio/voices/zh/dorothy/battle-4.mp3"
+    },
+    {
+      "roleId": "dorothy",
+      "language": "zh",
+      "cue": "select-1",
+      "src": "/audio/voices/zh/dorothy/select-1.mp3"
+    },
+    {
+      "roleId": "dorothy",
+      "language": "zh",
+      "cue": "select-2",
+      "src": "/audio/voices/zh/dorothy/select-2.mp3"
+    },
+    {
+      "roleId": "elysium",
+      "language": "ja",
+      "cue": "battle-1",
+      "src": "/audio/voices/ja/elysium/battle-1.mp3"
+    },
+    {
+      "roleId": "elysium",
+      "language": "ja",
+      "cue": "battle-2",
+      "src": "/audio/voices/ja/elysium/battle-2.mp3"
+    },
+    {
+      "roleId": "elysium",
+      "language": "ja",
+      "cue": "battle-3",
+      "src": "/audio/voices/ja/elysium/battle-3.mp3"
+    },
+    {
+      "roleId": "elysium",
+      "language": "ja",
+      "cue": "battle-4",
+      "src": "/audio/voices/ja/elysium/battle-4.mp3"
+    },
+    {
+      "roleId": "elysium",
+      "language": "ja",
+      "cue": "select-1",
+      "src": "/audio/voices/ja/elysium/select-1.mp3"
+    },
+    {
+      "roleId": "elysium",
+      "language": "ja",
+      "cue": "select-2",
+      "src": "/audio/voices/ja/elysium/select-2.mp3"
+    },
+    {
+      "roleId": "elysium",
+      "language": "zh",
+      "cue": "battle-1",
+      "src": "/audio/voices/zh/elysium/battle-1.mp3"
+    },
+    {
+      "roleId": "elysium",
+      "language": "zh",
+      "cue": "battle-2",
+      "src": "/audio/voices/zh/elysium/battle-2.mp3"
+    },
+    {
+      "roleId": "elysium",
+      "language": "zh",
+      "cue": "battle-3",
+      "src": "/audio/voices/zh/elysium/battle-3.mp3"
+    },
+    {
+      "roleId": "elysium",
+      "language": "zh",
+      "cue": "battle-4",
+      "src": "/audio/voices/zh/elysium/battle-4.mp3"
+    },
+    {
+      "roleId": "elysium",
+      "language": "zh",
+      "cue": "select-1",
+      "src": "/audio/voices/zh/elysium/select-1.mp3"
+    },
+    {
+      "roleId": "elysium",
+      "language": "zh",
+      "cue": "select-2",
+      "src": "/audio/voices/zh/elysium/select-2.mp3"
+    },
+    {
+      "roleId": "eunectes",
+      "language": "ja",
+      "cue": "battle-1",
+      "src": "/audio/voices/ja/eunectes/battle-1.mp3"
+    },
+    {
+      "roleId": "eunectes",
+      "language": "ja",
+      "cue": "battle-2",
+      "src": "/audio/voices/ja/eunectes/battle-2.mp3"
+    },
+    {
+      "roleId": "eunectes",
+      "language": "ja",
+      "cue": "battle-3",
+      "src": "/audio/voices/ja/eunectes/battle-3.mp3"
+    },
+    {
+      "roleId": "eunectes",
+      "language": "ja",
+      "cue": "battle-4",
+      "src": "/audio/voices/ja/eunectes/battle-4.mp3"
+    },
+    {
+      "roleId": "eunectes",
+      "language": "ja",
+      "cue": "select-1",
+      "src": "/audio/voices/ja/eunectes/select-1.mp3"
+    },
+    {
+      "roleId": "eunectes",
+      "language": "ja",
+      "cue": "select-2",
+      "src": "/audio/voices/ja/eunectes/select-2.mp3"
+    },
+    {
+      "roleId": "eunectes",
+      "language": "zh",
+      "cue": "battle-1",
+      "src": "/audio/voices/zh/eunectes/battle-1.mp3"
+    },
+    {
+      "roleId": "eunectes",
+      "language": "zh",
+      "cue": "battle-2",
+      "src": "/audio/voices/zh/eunectes/battle-2.mp3"
+    },
+    {
+      "roleId": "eunectes",
+      "language": "zh",
+      "cue": "battle-3",
+      "src": "/audio/voices/zh/eunectes/battle-3.mp3"
+    },
+    {
+      "roleId": "eunectes",
+      "language": "zh",
+      "cue": "battle-4",
+      "src": "/audio/voices/zh/eunectes/battle-4.mp3"
+    },
+    {
+      "roleId": "eunectes",
+      "language": "zh",
+      "cue": "select-1",
+      "src": "/audio/voices/zh/eunectes/select-1.mp3"
+    },
+    {
+      "roleId": "eunectes",
+      "language": "zh",
+      "cue": "select-2",
+      "src": "/audio/voices/zh/eunectes/select-2.mp3"
+    },
+    {
+      "roleId": "kaltsit",
+      "language": "ja",
+      "cue": "battle-1",
+      "src": "/audio/voices/ja/kaltsit/battle-1.mp3"
+    },
+    {
+      "roleId": "kaltsit",
+      "language": "ja",
+      "cue": "battle-2",
+      "src": "/audio/voices/ja/kaltsit/battle-2.mp3"
+    },
+    {
+      "roleId": "kaltsit",
+      "language": "ja",
+      "cue": "battle-3",
+      "src": "/audio/voices/ja/kaltsit/battle-3.mp3"
+    },
+    {
+      "roleId": "kaltsit",
+      "language": "ja",
+      "cue": "battle-4",
+      "src": "/audio/voices/ja/kaltsit/battle-4.mp3"
+    },
+    {
+      "roleId": "kaltsit",
+      "language": "ja",
+      "cue": "select-1",
+      "src": "/audio/voices/ja/kaltsit/select-1.mp3"
+    },
+    {
+      "roleId": "kaltsit",
+      "language": "ja",
+      "cue": "select-2",
+      "src": "/audio/voices/ja/kaltsit/select-2.mp3"
+    },
+    {
+      "roleId": "kaltsit",
+      "language": "zh",
+      "cue": "battle-1",
+      "src": "/audio/voices/zh/kaltsit/battle-1.mp3"
+    },
+    {
+      "roleId": "kaltsit",
+      "language": "zh",
+      "cue": "battle-2",
+      "src": "/audio/voices/zh/kaltsit/battle-2.mp3"
+    },
+    {
+      "roleId": "kaltsit",
+      "language": "zh",
+      "cue": "battle-3",
+      "src": "/audio/voices/zh/kaltsit/battle-3.mp3"
+    },
+    {
+      "roleId": "kaltsit",
+      "language": "zh",
+      "cue": "battle-4",
+      "src": "/audio/voices/zh/kaltsit/battle-4.mp3"
+    },
+    {
+      "roleId": "kaltsit",
+      "language": "zh",
+      "cue": "select-1",
+      "src": "/audio/voices/zh/kaltsit/select-1.mp3"
+    },
+    {
+      "roleId": "kaltsit",
+      "language": "zh",
+      "cue": "select-2",
+      "src": "/audio/voices/zh/kaltsit/select-2.mp3"
+    },
+    {
+      "roleId": "liskarm",
+      "language": "ja",
+      "cue": "battle-1",
+      "src": "/audio/voices/ja/liskarm/battle-1.mp3"
+    },
+    {
+      "roleId": "liskarm",
+      "language": "ja",
+      "cue": "battle-2",
+      "src": "/audio/voices/ja/liskarm/battle-2.mp3"
+    },
+    {
+      "roleId": "liskarm",
+      "language": "ja",
+      "cue": "battle-3",
+      "src": "/audio/voices/ja/liskarm/battle-3.mp3"
+    },
+    {
+      "roleId": "liskarm",
+      "language": "ja",
+      "cue": "battle-4",
+      "src": "/audio/voices/ja/liskarm/battle-4.mp3"
+    },
+    {
+      "roleId": "liskarm",
+      "language": "ja",
+      "cue": "select-1",
+      "src": "/audio/voices/ja/liskarm/select-1.mp3"
+    },
+    {
+      "roleId": "liskarm",
+      "language": "ja",
+      "cue": "select-2",
+      "src": "/audio/voices/ja/liskarm/select-2.mp3"
+    },
+    {
+      "roleId": "liskarm",
+      "language": "zh",
+      "cue": "battle-1",
+      "src": "/audio/voices/zh/liskarm/battle-1.mp3"
+    },
+    {
+      "roleId": "liskarm",
+      "language": "zh",
+      "cue": "battle-2",
+      "src": "/audio/voices/zh/liskarm/battle-2.mp3"
+    },
+    {
+      "roleId": "liskarm",
+      "language": "zh",
+      "cue": "battle-3",
+      "src": "/audio/voices/zh/liskarm/battle-3.mp3"
+    },
+    {
+      "roleId": "liskarm",
+      "language": "zh",
+      "cue": "battle-4",
+      "src": "/audio/voices/zh/liskarm/battle-4.mp3"
+    },
+    {
+      "roleId": "liskarm",
+      "language": "zh",
+      "cue": "select-1",
+      "src": "/audio/voices/zh/liskarm/select-1.mp3"
+    },
+    {
+      "roleId": "liskarm",
+      "language": "zh",
+      "cue": "select-2",
+      "src": "/audio/voices/zh/liskarm/select-2.mp3"
+    },
+    {
+      "roleId": "mlynar",
+      "language": "ja",
+      "cue": "battle-1",
+      "src": "/audio/voices/ja/mlynar/battle-1.mp3"
+    },
+    {
+      "roleId": "mlynar",
+      "language": "ja",
+      "cue": "battle-2",
+      "src": "/audio/voices/ja/mlynar/battle-2.mp3"
+    },
+    {
+      "roleId": "mlynar",
+      "language": "ja",
+      "cue": "battle-3",
+      "src": "/audio/voices/ja/mlynar/battle-3.mp3"
+    },
+    {
+      "roleId": "mlynar",
+      "language": "ja",
+      "cue": "battle-4",
+      "src": "/audio/voices/ja/mlynar/battle-4.mp3"
+    },
+    {
+      "roleId": "mlynar",
+      "language": "ja",
+      "cue": "select-1",
+      "src": "/audio/voices/ja/mlynar/select-1.mp3"
+    },
+    {
+      "roleId": "mlynar",
+      "language": "ja",
+      "cue": "select-2",
+      "src": "/audio/voices/ja/mlynar/select-2.mp3"
+    },
+    {
+      "roleId": "mlynar",
+      "language": "zh",
+      "cue": "battle-1",
+      "src": "/audio/voices/zh/mlynar/battle-1.mp3"
+    },
+    {
+      "roleId": "mlynar",
+      "language": "zh",
+      "cue": "battle-2",
+      "src": "/audio/voices/zh/mlynar/battle-2.mp3"
+    },
+    {
+      "roleId": "mlynar",
+      "language": "zh",
+      "cue": "battle-3",
+      "src": "/audio/voices/zh/mlynar/battle-3.mp3"
+    },
+    {
+      "roleId": "mlynar",
+      "language": "zh",
+      "cue": "battle-4",
+      "src": "/audio/voices/zh/mlynar/battle-4.mp3"
+    },
+    {
+      "roleId": "mlynar",
+      "language": "zh",
+      "cue": "select-1",
+      "src": "/audio/voices/zh/mlynar/select-1.mp3"
+    },
+    {
+      "roleId": "mlynar",
+      "language": "zh",
+      "cue": "select-2",
+      "src": "/audio/voices/zh/mlynar/select-2.mp3"
+    },
+    {
+      "roleId": "mountain",
+      "language": "ja",
+      "cue": "battle-1",
+      "src": "/audio/voices/ja/mountain/battle-1.mp3"
+    },
+    {
+      "roleId": "mountain",
+      "language": "ja",
+      "cue": "battle-2",
+      "src": "/audio/voices/ja/mountain/battle-2.mp3"
+    },
+    {
+      "roleId": "mountain",
+      "language": "ja",
+      "cue": "battle-3",
+      "src": "/audio/voices/ja/mountain/battle-3.mp3"
+    },
+    {
+      "roleId": "mountain",
+      "language": "ja",
+      "cue": "battle-4",
+      "src": "/audio/voices/ja/mountain/battle-4.mp3"
+    },
+    {
+      "roleId": "mountain",
+      "language": "ja",
+      "cue": "select-1",
+      "src": "/audio/voices/ja/mountain/select-1.mp3"
+    },
+    {
+      "roleId": "mountain",
+      "language": "ja",
+      "cue": "select-2",
+      "src": "/audio/voices/ja/mountain/select-2.mp3"
+    },
+    {
+      "roleId": "mountain",
+      "language": "zh",
+      "cue": "battle-1",
+      "src": "/audio/voices/zh/mountain/battle-1.mp3"
+    },
+    {
+      "roleId": "mountain",
+      "language": "zh",
+      "cue": "battle-2",
+      "src": "/audio/voices/zh/mountain/battle-2.mp3"
+    },
+    {
+      "roleId": "mountain",
+      "language": "zh",
+      "cue": "battle-3",
+      "src": "/audio/voices/zh/mountain/battle-3.mp3"
+    },
+    {
+      "roleId": "mountain",
+      "language": "zh",
+      "cue": "battle-4",
+      "src": "/audio/voices/zh/mountain/battle-4.mp3"
+    },
+    {
+      "roleId": "mountain",
+      "language": "zh",
+      "cue": "select-1",
+      "src": "/audio/voices/zh/mountain/select-1.mp3"
+    },
+    {
+      "roleId": "mountain",
+      "language": "zh",
+      "cue": "select-2",
+      "src": "/audio/voices/zh/mountain/select-2.mp3"
+    },
+    {
+      "roleId": "mudrock",
+      "language": "ja",
+      "cue": "battle-1",
+      "src": "/audio/voices/ja/mudrock/battle-1.mp3"
+    },
+    {
+      "roleId": "mudrock",
+      "language": "ja",
+      "cue": "battle-2",
+      "src": "/audio/voices/ja/mudrock/battle-2.mp3"
+    },
+    {
+      "roleId": "mudrock",
+      "language": "ja",
+      "cue": "battle-3",
+      "src": "/audio/voices/ja/mudrock/battle-3.mp3"
+    },
+    {
+      "roleId": "mudrock",
+      "language": "ja",
+      "cue": "battle-4",
+      "src": "/audio/voices/ja/mudrock/battle-4.mp3"
+    },
+    {
+      "roleId": "mudrock",
+      "language": "ja",
+      "cue": "select-1",
+      "src": "/audio/voices/ja/mudrock/select-1.mp3"
+    },
+    {
+      "roleId": "mudrock",
+      "language": "ja",
+      "cue": "select-2",
+      "src": "/audio/voices/ja/mudrock/select-2.mp3"
+    },
+    {
+      "roleId": "mudrock",
+      "language": "zh",
+      "cue": "battle-1",
+      "src": "/audio/voices/zh/mudrock/battle-1.mp3"
+    },
+    {
+      "roleId": "mudrock",
+      "language": "zh",
+      "cue": "battle-2",
+      "src": "/audio/voices/zh/mudrock/battle-2.mp3"
+    },
+    {
+      "roleId": "mudrock",
+      "language": "zh",
+      "cue": "battle-3",
+      "src": "/audio/voices/zh/mudrock/battle-3.mp3"
+    },
+    {
+      "roleId": "mudrock",
+      "language": "zh",
+      "cue": "battle-4",
+      "src": "/audio/voices/zh/mudrock/battle-4.mp3"
+    },
+    {
+      "roleId": "mudrock",
+      "language": "zh",
+      "cue": "select-1",
+      "src": "/audio/voices/zh/mudrock/select-1.mp3"
+    },
+    {
+      "roleId": "mudrock",
+      "language": "zh",
+      "cue": "select-2",
+      "src": "/audio/voices/zh/mudrock/select-2.mp3"
+    },
+    {
+      "roleId": "passenger",
+      "language": "ja",
+      "cue": "battle-1",
+      "src": "/audio/voices/ja/passenger/battle-1.mp3"
+    },
+    {
+      "roleId": "passenger",
+      "language": "ja",
+      "cue": "battle-2",
+      "src": "/audio/voices/ja/passenger/battle-2.mp3"
+    },
+    {
+      "roleId": "passenger",
+      "language": "ja",
+      "cue": "battle-3",
+      "src": "/audio/voices/ja/passenger/battle-3.mp3"
+    },
+    {
+      "roleId": "passenger",
+      "language": "ja",
+      "cue": "battle-4",
+      "src": "/audio/voices/ja/passenger/battle-4.mp3"
+    },
+    {
+      "roleId": "passenger",
+      "language": "ja",
+      "cue": "select-1",
+      "src": "/audio/voices/ja/passenger/select-1.mp3"
+    },
+    {
+      "roleId": "passenger",
+      "language": "ja",
+      "cue": "select-2",
+      "src": "/audio/voices/ja/passenger/select-2.mp3"
+    },
+    {
+      "roleId": "passenger",
+      "language": "zh",
+      "cue": "battle-1",
+      "src": "/audio/voices/zh/passenger/battle-1.mp3"
+    },
+    {
+      "roleId": "passenger",
+      "language": "zh",
+      "cue": "battle-2",
+      "src": "/audio/voices/zh/passenger/battle-2.mp3"
+    },
+    {
+      "roleId": "passenger",
+      "language": "zh",
+      "cue": "battle-3",
+      "src": "/audio/voices/zh/passenger/battle-3.mp3"
+    },
+    {
+      "roleId": "passenger",
+      "language": "zh",
+      "cue": "battle-4",
+      "src": "/audio/voices/zh/passenger/battle-4.mp3"
+    },
+    {
+      "roleId": "passenger",
+      "language": "zh",
+      "cue": "select-1",
+      "src": "/audio/voices/zh/passenger/select-1.mp3"
+    },
+    {
+      "roleId": "passenger",
+      "language": "zh",
+      "cue": "select-2",
+      "src": "/audio/voices/zh/passenger/select-2.mp3"
+    },
+    {
+      "roleId": "silverash",
+      "language": "ja",
+      "cue": "battle-1",
+      "src": "/audio/voices/ja/silverash/battle-1.mp3"
+    },
+    {
+      "roleId": "silverash",
+      "language": "ja",
+      "cue": "battle-2",
+      "src": "/audio/voices/ja/silverash/battle-2.mp3"
+    },
+    {
+      "roleId": "silverash",
+      "language": "ja",
+      "cue": "battle-3",
+      "src": "/audio/voices/ja/silverash/battle-3.mp3"
+    },
+    {
+      "roleId": "silverash",
+      "language": "ja",
+      "cue": "battle-4",
+      "src": "/audio/voices/ja/silverash/battle-4.mp3"
+    },
+    {
+      "roleId": "silverash",
+      "language": "ja",
+      "cue": "select-1",
+      "src": "/audio/voices/ja/silverash/select-1.mp3"
+    },
+    {
+      "roleId": "silverash",
+      "language": "ja",
+      "cue": "select-2",
+      "src": "/audio/voices/ja/silverash/select-2.mp3"
+    },
+    {
+      "roleId": "silverash",
+      "language": "zh",
+      "cue": "battle-1",
+      "src": "/audio/voices/zh/silverash/battle-1.mp3"
+    },
+    {
+      "roleId": "silverash",
+      "language": "zh",
+      "cue": "battle-2",
+      "src": "/audio/voices/zh/silverash/battle-2.mp3"
+    },
+    {
+      "roleId": "silverash",
+      "language": "zh",
+      "cue": "battle-3",
+      "src": "/audio/voices/zh/silverash/battle-3.mp3"
+    },
+    {
+      "roleId": "silverash",
+      "language": "zh",
+      "cue": "battle-4",
+      "src": "/audio/voices/zh/silverash/battle-4.mp3"
+    },
+    {
+      "roleId": "silverash",
+      "language": "zh",
+      "cue": "select-1",
+      "src": "/audio/voices/zh/silverash/select-1.mp3"
+    },
+    {
+      "roleId": "silverash",
+      "language": "zh",
+      "cue": "select-2",
+      "src": "/audio/voices/zh/silverash/select-2.mp3"
+    },
+    {
+      "roleId": "texas",
+      "language": "ja",
+      "cue": "battle-1",
+      "src": "/audio/voices/ja/texas/battle-1.mp3"
+    },
+    {
+      "roleId": "texas",
+      "language": "ja",
+      "cue": "battle-2",
+      "src": "/audio/voices/ja/texas/battle-2.mp3"
+    },
+    {
+      "roleId": "texas",
+      "language": "ja",
+      "cue": "battle-3",
+      "src": "/audio/voices/ja/texas/battle-3.mp3"
+    },
+    {
+      "roleId": "texas",
+      "language": "ja",
+      "cue": "battle-4",
+      "src": "/audio/voices/ja/texas/battle-4.mp3"
+    },
+    {
+      "roleId": "texas",
+      "language": "ja",
+      "cue": "select-1",
+      "src": "/audio/voices/ja/texas/select-1.mp3"
+    },
+    {
+      "roleId": "texas",
+      "language": "ja",
+      "cue": "select-2",
+      "src": "/audio/voices/ja/texas/select-2.mp3"
+    },
+    {
+      "roleId": "texas",
+      "language": "zh",
+      "cue": "battle-1",
+      "src": "/audio/voices/zh/texas/battle-1.mp3"
+    },
+    {
+      "roleId": "texas",
+      "language": "zh",
+      "cue": "battle-2",
+      "src": "/audio/voices/zh/texas/battle-2.mp3"
+    },
+    {
+      "roleId": "texas",
+      "language": "zh",
+      "cue": "battle-3",
+      "src": "/audio/voices/zh/texas/battle-3.mp3"
+    },
+    {
+      "roleId": "texas",
+      "language": "zh",
+      "cue": "battle-4",
+      "src": "/audio/voices/zh/texas/battle-4.mp3"
+    },
+    {
+      "roleId": "texas",
+      "language": "zh",
+      "cue": "select-1",
+      "src": "/audio/voices/zh/texas/select-1.mp3"
+    },
+    {
+      "roleId": "texas",
+      "language": "zh",
+      "cue": "select-2",
+      "src": "/audio/voices/zh/texas/select-2.mp3"
+    },
+    {
+      "roleId": "tinman",
+      "language": "ja",
+      "cue": "battle-1",
+      "src": "/audio/voices/ja/tinman/battle-1.mp3"
+    },
+    {
+      "roleId": "tinman",
+      "language": "ja",
+      "cue": "battle-2",
+      "src": "/audio/voices/ja/tinman/battle-2.mp3"
+    },
+    {
+      "roleId": "tinman",
+      "language": "ja",
+      "cue": "battle-3",
+      "src": "/audio/voices/ja/tinman/battle-3.mp3"
+    },
+    {
+      "roleId": "tinman",
+      "language": "ja",
+      "cue": "battle-4",
+      "src": "/audio/voices/ja/tinman/battle-4.mp3"
+    },
+    {
+      "roleId": "tinman",
+      "language": "ja",
+      "cue": "select-1",
+      "src": "/audio/voices/ja/tinman/select-1.mp3"
+    },
+    {
+      "roleId": "tinman",
+      "language": "ja",
+      "cue": "select-2",
+      "src": "/audio/voices/ja/tinman/select-2.mp3"
+    },
+    {
+      "roleId": "tinman",
+      "language": "zh",
+      "cue": "battle-1",
+      "src": "/audio/voices/zh/tinman/battle-1.mp3"
+    },
+    {
+      "roleId": "tinman",
+      "language": "zh",
+      "cue": "battle-2",
+      "src": "/audio/voices/zh/tinman/battle-2.mp3"
+    },
+    {
+      "roleId": "tinman",
+      "language": "zh",
+      "cue": "battle-3",
+      "src": "/audio/voices/zh/tinman/battle-3.mp3"
+    },
+    {
+      "roleId": "tinman",
+      "language": "zh",
+      "cue": "battle-4",
+      "src": "/audio/voices/zh/tinman/battle-4.mp3"
+    },
+    {
+      "roleId": "tinman",
+      "language": "zh",
+      "cue": "select-1",
+      "src": "/audio/voices/zh/tinman/select-1.mp3"
+    },
+    {
+      "roleId": "tinman",
+      "language": "zh",
+      "cue": "select-2",
+      "src": "/audio/voices/zh/tinman/select-2.mp3"
+    },
+    {
+      "roleId": "w",
+      "language": "ja",
+      "cue": "battle-1",
+      "src": "/audio/voices/ja/w/battle-1.mp3"
+    },
+    {
+      "roleId": "w",
+      "language": "ja",
+      "cue": "battle-2",
+      "src": "/audio/voices/ja/w/battle-2.mp3"
+    },
+    {
+      "roleId": "w",
+      "language": "ja",
+      "cue": "battle-3",
+      "src": "/audio/voices/ja/w/battle-3.mp3"
+    },
+    {
+      "roleId": "w",
+      "language": "ja",
+      "cue": "battle-4",
+      "src": "/audio/voices/ja/w/battle-4.mp3"
+    },
+    {
+      "roleId": "w",
+      "language": "ja",
+      "cue": "select-1",
+      "src": "/audio/voices/ja/w/select-1.mp3"
+    },
+    {
+      "roleId": "w",
+      "language": "ja",
+      "cue": "select-2",
+      "src": "/audio/voices/ja/w/select-2.mp3"
+    },
+    {
+      "roleId": "w",
+      "language": "zh",
+      "cue": "battle-1",
+      "src": "/audio/voices/zh/w/battle-1.mp3"
+    },
+    {
+      "roleId": "w",
+      "language": "zh",
+      "cue": "battle-2",
+      "src": "/audio/voices/zh/w/battle-2.mp3"
+    },
+    {
+      "roleId": "w",
+      "language": "zh",
+      "cue": "battle-3",
+      "src": "/audio/voices/zh/w/battle-3.mp3"
+    },
+    {
+      "roleId": "w",
+      "language": "zh",
+      "cue": "battle-4",
+      "src": "/audio/voices/zh/w/battle-4.mp3"
+    },
+    {
+      "roleId": "w",
+      "language": "zh",
+      "cue": "select-1",
+      "src": "/audio/voices/zh/w/select-1.mp3"
+    },
+    {
+      "roleId": "w",
+      "language": "zh",
+      "cue": "select-2",
+      "src": "/audio/voices/zh/w/select-2.mp3"
+    }
+  ]
+}

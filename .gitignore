@@ -9,6 +9,7 @@ playwright-report/
 !.env.example
 apps/web/public/assets/
 apps/web/public/audio/sfx/
+apps/web/public/audio/voices/
 apps/web/public/audio/music/
 music/
 docs/screenshots/*

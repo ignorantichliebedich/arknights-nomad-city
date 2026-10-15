@@ -8,6 +8,7 @@ import {
 } from "../../packages/rules/src/engine.ts";
 import type { GameState } from "../../packages/rules/src/types.ts";
 import { fixture } from "./fixtures/table.ts";
+import { slotPoint } from "../../apps/web/src/board-layout.ts";
 
 function read(id: string) {
   // Poll a read-only WAL snapshot; opening RoomStore here initializes schema and
@@ -51,14 +52,7 @@ async function at(page: Page, x: number, y: number) {
   );
 }
 function point(g: GameState, slot: string) {
-  const [id, str] = slot.split(":"),
-    index = Number(str),
-    n = g.board.nodes.find((s) => s.id === id),
-    s = n ?? g.board.roads.find((s) => s.id === id)!;
-  return {
-    x: n ? s.x - 44 : s.x + 2 + index * 18,
-    y: (n ? s.y + 16 + index * 20 : s.y + 13) - 7,
-  };
+  return slotPoint(g, slot);
 }
 test("影响力拖动先预览，取消和无效落点不提交，确认完成连续调度并可恢复", async ({
   page,
@@ -196,7 +190,7 @@ test("罗德岛手牌进入扇面，键盘选牌与秘密盖放，顶部和角�
   await expect.poll(() => read(id).revision).toBe(before + 1);
   await expect(page.locator(".selected-role img")).toHaveAttribute(
     "src",
-    "/assets/role-back.webp",
+    "/assets/role-back-rhodes.webp",
   );
   expect(
     projectView(read(id), read(id).players[1].id).players[0].selected,

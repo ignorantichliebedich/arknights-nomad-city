@@ -3743,5 +3743,172 @@
       650,
       1850
     ]
+  },
+  {
+    "id": "role-back-0.webp",
+    "path": "apps/web/public/assets/role-back-0.webp",
+    "sourceFile": ".data/research-voices/back-1.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2490002538882614713/9279D9E562D499FC513731223C1621D163559243/",
+    "sourceSha256": "1319cb30806d464ba2dfd05ac5d523a03cd091ea99f931fcb2b422e24934ec0e",
+    "processing": "Original seat-colored card back; unchanged framing; lossless WebP.",
+    "rights": "Original artwork belongs to Hypergryph and its respective rights holders; runtime art remains excluded from the public source repository.",
+    "sha256": "369b612ccc70d60c4a84bb94933a02faf68865fd6a3fff75e1d9fee29180c5a7",
+    "bytes": 520410,
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "role-back-1.webp",
+    "path": "apps/web/public/assets/role-back-1.webp",
+    "sourceFile": ".data/research-voices/back-2.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2490002538882610935/A7F77807A032879EF17BBD19C1D4D68B8DE79D16/",
+    "sourceSha256": "da11ab291a2adb4002c20c9500390fbc8bb2082601822e7187f2ecbef668004c",
+    "processing": "Original seat-colored card back; unchanged framing; lossless WebP.",
+    "rights": "Original artwork belongs to Hypergryph and its respective rights holders; runtime art remains excluded from the public source repository.",
+    "sha256": "3e8e47babafe0a3e2c42cac843feb43d9340ce04dc6b0b92425cdf46ea198cf7",
+    "bytes": 503486,
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "role-back-2.webp",
+    "path": "apps/web/public/assets/role-back-2.webp",
+    "sourceFile": ".data/research-voices/back-0.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2490002538882613072/D28A381BADD5629CBA56EA18366B3E34F3D3EE75/",
+    "sourceSha256": "981cf34614008cbae47de4d196094b4c7aea19f65e2654fa20a88a29bdc7c040",
+    "processing": "Original seat-colored card back; unchanged framing; lossless WebP.",
+    "rights": "Original artwork belongs to Hypergryph and its respective rights holders; runtime art remains excluded from the public source repository.",
+    "sha256": "d55289bbdabf36c9294a99a60fba075686ba69a0f7f6835bf4f9fe6b395c0cd1",
+    "bytes": 505378,
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "role-back-3.webp",
+    "path": "apps/web/public/assets/role-back-3.webp",
+    "sourceFile": ".data/research-voices/back-3.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2490002538882604489/82501F5E2939CB6D1B107222933823F799351BB6/",
+    "sourceSha256": "1f3cfd1071ef123216c403a78e7f9e8a83e9a5572477ec26f7ec929d55581fc8",
+    "processing": "Original seat-colored card back; unchanged framing; lossless WebP.",
+    "rights": "Original artwork belongs to Hypergryph and its respective rights holders; runtime art remains excluded from the public source repository.",
+    "sha256": "44fe18b1386c74984d9ec24e0aa079c0bbde2d508c4e57f7e15a97c48f91288f",
+    "bytes": 584716,
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "role-back-rhodes.webp",
+    "path": "apps/web/public/assets/role-back-rhodes.webp",
+    "sourceFile": ".data/research-voices/back-768.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2490002369082113881/1109ADD2DD01EFA7C80822548EFB45670519D629/",
+    "sourceSha256": "0361f0e12abcad6642631dff3020010afea0163ddeee33e03a8f88d5158c3b7f",
+    "processing": "Original Rhodes Island operative card back; unchanged framing; lossless WebP.",
+    "rights": "Original artwork belongs to Hypergryph and its respective rights holders; runtime art remains excluded from the public source repository.",
+    "sha256": "306293d5cb505a38f2f430c20ede109fc7dd9a9c349a70b2bb1fc8551e612580",
+    "bytes": 578734,
+    "size": [
+      600,
+      850
+    ]
+  },
+  {
+    "id": "official-arknights-logo.webp",
+    "path": "apps/web/public/assets/official-arknights-logo.webp",
+    "sourceFile": ".data/research-voices/ak-logo.0ec9ce64.png",
+    "sourceUrl": "https://web.hycdn.cn/arknights/boardgame_nomadcity/_next/static/media/ak-logo.0ec9ce64.png",
+    "sourceSha256": "9361089124de558bebe934fbcb1327376879394ffdee21fb6fe54628e0077d51",
+    "processing": "Original transparent official boardgame site logo; lossless WebP.",
+    "rights": "Original artwork belongs to Hypergryph and its respective rights holders; runtime art remains excluded from the public source repository.",
+    "sha256": "bbc5f317d31eed61e72ba424855a2a5962a925ed6843c64fefb66b302e2b4cf6",
+    "bytes": 5728,
+    "size": [
+      420,
+      210
+    ]
+  },
+  {
+    "id": "official-nomad-logo.webp",
+    "path": "apps/web/public/assets/official-nomad-logo.webp",
+    "sourceFile": ".data/research-voices/nomadcity-logo.3acfcaaa.png",
+    "sourceUrl": "https://web.hycdn.cn/arknights/boardgame_nomadcity/_next/static/media/nomadcity-logo.3acfcaaa.png",
+    "sourceSha256": "846f8f0c9d13cc3dcb9ce1c64cf8792ac4a30d79090321e3a55b1679759de2d7",
+    "processing": "Original transparent official boardgame site logo; lossless WebP.",
+    "rights": "Original artwork belongs to Hypergryph and its respective rights holders; runtime art remains excluded from the public source repository.",
+    "sha256": "32303d3923b118e137feb91a228b7b8ab2590eb267aa541f4741c60e8966ef7c",
+    "bytes": 25312,
+    "size": [
+      230,
+      77
+    ]
+  },
+  {
+    "id": "table-resource-rock.webp",
+    "path": "apps/web/public/assets/table-resource-rock.webp",
+    "sourceFile": ".data/sources/table-feel/token-28.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2226528477512857089/A7224368FFFF223CA41C83BD6901766F6858279D/",
+    "sourceSha256": "cf30354366691383c9280af3b272ef532a9c460a4f8d4ad1ab0a1c62a5424bc4",
+    "processing": "Original tabletop token 28; exact native crop (53, 96, 200, 243); circular alpha mask removes the paper surround; lossless WebP.",
+    "rights": "Original artwork belongs to Hypergryph and respective rights holders. Runtime art is excluded from the public source repository.",
+    "sha256": "018c12e4a15e9564075a24017078ef4b3cfde2d87c7329e413f60aec72369ffe",
+    "bytes": 25064,
+    "size": [
+      147,
+      147
+    ]
+  },
+  {
+    "id": "table-resource-ore.webp",
+    "path": "apps/web/public/assets/table-resource-ore.webp",
+    "sourceFile": ".data/sources/table-feel/token-26.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2226528477512857959/DB0D5A8C7D42C612B9332B2A32EB6EC6E8843E3C/",
+    "sourceSha256": "f93c62d757c5a4ae393a7ff299f07434255894402a7915ce7c1f3ee4a49acbaf",
+    "processing": "Original tabletop token 26; exact native crop (53, 96, 200, 243); circular alpha mask removes the paper surround; lossless WebP.",
+    "rights": "Original artwork belongs to Hypergryph and respective rights holders. Runtime art is excluded from the public source repository.",
+    "sha256": "79d44a2de6c0833819445722d102888065249a46bc9a95c89a82b0cfd41180d6",
+    "bytes": 28588,
+    "size": [
+      147,
+      147
+    ]
+  },
+  {
+    "id": "table-resource-iron.webp",
+    "path": "apps/web/public/assets/table-resource-iron.webp",
+    "sourceFile": ".data/sources/table-feel/token-27.png",
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2226528477512855891/DEBBB903831ED923619309F5DAC4AABB58691343/",
+    "sourceSha256": "5d299c4d13a85b4029e9b2946f7d442f179465f18200c6918fc64176b59eff69",
+    "processing": "Original tabletop token 27; exact native crop (53, 96, 200, 243); circular alpha mask removes the paper surround; lossless WebP.",
+    "rights": "Original artwork belongs to Hypergryph and respective rights holders. Runtime art is excluded from the public source repository.",
+    "sha256": "c33dd4d2c31ffbcbdfdc03fbe9026b9881d5265f4a7bdf0d1091ad31855307df",
+    "bytes": 27372,
+    "size": [
+      147,
+      147
+    ]
+  },
+  {
+    "id": "table-resource-prime.webp",
+    "path": "apps/web/public/assets/table-resource-prime.webp",
+    "sourceFile": ".data/sources/table-feel/item-prime.png",
+    "sourceUrl": "https://media.prts.wiki/8/8a/%E9%81%93%E5%85%B7_%E8%87%B3%E7%BA%AF%E6%BA%90%E7%9F%B3.png",
+    "sourceContainer": "https://prts.wiki/w/文件:%E9%81%93%E5%85%B7_%E8%87%B3%E7%BA%AF%E6%BA%90%E7%9F%B3.png",
+    "sourceSha256": "5dabc2168e7147ec49d18cfd0f9a22921115e655c8a1de5a61fc003666b215db",
+    "sourceKind": "Original Arknights item artwork via PRTS",
+    "processing": "Lossless WebP; source pixel crop full image; no upscaling",
+    "rights": "Printed art: Hypergryph. Mesh: public community reference. Private friend play; rights remain with their respective authors.",
+    "sha256": "f83773856666edf7159206ab50528fb1d3e19f0e448861f9035a5ab0521f2ba2",
+    "bytes": 27852,
+    "size": [
+      180,
+      182
+    ]
   }
 ]

@@ -6,6 +6,9 @@ import type {
 } from "../../../../packages/rules/src/types.ts";
 import { highResolutionArt } from "../art.ts";
 import type { CardDetail } from "./ActionComposer.tsx";
+import { useQuickActivate } from "../useQuickActivate.ts";
+import { gameAudio } from "../audio.ts";
+import { roleCardBack } from "../card-backs.ts";
 
 export function RoleHand({
   touch = false,
@@ -16,6 +19,7 @@ export function RoleHand({
   onExpand,
   onSelect,
   onCommit,
+  onQuickCommit,
   onDetail,
   onAction,
 }: {
@@ -27,10 +31,12 @@ export function RoleHand({
   onExpand: (open: boolean) => void;
   onSelect: (action: LegalAction | null) => void;
   onCommit: () => void;
+  onQuickCommit: (action: LegalAction) => void;
   onDetail: (detail: CardDetail) => void;
   onAction: () => void;
 }) {
   const me = game.players.find((p) => p.id === game.me)!;
+  const quick = useQuickActivate();
   const picking =
     ["select-role", "trim"].includes(game.decision?.kind ?? "") &&
     game.decision?.playerId === me.id;
@@ -190,7 +196,19 @@ export function RoleHand({
                   if (e.button === 0)
                     e.currentTarget.setPointerCapture(e.pointerId);
                 }}
-                onClick={() => {
+                onPointerEnter={(e) => {
+                  if (e.pointerType !== "touch") void gameAudio.play("select");
+                }}
+                onPointerUp={(e) => {
+                  if (choice && !trim && !disabled)
+                    quick.touch(id, e, () => onQuickCommit(choice));
+                }}
+                onDoubleClick={(e) => {
+                  if (choice && !trim && !disabled)
+                    quick.double(id, e, () => onQuickCommit(choice));
+                }}
+                onClick={(event) => {
+                  if (quick.quiet(id) || event.detail > 1) return;
                   onExpand(true);
                   if (choice) onSelect(isPicked ? null : choice);
                   else detail(id);
@@ -299,7 +317,10 @@ export function RoleHand({
             onClick={() => detail(me.selected!)}
             aria-label="查看本回合盖放的角色"
           >
-            <img src="/assets/role-back.webp" alt="本回合盖放的角色牌背" />
+            <img
+              src={roleCardBack(me.seat, me.selected)}
+              alt="本回合盖放的角色牌背"
+            />
             <span>
               <small>{me.revealed ? "本回合角色" : "已秘密盖放"}</small>
               <strong>{ROLE_BY_ID[me.selected].name}</strong>
@@ -322,7 +343,7 @@ export function RoleHand({
             />
             <img
               className="placement-back"
-              src="/assets/role-back.webp"
+              src={roleCardBack(me.seat, placed)}
               alt=""
             />
           </div>

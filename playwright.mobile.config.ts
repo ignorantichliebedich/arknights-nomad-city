@@ -19,7 +19,7 @@ export default defineConfig({
   ...desktop,
   use: { ...desktop.use, actionTimeout: 10000 },
   testIgnore: [],
-  testMatch: ["mobile.spec.ts", "music.spec.ts"],
+  testMatch: ["mobile.spec.ts", "music.spec.ts", "quick-actions.spec.ts"],
   projects: [
     {
       name: "android-small-portrait",

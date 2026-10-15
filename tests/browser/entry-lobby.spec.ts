@@ -45,7 +45,7 @@ test("拓荒许可表单支持房间码回车加入，邀请入口保留名字�
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { name: "移动城市， 由此起航。" }),
+    page.getByRole("heading", { name: "明日方舟 游城拓荒" }),
   ).toBeVisible();
   await expect(page.getByRole("button", { name: "创建新房间" })).toBeDisabled();
   await artworkLoaded(page);
@@ -130,7 +130,7 @@ test("集结桌同步四人入座与准备，断线保留席位并阻止开局�
   await expect(page.locator(".assembly-count")).toContainText("01");
   await expect(page.getByRole("button", { name: "开始拓荒" })).toBeDisabled();
   await expect(page.locator(".assembly-readiness")).toContainText(
-    "再邀请一位朋友",
+    "邀请朋友或添加人机",
   );
   // The arrival dialog owns focus until its short cut finishes.
   await expect(page.locator(".scene-transition")).toHaveCount(0);

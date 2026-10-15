@@ -31,6 +31,7 @@ async function openSettings(page: Page) {
   await page.goto("/");
   await page.getByRole("button", { name: "取消", exact: true }).click();
   await page.getByRole("button", { name: "声音设置" }).click();
+  await page.locator(".music-catalog summary").click();
   await expect(page.getByLabel("播放曲目")).toBeVisible();
 }
 async function playing(page: Page, src: string) {
@@ -60,7 +61,8 @@ test("五首原始音乐可真实播放，切歌与循环控制适配当前屏�
   await openSettings(page);
   const select = page.getByLabel("播放曲目");
   await expect(select.locator("option")).toHaveCount(5);
-  expect(await page.evaluate(() => !!(window as any).__music)).toBe(false);
+  await playing(page, tracks.find((t) => t.id === "speed-of-light")!.src);
+  await expect(page.locator(".record-label img")).toBeVisible();
   await page.getByRole("checkbox", { name: "背景音乐", exact: true }).check();
   for (const track of tracks) {
     await select.selectOption(track.id);
@@ -107,6 +109,7 @@ test("五首原始音乐可真实播放，切歌与循环控制适配当前屏�
   });
   await page.reload();
   await page.getByRole("button", { name: "声音设置" }).click();
+  await page.locator(".music-catalog summary").click();
   await expect(select).toHaveValue(tracks.at(-1)!.id);
   await expect(page.getByLabel("循环方式")).toHaveValue("repeat");
   await playing(page, tracks.at(-1)!.src);
@@ -117,6 +120,7 @@ test("结束后自动接续，后台暂停并恢复，静音和音乐开关独�
   await openSettings(page);
   const music = page.getByRole("checkbox", { name: "背景音乐", exact: true });
   await music.check();
+  await page.getByLabel("播放曲目").selectOption(tracks[0].id);
   await playing(page, tracks[0].src);
   await page.evaluate(() => {
     const audio = (window as any).__music as HTMLAudioElement;
@@ -169,6 +173,7 @@ test("音乐加载失败可重试恢复，不影响声音窗口及其他曲目",
   let created = false;
   try {
     await openSettings(page);
+    await page.getByLabel("播放曲目").selectOption(tracks[0].id);
     await page.getByRole("checkbox", { name: "背景音乐", exact: true }).check();
     await expect(page.getByRole("alert")).toContainText("暂时无法播放");
     copyFileSync(resolve(webRoot, "." + tracks[0].src), temporary);

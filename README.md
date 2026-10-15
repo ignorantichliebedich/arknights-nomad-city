@@ -4,7 +4,7 @@
 
 在线游玩：[游戏入口](http://106.52.74.24)。请使用创建房间时的相同协议与浏览器恢复席位。服务器已配置 IP HTTPS 证书；公网 443 放行后可使用加密入口。源码仓库：[arknights-nomad-city](https://github.com/ignorantichliebedich/arknights-nomad-city)。
 
-首次访问提供同风格的全屏提示；顶部“声音”控制明日方舟操作音效、静音和音量，设置自动保存。初版背景音乐含用户提供的 5 首曲目，可切歌、顺序循环或单曲循环，在“声音 → 背景音乐”中开启，接入方式见 [声音说明](docs/audio.md)。
+首次访问提供同风格全屏提示；顶部“声音”提供唱片封面、切歌、中日角色语音、静音及音量设置。新访客默认开启背景音乐，从 Speed of Light 开始；已有明确声音偏好保留。素材接入见 [声音说明](docs/audio.md)。
 
 手机使用独立触控布局：点击全屏后申请横屏锁定，棋盘随屏幕适配，资源留在顶部，城市和企业收进配件盘。支持触控选牌、确认盖放和双指缩放；浏览器不支持自动转向时可手动横放，席位和操作预览保留。操作与兼容性见 [手机棋桌](docs/mobile.md)。
 
@@ -14,7 +14,7 @@
 
 每轮交付通过 `pnpm release:prepare --note '更新说明'` 自动递增应用版本并维护 [更新记录](CHANGELOG.md)，新增功能使用 `--type minor`。本地检查后先推送 GitHub，用户本地试玩并明确确认该版本上线后才部署云端。GitHub Actions 仅运行版本、源码、测试和构建检查。详细约定见 [开发规范](CONTRIBUTING.md) 与 [发布流程](docs/release.md)。
 
-本轮音乐版本供本地验收，公网入口继续运行手机棋桌版本。声音设置底部和桌面顶部可查看本地构建版本。
+本轮版本供本地验收，公网维持原部署。声音设置底部和桌面顶部显示本地构建版本；用户确认对应版本上线后再更新云端。
 
 ## 启动
 
@@ -33,6 +33,8 @@ pnpm start
 打开 <http://localhost:3000>。房主输入昵称并创建房间，朋友通过同一地址或六位房间码加入。全部玩家准备后，房主开始拓荒。企业配置在建房时选择。
 
 公开仓库包含源码、规则数据和素材来源清单。运行图像与操作音效由 `assets:restore` 按 SHA-256 获取到本地，背景音乐由 `music:import` 从开发者本地 `music/` 导入；原始研究扫描及历史截图保存在开发者本地。未持有音乐原件时可跳过两项 `music:*` 命令，在声音设置关闭背景音乐。可设置 `ASSET_BASE_URL` 使用自己维护的素材源；素材权利见 [第三方说明](THIRD_PARTY_NOTICES.md)。
+
+开发版新增素材可直接从原始公开来源重建：先安装 `tools/requirements.txt` 并运行 `python tools/prepare-table-experience.py`，再使用 `pnpm voices:acquire` 获取中日语音，最后执行 `assets:restore` 校验其余已发布素材。这条路径可在本轮云端验收前使用。语音采集需要 Playwright Chromium 与 FFmpeg，音乐封面提取也使用 FFmpeg；可通过 `FFMPEG_PATH` 指定程序路径。测量参数和出处见 [本轮素材记录](assets/table-experience-art.md)。
 
 另一台 Windows 电脑可使用预编译运行包：在开发电脑运行 `pnpm package:windows`，将生成的 `.data/releases/nomad-city-windows.zip` 复制过去完整解压。目标电脑安装 Node.js 24 后，双击 `start-game.cmd` 启动；运行素材和服务端依赖已随包提供。局域网、隧道、配置检测及备份操作见 [Windows 运行说明](deploy/windows/START-HERE.txt)。
 

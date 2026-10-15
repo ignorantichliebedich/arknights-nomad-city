@@ -8,7 +8,14 @@
     "sha256": "fc00d3faa0f0ba4531cfc6102c762b37d75ff28cb9ac6e6d9d77d729221b021b",
     "durationSeconds": 242.087,
     "source": "用户提供的本地音乐原件",
-    "processing": "仅规范文件名并复制，保留原始编码、标签及内嵌封面；字节不变。"
+    "processing": "仅规范文件名并复制，保留原始编码、标签及内嵌封面；字节不变。",
+    "cover": {
+      "path": "apps/web/public/audio/music/covers/misty-memory-night.jpg",
+      "bytes": 87425,
+      "sha256": "56bac80be87354333250ce6643134d6a7ed5ce8ebbca46d0c05f7b679c375932",
+      "size": [800, 800],
+      "processing": "Original embedded JPEG cover copied from the user-provided MP3; no re-encoding."
+    }
   },
   {
     "id": "see-you-soon",
@@ -19,7 +26,14 @@
     "sha256": "5aa0c1d813c0820442641241ac6e2104b96144c2b014eaac624da983b99da1dd",
     "durationSeconds": 158.549,
     "source": "用户提供的本地音乐原件",
-    "processing": "仅规范文件名并复制，保留原始编码、标签及内嵌封面；字节不变。"
+    "processing": "仅规范文件名并复制，保留原始编码、标签及内嵌封面；字节不变。",
+    "cover": {
+      "path": "apps/web/public/audio/music/covers/see-you-soon.jpg",
+      "bytes": 98217,
+      "sha256": "7166ecccd5369223b8828079bc325958eff84698440ea42a609f7bd29ec3ccd0",
+      "size": [800, 800],
+      "processing": "Original embedded JPEG cover copied from the user-provided MP3; no re-encoding."
+    }
   },
   {
     "id": "il-signore-del-carnevale",
@@ -30,7 +44,14 @@
     "sha256": "357a76224bc28952a9829a9d736660319a0cddebee0c5954f239a52b9b79e9ab",
     "durationSeconds": 132.181,
     "source": "用户提供的本地音乐原件",
-    "processing": "仅规范文件名并复制，保留原始编码、标签及内嵌封面；字节不变。"
+    "processing": "仅规范文件名并复制，保留原始编码、标签及内嵌封面；字节不变。",
+    "cover": {
+      "path": "apps/web/public/audio/music/covers/il-signore-del-carnevale.jpg",
+      "bytes": 73325,
+      "sha256": "b2501e242f4ace2357ea5c03f08bfce0651a664368a165fa6cba1dd551ca28ad",
+      "size": [800, 800],
+      "processing": "Original embedded JPEG cover copied from the user-provided MP3; no re-encoding."
+    }
   },
   {
     "id": "yasainus-revenge",
@@ -41,7 +62,14 @@
     "sha256": "44b88467c6614a0e312407dc81fbc3e5471fd448ba0190b6179da82c5f4d8daf",
     "durationSeconds": 122.069,
     "source": "用户提供的本地音乐原件",
-    "processing": "仅规范文件名并复制，保留原始编码、标签及内嵌封面；字节不变。"
+    "processing": "仅规范文件名并复制，保留原始编码、标签及内嵌封面；字节不变。",
+    "cover": {
+      "path": "apps/web/public/audio/music/covers/yasainus-revenge.jpg",
+      "bytes": 494419,
+      "sha256": "d995152c0f2686a0b1f8e4b15391b679a743940202a714a6c3d69d8ff3a14925",
+      "size": [800, 800],
+      "processing": "Original embedded JPEG cover copied from the user-provided MP3; no re-encoding."
+    }
   },
   {
     "id": "speed-of-light",
@@ -52,6 +80,13 @@
     "sha256": "c39756e9a09ce9e7162787521a9eceedeac573664d92dc5c3462afe7fbd222cb",
     "durationSeconds": 245.838,
     "source": "用户提供的本地音乐原件",
-    "processing": "仅规范文件名并复制，保留原始编码、标签及内嵌封面；字节不变。"
+    "processing": "仅规范文件名并复制，保留原始编码、标签及内嵌封面；字节不变。",
+    "cover": {
+      "path": "apps/web/public/audio/music/covers/speed-of-light.jpg",
+      "bytes": 65440,
+      "sha256": "e70837c4e9c35cb7de638651579183f3cfb85cc074549ab18591bcbf467d7c8c",
+      "size": [800, 800],
+      "processing": "Original embedded JPEG cover copied from the user-provided MP3; no re-encoding."
+    }
   }
 ]

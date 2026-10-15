@@ -8,6 +8,7 @@ import {
 import type { PlayerView } from "../../../../packages/rules/src/types.ts";
 import { TablePiece } from "./TablePieces.tsx";
 import { gameAudio } from "../audio.ts";
+import { slotPoint } from "../board-layout.ts";
 
 export type InfluenceTransfer = { from: string; to: string; owner: string };
 export function useInfluenceTravel(game: PlayerView) {
@@ -74,16 +75,8 @@ export function useInfluenceTravel(game: PlayerView) {
   };
 }
 export function influencePoint(game: PlayerView, slot: string) {
-  const split = slot.lastIndexOf(":");
-  const siteId = slot.slice(0, split),
-    index = Number(slot.slice(split + 1));
-  const node = game.board.nodes.find((n) => n.id === siteId);
-  const site = node ?? game.board.roads.find((r) => r.id === siteId)!;
-  return {
-    x: node ? site.x - 44 : site.x + 2 + index * 18,
-    y: node ? site.y + 16 + index * 20 : site.y + 13,
-    siteId,
-  };
+  const point = slotPoint(game, slot);
+  return { ...point, y: point.y + 7 };
 }
 export function useInfluenceDrag(
   game: PlayerView,

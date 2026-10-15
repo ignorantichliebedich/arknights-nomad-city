@@ -243,4 +243,6 @@ export type PlayerView = Omit<
   influenceMoves?: { from: string; owner: string; destinations: string[] }[];
   /** Legal slots before choosing deployment as this seat's main action. */
   influencePlacements?: InfluencePlacement[];
+  /** Legal exploration choices before starting the current seat's main action. */
+  explorationTargets?: { target: string; optionId: string; label: string }[];
 };

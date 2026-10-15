@@ -6,6 +6,8 @@ import {
   adjacentTrack,
 } from "../apps/web/src/audio-config.ts";
 import { soundForTransition } from "../apps/web/src/components/GameSoundFeedback.tsx";
+import { voicesForTransition } from "../apps/web/src/role-voices.ts";
+import { roleCardBack } from "../apps/web/src/card-backs.ts";
 import {
   createPractice,
   applyPractice,
@@ -13,6 +15,59 @@ import {
   LEARNER,
 } from "../apps/web/src/practice.ts";
 describe("声音偏好与曲目接口", () => {
+  it("新访客默认播放 Speed of Light；保留明确关闭偏好，中日语音与卡背独立", () => {
+    expect(audioPreferences({})).toMatchObject({
+      music: true,
+      track: "speed-of-light",
+      voices: true,
+      voiceLanguage: "zh",
+    });
+    expect(
+      audioPreferences({ music: false, voiceLanguage: "ja" }),
+    ).toMatchObject({ music: false, voiceLanguage: "ja" });
+    expect(
+      audioPreferences({ voiceLanguage: "x", voiceVolume: 9 }),
+    ).toMatchObject({ voiceLanguage: "zh", voiceVolume: 1 });
+    expect(
+      new Set([0, 1, 2, 3].map((s) => roleCardBack(s, "texas"))).size,
+    ).toBe(4);
+    expect(roleCardBack(0, "w")).toBe(roleCardBack(3, "w"));
+  });
+  it("盖牌只在本人的私有视图播放；公开能力依据新增日志触发且重播视图静默", () => {
+    const before = practiceView(createPractice(0)),
+      next = structuredClone(before);
+    next.revision++;
+    const me = next.players.find((p) => p.id === next.me)!;
+    me.selected = "texas";
+    me.revealed = false;
+    expect(voicesForTransition(before, next)).toEqual([
+      { roleId: "texas", kind: "cover" },
+    ]);
+    const lastCover = structuredClone(next);
+    lastCover.players.find((p) => p.id === lastCover.me)!.revealed = true;
+    expect(voicesForTransition(before, lastCover)).toEqual([
+      { roleId: "texas", kind: "cover" },
+    ]);
+    const stranger = structuredClone(before);
+    stranger.revision++;
+    stranger.players.find((p) => p.id !== next.me)!.selected = "w";
+    expect(voicesForTransition(before, stranger)).toEqual([]);
+    const active = structuredClone(next);
+    active.revision++;
+    active.players.find((p) => p.id === next.me)!.revealed = true;
+    active.log.push({
+      seq: (next.log.at(-1)?.seq ?? 0) + 1,
+      actor: next.me,
+      text: "使用 德克萨斯 · 计谋后策略",
+      round: active.round,
+    });
+    expect(voicesForTransition(next, active)).toEqual([
+      { roleId: "texas", kind: "tactic" },
+      { roleId: "texas", kind: "strategy" },
+    ]);
+    expect(voicesForTransition(active, structuredClone(active))).toEqual([]);
+    expect(voicesForTransition({ ...next, me: "other" }, active)).toEqual([]);
+  });
   it("顺序播放在末尾回到第一首，上一首可从开头回到末尾", () => {
     const tracks = [
       { id: "a", title: "A", src: "/audio/music/a.mp3" },

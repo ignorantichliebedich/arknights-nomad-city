@@ -6,6 +6,12 @@ import {
   routeTo,
 } from "../packages/rules/src/engine.ts";
 import type { GameState } from "../packages/rules/src/types.ts";
+import {
+  displayBoard,
+  siteLayout,
+  slotPoint,
+} from "../apps/web/src/board-layout.ts";
+import { boardFor } from "../packages/rules/src/data.ts";
 
 function fixture() {
   let game = createGame(
@@ -39,6 +45,58 @@ function harvest(game: GameState, free = false) {
   return applyCommand(game, "p0", { type: "choose", optionId: "begin" });
 }
 describe("地图预览只披露行动者可见的几何与费用", () => {
+  it("快捷探索目标等于正式探索选项，且只对行动者披露公开目标", () => {
+    const game = fixture(),
+      before = JSON.stringify(game),
+      view = projectView(game, "p0");
+    expect(view.explorationTargets!.length).toBeGreaterThan(0);
+    expect(projectView(game, "p1").explorationTargets).toEqual([]);
+    const choosing = applyCommand(game, "p0", {
+      type: "main",
+      action: "explore",
+    });
+    expect(view.explorationTargets).toEqual(
+      choosing.decision!.options.map((o) => ({
+        target: o.target,
+        optionId: o.id,
+        label: o.label,
+      })),
+    );
+    expect(JSON.stringify(game)).toBe(before);
+    expect(
+      view.explorationTargets!.every(
+        (o) => Object.keys(o).sort().join(",") === "label,optionId,target",
+      ),
+    ).toBe(true);
+  });
+  it.each([2, 3, 4])(
+    "%i 人原图校准覆盖全部地点和空位，旧存档只调整显示副本",
+    (count) => {
+      const state = fixture(),
+        game = projectView(state, "p0");
+      game.players = game.players.slice(0, count);
+      game.board = boardFor(count);
+      const before = JSON.stringify(game),
+        display = displayBoard(game);
+      for (const site of [...game.board.nodes, ...game.board.roads]) {
+        const layout = siteLayout(game, site.id),
+          frame = layout.frame;
+        expect(layout.slots).toHaveLength(site.slots);
+        for (let i = 0; i < site.slots; i++) {
+          const p = slotPoint(game, `${site.id}:${i}`);
+          expect(p.x).toBeGreaterThan(frame.x);
+          expect(p.x).toBeLessThan(frame.x + frame.w);
+          expect(p.y).toBeGreaterThan(frame.y);
+          expect(p.y).toBeLessThan(frame.y + frame.h);
+        }
+      }
+      expect(display.board.roads.map((r) => r.nodes)).toEqual(
+        game.board.roads.map((r) => r.nodes),
+      );
+      expect(display.board.nodes[0].x).not.toBe(game.board.nodes[0].x);
+      expect(JSON.stringify(game)).toBe(before);
+    },
+  );
   it("直接部署预览与正式放置选项一致，未确认不消耗主要行动或标记", () => {
     const game = fixture();
     const before = JSON.stringify(game);

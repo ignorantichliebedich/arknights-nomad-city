@@ -1,6 +1,7 @@
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { gameAudio } from "../audio.ts";
 import type { MusicTrack } from "../audio-config.ts";
+import { MusicDeck } from "./MusicDeck.tsx";
 export function AudioSettings() {
   const prefs = useSyncExternalStore(gameAudio.subscribe, gameAudio.snapshot);
   const playback = useSyncExternalStore(
@@ -54,7 +55,7 @@ export function AudioSettings() {
           }
         />
       </label>
-      <section className="audio-channel">
+      <section className="audio-channel effects-channel">
         <div>
           <label className="audio-switch">
             <input
@@ -96,7 +97,7 @@ export function AudioSettings() {
           />
         </label>
       </section>
-      <section className="audio-channel">
+      <section className="audio-channel music-channel">
         <div>
           <label className="audio-switch">
             <input
@@ -116,54 +117,7 @@ export function AudioSettings() {
         </div>
         {tracks.length > 0 && (
           <>
-            <label className="audio-track">
-              播放曲目
-              <select
-                value={
-                  tracks.some((track) => track.id === prefs.track)
-                    ? prefs.track
-                    : tracks[0].id
-                }
-                onChange={(event) =>
-                  gameAudio.update({ track: event.target.value })
-                }
-              >
-                {tracks.map((track) => (
-                  <option key={track.id} value={track.id}>
-                    {track.title}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <div className="music-transport" aria-label="背景音乐播放控制">
-              <button
-                className="secondary-button"
-                aria-label="上一首"
-                onClick={() => gameAudio.stepMusic(-1)}
-              >
-                ‹ 上一首
-              </button>
-              <span role="status">
-                {!prefs.music
-                  ? "音乐已关闭"
-                  : prefs.muted
-                    ? "已静音"
-                    : playback === "playing"
-                      ? "正在播放"
-                      : playback === "loading"
-                        ? "正在载入…"
-                        : playback === "error"
-                          ? "播放受阻"
-                          : "已暂停"}
-              </span>
-              <button
-                className="secondary-button"
-                aria-label="下一首"
-                onClick={() => gameAudio.stepMusic(1)}
-              >
-                下一首 ›
-              </button>
-            </div>
+            <MusicDeck tracks={tracks} prefs={prefs} playback={playback} />
             <label className="audio-track">
               循环方式
               <select
@@ -209,6 +163,53 @@ export function AudioSettings() {
             }
           />
         </label>
+      </section>
+      <section className="audio-channel voice-channel">
+        <div>
+          <label className="audio-switch">
+            <input
+              type="checkbox"
+              checked={prefs.voices}
+              onChange={(event) =>
+                gameAudio.update({ voices: event.target.checked })
+              }
+            />
+            <strong>角色语音</strong>
+          </label>
+          <small>中 / 日双语</small>
+        </div>
+        <label className="audio-track">
+          语音语言
+          <select
+            value={prefs.voiceLanguage}
+            onChange={(event) =>
+              gameAudio.update({
+                voiceLanguage: event.target.value === "ja" ? "ja" : "zh",
+              })
+            }
+          >
+            <option value="zh">中文 · 普通话</option>
+            <option value="ja">日本語 · 日语</option>
+          </select>
+        </label>
+        <label className="audio-slider">
+          <span>
+            语音音量 <b>{Math.round(prefs.voiceVolume * 100)}%</b>
+          </span>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            disabled={!prefs.voices}
+            value={Math.round(prefs.voiceVolume * 100)}
+            onChange={(event) =>
+              gameAudio.update({
+                voiceVolume: Number(event.target.value) / 100,
+              })
+            }
+          />
+        </label>
+        <p>盖放时回应选中，策略与计谋使用对应作战语音。坎诺特使用交易音效。</p>
       </section>
       <p className="audio-footnote">
         设置保存在这台设备。离开页面时，音乐会暂停。

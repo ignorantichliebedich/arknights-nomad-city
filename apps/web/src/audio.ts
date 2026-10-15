@@ -8,6 +8,7 @@ import {
   type AudioPreferences,
   type MusicTrack,
 } from "./audio-config.ts";
+import { RoleVoicePlayer, type RoleVoice } from "./role-voices.ts";
 
 class GameAudio {
   private preferences: AudioPreferences;
@@ -19,6 +20,20 @@ class GameAudio {
   private lastSound = 0;
   private unlocked = false;
   private musicActivated = false;
+  private musicDucked = false;
+  private roleVoices = new RoleVoicePlayer(
+    () => this.preferences,
+    () => this.musicActivated,
+    (enabled) => {
+      this.musicDucked = enabled;
+      if (this.musicElement)
+        this.musicElement.volume =
+          this.preferences.volume *
+          this.preferences.musicVolume *
+          (enabled ? 0.28 : 1);
+    },
+    (cue) => void this.play(cue),
+  );
   private musicElement: HTMLAudioElement | null = null;
   private tracks: MusicTrack[] = [];
   private trackRequest: Promise<void> | null = null;
@@ -39,7 +54,10 @@ class GameAudio {
     }
     this.preferences = audioPreferences(stored);
     if (typeof document !== "undefined")
-      document.addEventListener("visibilitychange", () => this.syncMusic());
+      document.addEventListener("visibilitychange", () => {
+        this.syncMusic();
+        this.roleVoices.refresh();
+      });
   }
   snapshot = () => this.preferences;
   subscribe = (listener: () => void) => {
@@ -69,6 +87,7 @@ class GameAudio {
         }
       }
     this.syncMusic();
+    this.roleVoices.refresh();
     this.listeners.forEach((listener) => listener());
   }
   async unlock() {
@@ -90,6 +109,7 @@ class GameAudio {
     ))
       this.file(file);
     void this.loadMusic();
+    void this.roleVoices.load();
   }
   private file(file: string) {
     if (!this.files.has(file))
@@ -194,6 +214,9 @@ class GameAudio {
   musicTracks() {
     return this.tracks;
   }
+  playRoleVoices(voices: RoleVoice[]) {
+    return this.roleVoices.play(voices);
+  }
   stepMusic(direction: -1 | 1) {
     const track = adjacentTrack(this.tracks, this.preferences.track, direction);
     if (!track) return;
@@ -251,7 +274,8 @@ class GameAudio {
       this.setPlayback("loading");
     }
     element.loop = prefs.musicMode === "repeat";
-    element.volume = prefs.volume * prefs.musicVolume;
+    element.volume =
+      prefs.volume * prefs.musicVolume * (this.musicDucked ? 0.28 : 1);
     if (element.paused)
       void element.play().catch((error: unknown) => {
         if (error instanceof DOMException && error.name === "AbortError")

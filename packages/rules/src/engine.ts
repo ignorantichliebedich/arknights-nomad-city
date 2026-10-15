@@ -3471,6 +3471,15 @@ export function projectView(s: GameState, id: string): PlayerView {
           label: o.label,
         }))
       : [],
+    explorationTargets: actions.some(
+      (a) => a.command.type === "main" && a.command.action === "explore",
+    )
+      ? exploreOptions(s, id).map((o) => ({
+          target: o.target!,
+          optionId: o.id,
+          label: o.label,
+        }))
+      : [],
     deckCounts: {
       facility: facilityDeck.length,
       operatives: operativeDeck.length,

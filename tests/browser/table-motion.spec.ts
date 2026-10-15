@@ -43,7 +43,7 @@ async function center(page: Page, selector: string) {
   return { x: box.x + box.width / 2, y: box.y + box.height / 2 };
 }
 
-test("城市拖起显示虚线、无效落点不提交，有效落点确认后才移动扣费", async ({
+test("城市拖起显示虚线、无效落点不提交，合法落点松手立即移动扣费", async ({
   page,
 }, info) => {
   const { id } = await fixture(page);
@@ -81,13 +81,6 @@ test("城市拖起显示虚线、无效落点不提交，有效落点确认后�
     animations: "disabled",
   });
   await page.mouse.up();
-  await expect(page.locator(".route-panel")).toContainText(move.label);
-  await expect(
-    page.locator(".route-selected .route-line").first(),
-  ).toBeVisible();
-  expect(await revision(page)).toBe(before);
-  await expect(page.locator(".stock-ore strong")).toHaveText("20");
-  await page.getByRole("button", { name: "确认移动" }).click();
   await expect(
     page.locator(`.city-position[data-player="${me.id}"]`),
   ).toHaveAttribute("data-city", move.target);

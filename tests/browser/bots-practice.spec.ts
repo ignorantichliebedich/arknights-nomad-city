@@ -198,7 +198,6 @@ test("七课实操使用真实棋桌，刷新继续练习，退出返回原房�
   );
   await page.mouse.move(to.x, to.y, { steps: 12 });
   await page.mouse.up();
-  await page.getByRole("button", { name: "确认移动" }).click();
   await expect(guide).toContainText("城市已抵达");
   await page.locator(".deployment-slot").first().click();
   await page.getByRole("button", { name: "确认放置" }).click();

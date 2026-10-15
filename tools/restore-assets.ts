@@ -24,8 +24,9 @@ if (
 const entries: Asset[] = [
   ...JSON.parse(readFileSync("assets/manifest.json", "utf8")),
   ...JSON.parse(readFileSync("assets/audio-manifest.json", "utf8")),
+  ...JSON.parse(readFileSync("assets/voice-manifest.json", "utf8")),
 ].filter((entry: Asset) =>
-  /^apps\/web\/public\/(assets|audio\/sfx)\//.test(entry.path),
+  /^apps\/web\/public\/(assets|audio\/(sfx|voices))\//.test(entry.path),
 );
 const digest = (bytes: Uint8Array) =>
   createHash("sha256").update(bytes).digest("hex");

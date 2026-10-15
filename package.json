@@ -1,6 +1,6 @@
 {
   "name": "nomad-city-friends",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -17,6 +17,8 @@
     "check": "tsc --noEmit",
     "music:import": "node tools/import-music.ts",
     "music:check": "node tools/import-music.ts --check",
+    "voices:acquire": "node tools/acquire-role-voices.mjs",
+    "voices:check": "node tools/check-voices.ts",
     "release:prepare": "node tools/release.ts",
     "release:check": "node tools/check-release.ts",
     "backup": "node tools/backup.ts",

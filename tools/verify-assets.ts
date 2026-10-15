@@ -31,7 +31,18 @@ for (let seat = 0; seat < 4; seat++) {
   images.add(`/assets/entrepreneur-${seat}.webp`);
   images.add(`/assets/entrepreneur-bust-${seat}.webp`);
   images.add(`/assets/city-model-${seat}.svg`);
+  images.add(`/assets/role-back-${seat}.webp`);
 }
+for (const name of [
+  "role-back-rhodes.webp",
+  "official-arknights-logo.webp",
+  "official-nomad-logo.webp",
+  "table-resource-rock.webp",
+  "table-resource-ore.webp",
+  "table-resource-iron.webp",
+  "table-resource-prime.webp",
+])
+  images.add(`/assets/${name}`);
 for (const resource of ["rock", "ore", "iron", "prime", "cash", "score"])
   images.add(`/assets/resource-${resource}.webp`);
 images.add("/assets/president.webp");

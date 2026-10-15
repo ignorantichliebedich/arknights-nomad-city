@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { RESOURCE_NAMES } from "../../../../packages/rules/src/data.ts";
 import { gameAudio } from "../audio.ts";
+import { useQuickActivate } from "../useQuickActivate.ts";
+import { displayBoard, siteLayout } from "../board-layout.ts";
 import type {
   InfluencePlacement,
   LegalAction,
@@ -29,6 +31,8 @@ export function BoardMap({
   choosePlacement,
   boardChoice,
   chooseSite,
+  quickSite,
+  quickPlacement,
   disabled,
   onCityDrop,
   onCityKeyboard,
@@ -43,13 +47,17 @@ export function BoardMap({
   choosePlacement: (choice: InfluencePlacement) => void;
   boardChoice: boolean;
   chooseSite: (id: string) => void;
+  quickSite: (id: string) => void;
+  quickPlacement: (choice: InfluencePlacement) => void;
   disabled: boolean;
   onCityDrop: (target: string, optionId: string) => void;
   onCityKeyboard: () => void;
   onInfluenceDrop: (move: InfluenceTransfer) => void;
   onInfluenceKeyboard: (from: string) => void;
 }) {
+  game = displayBoard(game);
   const me = game.players.find((p) => p.id === game.me);
+  const quick = useQuickActivate();
   const decision = game.decision;
   const bounds = mapBounds(game);
   const svgRef = useRef<SVGSVGElement>(null);
@@ -97,14 +105,16 @@ export function BoardMap({
     const p = mapPoint(e.clientX, e.clientY);
     if (!drag.moved && Math.hypot(p.x - drag.startX, p.y - drag.startY) > 5)
       void gameAudio.play("lift");
-    const node = game.board.nodes.find(
-      (n) =>
+    const node = game.board.nodes.find((n) => {
+      const f = siteLayout(game, n.id).frame;
+      return (
         destinations.some((d) => d.target === n.id) &&
-        p.x >= n.x - 58 &&
-        p.x <= n.x + 31 &&
-        p.y >= n.y - 51 &&
-        p.y <= n.y + 53,
-    );
+        p.x >= f.x &&
+        p.x <= f.x + f.w &&
+        p.y >= f.y &&
+        p.y <= f.y + f.h
+      );
+    });
     setDrag({
       ...drag,
       x: p.x,
@@ -163,8 +173,12 @@ export function BoardMap({
             !drag &&
             !influence.active &&
             placements.some((p) => p.target === site.id);
+          const explorable =
+            !disabled &&
+            game.explorationTargets?.some((p) => p.target === site.id);
           const city = game.players.find((p) => p.city === site.id);
-          const y = isNode ? site.y : site.y;
+          const layout = siteLayout(game, site.id),
+            frame = layout.frame;
           const previewSlot =
             placement?.target === site.id
               ? /:(\d+)$/.exec(placement.optionId)?.[1]
@@ -174,17 +188,28 @@ export function BoardMap({
           return (
             <g key={site.id}>
               <rect
-                className={`board-hit ${actions.length || reachable || deployable ? "legal" : ""} ${deployable ? "deployable" : ""} ${drag?.target === site.id ? "drop-target" : ""} ${confirm?.target === site.id || target === site.id ? "selected" : ""}`}
-                x={site.x - (isNode ? 58 : 27)}
-                y={y - (isNode ? 51 : 13)}
-                width={isNode ? 89 : Math.max(58, state.slots.length * 18 + 22)}
-                height={isNode ? 104 : 29}
+                className={`board-hit ${actions.length || reachable || deployable || explorable ? "legal" : ""} ${explorable ? "explorable" : ""} ${deployable ? "deployable" : ""} ${drag?.target === site.id ? "drop-target" : ""} ${confirm?.target === site.id || target === site.id ? "selected" : ""}`}
+                x={frame.x}
+                y={frame.y}
+                width={frame.w}
+                height={frame.h}
                 rx="3"
                 role="button"
                 data-site-id={site.id}
                 tabIndex={0}
                 aria-label={`${site.id}${state.resource ? `，${state.amount} ${RESOURCE_NAMES[state.resource]}` : ""}${city ? `，${city.name}的城市` : ""}${deployable ? "，可放置影响力" : actions.length ? "，可以操作" : ""}`}
-                onClick={() => chooseSite(site.id)}
+                onClick={(event) => {
+                  if (!quick.quiet(site.id) && event.detail < 2)
+                    chooseSite(site.id);
+                }}
+                onDoubleClick={(event) => {
+                  if (!disabled)
+                    quick.double(site.id, event, () => quickSite(site.id));
+                }}
+                onPointerUp={(event) => {
+                  if (!disabled)
+                    quick.touch(site.id, event, () => quickSite(site.id));
+                }}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
@@ -197,10 +222,10 @@ export function BoardMap({
                 (target === site.id && actions.length)) && (
                 <g pointerEvents="none" className="placement-preview">
                   <rect
-                    x={site.x - 37}
-                    y={site.y - (isNode ? 62 : 25)}
-                    width="76"
-                    height={isNode ? 124 : 54}
+                    x={frame.x - 3}
+                    y={frame.y - 3}
+                    width={frame.w + 6}
+                    height={frame.h + 6}
                     rx="6"
                   />
                   <text x={site.x} y={site.y - (isNode ? 70 : 33)}>
@@ -215,24 +240,24 @@ export function BoardMap({
                   key={`${site.id}:${state.resource}:${state.amount}`}
                 >
                   <rect
-                    x={site.x - 58}
-                    y={site.y - 47}
-                    width="30"
-                    height="39"
+                    x={layout.resource!.x}
+                    y={layout.resource!.y}
+                    width={layout.resource!.w}
+                    height={layout.resource!.h}
                     rx="4"
                     fill="#29231fee"
                     stroke="#e3c890"
                   />
                   <image
-                    href={`/assets/resource-${state.resource}.webp`}
-                    x={site.x - 57}
-                    y={site.y - 48}
-                    width="28"
-                    height="27"
+                    href={`/assets/table-resource-${state.resource}.webp`}
+                    x={layout.resource!.x + 3}
+                    y={layout.resource!.y + 1}
+                    width="35"
+                    height="30"
                   />
                   <text
-                    x={site.x - 43}
-                    y={site.y - 12}
+                    x={layout.resource!.x + 20.6}
+                    y={layout.resource!.y + 37}
                     className="board-resource count"
                   >
                     ×{state.amount}
@@ -254,16 +279,16 @@ export function BoardMap({
                     <TablePiece
                       kind="influence"
                       seat={p.seat}
-                      x={isNode ? site.x - 44 : site.x + 2 + i * 18}
-                      y={isNode ? site.y + 16 + i * 20 : site.y + 13}
+                      x={influencePoint(game, `${site.id}:${i}`).x}
+                      y={influencePoint(game, `${site.id}:${i}`).y}
                     />
                     {game.influenceMoves?.some(
                       (m) => m.from === `${site.id}:${i}`,
                     ) &&
                       !disabled && (
                         <rect
-                          x={(isNode ? site.x - 44 : site.x + 2 + i * 18) - 12}
-                          y={(isNode ? site.y + 16 + i * 20 : site.y + 13) - 23}
+                          x={influencePoint(game, `${site.id}:${i}`).x - 12}
+                          y={influencePoint(game, `${site.id}:${i}`).y - 23}
                           width="24"
                           height="31"
                           fill="transparent"
@@ -301,16 +326,8 @@ export function BoardMap({
                     kind="influence"
                     seat={me.seat}
                     ghost
-                    x={
-                      isNode
-                        ? site.x - 44
-                        : site.x + 2 + Number(previewSlot) * 18
-                    }
-                    y={
-                      isNode
-                        ? site.y + 16 + Number(previewSlot) * 20
-                        : site.y + 13
-                    }
+                    x={influencePoint(game, `${site.id}:${previewSlot}`).x}
+                    y={influencePoint(game, `${site.id}:${previewSlot}`).y}
                   />
                 )}
             </g>
@@ -393,7 +410,20 @@ export function BoardMap({
                 aria-label={`在 ${choice.target} 空位 ${Number(choice.optionId.split(":").at(-1)) + 1} 放置影响力`}
                 aria-pressed={picked}
                 onPointerDown={(event) => event.stopPropagation()}
-                onClick={() => choosePlacement(choice)}
+                onClick={(event) => {
+                  if (!quick.quiet(choice.optionId) && event.detail < 2)
+                    choosePlacement(choice);
+                }}
+                onDoubleClick={(event) =>
+                  quick.double(choice.optionId, event, () =>
+                    quickPlacement(choice),
+                  )
+                }
+                onPointerUp={(event) =>
+                  quick.touch(choice.optionId, event, () =>
+                    quickPlacement(choice),
+                  )
+                }
                 onKeyDown={(event) => {
                   if (event.key === "Enter" || event.key === " ") {
                     event.preventDefault();
@@ -416,7 +446,7 @@ export function BoardMap({
             />
             <text x={drag.x} y={drag.y - 62} textAnchor="middle">
               {drag.target
-                ? `停靠 ${drag.target} · 松手预览`
+                ? `停靠 ${drag.target} · 松手移动`
                 : "沿虚线选择停靠点"}
             </text>
           </g>

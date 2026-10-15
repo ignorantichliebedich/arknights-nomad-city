@@ -55,11 +55,27 @@ export function ExpeditionEntry({
           <span className="departure-kicker">
             <i /> 铸基者 · 好友联机
           </span>
-          <h1 id="departure-title">
-            移动城市，
-            <br />
-            由此起航。
+          <h1 id="departure-title" aria-label="明日方舟 游城拓荒">
+            <span className="hero-arknights">
+              {"明日方舟".split("").map((char, index) => (
+                <span key={char} style={{ "--glyph": index } as CSSProperties}>
+                  {char}
+                </span>
+              ))}
+            </span>
+            <span className="hero-nomad">
+              {"游城拓荒".split("").map((char, index) => (
+                <span key={char} style={{ "--glyph": index } as CSSProperties}>
+                  {char}
+                </span>
+              ))}
+            </span>
           </h1>
+          <img
+            className="hero-official-stamp"
+            src="/assets/official-nomad-logo.webp"
+            alt="铸基者 / The Founders"
+          />
           <p>
             在荒野落下第一枚棋子。
             <br />

@@ -3,27 +3,32 @@
     {
       "id": "misty-memory-night",
       "title": "Misty Memory (Night Version)",
-      "src": "/audio/music/misty-memory-night.mp3"
+      "src": "/audio/music/misty-memory-night.mp3",
+      "cover": "/audio/music/covers/misty-memory-night.jpg"
     },
     {
       "id": "see-you-soon",
       "title": "See You Soon",
-      "src": "/audio/music/see-you-soon.mp3"
+      "src": "/audio/music/see-you-soon.mp3",
+      "cover": "/audio/music/covers/see-you-soon.jpg"
     },
     {
       "id": "il-signore-del-carnevale",
       "title": "Il Signore del Carnevale",
-      "src": "/audio/music/il-signore-del-carnevale.mp3"
+      "src": "/audio/music/il-signore-del-carnevale.mp3",
+      "cover": "/audio/music/covers/il-signore-del-carnevale.jpg"
     },
     {
       "id": "yasainus-revenge",
       "title": "『雅赛努斯复仇记』",
-      "src": "/audio/music/yasainus-revenge.mp3"
+      "src": "/audio/music/yasainus-revenge.mp3",
+      "cover": "/audio/music/covers/yasainus-revenge.jpg"
     },
     {
       "id": "speed-of-light",
       "title": "Speed of Light",
-      "src": "/audio/music/speed-of-light.mp3"
+      "src": "/audio/music/speed-of-light.mp3",
+      "cover": "/audio/music/covers/speed-of-light.jpg"
     }
   ]
 }

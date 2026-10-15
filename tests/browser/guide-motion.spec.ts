@@ -137,7 +137,9 @@ test("新手教程可独立练习，查询操作和牌面不提交对局指令",
     .getByRole("button", { name: /亲自落子/ })
     .click();
   await guide.getByRole("button", { name: "预览城市移动" }).click();
-  await expect(guide.getByRole("status")).toContainText("正式对局还需核对费用");
+  await expect(guide.getByRole("status")).toContainText(
+    "松手即可支付费用并移动",
+  );
   await guide
     .getByRole("navigation", { name: "教程章节" })
     .getByRole("button", { name: /一起结算/ })

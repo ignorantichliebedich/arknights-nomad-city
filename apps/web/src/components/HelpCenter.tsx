@@ -169,7 +169,7 @@ function LessonDemo({ step }: { step: number }) {
             <>
               <p role="status">
                 {moving
-                  ? "预览落点后，正式对局还需核对费用并确认移动。"
+                  ? "拖动城市到虚线指示的合法落点，松手即可支付费用并移动；也可用按钮预览后确认。"
                   : "虚线连接的是示意路线，试着预览移动。"}
               </p>
               <button

@@ -201,6 +201,23 @@ test("触控棋桌占满视野，配件盘查看城市后可直接部署", async
       () => document.documentElement.scrollHeight - innerHeight,
     ),
   ).toBeLessThanOrEqual(1);
+  await expect(page.locator(".phone-phase-bar")).toContainText("第 1/8 回合");
+  await expect(page.locator(".entrepreneur-station .map-prompt")).toBeHidden();
+  await expect(page.locator(".active-entrepreneur")).toBeHidden();
+  const score = page.getByRole("button", {
+    name: "回合与终局计分 ▾",
+    exact: true,
+  });
+  await fits(page, score);
+  await score.tap();
+  const reference = page.getByRole("dialog", {
+    name: "回合与终局计分",
+    exact: true,
+  });
+  await fits(page, reference);
+  await expect(reference.locator(".round-track .current")).toHaveText("1");
+  await expect(reference.locator("img")).toBeVisible();
+  await reference.getByRole("button", { name: "关闭计分说明" }).tap();
   await expect(page.locator(".game-sidebar")).toBeHidden();
   await expect(page.locator(".board-toolbar")).toBeHidden();
   await page.getByRole("button", { name: "调整棋盘视野" }).tap();
@@ -224,6 +241,12 @@ test("触控棋桌占满视野，配件盘查看城市后可直接部署", async
     await page.getByRole("button", { name: "关闭配件盘" }).tap();
   await page.locator(".deployment-slot").first().tap();
   await expect(page.locator(".placement-panel")).toBeVisible();
+  await fits(page, page.locator(".placement-panel"));
+  const placementBox = (await page.locator(".placement-panel").boundingBox())!,
+    phaseBox = (await page.locator(".phone-phase-bar").boundingBox())!;
+  expect(placementBox.y).toBeGreaterThanOrEqual(phaseBox.y + phaseBox.height);
+  await expect(page.locator(".map-dock")).toBeHidden();
+  await expect(page.locator(".fan-hand.is-folded .hand-cards")).toBeHidden();
   expect(read(id).revision).toBe(before.revision);
   await fits(page, page.getByRole("button", { name: /确认放置/ }));
   await page.screenshot({

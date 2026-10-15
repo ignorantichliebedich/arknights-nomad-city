@@ -36,6 +36,7 @@ import { FullscreenWelcome } from "./components/FullscreenWelcome.tsx";
 import { AudioSettings } from "./components/AudioSettings.tsx";
 import { GameSoundFeedback } from "./components/GameSoundFeedback.tsx";
 import { gameAudio } from "./audio.ts";
+import { GameBrand } from "./components/GameBrand.tsx";
 import {
   useDisplayMode,
   displaySnapshot,
@@ -71,6 +72,7 @@ import "./direct-deployment.css";
 import "./bots-practice.css";
 import "./entry-audio.css";
 import "./phone.css";
+import "./table-experience.css";
 import {
   InfluencePreview,
   type InfluenceTransfer,
@@ -238,11 +240,7 @@ function App() {
       )}
       <header className={`topbar ${playing ? "in-game" : "staging-header"}`}>
         <button className="brand" onClick={home} aria-label="返回游戏入口">
-          <span className="brand-mark">▥</span>
-          <span>
-            <strong>游城拓荒</strong>
-            <small>NOMAD CITY / THE FOUNDERS</small>
-          </span>
+          <GameBrand />
         </button>
         <div className="topbar-right">
           <span className="edition">
@@ -479,6 +477,7 @@ function GameRoom({
     target: string;
     optionId: string;
     revision: number;
+    kind?: "city" | "explore";
   } | null>(null);
   const { receipt, closeReceipt } = useTableReceipt(game);
   const [drawer, setDrawer] = useState<
@@ -588,7 +587,8 @@ function GameRoom({
     // A confirmed drag authorizes exactly the advertised city option after
     // starting its main action. If anything differs, leave the server choice open.
     const legal =
-      game.decision?.kind === "city" && game.revision === pending.revision + 1
+      game.decision?.kind === (pending.kind ?? "city") &&
+      game.revision === pending.revision + 1
         ? game.actions.find(
             (a) =>
               a.target === pending.target &&
@@ -670,7 +670,18 @@ function GameRoom({
     setPlannedInfluence(null);
     setPlannedPlacement(null);
   }
-  function commit() {
+  function submit(
+    confirmation: LegalAction | null,
+    previews?: {
+      placement: InfluencePlacement | null;
+      city: NonNullable<PlayerView["cityDestinations"]>[number] | null;
+      influence: InfluenceTransfer | null;
+    },
+  ) {
+    const confirm = confirmation;
+    const placement = previews ? previews.placement : plannedPlacement;
+    const city = previews ? previews.city : plannedCity;
+    const influence = previews ? previews.influence : plannedInfluence;
     if (!confirm || net.busy || net.status !== "online") return;
     // Keep previews local. Submit only a choice still present in this player's view.
     const legal = game?.actions.find(
@@ -680,43 +691,46 @@ function GameRoom({
     );
     if (legal) {
       if (
-        plannedPlacement &&
+        placement &&
         legal.command.type === "main" &&
         legal.command.action === "deploy"
       ) {
         if (
           !game?.influencePlacements?.some(
             (p) =>
-              p.optionId === plannedPlacement.optionId &&
-              p.target === plannedPlacement.target,
+              p.optionId === placement.optionId &&
+              p.target === placement.target,
           )
         )
           return;
         queuedPlacement.current = {
-          ...plannedPlacement,
+          ...placement,
           revision: game.revision,
         };
       }
       setPlannedPlacement(null);
-      if (plannedInfluence && game?.decision?.kind !== "shift-to")
+      if (influence && game?.decision?.kind !== "shift-to")
         queuedInfluence.current = {
-          ...plannedInfluence,
+          ...influence,
           revision: game!.revision,
           stage: legal.command.type === "main" ? "from" : "to",
         };
       if (game?.decision?.kind === "select-role") setHandOpen(false);
       setPlannedInfluence(null);
       if (
-        plannedCity &&
+        city &&
         legal.command.type === "main" &&
         legal.command.action === "city"
       )
-        queuedMove.current = { ...plannedCity, revision: game!.revision };
+        queuedMove.current = { ...city, revision: game!.revision };
       setPlannedCity(null);
       net.send("command", { command: legal.command });
       showInteraction(null);
     }
     setConfirm(null);
+  }
+  function commit() {
+    submit(confirm);
   }
   async function fullscreen() {
     if (displaySnapshot().fullscreen) await exitGameFullscreen();
@@ -754,7 +768,7 @@ function GameRoom({
     );
   };
   const placements = game ? placementOptions(game) : [];
-  const selectPlacement = (choice: InfluencePlacement) => {
+  const selectPlacement = (choice: InfluencePlacement, quick = false) => {
     if (
       !game ||
       net.busy ||
@@ -771,6 +785,10 @@ function GameRoom({
             (a) => a.command.type === "main" && a.command.action === "deploy",
           );
     if (!legal) return;
+    if (quick) {
+      submit(legal, { placement: choice, city: null, influence: null });
+      return;
+    }
     setTarget(choice.target);
     setConfirm(legal);
     setPlannedPlacement(choice);
@@ -788,6 +806,16 @@ function GameRoom({
     const actions = boardChoice
       ? game.actions.filter((a) => a.target === id)
       : [];
+    if (
+      !actions.length &&
+      game.explorationTargets?.some((p) => p.target === id)
+    ) {
+      setTarget(id);
+      setConfirm(null);
+      setDetail(null);
+      showInteraction(null);
+      return;
+    }
     if (actions.length) {
       if (decision?.kind === "harvest") {
         if (!net.busy && net.status === "online")
@@ -806,6 +834,31 @@ function GameRoom({
         text: `${game.board.nodes.some((n) => n.id === id) ? "资源点" : "航道"} · ${site.resource ? `${site.amount} ${RESOURCE_NAMES[site.resource]}` : "等待探索"}${city ? ` · ${city.name} 的城市` : ""}${site.publicRoad ? " · 公路免费通行" : ""}`,
       });
     }
+  };
+  const quickSite = (id: string) => {
+    if (!game || net.busy || net.status !== "online") return;
+    const exploration = game.explorationTargets?.find((p) => p.target === id);
+    if (exploration) {
+      const main = game.actions.find(
+        (a) => a.command.type === "main" && a.command.action === "explore",
+      );
+      if (!main) return;
+      queuedMove.current = {
+        ...exploration,
+        revision: game.revision,
+        kind: "explore",
+      };
+      submit(main, { placement: null, city: null, influence: null });
+      return;
+    }
+    if (game.decision?.kind === "explore") {
+      const option = game.actions.find((a) => a.target === id);
+      if (option)
+        submit(option, { placement: null, city: null, influence: null });
+      return;
+    }
+    const slot = placements.find((p) => p.target === id);
+    if (slot) selectPlacement(slot, true);
   };
   return (
     <>
@@ -877,6 +930,44 @@ function GameRoom({
                 {game.phase === "finished" ? "终局详情" : "配件盘"}{" "}
                 <span aria-hidden="true">↗</span>
               </button>
+            </div>
+          )}
+          {phone && (
+            <div className="phone-phase-bar">
+              <span>
+                <img
+                  src={`/assets/avatar-${game.players.find((p) => p.id === activeId)?.seat ?? 0}.webp`}
+                  alt=""
+                />
+                {activeId === game.players[game.first]?.id && (
+                  <img src="/assets/president.webp" alt="大总统" />
+                )}
+                第 {game.round}/8 回合 · {phaseNames[game.phase]}
+              </span>
+              <button popoverTarget="phone-score-reference">
+                回合与终局计分 ▾
+              </button>
+            </div>
+          )}
+          {phone && (
+            <div
+              id="phone-score-reference"
+              className="phone-score-reference"
+              popover="auto"
+              role="dialog"
+              aria-label="回合与终局计分"
+            >
+              <header>
+                <strong>回合与终局计分</strong>
+                <button
+                  popoverTarget="phone-score-reference"
+                  popoverTargetAction="hide"
+                  aria-label="关闭计分说明"
+                >
+                  ×
+                </button>
+              </header>
+              <BoardEdgeHints game={game} expanded />
             </div>
           )}
           <section
@@ -1019,8 +1110,10 @@ function GameRoom({
                   placement={plannedPlacement}
                   placements={placements}
                   choosePlacement={selectPlacement}
+                  quickPlacement={(choice) => selectPlacement(choice, true)}
                   boardChoice={boardChoice}
                   chooseSite={chooseSite}
+                  quickSite={quickSite}
                   disabled={net.busy || net.status !== "online"}
                   onInfluenceDrop={(move) => {
                     const legal =
@@ -1068,7 +1161,17 @@ function GameRoom({
                   }}
                   onCityDrop={(destination, optionId) => {
                     if (decision?.kind === "city") {
-                      chooseSite(destination);
+                      const option = game.actions.find(
+                        (a) =>
+                          a.command.optionId === optionId &&
+                          a.target === destination,
+                      );
+                      if (option)
+                        submit(option, {
+                          placement: null,
+                          city: null,
+                          influence: null,
+                        });
                       return;
                     }
                     const main = game.actions.find(
@@ -1080,12 +1183,11 @@ function GameRoom({
                       (d) => d.optionId === optionId,
                     );
                     if (!main || !move) return;
-                    setConfirm(main);
-                    setTarget(destination);
-                    setPlannedCity(move);
-                    setPlannedPlacement(null);
-                    setPlannedInfluence(null);
-                    showInteraction(null);
+                    submit(main, {
+                      placement: null,
+                      city: move,
+                      influence: null,
+                    });
                   }}
                 />
               </div>
@@ -1204,6 +1306,9 @@ function GameRoom({
               onExpand={setHandOpen}
               onSelect={(value) => (value ? action(value) : setConfirm(null))}
               onCommit={commit}
+              onQuickCommit={(choice) =>
+                submit(choice, { placement: null, city: null, influence: null })
+              }
               onDetail={setDetail}
               onAction={() => showInteraction("action")}
               touch={phone}
@@ -1267,11 +1372,6 @@ function GameRoom({
                 >
                   ×
                 </button>
-              </div>
-            )}
-            {phone && (
-              <div className="phone-board-reference">
-                <BoardEdgeHints game={game} />
               </div>
             )}
             <TableDashboard
