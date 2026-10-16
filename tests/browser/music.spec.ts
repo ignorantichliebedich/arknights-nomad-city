@@ -29,7 +29,7 @@ test.beforeEach(async ({ page }) => {
 });
 async function openSettings(page: Page) {
   await page.goto("/");
-  await page.getByRole("button", { name: "取消", exact: true }).click();
+  await page.getByRole("button", { name: "窗口进入", exact: true }).click();
   await page.getByRole("button", { name: "声音设置" }).click();
   await page.locator(".music-catalog summary").click();
   await expect(page.getByLabel("播放曲目")).toBeVisible();

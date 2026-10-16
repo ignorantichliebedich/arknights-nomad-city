@@ -1,85 +1,82 @@
 import { useEffect, useRef, useState } from "react";
 import { gameAudio } from "../audio.ts";
-import { enterGameFullscreen } from "../display-mode.ts";
+import { displaySnapshot, enterGameFullscreen } from "../display-mode.ts";
 export const FULLSCREEN_PROMPT_KEY = "nomad:fullscreen-prompt:1";
-export function FullscreenWelcome({ phone = false }: { phone?: boolean }) {
-  const [open, setOpen] = useState(() => {
-    try {
-      return (
-        !sessionStorage.getItem(FULLSCREEN_PROMPT_KEY) &&
-        !document.fullscreenElement
-      );
-    } catch {
-      return !document.fullscreenElement;
-    }
-  });
+export function shouldOfferFullscreen() {
+  if (displaySnapshot().fullscreen) return false;
+  try {
+    return !sessionStorage.getItem(FULLSCREEN_PROMPT_KEY);
+  } catch {
+    return true;
+  }
+}
+
+export function FullscreenWelcome({
+  phone,
+  onDone,
+  failedCount,
+  onRetry,
+}: {
+  phone: boolean;
+  onDone: () => void;
+  failedCount: number;
+  onRetry: () => void;
+}) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const dialog = useRef<HTMLDialogElement>(null);
+  const finishing = useRef(false);
   useEffect(() => {
-    if (!open) return;
-    const opener = document.activeElement;
-    dialog.current?.showModal();
-    return () => {
-      dialog.current?.close();
-      if (opener instanceof HTMLElement && opener.isConnected)
-        opener.focus({ preventScroll: true });
-    };
-  }, [open]);
+    const element = dialog.current!;
+    element.showModal();
+    return () => element.close();
+  }, []);
   function close() {
+    if (finishing.current) return;
+    finishing.current = true;
+    void gameAudio.unlock().then(() => gameAudio.play("confirm"));
     try {
       sessionStorage.setItem(FULLSCREEN_PROMPT_KEY, "1");
     } catch {
-      /* This visit still proceeds. */
+      /* This visit can proceed. */
     }
-    setOpen(false);
+    onDone();
   }
   async function fullscreen() {
+    if (busy || finishing.current) return;
     void gameAudio.unlock();
     setBusy(true);
     try {
       await enterGameFullscreen();
       close();
     } catch {
-      setError("浏览器暂时无法进入全屏。你可以取消提示，继续使用窗口模式。");
+      setError("浏览器暂时无法进入全屏。选择窗口进入即可继续。");
     } finally {
       setBusy(false);
     }
   }
-  if (!open) return null;
   return (
     <dialog
       ref={dialog}
-      className="fullscreen-welcome"
+      className="fullscreen-welcome boot-welcome"
       aria-labelledby="fullscreen-welcome-title"
       onCancel={(event) => {
         event.preventDefault();
-        close();
+        if (!busy) close();
       }}
     >
-      <div className="welcome-registration">
-        <span>EXPEDITION PERMIT / 105</span>
-        <span>启程须知</span>
-      </div>
-      <div className="welcome-scene" aria-hidden="true">
-        <span className="welcome-viewfinder" />
-        <img src="/assets/city-model-0.svg" alt="" />
-        <span>THE FRONTIER AWAITS</span>
-      </div>
-      <div className="welcome-copy">
-        <span className="eyebrow">展开你的拓荒桌</span>
-        <h2 id="fullscreen-welcome-title">全屏体验更佳</h2>
-        <p>
-          {phone
-            ? "展开横屏棋桌，让地图与手牌随手机屏幕适配。"
-            : "让地图、手牌与城市完整铺开，和同行者一起探索荒野。"}
-        </p>
-        <small>
-          {phone
-            ? "进入后将尝试自动横屏；若手机未转向，横放手机即可。"
-            : "随时按 Esc 退出全屏，也可以在棋桌上重新开启。"}
-        </small>
-      </div>
+      <span className="eyebrow">THE FRONTIER AWAITS</span>
+      <h2 id="fullscreen-welcome-title">全屏体验更佳</h2>
+      <p>
+        {phone
+          ? "展开横屏棋桌，启程前往荒野。"
+          : "展开地图与手牌，和朋友共赴下一片荒野。"}
+      </p>
+      <small>
+        {phone
+          ? "全屏后尝试横屏，也可以横放手机游玩。"
+          : "随时按 Esc 退出全屏。"}
+      </small>
       {error && (
         <p className="welcome-error" role="status">
           {error}
@@ -92,20 +89,25 @@ export function FullscreenWelcome({ phone = false }: { phone?: boolean }) {
           disabled={busy}
           autoFocus
         >
-          取消
+          窗口进入
         </button>
         <button
           className="primary-button"
           onClick={() => void fullscreen()}
           disabled={busy}
         >
-          {busy ? "正在展开…" : "全屏体验"} <span aria-hidden="true">↗</span>
+          {busy ? "正在展开…" : "全屏体验"} ↗
         </button>
       </div>
-      <div className="welcome-footer">
-        <i aria-hidden="true" />
-        <span>一人一座城市，共赴下一片荒野。</span>
-      </div>
+      {failedCount > 0 && (
+        <button
+          className="subtle-button boot-retry"
+          disabled={busy}
+          onClick={onRetry}
+        >
+          重试 {failedCount} 项图片 ↻
+        </button>
+      )}
     </dialog>
   );
 }

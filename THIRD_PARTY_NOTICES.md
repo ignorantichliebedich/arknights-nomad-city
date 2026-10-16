@@ -11,4 +11,5 @@
 仓库保留代码、规则数据、来源记录与处理脚本。运行图像和音频、研究原件、个人存档、席位凭证、服务器密钥和备份不进入 Git 历史。`pnpm assets:restore` 在本地按清单获取并核验运行素材；获取行为不改变素材权利，使用者应按用途确认所需许可。
 
 界面补绘记录见 `assets/fan-table-art.md`，原始素材与生成处理分别标注。依赖库使用各自发布的许可证，版本锁定于 `pnpm-lock.yaml`。
+首页八字矢量标题由 Adobe Source Han Sans SC Heavy 字形导出，适用 SIL Open Font License 1.1，许可全文保存在 `assets/licenses/source-han-sans-OFL.txt`。字体原件与运行 SVG 位于忽略目录；重建脚本、来源与摘要见 `assets/entry-art-direction.md`。
 角色语音来源于 PRTS 公开语音索引与 torappu 音频资源，权利归鹰角网络及各自权利人；公开仓库仅保留出处、摘要、清单和播放代码。逐段来源见 `assets/voice-manifest.json`。唱片封面来自用户提供的音乐原件内嵌图像，运行封面与 MP3 一并忽略。

@@ -1,3 +1,4 @@
+import { openHomeLobby } from "./fixtures/rooms.ts";
 import { test, expect, type Page } from "./fixtures/test.ts";
 import { clickRoomButton, roomRequest } from "./fixtures/rooms.ts";
 
@@ -47,13 +48,14 @@ test("拓荒许可表单支持房间码回车加入，邀请入口保留名字�
   await expect(
     page.getByRole("heading", { name: "明日方舟 游城拓荒" }),
   ).toBeVisible();
-  await expect(page.getByRole("button", { name: "创建新房间" })).toBeDisabled();
   await artworkLoaded(page);
   await fitsViewport(page);
   await page.screenshot({
     path: info.outputPath("entry-home.png"),
     animations: "disabled",
   });
+  await openHomeLobby(page);
+  await expect(page.getByRole("button", { name: "创建新房间" })).toBeDisabled();
   await page.getByLabel("企业家昵称").fill("应邀而来的企业家");
   await page.getByRole("checkbox", { name: "创建房间时启用企业扩展" }).focus();
   await page.keyboard.press("Space");
@@ -124,6 +126,7 @@ test("集结桌同步四人入座与准备，断线保留席位并阻止开局�
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/");
+  await openHomeLobby(page);
   await page.getByLabel("企业家昵称").fill("一起向荒野出发的第一位企业家");
   await page.getByRole("checkbox").check();
   await clickRoomButton(page, "创建新房间");
@@ -191,6 +194,7 @@ test("集结桌同步四人入座与准备，断线保留席位并阻止开局�
       friends.push(friend);
       friend.on("pageerror", (e) => errors.push(e.message));
       await friend.goto(url);
+      await openHomeLobby(friend);
       await friend.getByLabel("企业家昵称").fill(name);
       await clickRoomButton(friend, "加入这场拓荒");
       await expect(friend.locator(".assembly-seat.is-mine")).toContainText(

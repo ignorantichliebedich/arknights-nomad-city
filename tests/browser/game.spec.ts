@@ -1,3 +1,4 @@
+import { openHomeLobby } from "./fixtures/rooms.ts";
 import { test, expect } from "./fixtures/test.ts";
 import { RoomStore } from "../../apps/server/src/store.ts";
 import {
@@ -15,6 +16,7 @@ test("秘密企业选择可以先查看完整效果，预览不提交行动", as
   page,
 }, info) => {
   await page.goto("/");
+  await openHomeLobby(page);
   await page.getByLabel("企业家昵称").fill("企业预览测试");
   await clickRoomButton(page, "创建新房间");
   await expect(page.locator(".room-toolbar")).toBeVisible();
@@ -105,6 +107,7 @@ test("持续角色、暂存设施和可用标记在刷新后可见，城市展�
   page,
 }, info) => {
   await page.goto("/");
+  await openHomeLobby(page);
   await page.getByLabel("企业家昵称").fill("持续效果测试");
   await clickRoomButton(page, "创建新房间");
   await expect(page.locator(".room-toolbar")).toBeVisible();
@@ -213,6 +216,7 @@ test("入口、两人房间、真实棋盘、准备开局、秘密选牌和刷�
   await expect(
     page.getByRole("heading", { name: "明日方舟 游城拓荒" }),
   ).toBeVisible();
+  await openHomeLobby(page);
   await page.getByLabel("企业家昵称").fill("测试房主");
   await clickRoomButton(page, "创建新房间");
   await expect(
@@ -226,6 +230,7 @@ test("入口、两人房间、真实棋盘、准备开局、秘密选牌和刷�
   const friend = await context.newPage();
   friend.on("pageerror", (e) => errors.push(e.message));
   await friend.goto(`/room/${roomId}`);
+  await openHomeLobby(friend);
   await friend.getByLabel("企业家昵称").fill("测试朋友");
   await clickRoomButton(friend, "加入这场拓荒");
   await expect(
@@ -344,6 +349,7 @@ test("规则弹窗的键盘关闭与入房错误", async ({ page }) => {
   await expect(page.getByRole("dialog")).toContainText("全局 8 回合");
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog")).toHaveCount(0);
+  await openHomeLobby(page);
   await page.getByLabel("企业家昵称").fill("测试");
   await page.getByLabel("房间码").fill("ZZZZZZ");
   await clickRoomButton(page, "加入", 404);
@@ -372,6 +378,7 @@ test("两个独立浏览器完成八回合，所有席位都能查看最终得�
   }
   await page.addInitScript(observeSocket);
   await page.goto("/");
+  await openHomeLobby(page);
   await page.getByLabel("企业家昵称").fill("整局房主");
   await clickRoomButton(page, "创建新房间");
   await expect(page.locator(".room-toolbar")).toBeVisible();
@@ -379,6 +386,7 @@ test("两个独立浏览器完成八回合，所有席位都能查看最终得�
   const friend = await context.newPage();
   await friend.addInitScript(observeSocket);
   await friend.goto(page.url());
+  await openHomeLobby(friend);
   await friend.getByLabel("企业家昵称").fill("整局朋友");
   await clickRoomButton(friend, "加入这场拓荒");
   await page.getByRole("button", { name: "准备出发" }).click();

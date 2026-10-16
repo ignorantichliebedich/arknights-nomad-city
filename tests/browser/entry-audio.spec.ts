@@ -11,12 +11,12 @@ test("启程提示可取消，键盘可关闭，同一标签刷新不重复弹�
   const welcome = page.getByRole("dialog", { name: "全屏体验更佳" });
   await expect(welcome).toBeVisible();
   await expect(
-    welcome.getByRole("button", { name: "取消", exact: true }),
+    welcome.getByRole("button", { name: "窗口进入", exact: true }),
   ).toBeFocused();
   await expect
     .poll(() =>
-      welcome
-        .locator("img")
+      page
+        .locator(".boot-emblem img")
         .evaluate(
           (image: HTMLImageElement) => image.complete && image.naturalWidth > 0,
         ),
@@ -32,7 +32,9 @@ test("启程提示可取消，键盘可关闭，同一标签刷新不重复弹�
   await page.keyboard.press("Escape");
   await expect(welcome).toHaveCount(0);
   await page.reload();
-  await expect(page.getByLabel("企业家昵称")).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "明日方舟 游城拓荒" }),
+  ).toBeVisible();
   await expect(welcome).toHaveCount(0);
   expect(errors).toEqual([]);
 });
@@ -60,8 +62,10 @@ test("全屏由按钮触发，浏览器拒绝时可继续窗口模式", async ({
   await expect(page.getByRole("status")).toContainText(
     "浏览器暂时无法进入全屏",
   );
-  await page.getByRole("button", { name: "取消", exact: true }).click();
-  await expect(page.getByLabel("企业家昵称")).toBeVisible();
+  await page.getByRole("button", { name: "窗口进入", exact: true }).click();
+  await expect(
+    page.getByRole("heading", { name: "明日方舟 游城拓荒" }),
+  ).toBeVisible();
 });
 
 test("真实音效在交互后解码播放，静音与音量设置刷新保留", async ({
@@ -83,7 +87,7 @@ test("真实音效在交互后解码播放，静音与音量设置刷新保留",
   await page.goto("/");
   await expect(page.locator(".fullscreen-welcome")).toBeVisible();
   expect(await starts()).toBe(0);
-  await page.getByRole("button", { name: "取消", exact: true }).click();
+  await page.getByRole("button", { name: "窗口进入", exact: true }).click();
   await expect.poll(starts).toBeGreaterThan(0);
   await page.getByRole("button", { name: "声音设置" }).click();
   const settings = page.getByRole("dialog", { name: "声音与音乐" });
@@ -148,7 +152,7 @@ test("预留音乐清单接入真实音频并可独立开关", async ({ page }) 
     };
   });
   await page.goto("/");
-  await page.getByRole("button", { name: "取消", exact: true }).click();
+  await page.getByRole("button", { name: "窗口进入", exact: true }).click();
   await page.getByRole("button", { name: "声音设置" }).click();
   await expect(page.getByLabel("播放曲目")).toContainText("测试曲目");
   const music = page.getByRole("checkbox", { name: "背景音乐", exact: true });

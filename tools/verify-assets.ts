@@ -45,6 +45,8 @@ for (const name of [
   images.add(`/assets/${name}`);
 for (const resource of ["rock", "ore", "iron", "prime", "cash", "score"])
   images.add(`/assets/resource-${resource}.webp`);
+for (const char of "明日方舟游城拓荒")
+  images.add(`/assets/title-glyph-${char.codePointAt(0)!.toString(16)}.svg`);
 images.add("/assets/president.webp");
 images.add("/assets/board-hint-3.webp");
 images.add("/assets/board-hint-4.webp");

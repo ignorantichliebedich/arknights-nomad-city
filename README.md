@@ -4,7 +4,7 @@
 
 在线游玩：[游戏入口](http://106.52.74.24)。请使用创建房间时的相同协议与浏览器恢复席位。服务器已配置 IP HTTPS 证书；公网 443 放行后可使用加密入口。源码仓库：[arknights-nomad-city](https://github.com/ignorantichliebedich/arknights-nomad-city)。
 
-首次访问提供同风格全屏提示；顶部“声音”提供唱片封面、切歌、中日角色语音、静音及音量设置。新访客默认开启背景音乐，从 Speed of Light 开始；已有明确声音偏好保留。素材接入见 [声音说明](docs/audio.md)。
+首次访问先加载必要图片，再选择全屏或窗口进入。首页展示错峰中文标题与企业家立绘，点击“开始拓荒”进入创建／加入房间界面；邀请链接直达加入页，已有席位直接恢复。顶部“声音”提供唱片封面、切歌、中日角色语音、静音及音量设置。新访客从 Speed of Light 开始；已有声音偏好保留。素材接入见 [声音说明](docs/audio.md)。
 
 手机使用独立触控布局：点击全屏后申请横屏锁定，棋盘随屏幕适配，资源留在顶部，城市和企业收进配件盘。支持触控选牌、确认盖放和双指缩放；浏览器不支持自动转向时可手动横放，席位和操作预览保留。操作与兼容性见 [手机棋桌](docs/mobile.md)。
 
@@ -22,6 +22,8 @@
 
 ```powershell
 pnpm install --frozen-lockfile
+python -m pip install -r tools/requirements.txt
+python tools/prepare-title-glyphs.py
 pnpm assets:restore
 pnpm assets:check
 pnpm music:import
@@ -30,7 +32,7 @@ pnpm build
 pnpm start
 ```
 
-打开 <http://localhost:3000>。房主输入昵称并创建房间，朋友通过同一地址或六位房间码加入。全部玩家准备后，房主开始拓荒。企业配置在建房时选择。
+打开 <http://localhost:3000>，选择窗口或全屏进入，点击“开始拓荒”后输入昵称并创建房间。朋友可使用“加入好友”、邀请链接或六位房间码入座。全部玩家准备后，房主开始拓荒。企业配置在建房时选择。标题素材的原图与重建方式见 [首页视觉记录](assets/entry-art-direction.md)。
 
 公开仓库包含源码、规则数据和素材来源清单。运行图像与操作音效由 `assets:restore` 按 SHA-256 获取到本地，背景音乐由 `music:import` 从开发者本地 `music/` 导入；原始研究扫描及历史截图保存在开发者本地。未持有音乐原件时可跳过两项 `music:*` 命令，在声音设置关闭背景音乐。可设置 `ASSET_BASE_URL` 使用自己维护的素材源；素材权利见 [第三方说明](THIRD_PARTY_NOTICES.md)。
 

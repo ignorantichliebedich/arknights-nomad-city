@@ -1,3 +1,4 @@
+import { openHomeLobby } from "./fixtures/rooms.ts";
 import { test, expect, type Page, type Locator } from "@playwright/test";
 import { fixture } from "./fixtures/table.ts";
 import { RoomStore } from "../../apps/server/src/store.ts";
@@ -80,7 +81,8 @@ test("手机启程提示和表单适配竖屏与横屏，取消后可直接建�
     path: info.outputPath("phone-welcome.png"),
     animations: "disabled",
   });
-  await welcome.getByRole("button", { name: "取消", exact: true }).tap();
+  await welcome.getByRole("button", { name: "窗口进入", exact: true }).tap();
+  await openHomeLobby(page);
   await page.getByLabel("企业家昵称").fill("手机上的企业家");
   await expect(page.getByLabel("企业家昵称")).toHaveCSS("font-size", "16px");
   expect(
@@ -141,6 +143,7 @@ test("全屏授权后才申请横屏，旋转保留输入，退出释放方向",
     "fullscreen",
     "landscape",
   ]);
+  await openHomeLobby(page);
   await page.getByLabel("企业家昵称").fill("旋转保留名字");
   await page.setViewportSize({ width: 844, height: 390 });
   await expect(page.getByLabel("企业家昵称")).toHaveValue("旋转保留名字");
@@ -184,7 +187,9 @@ for (const denied of ["lock", "fullscreen"] as const)
     await expect(page.locator(".phone-rotate-hint")).toContainText("横放手机");
     await page.setViewportSize({ width: 844, height: 390 });
     await expect(page.locator(".phone-rotate-hint")).toHaveCount(0);
-    await expect(page.getByLabel("企业家昵称")).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "明日方舟 游城拓荒" }),
+    ).toBeVisible();
   });
 
 test("触控棋桌占满视野，配件盘查看城市后可直接部署", async ({ page }, info) => {

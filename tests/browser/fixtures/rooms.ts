@@ -1,5 +1,16 @@
 import { expect, type Page } from "@playwright/test";
 
+/** Follow the actual two-scene entrance; invitations already open the permit. */
+export async function openHomeLobby(page: Page) {
+  await expect(page.locator(".departure-stage")).toBeVisible();
+  if (
+    (await page.locator(".departure-stage").getAttribute("data-scene")) ===
+    "hero"
+  )
+    await page.getByRole("button", { name: "开始拓荒", exact: true }).click();
+  await expect(page.locator(".departure-stage")).not.toHaveClass(/is-changing/);
+}
+
 export async function roomRequest(page: Page, path: string, name: string) {
   const deadline = Date.now() + 65000;
   do {

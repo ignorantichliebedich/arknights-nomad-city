@@ -1,3 +1,4 @@
+import { openHomeLobby } from "./fixtures/rooms.ts";
 import { test, expect, type Page } from "./fixtures/test.ts";
 import { fixture } from "./fixtures/table.ts";
 import { clickRoomButton } from "./fixtures/rooms.ts";
@@ -110,8 +111,12 @@ test("新手教程可独立练习，查询操作和牌面不提交对局指令",
     if (r.method() === "POST") posts.push(r.url());
   });
   await page.goto("/");
-  await page.getByRole("button", { name: "新手教程", exact: true }).click();
+  await page.getByRole("button", { name: "拓荒指南", exact: false }).click();
   const guide = page.getByRole("dialog", { name: "拓荒指南" });
+  await expect(page.locator(".poster-wave").first()).toHaveCSS(
+    "animation-play-state",
+    "paused",
+  );
   await guide
     .getByRole("navigation", { name: "教程章节" })
     .getByRole("button", { name: /选一张牌/ })
@@ -190,7 +195,7 @@ test("新手教程可独立练习，查询操作和牌面不提交对局指令",
   await page.keyboard.press("Escape");
   await expect(guide).toHaveCount(0);
   await expect(
-    page.getByRole("button", { name: "新手教程", exact: true }),
+    page.getByRole("button", { name: "拓荒指南", exact: false }),
   ).toBeFocused();
   expect(posts).toEqual([]);
   await fixture(page, "select");
@@ -217,6 +222,7 @@ test("加入与开局过场跟随服务器确认，按钮有点击反馈，刷�
 }, info) => {
   test.setTimeout(90000);
   await page.goto("/");
+  await openHomeLobby(page);
   await page.getByLabel("企业家昵称").fill("启程动画测试");
   let release!: () => void;
   const gate = new Promise<void>((resolve) => {
@@ -260,6 +266,7 @@ test("加入与开局过场跟随服务器确认，按钮有点击反馈，刷�
   try {
     const friend = await context.newPage();
     await friend.goto(url);
+    await openHomeLobby(friend);
     await friend.getByLabel("企业家昵称").fill("一起出发的朋友");
     await clickRoomButton(friend, "加入这场拓荒");
     await expect(friend.locator("dialog.scene-room")).toBeVisible();

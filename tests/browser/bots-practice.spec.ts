@@ -1,3 +1,4 @@
+import { openHomeLobby } from "./fixtures/rooms.ts";
 import { test, expect, type Page } from "./fixtures/test.ts";
 import { DatabaseSync } from "node:sqlite";
 import type { Room } from "../../apps/server/src/store.ts";
@@ -46,6 +47,13 @@ test("大厅添加移除人机，单人开局后人机独立准备并执行回�
   page.on("pageerror", (e) => errors.push(e.message));
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
+  await page.getByRole("button", { name: "实操演习", exact: false }).click();
+  await expect(
+    page.getByRole("complementary", { name: "实操教程任务" }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "退出练习", exact: true }).click();
+  await expect(page).not.toHaveURL(/#practice$/);
+  await openHomeLobby(page);
   await page.getByLabel("企业家昵称").fill("一个人也能拓荒");
   await clickRoomButton(page, "创建新房间");
   await page

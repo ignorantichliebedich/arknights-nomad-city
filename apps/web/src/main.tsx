@@ -32,7 +32,7 @@ import { HelpCenter, type GuideMode } from "./components/HelpCenter.tsx";
 import { usePractice } from "./usePractice.ts";
 import { PracticeGuide } from "./components/PracticeGuide.tsx";
 import { SceneMotion, buttonFeedback } from "./components/SceneMotion.tsx";
-import { FullscreenWelcome } from "./components/FullscreenWelcome.tsx";
+import { EntryBootstrap } from "./components/EntryBootstrap.tsx";
 import { AudioSettings } from "./components/AudioSettings.tsx";
 import { GameSoundFeedback } from "./components/GameSoundFeedback.tsx";
 import { gameAudio } from "./audio.ts";
@@ -73,6 +73,7 @@ import "./bots-practice.css";
 import "./entry-audio.css";
 import "./phone.css";
 import "./table-experience.css";
+import "./entry-redesign.css";
 import {
   InfluencePreview,
   type InfluenceTransfer,
@@ -339,6 +340,9 @@ function App() {
           onExpansion={setExpansion}
           onEnter={enter}
           onHome={home}
+          onGuide={() => setGuide("tutorial")}
+          onPractice={() => practice.start()}
+          paused={!!guide || help || audioSettings}
         />
       ) : activeRoom ? (
         <GameRoom net={net} phone={display.phone} />
@@ -429,7 +433,6 @@ function App() {
           <AudioSettings />
         </Modal>
       )}
-      <FullscreenWelcome phone={display.phone} />
     </div>
   );
 }
@@ -1594,6 +1597,8 @@ function GameRoom({
 }
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
+    <EntryBootstrap>
+      <App />
+    </EntryBootstrap>
   </React.StrictMode>,
 );

@@ -1,3 +1,4 @@
+import { openHomeLobby } from "./fixtures/rooms.ts";
 import { test, expect } from "./fixtures/test.ts";
 import type { BrowserContext, Page } from "./fixtures/test.ts";
 import type { RoomView } from "../../apps/web/src/network.ts";
@@ -29,6 +30,7 @@ for (const count of [2, 3, 4])
     try {
       await page.addInitScript(observeSocket);
       await page.goto("/");
+      await openHomeLobby(page);
       await page.getByLabel("企业家昵称").fill("企业整局房主");
       await page.getByRole("checkbox", { name: /启用企业扩展/ }).check();
       await page.getByRole("button", { name: "创建新房间" }).click();
@@ -41,6 +43,7 @@ for (const count of [2, 3, 4])
         const friend = await context.newPage();
         await friend.addInitScript(observeSocket);
         await friend.goto(page.url());
+        await openHomeLobby(friend);
         await friend.getByLabel("企业家昵称").fill(`企业整局朋友${i}`);
         await friend.getByRole("button", { name: "加入这场拓荒" }).click();
         tabs.push(friend);

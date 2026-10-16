@@ -20,6 +20,7 @@ export default defineConfig({
   use: { ...desktop.use, actionTimeout: 10000 },
   testIgnore: [],
   testMatch: [
+    "entry-scenes.spec.ts",
     "mobile.spec.ts",
     "music.spec.ts",
     "quick-actions.spec.ts",

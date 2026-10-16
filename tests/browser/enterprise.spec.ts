@@ -1,3 +1,4 @@
+import { openHomeLobby } from "./fixtures/rooms.ts";
 import { test, expect } from "./fixtures/test.ts";
 import { RoomStore } from "../../apps/server/src/store.ts";
 import { applyCommand, createGame } from "../../packages/rules/src/engine.ts";
@@ -8,6 +9,7 @@ for (const count of [2, 3, 4])
     page,
   }, info) => {
     await page.goto("/");
+    await openHomeLobby(page);
     await page.getByLabel("企业家昵称").fill("科室界面测试");
     await page.getByRole("button", { name: "创建新房间" }).click();
     await expect(page.locator(".room-toolbar")).toBeVisible();
