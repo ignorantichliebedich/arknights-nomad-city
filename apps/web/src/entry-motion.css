@@ -1,0 +1,512 @@
+/* One loading sequence, then the display choice, then the opening of the stage. */
+.entry-content {
+  display: contents;
+}
+.entry-content-revealing .topbar {
+  animation: entry-header-arrive var(--home-arrive-ms) ease-out both;
+}
+.entry-bootstrap {
+  isolation: isolate;
+}
+.boot-registration-mark {
+  position: absolute;
+  inset: -32px -44px;
+  color: var(--entry-gold);
+  opacity: 0.65;
+}
+.boot-registration-mark i {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: solid currentColor;
+  border-width: 1px 0 0 1px;
+}
+.boot-registration-mark i:nth-child(2) {
+  right: 0;
+  rotate: 90deg;
+}
+.boot-registration-mark i:nth-child(3) {
+  right: 0;
+  bottom: 0;
+  rotate: 180deg;
+}
+.boot-registration-mark i:nth-child(4) {
+  bottom: 0;
+  rotate: 270deg;
+}
+.boot-print-strips {
+  position: absolute;
+  inset: -8px -36px;
+  overflow: hidden;
+  transform: skewX(-18deg);
+}
+.boot-print-strips i {
+  position: absolute;
+  inset: 22% 5% auto;
+  height: 17%;
+  background: var(--entry-red);
+  opacity: 0;
+}
+.boot-print-strips i:nth-child(2) {
+  top: 43%;
+  left: 12%;
+}
+.boot-print-strips i:nth-child(3) {
+  top: 64%;
+  right: 12%;
+}
+.boot-scan {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 14%;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #bba06b0a,
+    #bba06b18,
+    transparent
+  );
+  border-right: 1px solid #bba06b30;
+  transform: skewX(-16deg);
+}
+.entry-bootstrap[data-full-intro] .boot-frame {
+  animation: boot-frame-open var(--boot-intro-ms) ease both;
+}
+.entry-bootstrap[data-full-intro] .boot-registration,
+.entry-bootstrap[data-full-intro] .boot-footer {
+  animation: boot-captions-in var(--boot-intro-ms) ease both;
+}
+.entry-bootstrap[data-full-intro] .boot-emblem > img,
+.entry-bootstrap[data-full-intro] .boot-emblem > span {
+  animation: boot-emblem-print var(--boot-intro-ms)
+    cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+.entry-bootstrap[data-full-intro] .boot-registration-mark {
+  animation: boot-registration-close var(--boot-intro-ms) ease both;
+}
+.entry-bootstrap[data-full-intro] .boot-print-strips i {
+  animation: boot-strip-pass calc(var(--boot-intro-ms) - 160ms) 160ms ease both;
+}
+.entry-bootstrap[data-full-intro] .boot-print-strips i:nth-child(2) {
+  animation-delay: 240ms;
+  animation-duration: calc(var(--boot-intro-ms) - 240ms);
+}
+.entry-bootstrap[data-full-intro] .boot-print-strips i:nth-child(3) {
+  animation-delay: 320ms;
+  animation-duration: calc(var(--boot-intro-ms) - 320ms);
+}
+.entry-bootstrap[data-full-intro] .boot-scan {
+  animation: boot-scan-pass var(--boot-intro-ms) ease-in-out both;
+}
+.entry-bootstrap[data-full-intro] .boot-track i {
+  transform-origin: left;
+  animation: boot-ink-fill var(--boot-intro-ms) cubic-bezier(0.3, 0.6, 0.2, 1)
+    both;
+}
+.boot-track i {
+  overflow: hidden;
+}
+.entry-bootstrap[data-resources-pending] .boot-track i:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 30%,
+    #f1e5ca80,
+    transparent 70%
+  );
+  animation: boot-track-scan 1200ms linear infinite;
+}
+.boot-settling .boot-emblem {
+  animation: boot-ready-stamp var(--boot-settle-ms) ease-out both;
+}
+.boot-choice .boot-frame {
+  opacity: 0.65;
+}
+.boot-choice > :not(dialog) *,
+.boot-choice > :not(dialog) {
+  animation-play-state: paused !important;
+}
+.boot-welcome.fullscreen-welcome {
+  border: 1px solid var(--entry-line);
+  padding: 16px 20px;
+  box-shadow: 6px 6px 0 #17161480;
+}
+.boot-welcome.fullscreen-welcome::backdrop {
+  background: #17161420;
+}
+.boot-welcome .welcome-actions {
+  background: var(--entry-ink);
+}
+.boot-welcome .welcome-actions .secondary-button:is(:hover, :focus-visible) {
+  background: #3b342a;
+  color: var(--entry-paper);
+  border-color: var(--entry-gold);
+}
+.boot-revealing {
+  animation: boot-curtain-open var(--boot-reveal-ms)
+    cubic-bezier(0.65, 0, 0.25, 1) both;
+  pointer-events: none;
+}
+
+.departure-stage {
+  --scene-direction: 1;
+  --scene-travel: 112px;
+  --scene-tilt: 1.6deg;
+  --scene-bounce: 9px;
+  --piece-travel: 32px;
+}
+.departure-stage.home-scene-hero {
+  --scene-direction: -1;
+}
+.phone-layout .departure-stage {
+  --scene-travel: 64px;
+  --scene-tilt: 0.8deg;
+  --scene-bounce: 5px;
+  --piece-travel: 18px;
+}
+/* Keep large phone layers static; reserve painting for the moving foreground. */
+.phone-layout.expedition-shell:has(.departure-stage) .expedition-atmosphere * {
+  animation: none;
+}
+.phone-layout.expedition-shell:has(.departure-stage) .expedition-landscape {
+  filter: none;
+}
+.phone-layout.expedition-shell:has(.departure-stage) .expedition-grain {
+  display: none;
+}
+.phone-layout .poster-founders .founder-card {
+  box-shadow: -4px 6px 0 #100e0d90;
+}
+.phone-layout .poster-founders .founder-card img,
+.phone-layout .poster-jitter img {
+  filter: none;
+}
+.home-scene[data-motion] {
+  transform-origin: 50% 60%;
+  will-change: transform, opacity;
+}
+.home-scene[data-motion="leaving"] {
+  visibility: visible;
+  animation: home-scene-out var(--home-switch-ms) ease-in both;
+}
+.home-scene[data-motion="entering"] {
+  --piece-duration: var(--home-switch-ms);
+  animation: home-scene-in var(--home-switch-ms) cubic-bezier(0.2, 0.7, 0.25, 1)
+    both;
+}
+.home-scene[data-motion="arriving"] {
+  --piece-duration: var(--home-arrive-ms);
+  animation: home-first-arrive var(--home-arrive-ms)
+    cubic-bezier(0.2, 0.7, 0.25, 1) both;
+}
+.home-scene:is([data-motion="arriving"], [data-motion="entering"])
+  :is(
+    .hero-kicker,
+    .poster-title,
+    .hero-description,
+    .hero-actions,
+    .hero-shortcuts,
+    .poster-founders,
+    .lobby-story,
+    .departure-permit
+  ) {
+  animation: home-piece-in calc(var(--piece-duration) - var(--piece-lag, 0ms))
+    var(--piece-lag, 0ms) cubic-bezier(0.2, 0.75, 0.2, 1) both;
+}
+.hero-kicker {
+  --piece-lag: 20ms;
+}
+.poster-title {
+  --piece-lag: 60ms;
+}
+.hero-description {
+  --piece-lag: 100ms;
+}
+.hero-actions {
+  --piece-lag: 150ms;
+}
+.hero-shortcuts {
+  --piece-lag: 180ms;
+}
+.poster-founders {
+  --piece-lag: 110ms;
+}
+.lobby-story {
+  --piece-lag: 30ms;
+}
+.departure-permit {
+  --piece-lag: 100ms;
+}
+.home-scene[data-motion="leaving"] .poster-founders {
+  animation: home-fan-out var(--home-switch-ms) ease-in both;
+}
+.is-changing .home-shutter {
+  opacity: 0.78;
+}
+.home-scene-hero .home-shutter {
+  scale: -1 1;
+}
+
+@keyframes boot-frame-open {
+  0% {
+    opacity: 0;
+    clip-path: inset(50% 49%);
+  }
+  24% {
+    opacity: 0.7;
+    clip-path: inset(49% 0);
+  }
+  64%,
+  100% {
+    opacity: 1;
+    clip-path: inset(0);
+  }
+}
+@keyframes boot-captions-in {
+  0%,
+  32% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  70%,
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes boot-emblem-print {
+  0%,
+  12% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.94);
+    clip-path: inset(0 100% 0 0);
+  }
+  46% {
+    opacity: 0.9;
+    clip-path: inset(0);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.015);
+  }
+  100% {
+    opacity: 0.85;
+    transform: none;
+    clip-path: inset(0);
+  }
+}
+@keyframes boot-registration-close {
+  0% {
+    opacity: 0;
+    transform: scale(1.5) rotate(-8deg);
+  }
+  45% {
+    opacity: 0.7;
+    transform: scale(1.08) rotate(2deg);
+  }
+  80%,
+  100% {
+    opacity: 0.65;
+    transform: none;
+  }
+}
+@keyframes boot-strip-pass {
+  0% {
+    opacity: 0;
+    transform: translateX(-120%);
+  }
+  28% {
+    opacity: 0.65;
+    transform: translateX(-8%);
+  }
+  58% {
+    opacity: 0.25;
+    transform: translateX(20%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(125%);
+  }
+}
+@keyframes boot-scan-pass {
+  0% {
+    opacity: 0;
+    transform: translateX(-20vw) skewX(-16deg);
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(110vw) skewX(-16deg);
+  }
+}
+@keyframes boot-ink-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes boot-track-scan {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes boot-ready-stamp {
+  0% {
+    transform: scale(1.015);
+  }
+  55% {
+    transform: scale(0.99);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes boot-curtain-open {
+  0%,
+  8% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  72%,
+  100% {
+    clip-path: polygon(-40% 0, -1% 0, -21% 100%, -60% 100%);
+  }
+}
+@keyframes entry-header-arrive {
+  0%,
+  20% {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  75%,
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes home-first-arrive {
+  0%,
+  12% {
+    opacity: 0;
+    transform: translateY(28px) scale(1.025) rotate(-0.5deg);
+  }
+  68% {
+    opacity: 1;
+    transform: translateY(-4px) scale(0.998) rotate(0.15deg);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes home-scene-out {
+  0% {
+    opacity: 1;
+    transform: none;
+  }
+  12% {
+    opacity: 1;
+    transform: translateX(calc(var(--scene-direction) * 8px))
+      rotate(calc(var(--scene-direction) * 0.3deg));
+  }
+  48%,
+  100% {
+    opacity: 0;
+    transform: translateX(
+        calc(var(--scene-direction) * var(--scene-travel) * -1)
+      )
+      rotate(calc(var(--scene-direction) * var(--scene-tilt) * -1)) scale(0.97);
+  }
+}
+@keyframes home-scene-in {
+  0%,
+  23% {
+    opacity: 0;
+    transform: translateX(calc(var(--scene-direction) * var(--scene-travel)))
+      rotate(calc(var(--scene-direction) * var(--scene-tilt))) scale(0.98);
+  }
+  64% {
+    opacity: 1;
+    transform: translateX(
+        calc(var(--scene-direction) * var(--scene-bounce) * -1)
+      )
+      rotate(calc(var(--scene-direction) * -0.35deg));
+  }
+  83% {
+    opacity: 1;
+    transform: translateX(calc(var(--scene-direction) * 3px))
+      rotate(calc(var(--scene-direction) * 0.12deg));
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes home-piece-in {
+  0%,
+  18% {
+    opacity: 0;
+    transform: translateX(calc(var(--scene-direction) * var(--piece-travel)))
+      translateY(12px);
+  }
+  68% {
+    opacity: 1;
+    transform: translateX(calc(var(--scene-direction) * -4px)) translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes home-fan-out {
+  0% {
+    transform: none;
+  }
+  50%,
+  100% {
+    transform: translateX(calc(var(--scene-direction) * -40px))
+      rotate(calc(var(--scene-direction) * -2deg));
+  }
+}
+@media (orientation: landscape) and (max-height: 520px) {
+  .phone-layout .boot-welcome {
+    padding: 12px 16px;
+  }
+  .phone-layout .boot-registration-mark {
+    inset: -20px -28px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .entry-content-revealing .topbar,
+  .entry-bootstrap,
+  .entry-bootstrap *,
+  .departure-stage * {
+    animation: none !important;
+  }
+  .boot-scan,
+  .boot-print-strips {
+    display: none;
+  }
+  .boot-revealing {
+    opacity: 0;
+    transition: opacity 120ms ease;
+  }
+  .home-scene[data-motion] {
+    will-change: auto;
+    transform: none;
+  }
+  .home-scene[data-motion="leaving"] {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

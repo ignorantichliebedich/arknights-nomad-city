@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState, type ComponentProps } from "react";
+import type { CSSProperties, ComponentProps } from "react";
 import { ExpeditionPermit } from "./ExpeditionPermit.tsx";
 import { PosterTitle } from "./PosterTitle.tsx";
-import { gameAudio } from "../audio.ts";
+import { useHomeScene } from "../useHomeScene.ts";
+import { ENTRY_MOTION } from "../entry-motion.ts";
 
 export function ExpeditionAtmosphere() {
   return (
@@ -17,7 +18,6 @@ export function ExpeditionAtmosphere() {
   );
 }
 
-type HomeScene = "hero" | "lobby";
 type Props = ComponentProps<typeof ExpeditionPermit> & {
   onGuide: () => void;
   onPractice: () => void;
@@ -31,57 +31,19 @@ export function ExpeditionEntry({
   paused,
   ...permit
 }: Props) {
-  const [scene, setScene] = useState<HomeScene>(permit.code ? "lobby" : "hero");
-  const [moving, setMoving] = useState(false);
-  const [hidden, setHidden] = useState(document.hidden);
-  const lock = useRef(false);
-  const focusPending = useRef(false);
-  const target = useRef("nickname");
-  const start = useRef<HTMLButtonElement>(null);
-  const previousCode = useRef(permit.code);
-  useEffect(() => {
-    const update = () => setHidden(document.hidden);
-    document.addEventListener("visibilitychange", update);
-    return () => document.removeEventListener("visibilitychange", update);
-  }, []);
-  useEffect(() => {
-    if (permit.code) setScene("lobby");
-    else if (previousCode.current) setScene("hero");
-    previousCode.current = permit.code;
-  }, [permit.code]);
-  useEffect(() => {
-    if (!moving) return;
-    const timer = setTimeout(
-      () => {
-        setMoving(false);
-        lock.current = false;
-      },
-      matchMedia("(prefers-reduced-motion: reduce)").matches ? 120 : 600,
-    );
-    return () => clearTimeout(timer);
-  }, [scene, moving]);
-  useEffect(() => {
-    // The destination becomes focusable after React removes its inert attribute.
-    if (moving || !focusPending.current) return;
-    focusPending.current = false;
-    if (scene === "lobby")
-      document.getElementById(target.current)?.focus({ preventScroll: true });
-    else start.current?.focus({ preventScroll: true });
-  }, [scene, moving]);
-  function change(next: HomeScene, focus = "nickname") {
-    if (lock.current || permit.loading || next === scene) return;
-    target.current = focus;
-    focusPending.current = true;
-    lock.current = true;
-    setMoving(true);
-    setScene(next);
-    void gameAudio.play("open");
-  }
+  const { scene, moving, arriving, hidden, start, change, motion, busy } =
+    useHomeScene(permit.code, permit.loading);
   return (
     <main
-      className={`departure-entry departure-stage home-scene-${scene} ${moving ? "is-changing" : ""}`}
+      className={`departure-entry departure-stage home-scene-${scene} ${moving ? "is-changing" : ""} ${arriving ? "is-arriving" : ""}`}
       data-scene={scene}
       data-paused={paused || hidden || undefined}
+      style={
+        {
+          "--home-switch-ms": `${ENTRY_MOTION.scene}ms`,
+          "--home-arrive-ms": `${ENTRY_MOTION.reveal}ms`,
+        } as CSSProperties
+      }
     >
       <div className="departure-rail" aria-hidden="true">
         <span>COLUMBIA / DISTRICT 105</span>
@@ -90,8 +52,9 @@ export function ExpeditionEntry({
       <section
         className="home-scene home-hero"
         aria-labelledby="departure-title"
-        inert={scene !== "hero" || moving}
+        inert={scene !== "hero" || busy}
         aria-hidden={scene !== "hero"}
+        data-motion={motion("hero")}
       >
         <div className="hero-manifesto">
           <p className="hero-kicker">
@@ -166,8 +129,9 @@ export function ExpeditionEntry({
       <section
         className="home-scene home-lobby"
         aria-label="联机大厅"
-        inert={scene !== "lobby" || moving}
+        inert={scene !== "lobby" || busy}
         aria-hidden={scene !== "lobby"}
+        data-motion={motion("lobby")}
       >
         <div className="lobby-story">
           <span className="eyebrow">YOUR NEXT FRONTIER</span>
@@ -193,7 +157,7 @@ export function ExpeditionEntry({
           </div>
           <button
             className="subtle-button lobby-return"
-            disabled={permit.loading || moving}
+            disabled={permit.loading || busy}
             onClick={() => (permit.code ? permit.onHome() : change("hero"))}
           >
             ← 返回主视觉
@@ -205,7 +169,7 @@ export function ExpeditionEntry({
         <button
           aria-label="主视觉"
           aria-current={scene === "hero" ? "step" : undefined}
-          disabled={moving || permit.loading}
+          disabled={busy || permit.loading}
           onClick={() => (permit.code ? permit.onHome() : change("hero"))}
         >
           01 <span>启程</span>
@@ -214,7 +178,7 @@ export function ExpeditionEntry({
         <button
           aria-label="联机大厅"
           aria-current={scene === "lobby" ? "step" : undefined}
-          disabled={moving || permit.loading}
+          disabled={busy || permit.loading}
           onClick={() => change("lobby")}
         >
           02 <span>集结</span>

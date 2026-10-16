@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { setImmediate } from "node:timers/promises";
 import {
   applyCommand,
   createGame,
@@ -49,7 +50,9 @@ function assertInventory(state: GameState) {
 describe("多种合法选择下的整局一致性", () => {
   it.each(cases)(
     "$count 人，企业 $expansion，随机种子 $seed",
-    ({ count, expansion, seed }) => {
+    async ({ count, expansion, seed }) => {
+      // Let the worker deliver progress between CPU-heavy complete games.
+      await setImmediate();
       let state = createGame(
         Array.from({ length: count }, (_, i) => ({
           id: `p${i}`,

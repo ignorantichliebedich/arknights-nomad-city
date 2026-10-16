@@ -74,6 +74,7 @@ import "./entry-audio.css";
 import "./phone.css";
 import "./table-experience.css";
 import "./entry-redesign.css";
+import "./entry-motion.css";
 import {
   InfluencePreview,
   type InfluenceTransfer,

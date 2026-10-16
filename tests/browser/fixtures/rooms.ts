@@ -3,6 +3,8 @@ import { expect, type Page } from "@playwright/test";
 /** Follow the actual two-scene entrance; invitations already open the permit. */
 export async function openHomeLobby(page: Page) {
   await expect(page.locator(".departure-stage")).toBeVisible();
+  await expect(page.locator(".entry-bootstrap")).toHaveCount(0);
+  await expect(page.locator(".departure-stage")).not.toHaveClass(/is-arriving/);
   if (
     (await page.locator(".departure-stage").getAttribute("data-scene")) ===
     "hero"

@@ -33,7 +33,22 @@ test("实际资源解码推进加载，选择窗口后播放音乐，双场景�
 }, info) => {
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
+  await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.addInitScript(() => {
+    const phases: { phase: string; at: number }[] = [];
+    (window as any).__entryPhases = phases;
+    new MutationObserver(() => {
+      const phase = document
+        .querySelector(".entry-bootstrap")
+        ?.getAttribute("data-boot-phase");
+      if (phase && phases.at(-1)?.phase !== phase)
+        phases.push({ phase, at: performance.now() });
+    }).observe(document, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["data-boot-phase"],
+    });
     const play = HTMLMediaElement.prototype.play;
     (window as any).__musicStarts = 0;
     HTMLMediaElement.prototype.play = function () {
@@ -60,6 +75,10 @@ test("实际资源解码推进加载，选择窗口后播放音乐，双场景�
     100,
   );
   await expect(page.locator(".fullscreen-welcome")).toHaveCount(0);
+  const loadingBox = (await page.locator(".entry-bootstrap").boundingBox())!;
+  expect(loadingBox.x).toBe(0);
+  expect(loadingBox.y).toBe(0);
+  expect(loadingBox.width).toBe(page.viewportSize()!.width);
   expect(await page.evaluate(() => (window as any).__musicStarts)).toBe(0);
   await page.screenshot({ path: info.outputPath("entry-loading.png") });
   release();
@@ -67,6 +86,16 @@ test("实际资源解码推进加载，选择窗口后播放音乐，双场景�
   await expect(
     page.getByRole("button", { name: "窗口进入", exact: true }),
   ).toBeFocused();
+  const phases = await page.evaluate(
+    () => (window as any).__entryPhases as { phase: string; at: number }[],
+  );
+  expect(phases.map((value) => value.phase)).toEqual([
+    "loading",
+    "settling",
+    "choice",
+  ]);
+  expect(phases[1].at - phases[0].at).toBeGreaterThanOrEqual(1750);
+  expect(phases[2].at - phases[1].at).toBeGreaterThanOrEqual(150);
   await finishIntro(page);
   await expect
     .poll(() => page.evaluate(() => (window as any).__musicStarts))
@@ -104,6 +133,55 @@ test("实际资源解码推进加载，选择窗口后播放音乐，双场景�
   });
   await fits(page);
   expect(errors).toEqual([]);
+});
+
+test("首页入场与双向回弹切换完整播放，运动期间锁定表单并在落位后交还焦点", async ({
+  page,
+}, info) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/");
+  await page.getByRole("button", { name: "窗口进入", exact: true }).click();
+  const content = page.locator(".entry-content");
+  await expect(content).toHaveAttribute("inert", "");
+  await expect(page.locator(".home-hero")).toHaveAttribute(
+    "data-motion",
+    "arriving",
+  );
+  await expect(content).not.toHaveAttribute("inert", "");
+  const stage = page.locator(".departure-stage");
+  await page.getByRole("button", { name: "开始拓荒", exact: true }).click();
+  const hero = page.locator(".home-hero"),
+    lobby = page.locator(".home-lobby");
+  await expect(hero).toHaveAttribute("data-motion", "leaving");
+  await expect(lobby).toHaveAttribute("data-motion", "entering");
+  await expect(hero).toHaveAttribute("inert", "");
+  await expect(lobby).toHaveAttribute("inert", "");
+  const before = await lobby.evaluate((el) => getComputedStyle(el).transform);
+  await page.keyboard.press("Tab");
+  expect(
+    await page.evaluate(() => !!document.activeElement?.closest(".home-scene")),
+  ).toBe(false);
+  await page.waitForTimeout(260);
+  expect(await lobby.evaluate((el) => getComputedStyle(el).transform)).not.toBe(
+    before,
+  );
+  await page.screenshot({ path: info.outputPath("home-switch-motion.png") });
+  await expect(stage).not.toHaveClass(/is-changing/);
+  await expect(page.getByLabel("企业家昵称")).toBeFocused();
+  await page.getByLabel("企业家昵称").fill("回弹之后继续拓荒");
+  await page.getByRole("button", { name: "返回主视觉", exact: false }).click();
+  await expect(hero).toHaveAttribute("data-motion", "entering");
+  expect(
+    await hero.evaluate(
+      (el) => new DOMMatrixReadOnly(getComputedStyle(el).transform).m41,
+    ),
+  ).toBeLessThan(0);
+  await expect(stage).not.toHaveClass(/is-changing/);
+  await expect(
+    page.getByRole("button", { name: "开始拓荒", exact: true }),
+  ).toBeFocused();
+  await openHomeLobby(page);
+  await expect(page.getByLabel("企业家昵称")).toHaveValue("回弹之后继续拓荒");
 });
 
 test("图片失败可重试或直接进入，矢量标题提供文字替代，刷新不会重复全屏提示", async ({
@@ -149,6 +227,7 @@ test("邀请直达大厅，减少动态保留错落构图，横竖屏切换保�
     "lobby",
   );
   await expect(page.locator(".permit-invitation")).toContainText(room.id);
+  await openHomeLobby(page);
   await page.getByLabel("企业家昵称").fill("受邀的同行者");
   const original = page.viewportSize()!;
   await page.setViewportSize({
