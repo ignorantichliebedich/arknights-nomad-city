@@ -1,5 +1,7 @@
-import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { useLayoutEffect, useRef, useState, type MouseEvent } from "react";
 import type { RoomView } from "../network.ts";
+import { useSceneCurtain } from "../useSceneCurtain.ts";
+import { PracticeCurtain, type PracticeScene } from "./PracticeCurtain.tsx";
 
 const pressed = new WeakMap<HTMLElement, Animation>();
 export function buttonFeedback(event: MouseEvent<HTMLElement>) {
@@ -29,63 +31,72 @@ type Scene = { key: string; kind: "room" | "game"; room: RoomView };
 export function SceneMotion({
   room,
   entered,
+  practice,
+  lesson,
 }: {
   room: RoomView | null;
   entered: boolean;
+  practice: boolean;
+  lesson: string;
 }) {
-  const previous = useRef<string | null>(null);
-  const [scene, setScene] = useState<Scene | null>(null);
+  const previous = useRef<{ stage: string; practice: boolean } | null>(null);
+  const [scene, setScene] = useState<Scene | PracticeScene | null>(null);
   const stage = !entered
     ? "entry"
     : !room
       ? "connecting"
       : `${room.id}:${room.game ? "game" : "room"}`;
-  useEffect(() => {
-    if (stage === "connecting") return;
+  useLayoutEffect(() => {
     const old = previous.current;
-    previous.current = stage;
+    if (stage === "connecting" && !practice && !old?.practice) {
+      // Remember the initial page so practice can start while a room reconnects.
+      previous.current ??= { stage, practice };
+      return;
+    }
+    previous.current = { stage, practice };
+    if (old && old.practice !== practice) {
+      const kind = practice ? "practice-enter" : "practice-exit";
+      setScene({
+        key: kind,
+        kind,
+        lesson,
+        returning: entered ? "返回原拓荒区" : "返回启程首页",
+      });
+      return;
+    }
+    // Track the live room behind the practice table without playing a second cut.
+    if (practice) return;
     if (!room || !entered) {
       setScene(null);
       return;
     }
     // Actual server state drives the cut. Refreshes/reconnects do not replay it.
-    if (old && old !== stage)
-      setScene({ key: stage, kind: room.game ? "game" : "room", room });
-  }, [stage, entered]);
+    if (old && old.stage !== stage && old.stage !== "connecting")
+      setScene((current) =>
+        current && !("room" in current)
+          ? current
+          : { key: stage, kind: room.game ? "game" : "room", room },
+      );
+  }, [stage, entered, practice, lesson]);
   return scene ? (
-    <SceneCurtain key={scene.key} scene={scene} onDone={() => setScene(null)} />
+    "room" in scene ? (
+      <SceneCurtain
+        key={scene.key}
+        scene={scene}
+        onDone={() => setScene(null)}
+      />
+    ) : (
+      <PracticeCurtain
+        key={scene.key}
+        scene={scene}
+        onDone={() => setScene(null)}
+      />
+    )
   ) : null;
 }
 
 function SceneCurtain({ scene, onDone }: { scene: Scene; onDone: () => void }) {
-  const ref = useRef<HTMLDialogElement>(null);
-  const done = useRef(onDone);
-  done.current = onDone;
-  useEffect(() => {
-    const dialog = ref.current!;
-    const opener = document.activeElement;
-    dialog.showModal();
-    const reduced = matchMedia("(prefers-reduced-motion: reduce)");
-    const timer = setTimeout(
-      () => done.current(),
-      reduced.matches ? 160 : scene.kind === "game" ? 1350 : 1000,
-    );
-    const shorten = () => {
-      if (reduced.matches) done.current();
-    };
-    reduced.addEventListener("change", shorten);
-    return () => {
-      clearTimeout(timer);
-      reduced.removeEventListener("change", shorten);
-      dialog.close();
-      if (
-        opener instanceof HTMLElement &&
-        opener.isConnected &&
-        opener !== document.body
-      )
-        opener.focus({ preventScroll: true });
-    };
-  }, []);
+  const ref = useSceneCurtain(onDone, scene.kind === "game" ? 1350 : 1000);
   const mine = Math.max(
     0,
     scene.room.seats.findIndex((s) => s.id === scene.room.me),

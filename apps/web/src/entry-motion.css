@@ -207,7 +207,6 @@
   :is(
     .hero-kicker,
     .poster-title,
-    .hero-description,
     .hero-actions,
     .hero-shortcuts,
     .poster-founders,
@@ -222,9 +221,6 @@
 }
 .poster-title {
   --piece-lag: 60ms;
-}
-.hero-description {
-  --piece-lag: 100ms;
 }
 .hero-actions {
   --piece-lag: 150ms;

@@ -25,6 +25,7 @@ function savedPractice() {
 }
 export function usePractice() {
   const [active, setActive] = useState(() => location.hash === "#practice");
+  const activeRef = useRef(active);
   const [snapshot, setSnapshot] = useState(
     () => savedPractice() ?? createPractice(),
   );
@@ -37,7 +38,10 @@ export function usePractice() {
   };
   const complete = lessonComplete(snapshot);
   useEffect(() => {
-    const followHash = () => setActive(location.hash === "#practice");
+    const followHash = () => {
+      activeRef.current = location.hash === "#practice";
+      setActive(activeRef.current);
+    };
     window.addEventListener("hashchange", followHash);
     window.addEventListener("popstate", followHash);
     return () => {
@@ -92,6 +96,8 @@ export function usePractice() {
     snapshot,
     complete,
     start: () => {
+      if (activeRef.current) return;
+      activeRef.current = true;
       setActive(true);
       setError("");
       history.pushState(
@@ -101,6 +107,8 @@ export function usePractice() {
       );
     },
     exit: () => {
+      if (!activeRef.current) return;
+      activeRef.current = false;
       setActive(false);
       history.replaceState({}, "", `${location.pathname}${location.search}`);
     },

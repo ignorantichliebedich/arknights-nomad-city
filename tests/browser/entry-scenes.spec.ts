@@ -11,7 +11,7 @@ async function fits(page: Page) {
       () => document.documentElement.scrollWidth - innerWidth,
     ),
   ).toBeLessThanOrEqual(1);
-  for (const label of ["开始拓荒", "加入好友"])
+  for (const label of ["开始拓荒", "实操演习", "拓荒指南"])
     if (
       await page
         .getByRole("button", { name: label, exact: label === "开始拓荒" })
@@ -120,8 +120,8 @@ test("实际资源解码推进加载，选择窗口后播放音乐，双场景�
     page.getByRole("button", { name: "开始拓荒", exact: true }),
   ).toBeFocused();
   await expect(page.locator(".entry-bootstrap")).toHaveCount(0);
-  await page.getByRole("button", { name: "加入好友", exact: false }).click();
-  await expect(page.getByLabel("房间码")).toBeFocused();
+  await page.getByRole("button", { name: "开始拓荒", exact: true }).click();
+  await expect(page.getByLabel("企业家昵称")).toBeFocused();
   await expect(page.getByLabel("企业家昵称")).toHaveValue("一起拓荒");
   await expect(page.getByLabel("房间码")).toHaveValue("ABC123");
   await expect(

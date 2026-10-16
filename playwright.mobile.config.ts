@@ -21,6 +21,7 @@ export default defineConfig({
   testIgnore: [],
   testMatch: [
     "entry-scenes.spec.ts",
+    "practice-entry.spec.ts",
     "mobile.spec.ts",
     "music.spec.ts",
     "quick-actions.spec.ts",

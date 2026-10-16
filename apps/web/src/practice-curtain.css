@@ -1,0 +1,315 @@
+.practice-curtain {
+  --cut-paper: #f1e5ca;
+  --cut-gold: #bba06b;
+  --cut-ink: #242321;
+  --cut-red: #9f382c;
+  background: var(--cut-ink);
+  animation: practice-cut-fade var(--practice-cut-ms) both;
+}
+.practice-curtain::before {
+  background-size: cover;
+  opacity: 0.08;
+}
+.practice-cut-rails {
+  position: absolute;
+  inset: 32px;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  border: 1px solid #bba06b40;
+  color: var(--cut-gold);
+  font: 9px monospace;
+  letter-spacing: 0.12em;
+}
+.practice-cut-band {
+  position: absolute;
+  inset: 34% -10%;
+  background: var(--cut-red);
+  border-block: 1px solid #c58c6150;
+  transform: rotate(-8deg);
+  animation: practice-band-enter var(--practice-cut-ms) both;
+}
+.practice-cut-sheet {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(520px, calc(100% - 56px));
+  padding: 24px 40px;
+  border: 1px solid var(--cut-gold);
+  color: var(--cut-ink);
+  background: var(--cut-paper);
+  box-shadow:
+    12px 12px 0 #17151180,
+    inset 0 0 0 5px var(--cut-paper),
+    inset 0 0 0 6px #bba06b60;
+  text-align: center;
+  animation: practice-sheet-in var(--practice-cut-ms) both;
+}
+.practice-exit .practice-cut-sheet {
+  animation-name: practice-sheet-out;
+}
+.practice-cut-registration {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #63543950;
+  padding-bottom: 12px;
+  font: 8px monospace;
+  color: #66563e;
+  letter-spacing: 0.08em;
+}
+.practice-cut-city {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 120px;
+  margin-block: 16px;
+}
+.practice-cut-city > i {
+  position: absolute;
+  width: 160px;
+  height: 72px;
+  border: 1px dashed #7e714e80;
+  border-radius: 50%;
+  transform: rotate(-10deg);
+}
+.practice-cut-city img {
+  position: relative;
+  width: 160px;
+  animation: practice-city-arrive var(--practice-cut-ms) both;
+}
+.practice-exit .practice-cut-city img {
+  animation-direction: reverse;
+}
+.practice-cut-stamp {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 8px 12px;
+  color: var(--cut-red);
+  border: 3px double currentColor;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  animation: practice-stamp var(--practice-cut-ms) both;
+}
+.practice-cut-eyebrow {
+  display: block;
+  color: #7b6541;
+  font: 8px monospace;
+  letter-spacing: 0.18em;
+}
+.practice-cut-sheet h2 {
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 900;
+  line-height: 1.3;
+  letter-spacing: 0.15em;
+  margin: 8px 0 12px;
+}
+.practice-cut-sheet p {
+  font-size: 12px;
+  color: #6b5035;
+  line-height: 1.6;
+  margin: 0;
+}
+.practice-cut-route {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 12px;
+  border-top: 1px solid #63543950;
+  color: #6b5035;
+  font-size: 9px;
+}
+.practice-cut-route i {
+  flex: 1;
+  height: 2px;
+  background: var(--cut-red);
+  transform-origin: left;
+  animation: practice-route var(--practice-cut-ms) both;
+}
+.practice-exit .practice-cut-route i {
+  transform-origin: right;
+}
+.practice-cut-corner {
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  width: 20px;
+  height: 20px;
+  background: #c9b58a;
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+@keyframes practice-sheet-in {
+  0% {
+    opacity: 0;
+    transform: translate(-65%, -45%) rotate(-7deg);
+  }
+  28% {
+    opacity: 1;
+    transform: translate(-49%, -50%) rotate(1deg);
+  }
+  42%,
+  80% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(-1deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-47%, -55%) rotate(2deg);
+  }
+}
+@keyframes practice-sheet-out {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -42%) rotate(3deg);
+  }
+  24%,
+  72% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(1deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-70%, -56%) rotate(-7deg);
+  }
+}
+@keyframes practice-band-enter {
+  0% {
+    transform: translateX(-100%) rotate(-8deg);
+  }
+  28%,
+  76% {
+    transform: translateX(0) rotate(-8deg);
+  }
+  100% {
+    transform: translateX(100%) rotate(-8deg);
+  }
+}
+@keyframes practice-stamp {
+  0%,
+  24% {
+    opacity: 0;
+    transform: scale(1.5) rotate(-14deg);
+  }
+  40%,
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(-8deg);
+  }
+}
+@keyframes practice-city-arrive {
+  0% {
+    transform: translateX(-20px);
+  }
+  60%,
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes practice-route {
+  0%,
+  20% {
+    transform: scaleX(0);
+  }
+  80%,
+  100% {
+    transform: scaleX(1);
+  }
+}
+@keyframes practice-cut-fade {
+  0%,
+  82% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@media (max-width: 600px) {
+  .practice-cut-rails {
+    inset: 16px;
+    padding: 12px;
+    font-size: 7px;
+  }
+  .practice-cut-sheet {
+    padding: 20px;
+  }
+  .practice-cut-registration {
+    font-size: 6px;
+  }
+  .practice-cut-stamp {
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+  .practice-curtain .scene-skip {
+    right: 24px;
+    bottom: max(24px, env(safe-area-inset-bottom));
+    min-height: 44px;
+  }
+}
+@media (orientation: landscape) and (max-height: 520px) {
+  .practice-cut-rails {
+    inset: 12px;
+    padding: 8px;
+    font-size: 7px;
+  }
+  .practice-cut-sheet {
+    width: 360px;
+    padding: 16px 24px;
+  }
+  .practice-cut-registration {
+    padding-bottom: 8px;
+    font-size: 6px;
+  }
+  .practice-cut-city {
+    height: 60px;
+    margin-block: 8px;
+  }
+  .practice-cut-city img {
+    width: 100px;
+  }
+  .practice-cut-city > i {
+    width: 100px;
+    height: 40px;
+  }
+  .practice-cut-stamp {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+  .practice-cut-sheet h2 {
+    font-size: 28px;
+    margin: 4px 0 8px;
+  }
+  .practice-cut-sheet p {
+    font-size: 10px;
+  }
+  .practice-cut-route {
+    margin-top: 8px;
+    padding-top: 8px;
+  }
+  .practice-curtain .scene-skip {
+    right: 16px;
+    bottom: 8px;
+    padding: 8px;
+    min-height: 36px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .practice-curtain {
+    animation: none;
+  }
+  .practice-cut-band,
+  .practice-cut-sheet,
+  .practice-cut-city img,
+  .practice-cut-stamp,
+  .practice-cut-route i {
+    animation: none;
+  }
+  .practice-cut-sheet {
+    transform: translate(-50%, -50%);
+  }
+  .practice-cut-stamp {
+    transform: rotate(-8deg);
+  }
+}

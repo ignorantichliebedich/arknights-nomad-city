@@ -30,6 +30,7 @@ import {
 import { RoomLobby } from "./components/RoomLobby.tsx";
 import { HelpCenter, type GuideMode } from "./components/HelpCenter.tsx";
 import { usePractice } from "./usePractice.ts";
+import { PRACTICE_LESSONS } from "./practice.ts";
 import { PracticeGuide } from "./components/PracticeGuide.tsx";
 import { SceneMotion, buttonFeedback } from "./components/SceneMotion.tsx";
 import { EntryBootstrap } from "./components/EntryBootstrap.tsx";
@@ -75,6 +76,7 @@ import "./phone.css";
 import "./table-experience.css";
 import "./entry-redesign.css";
 import "./entry-motion.css";
+import "./practice-curtain.css";
 import {
   InfluencePreview,
   type InfluenceTransfer,
@@ -422,8 +424,10 @@ function App() {
         </Modal>
       )}
       <SceneMotion
-        room={practice.active ? null : activeRoom}
-        entered={!practice.active && !!(code && token)}
+        room={activeRoom}
+        entered={!!(code && token)}
+        practice={practice.active}
+        lesson={`第 ${practice.snapshot.lesson + 1} 课 · ${PRACTICE_LESSONS[practice.snapshot.lesson].title}`}
       />
       {audioSettings && (
         <Modal

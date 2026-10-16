@@ -3,6 +3,7 @@ import { ExpeditionPermit } from "./ExpeditionPermit.tsx";
 import { PosterTitle } from "./PosterTitle.tsx";
 import { useHomeScene } from "../useHomeScene.ts";
 import { ENTRY_MOTION } from "../entry-motion.ts";
+import { ExpeditionShortcuts } from "./ExpeditionShortcuts.tsx";
 
 export function ExpeditionAtmosphere() {
   return (
@@ -61,11 +62,6 @@ export function ExpeditionEntry({
             <span /> 铸基者 <i /> THE FOUNDERS
           </p>
           <PosterTitle />
-          <p className="hero-description">
-            在荒野落下第一枚棋子。
-            <br />
-            与朋友建设城市，书写这片拓荒区的未来。
-          </p>
           <div className="hero-actions">
             <button
               ref={start}
@@ -78,21 +74,8 @@ export function ExpeditionEntry({
               </span>
               <b aria-hidden="true">↗</b>
             </button>
-            <button
-              className="subtle-button hero-join"
-              onClick={() => change("lobby", "room-code")}
-            >
-              加入好友 <span aria-hidden="true">→</span>
-            </button>
           </div>
-          <div className="hero-shortcuts">
-            <button className="subtle-button" onClick={onPractice}>
-              实操演习 <span>↗</span>
-            </button>
-            <button className="subtle-button" onClick={onGuide}>
-              拓荒指南 <span>↗</span>
-            </button>
-          </div>
+          <ExpeditionShortcuts onPractice={onPractice} onGuide={onGuide} />
         </div>
         <div className="poster-founders" aria-hidden="true">
           <div className="founder-orbit" />

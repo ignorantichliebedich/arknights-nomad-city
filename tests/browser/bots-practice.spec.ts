@@ -283,6 +283,8 @@ test("七课实操使用真实棋桌，刷新继续练习，退出返回原房�
   expect((await practice(page)).completed).toHaveLength(7);
   await page.getByRole("button", { name: "退出练习", exact: true }).click();
   await expect(page.locator(".room-code")).toHaveText(id);
+  await expect(page.locator(".practice-curtain")).toHaveCount(0);
+  await expect(page.locator(".scene-transition")).toHaveCount(0);
   expect(readRoom(id).game).toEqual(original.game);
   expect(readRoom(id).revision).toBe(original.revision);
   expect(errors).toEqual([]);
