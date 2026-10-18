@@ -181,20 +181,62 @@ export function createGameServer(options: ServerOptions = {}) {
       me: playerId ?? null,
     };
   }
-  function send(ws: WebSocket, value: unknown) {
+  function send(
+    ws: WebSocket,
+    value: unknown,
+    state?: { room: string; revision: number },
+  ) {
     if (ws.bufferedAmount > gate.limits.maxBufferedBytes) {
       ws.terminate();
       return;
     }
-    if (ws.readyState === WebSocket.OPEN) ws.send(JSON.stringify(value));
+    if (ws.readyState !== WebSocket.OPEN) return;
+    const payload = JSON.stringify(value);
+    const started = performance.now();
+    ws.send(payload, (error) => {
+      if (error) {
+        ws.terminate();
+        return;
+      }
+      const durationMs = Math.round(performance.now() - started);
+      // This measures the local sender/compression queue, not remote receipt.
+      if (state && durationMs >= 500)
+        console.warn(
+          JSON.stringify({
+            event: "slow-state-write",
+            ...state,
+            durationMs,
+            jsonBytes: Buffer.byteLength(payload),
+            compressed: ws.extensions.includes("permessage-deflate"),
+          }),
+        );
+    });
   }
   function broadcast(roomId: string) {
+    const started = performance.now();
     const room = store.get(roomId);
     if (room)
       for (const [ws, c] of clients)
         if (c.roomId === roomId)
-          send(ws, { type: "state", room: view(room, c.playerId) });
+          send(
+            ws,
+            { type: "state", room: view(room, c.playerId) },
+            {
+              room: roomId,
+              revision: room.revision,
+            },
+          );
     scheduleBot(roomId);
+    const durationMs = Math.round(performance.now() - started);
+    if (durationMs >= 100)
+      console.warn(
+        JSON.stringify({
+          event: "slow-room-broadcast",
+          room: roomId,
+          revision: room?.revision,
+          durationMs,
+        }),
+      );
   }
   function scheduleBot(roomId: string) {
     if (closing || botTimers.has(roomId)) return;
@@ -527,7 +569,19 @@ export function createGameServer(options: ServerOptions = {}) {
       }
     },
   );
-  const wsServer = new WebSocketServer({ noServer: true, maxPayload: 16384 });
+  const wsServer = new WebSocketServer({
+    noServer: true,
+    maxPayload: 16384,
+    // Views contain repeated board data and history. Compress each private view
+    // independently, with bounded zlib concurrency and no shared dictionary.
+    perMessageDeflate: {
+      serverNoContextTakeover: true,
+      clientNoContextTakeover: true,
+      concurrencyLimit: 2,
+      threshold: 1024,
+      zlibDeflateOptions: { level: 3, memLevel: 7 },
+    },
+  });
   http.maxHeadersCount = 64;
   http.maxConnections = 256;
   http.on("upgrade", (req, socket, head) => {
@@ -646,7 +700,12 @@ export function createGameServer(options: ServerOptions = {}) {
         send(ws, { type: "error", message: "请先验证席位" });
         return;
       }
+      const receivedAt = performance.now();
       const accepted = serial(client.roomId, () => {
+        const startedAt = performance.now();
+        let saveMs = 0;
+        let outcome = "rejected";
+        let revision: number | undefined;
         try {
           rate(`seat:${client.playerId}`, 600);
           if (
@@ -656,12 +715,14 @@ export function createGameServer(options: ServerOptions = {}) {
             throw new RuleError("指令编号无效");
           const room = store.get(client.roomId);
           if (!room) throw new RuleError("房间不存在");
+          revision = room.revision;
           const replay = store.replay(
             room.id,
             client.playerId,
             message.requestId,
           );
           if (replay) {
+            outcome = "replayed";
             send(ws, replay);
             send(ws, { type: "state", room: view(room, client.playerId) });
             return;
@@ -748,17 +809,21 @@ export function createGameServer(options: ServerOptions = {}) {
             );
           } else throw new RuleError("未知房间操作");
           room.revision++;
+          revision = room.revision;
           room.updatedAt = new Date().toISOString();
           const response = {
             type: "ack",
             requestId: message.requestId,
             revision: room.revision,
           };
+          const saveStarted = performance.now();
           store.save(room, {
             playerId: client.playerId,
             id: message.requestId,
             response,
           });
+          saveMs = performance.now() - saveStarted;
+          outcome = "applied";
           send(ws, response);
           broadcast(room.id);
         } catch (error) {
@@ -779,6 +844,25 @@ export function createGameServer(options: ServerOptions = {}) {
                 room: client.roomId,
                 requestId: message.requestId,
                 error: String(error),
+              }),
+            );
+        } finally {
+          const finishedAt = performance.now();
+          if (finishedAt - receivedAt >= 250)
+            console.warn(
+              JSON.stringify({
+                event: "slow-room-command",
+                room: client.roomId,
+                requestId:
+                  typeof message.requestId === "string" &&
+                  /^[\w-]{8,80}$/.test(message.requestId)
+                    ? message.requestId
+                    : undefined,
+                revision,
+                outcome,
+                queueMs: Math.round(startedAt - receivedAt),
+                processMs: Math.round(finishedAt - startedAt),
+                saveMs: Math.round(saveMs),
               }),
             );
         }

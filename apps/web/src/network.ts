@@ -37,10 +37,12 @@ export function useRoom(roomId: string, token: string) {
   const socket = useRef<WebSocket | null>(null);
   const roomRef = useRef<RoomView | null>(null);
   const pending = useRef<Record<string, unknown> | null>(null);
+  const awaitReceipt = useRef<(() => void) | null>(null);
   useEffect(() => {
     if (!roomId || !token) return;
     let disposed = false;
     let timeout: ReturnType<typeof setTimeout>;
+    let deadline: ReturnType<typeof setTimeout>;
     let attempts = 0;
     setRoom(null);
     setStatus("connecting");
@@ -55,6 +57,15 @@ export function useRoom(roomId: string, token: string) {
       pending.current = null;
     }
     setBusy(!!pending.current);
+    const isCurrent = (ws: WebSocket) => !disposed && socket.current === ws;
+    const recover = (ws: WebSocket) => {
+      if (!isCurrent(ws)) return;
+      clearTimeout(deadline);
+      socket.current = null;
+      ws.close();
+      setStatus("offline");
+      timeout = setTimeout(connect, Math.min(1000 * 2 ** attempts++, 10000));
+    };
     const connect = () => {
       if (disposed) return;
       const ws = new WebSocket(
@@ -62,17 +73,41 @@ export function useRoom(roomId: string, token: string) {
       );
       socket.current = ws;
       setStatus("connecting");
-      ws.onopen = () =>
-        ws.send(JSON.stringify({ type: "hello", roomId, token }));
+      // A socket can stay OPEN through a stalled link. Reconnect with the same
+      // request ID so the server can replay its receipt without executing twice.
+      const armDeadline = () => {
+        clearTimeout(deadline);
+        deadline = setTimeout(() => {
+          if (!isCurrent(ws)) return;
+          setError("连接响应较慢，正在重新同步；已提交的操作会自动核对。");
+          recover(ws);
+        }, 15000);
+      };
+      awaitReceipt.current = armDeadline;
+      armDeadline();
+      let initialState = true;
+      ws.onopen = () => {
+        if (isCurrent(ws))
+          ws.send(JSON.stringify({ type: "hello", roomId, token }));
+      };
       ws.onmessage = (event) => {
-        if (disposed) return;
+        if (!isCurrent(ws)) return;
         const message = JSON.parse(event.data);
         if (message.type === "state") {
           setRoom(message.room);
           roomRef.current = message.room;
           setStatus("online");
-          attempts = 0;
-          if (pending.current) ws.send(JSON.stringify(pending.current));
+          if (initialState) {
+            initialState = false;
+            clearTimeout(deadline);
+            if (pending.current) {
+              ws.send(JSON.stringify(pending.current));
+              armDeadline();
+            } else {
+              attempts = 0;
+              setError("");
+            }
+          }
         }
         if (message.type === "ack" || message.type === "error") {
           if (
@@ -80,6 +115,8 @@ export function useRoom(roomId: string, token: string) {
             message.requestId === pending.current?.requestId
           ) {
             pending.current = null;
+            clearTimeout(deadline);
+            attempts = 0;
             localStorage.removeItem(`nomad:pending:${roomId}`);
             setBusy(false);
           }
@@ -88,7 +125,8 @@ export function useRoom(roomId: string, token: string) {
         }
       };
       ws.onclose = (event) => {
-        if (disposed) return;
+        if (!isCurrent(ws)) return;
+        clearTimeout(deadline);
         if (event.code === 4001) {
           setStatus("replaced");
           setError("此席位已在另一个标签页打开。关闭另一页后刷新即可继续。");
@@ -99,13 +137,15 @@ export function useRoom(roomId: string, token: string) {
           setError("房间或席位凭证失效，请返回入口重新加入。");
           return;
         }
-        timeout = setTimeout(connect, Math.min(1000 * 2 ** attempts++, 10000));
+        recover(ws);
       };
     };
     connect();
     return () => {
       disposed = true;
       clearTimeout(timeout);
+      clearTimeout(deadline);
+      awaitReceipt.current = null;
       socket.current?.close();
       socket.current = null;
     };
@@ -113,6 +153,7 @@ export function useRoom(roomId: string, token: string) {
   function send(type: string, extra: Record<string, unknown> = {}) {
     if (
       busy ||
+      status !== "online" ||
       pending.current ||
       socket.current?.readyState !== WebSocket.OPEN ||
       !roomRef.current
@@ -136,6 +177,7 @@ export function useRoom(roomId: string, token: string) {
     setBusy(true);
     setError("");
     socket.current.send(JSON.stringify(message));
+    awaitReceipt.current?.();
   }
   return { room, status, error, busy, send, clearError: () => setError("") };
 }

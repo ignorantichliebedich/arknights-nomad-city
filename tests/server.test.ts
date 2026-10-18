@@ -52,8 +52,9 @@ async function client(
   roomId: string,
   token: string,
   headers: Record<string, string> = {},
+  perMessageDeflate = true,
 ) {
-  const ws = new WebSocket(address, { headers });
+  const ws = new WebSocket(address, { headers, perMessageDeflate });
   const inbox: any[] = [];
   const waiters: {
     predicate: (m: any) => boolean;
@@ -275,9 +276,107 @@ describe("房间服务", () => {
     const clients = await Promise.all(
       credentials.map((c) => client(server.ws, id, c.token)),
     );
-    await Promise.all(clients.map((c) => c.next((m) => m.type === "state")));
-    return { id, clients, credentials, room };
+    const initialStates = await Promise.all(
+      clients.map((c) => c.next((m) => m.type === "state")),
+    );
+    return { id, clients, credentials, room, initialStates };
   }
+  it("四席协商压缩同步后期完整日志，保持私牌隔离和原请求回执", async () => {
+    const server = await start();
+    const { id, clients, room, initialStates } = await parallelRoom(server, 4);
+    await Promise.all(
+      clients.map((c, i) =>
+        initialStates[i].room.seats.every((s: any) => s.connected)
+          ? Promise.resolve()
+          : c.next(
+              (m) =>
+                m.type === "state" &&
+                m.room.seats.every((s: any) => s.connected),
+            ),
+      ),
+    );
+    for (let i = 0; i < 1300; i++)
+      room.game!.log.push({
+        seq: room.game!.log.length + 1,
+        round: 7,
+        actor: null,
+        text: `第 ${i} 次采集：获得金券与源石，移动城市经过公路并支付路费。`,
+      });
+    server.app.store.save(room);
+    const receivedBytes = (ws: WebSocket) =>
+      (ws as unknown as { _socket: { bytesRead: number } })._socket.bytesRead;
+    const before = clients.map((c) => receivedBytes(c.ws));
+    expect(
+      clients.every((c) => c.ws.extensions.includes("permessage-deflate")),
+    ).toBe(true);
+    const message = {
+      type: "command",
+      requestId: randomUUID(),
+      revision: room.revision,
+      choiceToken: getParallelChoiceToken(room.game!, room.hostId),
+      command: projectView(room.game!, room.hostId).actions[0].command,
+    };
+    clients[0].ws.send(JSON.stringify(message));
+    expect(
+      (await clients[0].next((m) => m.requestId === message.requestId)).type,
+    ).toBe("ack");
+    const states = await Promise.all(
+      clients.map((c) =>
+        c.next(
+          (m) => m.type === "state" && m.room.revision === room.revision + 1,
+        ),
+      ),
+    );
+    const rawBytes = states.reduce(
+      (sum, m) => sum + Buffer.byteLength(JSON.stringify(m)),
+      0,
+    );
+    const wireBytes = clients.reduce(
+      (sum, c, i) => sum + receivedBytes(c.ws) - before[i],
+      0,
+    );
+    expect(wireBytes).toBeLessThan(rawBytes * 0.3);
+    const saved = server.app.store.get(id)!;
+    states.forEach((m, i) => {
+      expect(m.room.game).toEqual(projectView(saved.game!, room.seats[i].id));
+      expect(m.room.game.log.length).toBeGreaterThanOrEqual(1300);
+      expect(m.room.seats.every((s: any) => !s.tokenHash)).toBe(true);
+    });
+    clients[0].ws.send(JSON.stringify(message));
+    expect(
+      (await clients[0].next((m) => m.requestId === message.requestId)).type,
+    ).toBe("ack");
+    expect(server.app.store.get(id)!.revision).toBe(saved.revision);
+  });
+
+  it("未协商压缩的客户端仍可同步并准备", async () => {
+    const server = await start();
+    const host = (await post(`${server.url}/api/rooms`, { name: "兼容客户端" }))
+      .body;
+    const seat = await client(server.ws, host.room.id, host.token, {}, false);
+    const initial = await seat.next((m) => m.type === "state");
+    expect(seat.ws.extensions).toBe("");
+    const requestId = randomUUID();
+    seat.ws.send(
+      JSON.stringify({
+        type: "ready",
+        requestId,
+        revision: initial.room.revision,
+        ready: true,
+      }),
+    );
+    expect((await seat.next((m) => m.requestId === requestId)).type).toBe(
+      "ack",
+    );
+    expect(
+      (
+        await seat.next(
+          (m) => m.type === "state" && m.room.revision > initial.room.revision,
+        )
+      ).room.seats[0].ready,
+    ).toBe(true);
+  });
+
   it.each([2, 3, 4])(
     "%i 位玩家在同一房间版本同时盖放均成功，屏障只推进一次",
     async (count) => {
