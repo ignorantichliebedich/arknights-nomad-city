@@ -94,6 +94,8 @@ pnpm test:e2e
 
 浏览器项目覆盖 Chromium、系统 Microsoft Edge 和 Firefox，分辨率为 1920×1080 与 1366×768。整局测试同时验证服务端状态重放和实际浏览器 WebSocket 同步，自动对局属于回归验收，朋友试玩按 [验收记录](docs/acceptance.md) 执行。
 
+容量复测使用 `pnpm load:test --tables 1,4,8,16,32 --seconds 30`，工具自动创建独立服务与合成数据库，结果保存到私有 `.data/load-tests/`。云端常规负载、同步盖牌高峰、压缩对照及建议容量见 [承压测试报告](docs/capacity-test.md)；`pnpm load:test --help` 查看参数。正式服务器压测需单独授权，不随 CI 或发布自动运行。
+
 安装 Playwright 浏览器需要网络；Edge 项目需要本机安装 Microsoft Edge。测试使用独立临时数据库和 3011 端口，不修改试玩数据库。
 
 ## 备份与恢复
