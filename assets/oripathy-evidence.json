@@ -1,14 +1,17 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "pack": "oripathy-2024",
   "title": "游城拓荒：感染者",
-  "status": "source-review",
+  "status": "implemented-official-rules",
   "sources": {
     "official": "https://ak.hypergryph.com/boardgame_nomadcity/",
     "inventory": "https://prts.wiki/w/游城拓荒：铸基者",
-    "publicArchive": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448"
+    "publicArchive": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
+    "officialManual": "https://web.hycdn.cn/arknights/boardgame/nomadcity/file/%E6%B8%B8%E5%9F%8E%E6%8B%93%E8%8D%92%E6%84%9F%E6%9F%93%E8%80%85-%E8%A7%84%E5%88%99%E4%B9%A620241111.pdf",
+    "officialGuide": "https://weibo.com/7499841383/OvI5A6Aps",
+    "tutorial": "https://www.bilibili.com/video/BV1T7pGe8Ewj/"
   },
-  "printedCardCount": 71,
+  "printedCardCount": 63,
   "componentGroups": [
     {
       "id": "initial-role",
@@ -20,16 +23,19 @@
     {
       "id": "operatives",
       "name": "干员角色牌",
-      "printedCopies": 16,
-      "faces": [
-        "1321",
-        "1324",
-        "1319",
-        "1322",
-        "1323",
-        "1320",
-        "1318",
-        "1206",
+      "printedCopies": 8,
+      "faces": ["1321", "1324", "1319", "1322", "1323", "1320", "1318", "1206"],
+      "names": [
+        "淬羽赫默",
+        "刻俄柏",
+        "诗怀雅",
+        "赫拉格",
+        "百炼嘉维尔",
+        "林",
+        "涤火杰西卡",
+        "缪尔赛思"
+      ],
+      "referenceFaces": [
         "1335",
         "1333",
         "1332",
@@ -39,15 +45,7 @@
         "1336",
         "1345"
       ],
-      "names": [
-        "淬羽赫默",
-        "刻俄柏",
-        "诗怀雅",
-        "赫拉格",
-        "百炼嘉维尔",
-        "林",
-        "涤火杰西卡",
-        "缪尔赛思",
+      "referenceNames": [
         "可露希尔",
         "银灰",
         "泥岩",
@@ -56,7 +54,8 @@
         "多萝西",
         "森蚺",
         "W"
-      ]
+      ],
+      "note": "官方规则书第 1 页列 8 张新增干员；本体企业扩展的 8 张干员及进阶样式仅作参照，不能重复加入牌库。"
     },
     {
       "id": "flowing-shapes",
@@ -159,34 +158,47 @@
     }
   ],
   "review": {
-    "cardFaces": "archived-candidates",
-    "fullManual": "required",
-    "productionEnabled": false,
+    "cardFaces": "verified-against-official-manual-and-printed-faces",
+    "fullManual": "verified-official-source",
+    "productionEnabled": true,
     "questions": [
       {
         "id": "player-count",
-        "question": "原规则支持人数及是否包含两人变体。PRTS 配件页列 3–4 人，公开教程说明列 2–4 人；需以原规则书核对。"
+        "answer": "流程总览第 10 页明确列 2–3 人移除设施步骤；保留本体 2–4 人框架。第 4 页另增三人局每回合由先手移除一张供应设施。",
+        "pages": [4, 10]
       },
       {
         "id": "setup",
-        "question": "企业家分配顺序、起始设施、阿米娅加入及初始手牌裁剪、企业与干员牌池的替换或混入流程。"
+        "answer": "扩展要求企业扩展。阿米娅加入初始角色；最后保留 5 张，故从 8 张中裁剪 3 张。加入 6 张公共设施、3 张样式、8 张新增干员；替换罗德岛企业板，加入岩蹄与梅兰德。专家规则下，由末位玩家逆序挑选企业家。",
+        "pages": [1, 2, 3, 10]
       },
       {
         "id": "dilemmas",
-        "question": "第一、三、五、七回合抉择相对角色盖放、起始玩家变更、红区开放升级的顺序，以及 A／B 面的选择与保留。"
+        "answer": "专家规则：红区开放升级后、2–3 人设施移除后、角色盖放前，在第 1／3／5／7 回合按行动顺序选择本回合抉择 A／B 面。限次能力占用玩家标记并于收尾重置。",
+        "pages": [3, 4, 10]
       },
       {
         "id": "overbuilding",
-        "question": "全体玩家的设施叠放费用与合法条件、下层设施的分数和样式标记处理；马丁的替代支付与城市化区域入场分享。"
+        "answer": "马丁专属能力；移除一个自己的影响力，将分数严格更高的新设施建于旧设施上。下层仍存在并参与唯一／颜色数量判断，但不参与样式、相邻与入场复制。不能推导为全体玩家的通用叠建。",
+        "pages": [6]
       },
       {
         "id": "long-distance-city",
-        "question": "长途移动的费用、最大距离、中途资源点与城市阻挡、影响力清除、探索及放置的结算顺序。"
+        "answer": "原书未添加全体玩家通用的长途移动行动。艾格尼丝连续城市移动、嘉维尔的指定资源点免费移动等，分别按具体牌面执行；保留一般城市移动限制。",
+        "pages": [4, 5, 7]
       },
       {
         "id": "timing-and-symbols",
-        "question": "新增战术行动、持续效果、替代支付、棕色安保与帮派影响力的移除和返回规则。"
+        "answer": "收尾有盖放角色时，盖放角色与全部弃牌一起收回；干员派遣三选一。安保不属于任何玩家，收尾外的额外采集不享受终身合约选点；嘉维尔不占格；锁定标记随城市移动。",
+        "pages": [4, 7, 8, 9]
       }
+    ],
+    "validation": [
+      "tests/oripathy.test.ts",
+      "tests/oripathy-invariants.test.ts",
+      "tests/bots.test.ts",
+      "tests/server.test.ts",
+      "tests/browser/oripathy.spec.ts"
     ]
   },
   "faces": [
@@ -196,7 +208,7 @@
       "sha256": "cce8fd0218536e993ef86d25187729cff072f46326a43f642938aa7cc6468ff8",
       "bytes": 369771,
       "cacheFile": ".data/sources/oripathy/1072.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1089",
@@ -204,7 +216,7 @@
       "sha256": "4267cb9a8a3cc9db2d60a76f356620cb36bda21db6ab09a912942a5eebd1dea9",
       "bytes": 242246,
       "cacheFile": ".data/sources/oripathy/1089.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1090",
@@ -212,7 +224,7 @@
       "sha256": "10fa9489830d707d055454119ee2247105cfa03972480d70175dc992c213a6c0",
       "bytes": 251800,
       "cacheFile": ".data/sources/oripathy/1090.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1091",
@@ -220,7 +232,7 @@
       "sha256": "7deb494fa33b57bf8bc627a60637bdd3bc3631d23527fd10658bc3a1cd8437bd",
       "bytes": 250768,
       "cacheFile": ".data/sources/oripathy/1091.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1154",
@@ -228,7 +240,7 @@
       "sha256": "2a321bbe9726c65fe990688350ee41a89532d33fb86df557c03f9b73c45b2510",
       "bytes": 225506,
       "cacheFile": ".data/sources/oripathy/1154.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1156",
@@ -236,7 +248,7 @@
       "sha256": "41afb7bf6c9fb2893942f685756c27e63b109585eeca8e1bd4cd7d504ef850dd",
       "bytes": 198769,
       "cacheFile": ".data/sources/oripathy/1156.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1157",
@@ -244,7 +256,7 @@
       "sha256": "719ed854fb8e7d72c455534d7ce8ff4129ad914745ee963e81a65e43df1e0530",
       "bytes": 240024,
       "cacheFile": ".data/sources/oripathy/1157.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1158",
@@ -252,7 +264,7 @@
       "sha256": "157352e15ff9404db84f8fc19efc5ce0067e94cb86431902da357a31522ad51c",
       "bytes": 248599,
       "cacheFile": ".data/sources/oripathy/1158.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1184",
@@ -260,7 +272,7 @@
       "sha256": "62f1c45d4d01cd5c70b24a1dddfb82202514adfaa8e84ec7a3d7197f92b998de",
       "bytes": 184254,
       "cacheFile": ".data/sources/oripathy/1184.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1185",
@@ -268,7 +280,7 @@
       "sha256": "c45606856e4060d43ba95f2f361f24450c6dac5817e98ec10183704c3c2a0e94",
       "bytes": 180358,
       "cacheFile": ".data/sources/oripathy/1185.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1186",
@@ -276,7 +288,7 @@
       "sha256": "62313eb1213a5937e22e136de4525466f981dbb5c9dde2b67e266f59cfd96f80",
       "bytes": 193066,
       "cacheFile": ".data/sources/oripathy/1186.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1187",
@@ -284,7 +296,7 @@
       "sha256": "0f56d8f5663c0ef18cc8e5bba7ed882dfd96dd0d420dac91f020297779ee4424",
       "bytes": 187280,
       "cacheFile": ".data/sources/oripathy/1187.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1188",
@@ -292,7 +304,7 @@
       "sha256": "d2f14ef53ae04696f1141842092c46055a27437a98f69e80e03d36c5a79b5f61",
       "bytes": 303401,
       "cacheFile": ".data/sources/oripathy/1188.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1189",
@@ -300,7 +312,7 @@
       "sha256": "9b6560098800a86f4e2449de0b837f260df15125d4b606c5e340722f0f4befc5",
       "bytes": 301158,
       "cacheFile": ".data/sources/oripathy/1189.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1190",
@@ -308,7 +320,7 @@
       "sha256": "6ed6a7c9f0f66be7f25e4126fb98f1bd497fddccb7ed079193bddf40c5df1159",
       "bytes": 314373,
       "cacheFile": ".data/sources/oripathy/1190.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1191",
@@ -316,7 +328,7 @@
       "sha256": "6f1921ac61014b68564211897ecea705b31bd6e969e8e6a82578a299178799bb",
       "bytes": 287165,
       "cacheFile": ".data/sources/oripathy/1191.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1192",
@@ -324,7 +336,7 @@
       "sha256": "fcc493e9a49a37c31bae37dbb30e63a6b91997f10e043714cce30a4ddc19dffb",
       "bytes": 287593,
       "cacheFile": ".data/sources/oripathy/1192.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1206",
@@ -332,7 +344,7 @@
       "sha256": "46a8196d3b7c1023d9564c74f5e2d8395e6d24d17fdc2653071c7c31ed024040",
       "bytes": 642337,
       "cacheFile": ".data/sources/oripathy/1206.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1290",
@@ -340,7 +352,7 @@
       "sha256": "275525ffb0070751014e304c778d8423d23941866c5a7b9be781b20063be39d0",
       "bytes": 520002,
       "cacheFile": ".data/sources/oripathy/1290.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1291",
@@ -348,7 +360,7 @@
       "sha256": "275525ffb0070751014e304c778d8423d23941866c5a7b9be781b20063be39d0",
       "bytes": 520002,
       "cacheFile": ".data/sources/oripathy/1291.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1292",
@@ -356,7 +368,7 @@
       "sha256": "275525ffb0070751014e304c778d8423d23941866c5a7b9be781b20063be39d0",
       "bytes": 520002,
       "cacheFile": ".data/sources/oripathy/1292.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1293",
@@ -364,7 +376,7 @@
       "sha256": "275525ffb0070751014e304c778d8423d23941866c5a7b9be781b20063be39d0",
       "bytes": 520002,
       "cacheFile": ".data/sources/oripathy/1293.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1318",
@@ -372,7 +384,7 @@
       "sha256": "16689db51a14f9ea45bb0f788e4943cc7fd8118e5397c841c8080826cc6bd448",
       "bytes": 616492,
       "cacheFile": ".data/sources/oripathy/1318.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1319",
@@ -380,7 +392,7 @@
       "sha256": "108fe83bca3137616f536b2edd891d7e3115324276bb8ba362721d76c14151d6",
       "bytes": 577890,
       "cacheFile": ".data/sources/oripathy/1319.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1320",
@@ -388,7 +400,7 @@
       "sha256": "e4292ca8521142a2381ee7e0317d6670d40b4e155ed2a28c71b01f5fc4008575",
       "bytes": 608432,
       "cacheFile": ".data/sources/oripathy/1320.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1321",
@@ -396,7 +408,7 @@
       "sha256": "809be61ab8c707daf0cc5aa19af48e62390b944d5b79dabd7008bcfb9f84613c",
       "bytes": 606810,
       "cacheFile": ".data/sources/oripathy/1321.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1322",
@@ -404,7 +416,7 @@
       "sha256": "3fd9fdcbef2c047078c4ac646037e3071dca60f1524e043ae638504049ba969a",
       "bytes": 556807,
       "cacheFile": ".data/sources/oripathy/1322.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1323",
@@ -412,7 +424,7 @@
       "sha256": "d8a54e1dd3403509ae819ae5de82108358c1a12edf4cf9435334e2771427a700",
       "bytes": 680427,
       "cacheFile": ".data/sources/oripathy/1323.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1324",
@@ -420,7 +432,7 @@
       "sha256": "fe9f352fa826b60d022a6e8bea8bab8743275c2c84bdbb16ebebf05e59d12a0c",
       "bytes": 654592,
       "cacheFile": ".data/sources/oripathy/1324.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1330",
@@ -428,7 +440,7 @@
       "sha256": "99b85f436d3b180a5364a5e22e572d6ec41c941ecd696f5339a8f72175d9b91d",
       "bytes": 615469,
       "cacheFile": ".data/sources/oripathy/1330.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "legacy-operative-reference; excluded from expansion card count"
     },
     {
       "id": "1332",
@@ -436,7 +448,7 @@
       "sha256": "a664537f8a6c36bb999a62c25093886605c498878d3e3d5ec148f8768cfd900f",
       "bytes": 492711,
       "cacheFile": ".data/sources/oripathy/1332.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "legacy-operative-reference; excluded from expansion card count"
     },
     {
       "id": "1333",
@@ -444,7 +456,7 @@
       "sha256": "326e165bb90579d60ea504a7f296d281892acf3c2f8c2992ba190d0689398400",
       "bytes": 543813,
       "cacheFile": ".data/sources/oripathy/1333.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "legacy-operative-reference; excluded from expansion card count"
     },
     {
       "id": "1334",
@@ -452,7 +464,7 @@
       "sha256": "9179dff9d4153a4282018e1b6080904b243d01ee162a88a7fb232ed1198cbe7c",
       "bytes": 538342,
       "cacheFile": ".data/sources/oripathy/1334.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "legacy-operative-reference; excluded from expansion card count"
     },
     {
       "id": "1335",
@@ -460,7 +472,7 @@
       "sha256": "ff38494a044e259635174f5524261ebb6673fa4bdbd8fb5ff3a4115d2eee1fe3",
       "bytes": 531366,
       "cacheFile": ".data/sources/oripathy/1335.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "legacy-operative-reference; excluded from expansion card count"
     },
     {
       "id": "1336",
@@ -468,7 +480,7 @@
       "sha256": "6f0b574898b1085bb70e5d64ce561e913c88cc84bcfacf1c008845401467c90a",
       "bytes": 638944,
       "cacheFile": ".data/sources/oripathy/1336.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "legacy-operative-reference; excluded from expansion card count"
     },
     {
       "id": "1337",
@@ -476,7 +488,7 @@
       "sha256": "6b9d26519f78c17da5a470deaece484e03500854daa3abc8949a9b7ae957de3d",
       "bytes": 590047,
       "cacheFile": ".data/sources/oripathy/1337.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "legacy-operative-reference; excluded from expansion card count"
     },
     {
       "id": "1345",
@@ -484,7 +496,7 @@
       "sha256": "89b905cb3846da5c9535ca955de0989e0801fabb95f1a6e7e7a9fd5656ceda54",
       "bytes": 556195,
       "cacheFile": ".data/sources/oripathy/1345.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "legacy-operative-reference; excluded from expansion card count"
     },
     {
       "id": "1346",
@@ -492,7 +504,7 @@
       "sha256": "920aa61f0135c5cccb8b4af5bc5fe01b89c965de6d1313de1232f1e71179853c",
       "bytes": 407706,
       "cacheFile": ".data/sources/oripathy/1346.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1346-back",
@@ -500,7 +512,7 @@
       "sha256": "b201439b253162f7e3b70a8b7f56f6c9578c138ad2ca8f4ac13755d8adcd3f0c",
       "bytes": 393465,
       "cacheFile": ".data/sources/oripathy/1346-back.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1347",
@@ -508,7 +520,7 @@
       "sha256": "f12e11cf2f9dcf02bf777dcf9b94ee35c6e070dd6c2b119017066e386db9ab97",
       "bytes": 431278,
       "cacheFile": ".data/sources/oripathy/1347.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1347-back",
@@ -516,7 +528,7 @@
       "sha256": "4dbf5d36214ad6b0f39beda682dd9c4d47cbb21dfd0b4cd20b35032dcd2b66b8",
       "bytes": 420431,
       "cacheFile": ".data/sources/oripathy/1347-back.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1348",
@@ -524,7 +536,7 @@
       "sha256": "7807ab4d09ea78244a4931171adad02ea30dac73ffa71f4cf2c4b670707cc281",
       "bytes": 415953,
       "cacheFile": ".data/sources/oripathy/1348.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1348-back",
@@ -532,7 +544,7 @@
       "sha256": "ffbe92c5a190b4aefd3086a87032512258479759e00fd2c0dc0f83a05f7e9475",
       "bytes": 414616,
       "cacheFile": ".data/sources/oripathy/1348-back.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1349",
@@ -540,7 +552,7 @@
       "sha256": "cc222cd212d09700086240c79db2b67fa7f0f6fb71f4947410825f82ac1bcc81",
       "bytes": 391371,
       "cacheFile": ".data/sources/oripathy/1349.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1349-back",
@@ -548,7 +560,7 @@
       "sha256": "173c8b1b6b7fa681546cf967ee520c4ca3f3f096efe4bab34782e919333085cc",
       "bytes": 369605,
       "cacheFile": ".data/sources/oripathy/1349-back.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1381",
@@ -556,7 +568,7 @@
       "sha256": "aa32d75a9fc1bd067bcef9e4bccfd37353ea8bba8788dc96c3128ac6cbff517e",
       "bytes": 422725,
       "cacheFile": ".data/sources/oripathy/1381.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1381-back",
@@ -564,7 +576,7 @@
       "sha256": "6e7cca4f1147e0450f487e40a2b1000b3dcd85de4b78ff0ebdb99e4ebcc36142",
       "bytes": 422446,
       "cacheFile": ".data/sources/oripathy/1381-back.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1382",
@@ -572,7 +584,7 @@
       "sha256": "416fee123997af96b1209f6608ba9ced45dfec82e8441dbe5a1cc566d3131b29",
       "bytes": 499703,
       "cacheFile": ".data/sources/oripathy/1382.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1382-back",
@@ -580,7 +592,7 @@
       "sha256": "128b2c46219ee05d7e61b00699634ecbcf0ce2c20e90a8afe1da515ed4f80f76",
       "bytes": 499558,
       "cacheFile": ".data/sources/oripathy/1382-back.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1383",
@@ -588,7 +600,7 @@
       "sha256": "f12911a9fe8e74b91d64e949393c3f030144f74aa64851a81e60c7e36f62c92a",
       "bytes": 466520,
       "cacheFile": ".data/sources/oripathy/1383.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1383-back",
@@ -596,7 +608,7 @@
       "sha256": "575463b1387c419a4de9f260b39a17e5e4e8afe4bcfcc87e38ed0b5461463445",
       "bytes": 479740,
       "cacheFile": ".data/sources/oripathy/1383-back.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1384",
@@ -604,7 +616,7 @@
       "sha256": "ce1f874b2fc99096bac4b7a0fc35e340951896f3ac94b5d1c656b5e5ef000ee4",
       "bytes": 428983,
       "cacheFile": ".data/sources/oripathy/1384.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1384-back",
@@ -612,7 +624,7 @@
       "sha256": "00010f344c98ae5f2f0e1323ac268c7918c3b4437832b594824fd68896ffc319",
       "bytes": 386023,
       "cacheFile": ".data/sources/oripathy/1384-back.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1386",
@@ -620,7 +632,7 @@
       "sha256": "23b1e628fc065f15dd8ece568e00d588a2104433278b733d97332526be1c551e",
       "bytes": 404964,
       "cacheFile": ".data/sources/oripathy/1386.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1386-back",
@@ -628,7 +640,7 @@
       "sha256": "e4e99e5d668c71fc2166633b871963c75452885b2acbc39ba0e937b524d7f823",
       "bytes": 403514,
       "cacheFile": ".data/sources/oripathy/1386-back.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1387",
@@ -636,7 +648,7 @@
       "sha256": "0de5820abd645784c9db46042d00ae889041cc2e869d0d3acfcd155b93dbbc9d",
       "bytes": 410578,
       "cacheFile": ".data/sources/oripathy/1387.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1387-back",
@@ -644,7 +656,7 @@
       "sha256": "0b8187c72f75e5e0e2fe20d067b245cda1e33191967f1ec6083a3209add76f40",
       "bytes": 423995,
       "cacheFile": ".data/sources/oripathy/1387-back.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1388",
@@ -652,7 +664,7 @@
       "sha256": "b8717abda6a2380e2a829c1a17f5e7e47c36f3b0eb160a4102cab7e40eeaeb62",
       "bytes": 504706,
       "cacheFile": ".data/sources/oripathy/1388.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1388-back",
@@ -660,7 +672,7 @@
       "sha256": "8a0e2b33dfa68ac5f568b25de191f74fe2b347f8cff439ff45f8ec205d3fb7ac",
       "bytes": 471435,
       "cacheFile": ".data/sources/oripathy/1388-back.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1389",
@@ -668,7 +680,7 @@
       "sha256": "fd96faaca72c679cbc0f8ff31672c7bad8f0daf485cb7f6b3bd8a132d549ae90",
       "bytes": 400010,
       "cacheFile": ".data/sources/oripathy/1389.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1389-back",
@@ -676,7 +688,7 @@
       "sha256": "9f077308f8bea63d7ab711999be01b826b9c3eed724f7c617e1b6db722a7baeb",
       "bytes": 380734,
       "cacheFile": ".data/sources/oripathy/1389-back.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1390",
@@ -684,7 +696,7 @@
       "sha256": "f9809bf4b8161433c2fa7a6dad8f127085563eeae4a1a999ec126a6cb7f377cc",
       "bytes": 351499,
       "cacheFile": ".data/sources/oripathy/1390.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1390-back",
@@ -692,7 +704,7 @@
       "sha256": "fd40ffe77a57caccfe8d88d6d33e016b732833f84d8df4404687bdf3f964a2e1",
       "bytes": 349619,
       "cacheFile": ".data/sources/oripathy/1390-back.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1391",
@@ -700,7 +712,7 @@
       "sha256": "6323ca7338318fe210287da7fcef42a06de5edb1bc25f8ebd3b839556bbf5517",
       "bytes": 360431,
       "cacheFile": ".data/sources/oripathy/1391.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1391-back",
@@ -708,7 +720,7 @@
       "sha256": "c2ab90bbc5a8e37e03d4e60030051522c05bc96893e9af70e9fa4b893554d8b5",
       "bytes": 350536,
       "cacheFile": ".data/sources/oripathy/1391-back.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1392",
@@ -716,7 +728,7 @@
       "sha256": "24cddb727b5179a53fbc036894e78c4022d1d5217ba6dffe48836d3ab906c427",
       "bytes": 348693,
       "cacheFile": ".data/sources/oripathy/1392.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1392-back",
@@ -724,7 +736,7 @@
       "sha256": "2f21cf11aa1fa6957514a449037461608ee5ce4a2b8650feb3d1ec7148046503",
       "bytes": 349146,
       "cacheFile": ".data/sources/oripathy/1392-back.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1393",
@@ -732,7 +744,7 @@
       "sha256": "eb2f926ee2509204bf2dbcd07bf6df506f4fffe5f8c2957fac101a306d62f29a",
       "bytes": 330272,
       "cacheFile": ".data/sources/oripathy/1393.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1393-back",
@@ -740,7 +752,7 @@
       "sha256": "b74d9e659e602c69da8f6504592a7e81b49f7ec8e6053f2337fb7e5ac315e169",
       "bytes": 328191,
       "cacheFile": ".data/sources/oripathy/1393-back.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1394",
@@ -748,7 +760,7 @@
       "sha256": "00f25f2d2e6616d596d7570b416bbde00b3123da6c957e0b16f1afe69acf1532",
       "bytes": 262712,
       "cacheFile": ".data/sources/oripathy/1394.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1395",
@@ -756,7 +768,7 @@
       "sha256": "8d92023f554c56a07c83aa4ba326f24c7afd2f44b8c746e76b4b0942b3dda4d4",
       "bytes": 261710,
       "cacheFile": ".data/sources/oripathy/1395.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1396",
@@ -764,7 +776,7 @@
       "sha256": "6c306926e82a7247e6540f0d8f1f236b7be2307c443592680e52a98dfb56f4cf",
       "bytes": 260415,
       "cacheFile": ".data/sources/oripathy/1396.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1397",
@@ -772,7 +784,7 @@
       "sha256": "bd87abf97aeb37682a9d4eb03d1f4fd9986e81d32c6a9782ed64165cd8afc67f",
       "bytes": 531751,
       "cacheFile": ".data/sources/oripathy/1397.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1398",
@@ -780,7 +792,7 @@
       "sha256": "277efdfee8e2bb014562482263fbda85de179764dec08d7b9478e98b7c69477c",
       "bytes": 418349,
       "cacheFile": ".data/sources/oripathy/1398.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1398-back",
@@ -788,7 +800,7 @@
       "sha256": "0a284bcbc3b72fc4ed947ba09cdba84e00bb9224e39798f72cb9e32ac4576778",
       "bytes": 450880,
       "cacheFile": ".data/sources/oripathy/1398-back.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1399",
@@ -796,7 +808,7 @@
       "sha256": "daeee89f3244e2204be0c5072e078b7759b720f3d2b349d0e60799203b411ccb",
       "bytes": 416376,
       "cacheFile": ".data/sources/oripathy/1399.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1399-back",
@@ -804,7 +816,7 @@
       "sha256": "3c41b7b502292ef331b294ee54327c33f2785d6e16fa2468f76d2b053c55a4fc",
       "bytes": 449873,
       "cacheFile": ".data/sources/oripathy/1399-back.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1400",
@@ -812,7 +824,7 @@
       "sha256": "e4eff292650c894a85f9c29ae3986b8894f8a99a8c1654dfaad085ede7c28885",
       "bytes": 467908,
       "cacheFile": ".data/sources/oripathy/1400.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1400-back",
@@ -820,7 +832,7 @@
       "sha256": "b53a1b9744eb4e1d0e95d007765d669a743a692611325d9a793f686031662f1b",
       "bytes": 451360,
       "cacheFile": ".data/sources/oripathy/1400-back.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1402",
@@ -828,7 +840,7 @@
       "sha256": "81bc83928af9c4174c29ad55ee4f661eadd6d9579e4faca2f031ae82e6d29bf1",
       "bytes": 376887,
       "cacheFile": ".data/sources/oripathy/1402.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1403",
@@ -836,7 +848,7 @@
       "sha256": "624e51aa5016d679754f7546c21f8cd0cdb7f0d18705cffdc0e72dd26a5f75f0",
       "bytes": 477957,
       "cacheFile": ".data/sources/oripathy/1403.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1404",
@@ -844,7 +856,7 @@
       "sha256": "a3466b5f3db77199e7d14a5e24b2e33906472728e4a4f2017fd5dda926e78707",
       "bytes": 546134,
       "cacheFile": ".data/sources/oripathy/1404.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1405",
@@ -852,7 +864,7 @@
       "sha256": "49d9eb43a29d85b41cd4cf133bf9a10c345ba47357f9e3af4e467ef46c4cdb00",
       "bytes": 563814,
       "cacheFile": ".data/sources/oripathy/1405.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1406",
@@ -860,7 +872,7 @@
       "sha256": "a345c0286e3f0bdcd0da04b898f45cc19f3e3b9d3a19a60fdc23244cd5d32e6b",
       "bytes": 414415,
       "cacheFile": ".data/sources/oripathy/1406.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     },
     {
       "id": "1406-back",
@@ -868,8 +880,19 @@
       "sha256": "136c278cd7a500bc00b5766b986d79ad7f3a40c7b4ab45293ebfea8934bea202",
       "bytes": 423761,
       "cacheFile": ".data/sources/oripathy/1406-back.png",
-      "classification": "original-component-candidate; requires printed-manual cross-check"
+      "classification": "original-component; checked against official 2024-11-11 manual and printed face"
     }
   ],
-  "rights": "原画及原桌游内容归鹰角网络等各自权利人所有。公开仓库只保存出处、摘要与哈希；扫描原件保留在忽略的研究缓存中。"
+  "rights": "原画及原桌游内容归鹰角网络等各自权利人所有。公开仓库只保存出处、摘要与哈希；扫描原件保留在忽略的研究缓存中。",
+  "manual": {
+    "id": "official-manual-20241111",
+    "sourceUrl": "https://web.hycdn.cn/arknights/boardgame/nomadcity/file/%E6%B8%B8%E5%9F%8E%E6%8B%93%E8%8D%92%E6%84%9F%E6%9F%93%E8%80%85-%E8%A7%84%E5%88%99%E4%B9%A620241111.pdf",
+    "cacheFile": ".data/sources/oripathy/rules-official-20241111.pdf",
+    "bytes": 10617607,
+    "sha256": "f6d57d308d91bb90abee199c527b8b60650119ee73d2b4eb604db543e2404a0d",
+    "pdfPages": 6,
+    "printedPages": "目录、1–10、封底",
+    "notice": "发行方资源站公开版本，保留样品水印；以具体牌面优先处理特例。"
+  },
+  "rulesVersion": "oripathy-2024.1111"
 }

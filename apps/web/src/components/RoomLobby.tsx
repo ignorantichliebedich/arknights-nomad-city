@@ -238,7 +238,13 @@ export function RoomLobby({
         <dl className="dossier-facts">
           <div>
             <dt>桌游版本</dt>
-            <dd>{room.expansion ? "铸基者 + 企业扩展" : "铸基者 · 基础版"}</dd>
+            <dd>
+              {room.oripathy
+                ? `感染者${room.expert ? " · 企业家抉择" : " · 常规玩法"}`
+                : room.expansion
+                  ? "铸基者 + 企业扩展"
+                  : "铸基者 · 基础版"}
+            </dd>
           </div>
           <div>
             <dt>拓荒周期</dt>

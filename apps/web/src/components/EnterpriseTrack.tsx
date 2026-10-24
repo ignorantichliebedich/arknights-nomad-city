@@ -1,3 +1,7 @@
+import {
+  oripathyEnterpriseImage,
+  ORIPATHY_ENTERPRISE_TEXT,
+} from "../../../../packages/rules/src/oripathy-data.ts";
 import type { CSSProperties } from "react";
 import {
   ENTERPRISE_IMAGES,
@@ -28,67 +32,69 @@ export function EnterpriseTrack({
       className="enterprise-track"
       aria-label={`${ENTERPRISE_NAMES[company]}等级与能力`}
     >
-      {enterpriseLevels(company, lab).map(({ level, kind, text }) => (
-        <li
-          key={level}
-          data-level={level}
-          data-kind={kind}
-          className={`enterprise-step ${level <= current ? "is-reached" : ""} ${level === current ? "is-current" : ""} ${level === current + 1 ? "is-next" : ""}`}
-        >
-          <span className="enterprise-level-flag" aria-label={`${level} 级`}>
-            <small>LEVEL</small>
-            <b>{level}</b>
-          </span>
-          <div className="enterprise-step-copy">
-            <div className="enterprise-step-label">
-              <strong>
-                {kind === "effect"
-                  ? "企业特效"
-                  : kind === "reward"
-                    ? "升级奖励"
-                    : kind === "lab"
-                      ? "科室奖励"
-                      : level === 0
-                        ? "合作起点"
-                        : "合作等级"}
-              </strong>
-              {level === current + 1 ? (
-                <span className="next-level-label">下一等级</span>
-              ) : level === current ? (
-                <span className="current-level-label">当前等级</span>
-              ) : kind === "effect" && level <= current ? (
-                <span>已解锁</span>
-              ) : null}
-            </div>
-            <p>
-              <EnterpriseRuleText text={text} />
-            </p>
-          </div>
-          <div
-            className="enterprise-level-markers"
-            aria-label={`${level} 级玩家`}
+      {enterpriseLevels(company, lab, !!game.oripathy).map(
+        ({ level, kind, text }) => (
+          <li
+            key={level}
+            data-level={level}
+            data-kind={kind}
+            className={`enterprise-step ${level <= current ? "is-reached" : ""} ${level === current ? "is-current" : ""} ${level === current + 1 ? "is-next" : ""}`}
           >
-            {game.players
-              .filter((p) => (p.enterprise[company] ?? 0) === level)
-              .map((p) => (
-                <span
-                  key={p.id}
-                  role="img"
-                  className={`enterprise-level-token ${p.id === viewer.id ? "is-viewer" : ""}`}
-                  title={`${p.name} · ${level} 级`}
-                  aria-label={`${p.name} · ${level} 级`}
-                  style={
-                    { "--seat-color": PLAYER_COLORS[p.seat] } as CSSProperties
-                  }
-                >
-                  <svg viewBox="-15 -24 30 34" aria-hidden="true">
-                    <TablePiece kind="influence" seat={p.seat} />
-                  </svg>
-                </span>
-              ))}
-          </div>
-        </li>
-      ))}
+            <span className="enterprise-level-flag" aria-label={`${level} 级`}>
+              <small>LEVEL</small>
+              <b>{level}</b>
+            </span>
+            <div className="enterprise-step-copy">
+              <div className="enterprise-step-label">
+                <strong>
+                  {kind === "effect"
+                    ? "企业特效"
+                    : kind === "reward"
+                      ? "升级奖励"
+                      : kind === "lab"
+                        ? "科室奖励"
+                        : level === 0
+                          ? "合作起点"
+                          : "合作等级"}
+                </strong>
+                {level === current + 1 ? (
+                  <span className="next-level-label">下一等级</span>
+                ) : level === current ? (
+                  <span className="current-level-label">当前等级</span>
+                ) : kind === "effect" && level <= current ? (
+                  <span>已解锁</span>
+                ) : null}
+              </div>
+              <p>
+                <EnterpriseRuleText text={text} />
+              </p>
+            </div>
+            <div
+              className="enterprise-level-markers"
+              aria-label={`${level} 级玩家`}
+            >
+              {game.players
+                .filter((p) => (p.enterprise[company] ?? 0) === level)
+                .map((p) => (
+                  <span
+                    key={p.id}
+                    role="img"
+                    className={`enterprise-level-token ${p.id === viewer.id ? "is-viewer" : ""}`}
+                    title={`${p.name} · ${level} 级`}
+                    aria-label={`${p.name} · ${level} 级`}
+                    style={
+                      { "--seat-color": PLAYER_COLORS[p.seat] } as CSSProperties
+                    }
+                  >
+                    <svg viewBox="-15 -24 30 34" aria-hidden="true">
+                      <TablePiece kind="influence" seat={p.seat} />
+                    </svg>
+                  </span>
+                ))}
+            </div>
+          </li>
+        ),
+      )}
     </ol>
   );
 }
@@ -135,8 +141,14 @@ export function EnterpriseComparison({
                 onClick={() =>
                   onDetail({
                     title: ENTERPRISE_NAMES[company],
-                    image: ENTERPRISE_IMAGES[company],
-                    text: ENTERPRISE_TEXT[company],
+                    image: game.oripathy
+                      ? (oripathyEnterpriseImage(company) ??
+                        ENTERPRISE_IMAGES[company])
+                      : ENTERPRISE_IMAGES[company],
+                    text: game.oripathy
+                      ? (ORIPATHY_ENTERPRISE_TEXT[company] ??
+                        ENTERPRISE_TEXT[company])
+                      : ENTERPRISE_TEXT[company],
                   })
                 }
               >

@@ -1,3 +1,4 @@
+import { ORIPATHY_RULES_VERSION } from "../../../packages/rules/src/oripathy-data.ts";
 import { createServer } from "node:http";
 import type { IncomingMessage } from "node:http";
 import { isIP } from "node:net";
@@ -170,9 +171,13 @@ export function createGameServer(options: ServerOptions = {}) {
       id: room.id,
       hostId: room.hostId,
       expansion: room.expansion,
+      oripathy: !!room.oripathy,
+      expert: !!room.expert,
       revision: room.revision,
       phase: room.game?.phase ?? "lobby",
-      rulesVersion: RULES_VERSION,
+      rulesVersion:
+        room.game?.rulesVersion ??
+        (room.oripathy ? ORIPATHY_RULES_VERSION : RULES_VERSION),
       seats: room.seats.map(({ tokenHash, ...seat }) => ({
         ...seat,
         connected: seat.bot === true || online(room.id, seat.id),
@@ -399,7 +404,9 @@ export function createGameServer(options: ServerOptions = {}) {
             const room: Room = {
               id,
               hostId: seat.id,
-              expansion: input.expansion === true,
+              expansion: input.expansion === true || input.oripathy === true,
+              oripathy: input.oripathy === true,
+              expert: input.oripathy === true && input.expert === true,
               revision: 0,
               seats: [seat],
               game: null,
@@ -792,11 +799,17 @@ export function createGameServer(options: ServerOptions = {}) {
               throw new RuleError("需要至少两位玩家，且全部在线并已准备");
             room.game = createGame(room.seats, {
               expansion: room.expansion,
+              oripathy: room.oripathy,
+              expert: room.expert,
               seed: randomBytes(4).readUInt32LE(),
             });
           } else if (message.type === "command") {
             if (!room.game) throw new RuleError("对局尚未开始");
-            if (room.game.rulesVersion !== RULES_VERSION)
+            if (
+              ![RULES_VERSION, ORIPATHY_RULES_VERSION].includes(
+                room.game.rulesVersion,
+              )
+            )
               throw new RuleError(
                 "此存档使用其他规则版本，请使用对应版本的服务继续对局",
               );

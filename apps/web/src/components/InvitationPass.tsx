@@ -41,7 +41,11 @@ export function InvitationPass({
           <small>拓荒区编号</small>
           <strong>{room.id}</strong>
           <span>
-            {room.expansion ? "铸基者 + 企业扩展" : "铸基者 · 基础版"}
+            {room.oripathy
+              ? `感染者 · ${room.expert ? "企业家抉择" : "常规玩法"}`
+              : room.expansion
+                ? "铸基者 + 企业扩展"
+                : "铸基者 · 基础版"}
           </span>
         </div>
       </div>

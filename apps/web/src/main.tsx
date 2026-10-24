@@ -13,6 +13,7 @@ import type {
 import { readCredential, saveCredential, useRoom } from "./network.ts";
 import { EnterprisePanel } from "./components/EnterprisePanel.tsx";
 import { ActionComposer } from "./components/ActionComposer.tsx";
+import { OripathyPanel } from "./components/OripathyPanel.tsx";
 import { EventEncounter } from "./components/EventEncounter.tsx";
 import {
   PlacementPreview,
@@ -77,6 +78,7 @@ import "./table-experience.css";
 import "./entry-redesign.css";
 import "./entry-motion.css";
 import "./practice-curtain.css";
+import "./oripathy.css";
 import {
   InfluencePreview,
   type InfluenceTransfer,
@@ -163,6 +165,8 @@ function App() {
   );
   const [entryCode, setEntryCode] = useState(currentCode);
   const [expansion, setExpansion] = useState(false);
+  const [oripathy, setOripathy] = useState(false);
+  const [expert, setExpert] = useState(true);
   const [entryError, setEntryError] = useState("");
   const [loading, setLoading] = useState(false);
   const [help, setHelp] = useState(false);
@@ -200,7 +204,7 @@ function App() {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, expansion }),
+          body: JSON.stringify({ name, expansion, oripathy, expert }),
         },
       );
       const result = await response.json();
@@ -336,11 +340,21 @@ function App() {
           name={name}
           entryCode={entryCode}
           expansion={expansion}
+          oripathy={oripathy}
+          expert={expert}
+          onOripathy={(enabled) => {
+            setOripathy(enabled);
+            if (enabled) setExpansion(true);
+          }}
+          onExpert={setExpert}
           loading={loading}
           error={entryError}
           onName={setName}
           onCode={setEntryCode}
-          onExpansion={setExpansion}
+          onExpansion={(enabled) => {
+            setExpansion(enabled);
+            if (!enabled) setOripathy(false);
+          }}
           onEnter={enter}
           onHome={home}
           onGuide={() => setGuide("tutorial")}
@@ -489,7 +503,7 @@ function GameRoom({
   } | null>(null);
   const { receipt, closeReceipt } = useTableReceipt(game);
   const [drawer, setDrawer] = useState<
-    "supply" | "enterprise" | "journal" | null
+    "supply" | "enterprise" | "journal" | "oripathy" | null
   >(null);
   const [interaction, setInteraction] = useState<
     "hand" | "action" | "event" | null
@@ -521,7 +535,10 @@ function GameRoom({
     setPlannedPlacement(null);
     const decision = game?.decision;
     const isMine = decision?.playerId === room.me;
-    if (isMine && ["select-role", "trim"].includes(decision?.kind ?? ""))
+    if (
+      isMine &&
+      ["select-role", "trim", "o:cover-flow"].includes(decision?.kind ?? "")
+    )
       setHandOpen(true);
     const moved = game?.players.some(
       (p) =>
@@ -535,7 +552,7 @@ function GameRoom({
     const shouldOpen =
       isMine &&
       (decision?.kind === "event" || !game?.actions.some((a) => a.target)) &&
-      !["select-role", "trim", "toll", "harvest"].includes(
+      !["select-role", "trim", "o:cover-flow", "toll", "harvest"].includes(
         decision?.kind ?? "",
       );
     const nextWindow = decision?.kind === "event" ? "event" : "action";
@@ -723,7 +740,8 @@ function GameRoom({
           revision: game!.revision,
           stage: legal.command.type === "main" ? "from" : "to",
         };
-      if (game?.decision?.kind === "select-role") setHandOpen(false);
+      if (["select-role", "o:cover-flow"].includes(game?.decision?.kind ?? ""))
+        setHandOpen(false);
       setPlannedInfluence(null);
       if (
         city &&
@@ -761,7 +779,7 @@ function GameRoom({
     (game.parallel ? parallelReady : activeId !== room.me);
   const choosingHand =
     decision?.playerId === room.me &&
-    ["select-role", "trim"].includes(decision.kind);
+    ["select-role", "trim", "o:cover-flow"].includes(decision.kind);
   const boardChoice =
     decision?.kind !== "event" &&
     (game?.actions.some((a) => a.target) ?? false);
@@ -892,7 +910,11 @@ function GameRoom({
         <div className="room-meta">
           {!training && (
             <span>
-              {room.expansion ? "铸基者 + 企业扩展" : "铸基者 · 基础版"}
+              {room.oripathy
+                ? `感染者${room.expert ? " · 企业家抉择" : " · 常规玩法"}`
+                : room.expansion
+                  ? "铸基者 + 企业扩展"
+                  : "铸基者 · 基础版"}
             </span>
           )}
           {game && !training && (
@@ -1352,6 +1374,17 @@ function GameRoom({
                 </span>
                 <strong>拓荒日志</strong>
               </button>
+              {game.oripathy && (
+                <button
+                  onClick={() => setDrawer("oripathy")}
+                  aria-haspopup="dialog"
+                >
+                  <span className="dock-icon" aria-hidden="true">
+                    ◇
+                  </span>
+                  <strong>感染者档案</strong>
+                </button>
+              )}
               {phone && (
                 <button
                   popoverTarget="phone-camera-controls"
@@ -1414,6 +1447,17 @@ function GameRoom({
                       {Object.values(s.resources).reduce(
                         (a, b) => a + (b ?? 0),
                         0,
+                      )}
+                      {s.expert && (
+                        <>
+                          {" "}
+                          + 企业家{" "}
+                          {Object.values(s.expert).reduce((a, b) => a + b, 0)}
+                          <br />
+                          {Object.entries(s.expert)
+                            .map(([label, n]) => `${label} ${n}`)
+                            .join(" · ")}
+                        </>
                       )}
                     </small>
                   </div>
@@ -1494,6 +1538,11 @@ function GameRoom({
               onClose={() => setDrawer(null)}
             >
               <EnterprisePanel game={game} onDetail={setDetail} />
+            </Modal>
+          )}
+          {drawer === "oripathy" && game.oripathy && (
+            <Modal title="感染者 · 企业家档案" onClose={() => setDrawer(null)}>
+              <OripathyPanel game={game} onDetail={setDetail} />
             </Modal>
           )}
           {drawer === "supply" && (

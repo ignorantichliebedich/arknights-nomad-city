@@ -4030,5 +4030,1237 @@
       1000,
       1000
     ]
+  },
+  {
+    "id": "oripathy/1072.webp",
+    "path": "apps/web/public/assets/oripathy/1072.webp",
+    "bytes": 223748,
+    "size": [
+      650,
+      1850
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693612143350/A06DB3E419BD10D46CFF2FC285084B0A32ACB3DB/",
+    "sourceSha256": "cce8fd0218536e993ef86d25187729cff072f46326a43f642938aa7cc6468ff8",
+    "sha256": "f56d918825c31c39d6a3a496564799fde8e60a131509f80fcc6090e5013b6801",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1072-hd.webp",
+    "path": "apps/web/public/assets/oripathy/1072-hd.webp",
+    "bytes": 223748,
+    "size": [
+      650,
+      1850
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693612143350/A06DB3E419BD10D46CFF2FC285084B0A32ACB3DB/",
+    "sourceSha256": "cce8fd0218536e993ef86d25187729cff072f46326a43f642938aa7cc6468ff8",
+    "sha256": "f56d918825c31c39d6a3a496564799fde8e60a131509f80fcc6090e5013b6801",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1089.webp",
+    "path": "apps/web/public/assets/oripathy/1089.webp",
+    "bytes": 142732,
+    "size": [
+      600,
+      850
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693614542236/C6CE757C89F21E2FA425A383F314DF1C2239AD6D/",
+    "sourceSha256": "4267cb9a8a3cc9db2d60a76f356620cb36bda21db6ab09a912942a5eebd1dea9",
+    "sha256": "70a25b8da57e7d80e4cdc3be52436e5cae2f061807c958a7a0402fabb1158efa",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1090.webp",
+    "path": "apps/web/public/assets/oripathy/1090.webp",
+    "bytes": 149716,
+    "size": [
+      600,
+      850
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693614543214/F22C76DC5CDB25ADB4C6713C182BC09037CC85DB/",
+    "sourceSha256": "10fa9489830d707d055454119ee2247105cfa03972480d70175dc992c213a6c0",
+    "sha256": "d9b314ab496bfa043227e2cf2df5be93795975d693552fbcab7988180debdcba",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1091.webp",
+    "path": "apps/web/public/assets/oripathy/1091.webp",
+    "bytes": 148084,
+    "size": [
+      600,
+      850
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693614543818/047B27664B407A58F2CB6BDD961446AF79B4AE64/",
+    "sourceSha256": "7deb494fa33b57bf8bc627a60637bdd3bc3631d23527fd10658bc3a1cd8437bd",
+    "sha256": "6241543a9e8cc7dd7831932faf9108d2e26143eaa52104d84f3c42d1243afec9",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1154.webp",
+    "path": "apps/web/public/assets/oripathy/1154.webp",
+    "bytes": 140588,
+    "size": [
+      600,
+      850
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693633896444/6FDED525BB3A0E426339F29E27DFC88065907149/",
+    "sourceSha256": "2a321bbe9726c65fe990688350ee41a89532d33fb86df557c03f9b73c45b2510",
+    "sha256": "44b273668a623ce1fed810ba44f00f8d372d64e9136c5213b111c92e60c05d4f",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1156.webp",
+    "path": "apps/web/public/assets/oripathy/1156.webp",
+    "bytes": 114830,
+    "size": [
+      600,
+      850
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693633898405/174518385CF6353D2F1B396C16D9F078A0F28327/",
+    "sourceSha256": "41afb7bf6c9fb2893942f685756c27e63b109585eeca8e1bd4cd7d504ef850dd",
+    "sha256": "fe8df3ae22d066011622938dbf6788729f86f629eb631729b36735e0657e023d",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1157.webp",
+    "path": "apps/web/public/assets/oripathy/1157.webp",
+    "bytes": 161224,
+    "size": [
+      600,
+      850
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693633899057/ADE9A2154480F0F642D838DDC718FE016E866FC1/",
+    "sourceSha256": "719ed854fb8e7d72c455534d7ce8ff4129ad914745ee963e81a65e43df1e0530",
+    "sha256": "44264736d5266f553270b4ce950f95dde2d81ba42336ba8046d8187691289a4a",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1158.webp",
+    "path": "apps/web/public/assets/oripathy/1158.webp",
+    "bytes": 160272,
+    "size": [
+      600,
+      850
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693633901188/566378F60806F663B1386505F1B28E7A11C77FD2/",
+    "sourceSha256": "157352e15ff9404db84f8fc19efc5ce0067e94cb86431902da357a31522ad51c",
+    "sha256": "5befa97259e2195ca7abefae9f747a393bf58de19226ab4beb699af840c50ee4",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1184.webp",
+    "path": "apps/web/public/assets/oripathy/1184.webp",
+    "bytes": 109964,
+    "size": [
+      600,
+      850
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693639234383/01A61A405DF531CED8180160C72A83A579B29F44/",
+    "sourceSha256": "62f1c45d4d01cd5c70b24a1dddfb82202514adfaa8e84ec7a3d7197f92b998de",
+    "sha256": "9dde8a26a5b708c1e225138d05d2cbedaf231b9a21d744539b41d91ee082dc3e",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1185.webp",
+    "path": "apps/web/public/assets/oripathy/1185.webp",
+    "bytes": 107436,
+    "size": [
+      600,
+      850
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693639235372/61F450159774E7453ED41CDD9728FCE643D0A103/",
+    "sourceSha256": "c45606856e4060d43ba95f2f361f24450c6dac5817e98ec10183704c3c2a0e94",
+    "sha256": "01f5e87ecc91fb61860380e831d40d88fd6d6fda142b8f97513c304ef05d1157",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1186.webp",
+    "path": "apps/web/public/assets/oripathy/1186.webp",
+    "bytes": 115858,
+    "size": [
+      600,
+      850
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693639236068/E09AEEB1ED5AAA3B1CBB78636F85364943B73B1C/",
+    "sourceSha256": "62313eb1213a5937e22e136de4525466f981dbb5c9dde2b67e266f59cfd96f80",
+    "sha256": "4e8b868d39baa31c864936b2ff052c6aa2f26a1d72af712a7551cb2efc0e943c",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1187.webp",
+    "path": "apps/web/public/assets/oripathy/1187.webp",
+    "bytes": 111106,
+    "size": [
+      600,
+      850
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693639236804/87AE82E7E70B983DCB0DCDD71F1CB1A8A310A85B/",
+    "sourceSha256": "0f56d8f5663c0ef18cc8e5bba7ed882dfd96dd0d420dac91f020297779ee4424",
+    "sha256": "7a568895d11c5cee2f55bc56f75ee5fa544b50a9f3e29d7487521fde85b56897",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1188.webp",
+    "path": "apps/web/public/assets/oripathy/1188.webp",
+    "bytes": 187780,
+    "size": [
+      930,
+      600
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693639238062/40F65D1CC5243CB59B8445661119A586FE7CCA7F/",
+    "sourceSha256": "d2f14ef53ae04696f1141842092c46055a27437a98f69e80e03d36c5a79b5f61",
+    "sha256": "44122a8aff340277ebd9252192de5025393d4dab713aebf18980aec86601efa1",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1189.webp",
+    "path": "apps/web/public/assets/oripathy/1189.webp",
+    "bytes": 187248,
+    "size": [
+      930,
+      600
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693639238822/6C86D269D116B70C2D7EDC62113554F0B7D273FD/",
+    "sourceSha256": "9b6560098800a86f4e2449de0b837f260df15125d4b606c5e340722f0f4befc5",
+    "sha256": "4b074b9fe3a6295c43a531647401f3913586f5edc869e818c2a2f286f414268c",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1190.webp",
+    "path": "apps/web/public/assets/oripathy/1190.webp",
+    "bytes": 205358,
+    "size": [
+      930,
+      600
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693639239637/608A08185CAF373EEB1B0E9E8B9720F01DB6EFA4/",
+    "sourceSha256": "6ed6a7c9f0f66be7f25e4126fb98f1bd497fddccb7ed079193bddf40c5df1159",
+    "sha256": "eb053cc304e700620fef3b7556244561a952d2d15909b9941a4894d2228bddd9",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1191.webp",
+    "path": "apps/web/public/assets/oripathy/1191.webp",
+    "bytes": 167792,
+    "size": [
+      650,
+      1850
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2410077427276854351/51694E95669FCD0C9A8ABD22876335FC13009938/",
+    "sourceSha256": "6f1921ac61014b68564211897ecea705b31bd6e969e8e6a82578a299178799bb",
+    "sha256": "6c67d38bda622f611527719b70e13f0efd51e09b12b2bd539a68afa9a7fbf2db",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1191-hd.webp",
+    "path": "apps/web/public/assets/oripathy/1191-hd.webp",
+    "bytes": 167792,
+    "size": [
+      650,
+      1850
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2410077427276854351/51694E95669FCD0C9A8ABD22876335FC13009938/",
+    "sourceSha256": "6f1921ac61014b68564211897ecea705b31bd6e969e8e6a82578a299178799bb",
+    "sha256": "6c67d38bda622f611527719b70e13f0efd51e09b12b2bd539a68afa9a7fbf2db",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1192.webp",
+    "path": "apps/web/public/assets/oripathy/1192.webp",
+    "bytes": 170400,
+    "size": [
+      650,
+      1850
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2410077427276855138/7D9AA109A743B3D1F0D280FC2BF988188F46F720/",
+    "sourceSha256": "fcc493e9a49a37c31bae37dbb30e63a6b91997f10e043714cce30a4ddc19dffb",
+    "sha256": "a39a9edc24221990bbd76c8c2a70b3cdc8a215bde4368026a7b018a09ff2bb6b",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1192-hd.webp",
+    "path": "apps/web/public/assets/oripathy/1192-hd.webp",
+    "bytes": 170400,
+    "size": [
+      650,
+      1850
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2410077427276855138/7D9AA109A743B3D1F0D280FC2BF988188F46F720/",
+    "sourceSha256": "fcc493e9a49a37c31bae37dbb30e63a6b91997f10e043714cce30a4ddc19dffb",
+    "sha256": "a39a9edc24221990bbd76c8c2a70b3cdc8a215bde4368026a7b018a09ff2bb6b",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1206.webp",
+    "path": "apps/web/public/assets/oripathy/1206.webp",
+    "bytes": 419650,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2410077611324906006/8DA39D7FAEF53079A2B06176EFCA21F7D1AB9B05/",
+    "sourceSha256": "46a8196d3b7c1023d9564c74f5e2d8395e6d24d17fdc2653071c7c31ed024040",
+    "sha256": "67d10f857503e2a70445fdb239c3282606bfd0a3dd189fa20234841bcf6854f0",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1290.webp",
+    "path": "apps/web/public/assets/oripathy/1290.webp",
+    "bytes": 343496,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855109755480/6E0AE4EB4EBD06342C51E1BADE6283F3B075639C/",
+    "sourceSha256": "275525ffb0070751014e304c778d8423d23941866c5a7b9be781b20063be39d0",
+    "sha256": "8c32757cf16da0458d4a87361e5e8ba53ae945e562dd37b0f691e94487b51f9a",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1291.webp",
+    "path": "apps/web/public/assets/oripathy/1291.webp",
+    "bytes": 343496,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855109755480/6E0AE4EB4EBD06342C51E1BADE6283F3B075639C/",
+    "sourceSha256": "275525ffb0070751014e304c778d8423d23941866c5a7b9be781b20063be39d0",
+    "sha256": "8c32757cf16da0458d4a87361e5e8ba53ae945e562dd37b0f691e94487b51f9a",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1292.webp",
+    "path": "apps/web/public/assets/oripathy/1292.webp",
+    "bytes": 343496,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855109755480/6E0AE4EB4EBD06342C51E1BADE6283F3B075639C/",
+    "sourceSha256": "275525ffb0070751014e304c778d8423d23941866c5a7b9be781b20063be39d0",
+    "sha256": "8c32757cf16da0458d4a87361e5e8ba53ae945e562dd37b0f691e94487b51f9a",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1293.webp",
+    "path": "apps/web/public/assets/oripathy/1293.webp",
+    "bytes": 343496,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855109755480/6E0AE4EB4EBD06342C51E1BADE6283F3B075639C/",
+    "sourceSha256": "275525ffb0070751014e304c778d8423d23941866c5a7b9be781b20063be39d0",
+    "sha256": "8c32757cf16da0458d4a87361e5e8ba53ae945e562dd37b0f691e94487b51f9a",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1318.webp",
+    "path": "apps/web/public/assets/oripathy/1318.webp",
+    "bytes": 415910,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855115551866/04109033D45E47C48FAA7A933BD23DD238D4F7D5/",
+    "sourceSha256": "16689db51a14f9ea45bb0f788e4943cc7fd8118e5397c841c8080826cc6bd448",
+    "sha256": "d6257dd06fe675db0130b89c6f2ce3147e1b2c9119946cd00a675dc89694b689",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1319.webp",
+    "path": "apps/web/public/assets/oripathy/1319.webp",
+    "bytes": 384328,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855115552708/611EB548EF15B6B2CA08DF8A93CED6460813CC26/",
+    "sourceSha256": "108fe83bca3137616f536b2edd891d7e3115324276bb8ba362721d76c14151d6",
+    "sha256": "467d2c6e61fdaa5aa51cdc0933fc98a76f5cedb08e82110492b2498f475b6cfb",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1320.webp",
+    "path": "apps/web/public/assets/oripathy/1320.webp",
+    "bytes": 404378,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855115553547/4547127AB5D6ADE89E74328834D14374D148C402/",
+    "sourceSha256": "e4292ca8521142a2381ee7e0317d6670d40b4e155ed2a28c71b01f5fc4008575",
+    "sha256": "30139a914a9b115d54bb3c2f1c5439c2117a0b0be11f052a8b2c838769f8c521",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1321.webp",
+    "path": "apps/web/public/assets/oripathy/1321.webp",
+    "bytes": 408404,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855115554276/7DBABBE283A96161C24CCF7A239391E7E5411E8B/",
+    "sourceSha256": "809be61ab8c707daf0cc5aa19af48e62390b944d5b79dabd7008bcfb9f84613c",
+    "sha256": "9df06789266b613f165cde4a9cbb94db441de4f3afc4391c49cccef70a403676",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1322.webp",
+    "path": "apps/web/public/assets/oripathy/1322.webp",
+    "bytes": 376624,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855115555166/2D4D26C541EF94A61B7710C85E95009203BAEE86/",
+    "sourceSha256": "3fd9fdcbef2c047078c4ac646037e3071dca60f1524e043ae638504049ba969a",
+    "sha256": "3854e6d656cb24964957eae3c13d3626f9b2bf4385d7bc12018584a3b0d98dc5",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1323.webp",
+    "path": "apps/web/public/assets/oripathy/1323.webp",
+    "bytes": 455202,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855115555898/58B438FA9E2CC03609CAFE61D0FB195455AD6EFC/",
+    "sourceSha256": "d8a54e1dd3403509ae819ae5de82108358c1a12edf4cf9435334e2771427a700",
+    "sha256": "ac9c6d044f09dad3d89c646ed0835d17a17538f65703b0f275dc0e49ec25f238",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1324.webp",
+    "path": "apps/web/public/assets/oripathy/1324.webp",
+    "bytes": 446294,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855115556905/90661D28CD919B58DA38781B016D14CA39ADED29/",
+    "sourceSha256": "fe9f352fa826b60d022a6e8bea8bab8743275c2c84bdbb16ebebf05e59d12a0c",
+    "sha256": "416172d859fb582f1b5bf941264c9db9df833b7366e89d5a81558db116965da7",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1330.webp",
+    "path": "apps/web/public/assets/oripathy/1330.webp",
+    "bytes": 417192,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855120696659/F6A1486D7E40FF5A863B0DA32F40C6F7047666AA/",
+    "sourceSha256": "99b85f436d3b180a5364a5e22e572d6ec41c941ecd696f5339a8f72175d9b91d",
+    "sha256": "5951dc7e078aecc1fa660a76d1f538cf95bc3d86466700b937cccbd64fd12630",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1332.webp",
+    "path": "apps/web/public/assets/oripathy/1332.webp",
+    "bytes": 316822,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855120698877/523CA4E533F12262167A7D51DCD855A610628185/",
+    "sourceSha256": "a664537f8a6c36bb999a62c25093886605c498878d3e3d5ec148f8768cfd900f",
+    "sha256": "7205f7f8fde5736a0023d9d85ed579299e67198f7778bac86da909200fb01d3a",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1333.webp",
+    "path": "apps/web/public/assets/oripathy/1333.webp",
+    "bytes": 355858,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855120699445/163F24FF43496FD2E330244F96095EA01D533D54/",
+    "sourceSha256": "326e165bb90579d60ea504a7f296d281892acf3c2f8c2992ba190d0689398400",
+    "sha256": "6354029b6e5538521ad33b1a345be046ffe60fe2d04a929e3f60ccd31dc13386",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1334.webp",
+    "path": "apps/web/public/assets/oripathy/1334.webp",
+    "bytes": 344534,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855120700000/90E0621BE01AF7BE811338CC5559618AA904CC12/",
+    "sourceSha256": "9179dff9d4153a4282018e1b6080904b243d01ee162a88a7fb232ed1198cbe7c",
+    "sha256": "ad644cb79773b358baa3f33b584b523b3ebeda808d8563575e27b166949c7c11",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1335.webp",
+    "path": "apps/web/public/assets/oripathy/1335.webp",
+    "bytes": 338998,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855120700922/0FBA38D7F86D6DFDC15AD9437251BB2A62C34E1E/",
+    "sourceSha256": "ff38494a044e259635174f5524261ebb6673fa4bdbd8fb5ff3a4115d2eee1fe3",
+    "sha256": "62903fac5f7e497e5e54f34d78f02bab72ceac59ae8d66b36721a96c1880d3eb",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1336.webp",
+    "path": "apps/web/public/assets/oripathy/1336.webp",
+    "bytes": 431734,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855120701635/1E587D2485E0EC5E51DE22FF9D1E203D446D915D/",
+    "sourceSha256": "6f0b574898b1085bb70e5d64ce561e913c88cc84bcfacf1c008845401467c90a",
+    "sha256": "c24509b259160753cee73f17d9ac449e9fb7916882f3d7f2f3fb6968e005a17d",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1337.webp",
+    "path": "apps/web/public/assets/oripathy/1337.webp",
+    "bytes": 388812,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855120702937/C69ED12CCE81A379CEB7E6AF73B75629E3BA8E94/",
+    "sourceSha256": "6b9d26519f78c17da5a470deaece484e03500854daa3abc8949a9b7ae957de3d",
+    "sha256": "166d6c353eae5710d8812a12eab7cbd21d842ac5566b7fe38cff5be5a247174d",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1345.webp",
+    "path": "apps/web/public/assets/oripathy/1345.webp",
+    "bytes": 372044,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2488891688792577732/D043E777E908BEDC24D63C802DA2DC7A0CE87A9F/",
+    "sourceSha256": "89b905cb3846da5c9535ca955de0989e0801fabb95f1a6e7e7a9fd5656ceda54",
+    "sha256": "e8566e6a66143b86c4d7eea1bab9f099d51d845b581007331193482b266b5339",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1346.webp",
+    "path": "apps/web/public/assets/oripathy/1346.webp",
+    "bytes": 238372,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26556207415956413/7FF3C0B195081CFD1AED23959EFC1321FD1F92B7/",
+    "sourceSha256": "920aa61f0135c5cccb8b4af5bc5fe01b89c965de6d1313de1232f1e71179853c",
+    "sha256": "ecfeaa64cc9ff392eeb697a886897cdfdcea8fc878bf0a3d7ba8b4119c06a0a5",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1346-back.webp",
+    "path": "apps/web/public/assets/oripathy/1346-back.webp",
+    "bytes": 229364,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26556207415956656/FD5374F41610747AED3301C601FE8A4548F05D63/",
+    "sourceSha256": "b201439b253162f7e3b70a8b7f56f6c9578c138ad2ca8f4ac13755d8adcd3f0c",
+    "sha256": "6b08ca9a2fadd824de85a683f349206c1300a6d5a87e2a3b975cf15c3f69e515",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1347.webp",
+    "path": "apps/web/public/assets/oripathy/1347.webp",
+    "bytes": 255450,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26556207415957805/C6EB60E8980D79090419EB8AE00708DBD3AED11A/",
+    "sourceSha256": "f12e11cf2f9dcf02bf777dcf9b94ee35c6e070dd6c2b119017066e386db9ab97",
+    "sha256": "6bcc4271149b9aedc4a49689871120f748aa1b37a2881ec4cf405f059998f589",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1347-back.webp",
+    "path": "apps/web/public/assets/oripathy/1347-back.webp",
+    "bytes": 247456,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26556207415957888/2C4EFF08CF2E6AF6584432A9104B48F3785662A8/",
+    "sourceSha256": "4dbf5d36214ad6b0f39beda682dd9c4d47cbb21dfd0b4cd20b35032dcd2b66b8",
+    "sha256": "842f8b0366a76f59336eef9e554da679e664c2d0c9a074a59bc38dc9add0ba0c",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1348.webp",
+    "path": "apps/web/public/assets/oripathy/1348.webp",
+    "bytes": 243014,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26556207415958771/1B63EC9C7804B10F027864B61119A404428091DF/",
+    "sourceSha256": "7807ab4d09ea78244a4931171adad02ea30dac73ffa71f4cf2c4b670707cc281",
+    "sha256": "1d3ba087ba2479e9f9b5be3529a4173d84e926f716409bcce361ebe775089857",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1348-back.webp",
+    "path": "apps/web/public/assets/oripathy/1348-back.webp",
+    "bytes": 243140,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26556207415958992/1AD52AA9E365A8C15936260B8CF9DB991FA059B1/",
+    "sourceSha256": "ffbe92c5a190b4aefd3086a87032512258479759e00fd2c0dc0f83a05f7e9475",
+    "sha256": "857f385abb011811788073a8fc5c4cf9bfe1725af44f88d4b0f61b3902c0b8db",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1349.webp",
+    "path": "apps/web/public/assets/oripathy/1349.webp",
+    "bytes": 232120,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26556207415959492/C948742E9A647FAD7BCB7DEA340A804D59925468/",
+    "sourceSha256": "cc222cd212d09700086240c79db2b67fa7f0f6fb71f4947410825f82ac1bcc81",
+    "sha256": "38e152ab689b6d3e1a0bf7b0964be81da612309bb720bb566e96d3d921e90900",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1349-back.webp",
+    "path": "apps/web/public/assets/oripathy/1349-back.webp",
+    "bytes": 218348,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26556207415959662/BB41F7250E02B7C756C79862826E39EAF1EFD87B/",
+    "sourceSha256": "173c8b1b6b7fa681546cf967ee520c4ca3f3f096efe4bab34782e919333085cc",
+    "sha256": "81fd07a6c9ec4c0a0740f5a6ee36db6c62bc8b5f23777b5ca363aae7864d1ed0",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1381.webp",
+    "path": "apps/web/public/assets/oripathy/1381.webp",
+    "bytes": 245878,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834947816207/0D51ABE854E24166405E71F742F72752E6593665/",
+    "sourceSha256": "aa32d75a9fc1bd067bcef9e4bccfd37353ea8bba8788dc96c3128ac6cbff517e",
+    "sha256": "6b4a0bfbf20c8e31eea0e2898ea0d8b92ea4f2d11d577b60001358070bfae254",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1381-back.webp",
+    "path": "apps/web/public/assets/oripathy/1381-back.webp",
+    "bytes": 246074,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834947816341/C44791148959E32FD6461A5FEDAD6FF34C369570/",
+    "sourceSha256": "6e7cca4f1147e0450f487e40a2b1000b3dcd85de4b78ff0ebdb99e4ebcc36142",
+    "sha256": "102d26eb40ca5e27cfe05a193a2b4540ee3e93c79ff759b0aa565b2a1f7a958b",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1382.webp",
+    "path": "apps/web/public/assets/oripathy/1382.webp",
+    "bytes": 298230,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834947817077/1E1B994F9BFAE8E3F18E49D3E91B1771922C7341/",
+    "sourceSha256": "416fee123997af96b1209f6608ba9ced45dfec82e8441dbe5a1cc566d3131b29",
+    "sha256": "9dc15978bae86a61b2c6917732f0802a205ae8a45feb2ca62ad4461dabecb010",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1382-back.webp",
+    "path": "apps/web/public/assets/oripathy/1382-back.webp",
+    "bytes": 299114,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834947817266/635D563C136F9C5789D95DC216A7B8A969D512C6/",
+    "sourceSha256": "128b2c46219ee05d7e61b00699634ecbcf0ce2c20e90a8afe1da515ed4f80f76",
+    "sha256": "8d42c4669f9b4fd54ed85589687fa72312f3956fa3321343f4e0141f90e00b5b",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1383.webp",
+    "path": "apps/web/public/assets/oripathy/1383.webp",
+    "bytes": 278226,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834947818631/CE6380862CCF8A08977407ABD0511B7F96849E4E/",
+    "sourceSha256": "f12911a9fe8e74b91d64e949393c3f030144f74aa64851a81e60c7e36f62c92a",
+    "sha256": "3ba6c082e05274ce26e40dfb30cc24333cfed790ea0499f17042c1cb69ff651a",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1383-back.webp",
+    "path": "apps/web/public/assets/oripathy/1383-back.webp",
+    "bytes": 286116,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834947818779/D70C9D1AAD4106BB6E4819465668961E4353D560/",
+    "sourceSha256": "575463b1387c419a4de9f260b39a17e5e4e8afe4bcfcc87e38ed0b5461463445",
+    "sha256": "1f1f8941666b424c5770815ecef0f08963ac19600d125e189a9deab72c2bc845",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1384.webp",
+    "path": "apps/web/public/assets/oripathy/1384.webp",
+    "bytes": 253108,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834947819660/BB18162243100004AB49398A39A9C6F481996020/",
+    "sourceSha256": "ce1f874b2fc99096bac4b7a0fc35e340951896f3ac94b5d1c656b5e5ef000ee4",
+    "sha256": "4debc72c26137c4cacc402f483732d4f3e9af5a574d506b7a3d38c6fa7d8372a",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1384-back.webp",
+    "path": "apps/web/public/assets/oripathy/1384-back.webp",
+    "bytes": 227770,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834947819851/A6A31FC159D07C0710F554660901D1C4B44ACCF8/",
+    "sourceSha256": "00010f344c98ae5f2f0e1323ac268c7918c3b4437832b594824fd68896ffc319",
+    "sha256": "409b71741598c4481bb8ceaea977bec035827fbbbdb3e06eba3a6f7db2bf6240",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1386.webp",
+    "path": "apps/web/public/assets/oripathy/1386.webp",
+    "bytes": 240302,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834948210905/D5F5529ABC722701ECDD035D093629A51D2A8C2D/",
+    "sourceSha256": "23b1e628fc065f15dd8ece568e00d588a2104433278b733d97332526be1c551e",
+    "sha256": "08f355e4f3b7162ac19009b50322c738bfc269b3f2e159ba23a614eaff4787ed",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1386-back.webp",
+    "path": "apps/web/public/assets/oripathy/1386-back.webp",
+    "bytes": 238928,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834948211120/20DC1C74DE0C28C733E2952BDC0248CCE0FCA38E/",
+    "sourceSha256": "e4e99e5d668c71fc2166633b871963c75452885b2acbc39ba0e937b524d7f823",
+    "sha256": "39ac2f88b4a3b334c6e25a6e9e70b3ca81144fb04a1856cca224765eb998fd3b",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1387.webp",
+    "path": "apps/web/public/assets/oripathy/1387.webp",
+    "bytes": 241760,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834948212812/384EFEA5A2084AB4E03E0D7F9D63A37FF9044D00/",
+    "sourceSha256": "0de5820abd645784c9db46042d00ae889041cc2e869d0d3acfcd155b93dbbc9d",
+    "sha256": "a1b33b21b51383540a718636fea7c6a0093ae876591bbb4df96f15718a85d855",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1387-back.webp",
+    "path": "apps/web/public/assets/oripathy/1387-back.webp",
+    "bytes": 250936,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834948213116/888DBFDEAF5C26F166A2DF322965A4EFCBA76C68/",
+    "sourceSha256": "0b8187c72f75e5e0e2fe20d067b245cda1e33191967f1ec6083a3209add76f40",
+    "sha256": "a8c0012528fa6de35f5a3a2243426f0b3ddb7b30e6c2ad3f3ada6c15faecc01d",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1388.webp",
+    "path": "apps/web/public/assets/oripathy/1388.webp",
+    "bytes": 305708,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834948214606/B58C74ABACC0C633EB514EA4850E13C7685A1437/",
+    "sourceSha256": "b8717abda6a2380e2a829c1a17f5e7e47c36f3b0eb160a4102cab7e40eeaeb62",
+    "sha256": "7c901ed39339aa9f9d364d2bac15fcb0ca470cfd0984aa65a345cfc94c8b0d2d",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1388-back.webp",
+    "path": "apps/web/public/assets/oripathy/1388-back.webp",
+    "bytes": 276796,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834948214855/3061A8DCC7E6541324557215041B6A3AE1DE2DE8/",
+    "sourceSha256": "8a0e2b33dfa68ac5f568b25de191f74fe2b347f8cff439ff45f8ec205d3fb7ac",
+    "sha256": "09aa92e38162d0d9901d3e540c7923292f684cec8de896ed91f775c870e54ad9",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1389.webp",
+    "path": "apps/web/public/assets/oripathy/1389.webp",
+    "bytes": 236630,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834948249970/FCE382A5D322B6A75DF128CED053E0AA8254B06C/",
+    "sourceSha256": "fd96faaca72c679cbc0f8ff31672c7bad8f0daf485cb7f6b3bd8a132d549ae90",
+    "sha256": "925606946bd7b41d2d95bcc7cc97098049c779fec0d350ab10f173ec93130662",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1389-back.webp",
+    "path": "apps/web/public/assets/oripathy/1389-back.webp",
+    "bytes": 223910,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834948250134/5CE68A4D74462C49628116DF4EC1A1D94206390D/",
+    "sourceSha256": "9f077308f8bea63d7ab711999be01b826b9c3eed724f7c617e1b6db722a7baeb",
+    "sha256": "9c4c96a458e0082c702d69de4b918280bdafe60fcac9a6eeb6284875e85bc211",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1390.webp",
+    "path": "apps/web/public/assets/oripathy/1390.webp",
+    "bytes": 208490,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378454910858/C25C1A4242BBFBD437F52CED2F03ACDF42BC9E16/",
+    "sourceSha256": "f9809bf4b8161433c2fa7a6dad8f127085563eeae4a1a999ec126a6cb7f377cc",
+    "sha256": "82b5233b2f7042b15bcbe74b4387a7a5243c4cd892a290aa5278cb258bbecd84",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1390-back.webp",
+    "path": "apps/web/public/assets/oripathy/1390-back.webp",
+    "bytes": 207256,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378454911172/302DF4356A510C944BD0419C65D889082F2B1FA4/",
+    "sourceSha256": "fd40ffe77a57caccfe8d88d6d33e016b732833f84d8df4404687bdf3f964a2e1",
+    "sha256": "7d724ccc5cd3b0f7834908d10e4a06404393ab7422ed31cf35800a69663712d0",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1391.webp",
+    "path": "apps/web/public/assets/oripathy/1391.webp",
+    "bytes": 214680,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378454912036/29551D48D8AA2A6FDD9AA0DAB5002226E3095C8F/",
+    "sourceSha256": "6323ca7338318fe210287da7fcef42a06de5edb1bc25f8ebd3b839556bbf5517",
+    "sha256": "03902b89f3e38e144e6c99c14ece0c25353952d51e0505b96b1bcf1e91b8350b",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1391-back.webp",
+    "path": "apps/web/public/assets/oripathy/1391-back.webp",
+    "bytes": 207068,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378454912285/1613ACFD3975DBD59338CA6892EDF0C78E44BE15/",
+    "sourceSha256": "c2ab90bbc5a8e37e03d4e60030051522c05bc96893e9af70e9fa4b893554d8b5",
+    "sha256": "a0384994db26af427887abcbb75ade47477e469b2858ffcb27a52e968028d2d2",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1392.webp",
+    "path": "apps/web/public/assets/oripathy/1392.webp",
+    "bytes": 206552,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378454912880/91C565817F5B4A5B34722D020CD69B51E03FFC12/",
+    "sourceSha256": "24cddb727b5179a53fbc036894e78c4022d1d5217ba6dffe48836d3ab906c427",
+    "sha256": "33b7614a24346709823d9763d71af73d1d351faacad3b945fad204b587248515",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1392-back.webp",
+    "path": "apps/web/public/assets/oripathy/1392-back.webp",
+    "bytes": 206870,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378454913067/CA4D005774DF7D9BB6B6EAAA8CA007232E6478F1/",
+    "sourceSha256": "2f21cf11aa1fa6957514a449037461608ee5ce4a2b8650feb3d1ec7148046503",
+    "sha256": "5913072ba795116fd266b2c2b0d90af33f6528c400babfc435333f08a6fa4f2b",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1393.webp",
+    "path": "apps/web/public/assets/oripathy/1393.webp",
+    "bytes": 194396,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378454913481/12C9736439CCA30E7BDFD73A20B5E33700AEB9F8/",
+    "sourceSha256": "eb2f926ee2509204bf2dbcd07bf6df506f4fffe5f8c2957fac101a306d62f29a",
+    "sha256": "2f3084bc2e725c472629055390822a553ec33d1d54f09bd9ce1986bde86e01ea",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1393-back.webp",
+    "path": "apps/web/public/assets/oripathy/1393-back.webp",
+    "bytes": 193122,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378454913713/00831BAFB9420E41E7716C0133DA6E740B071493/",
+    "sourceSha256": "b74d9e659e602c69da8f6504592a7e81b49f7ec8e6053f2337fb7e5ac315e169",
+    "sha256": "5b211e305085afe0e7a95d26b1d394423610fb263d4b580eabcca8860ac92518",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1394.webp",
+    "path": "apps/web/public/assets/oripathy/1394.webp",
+    "bytes": 179648,
+    "size": [
+      600,
+      850
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455126706/68108F9FBA81B373398A7A2522E934A88E54A9B3/",
+    "sourceSha256": "00f25f2d2e6616d596d7570b416bbde00b3123da6c957e0b16f1afe69acf1532",
+    "sha256": "0b2fa10eb6301ce8c75eab120516832fb34d45b39f0e43579ecbfc06d73f4d1d",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1395.webp",
+    "path": "apps/web/public/assets/oripathy/1395.webp",
+    "bytes": 178538,
+    "size": [
+      600,
+      850
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455128280/B587F6192039F890B5E652A768A8A801DE13994F/",
+    "sourceSha256": "8d92023f554c56a07c83aa4ba326f24c7afd2f44b8c746e76b4b0942b3dda4d4",
+    "sha256": "04c2032875fb06d652821f35ba7af68b1d67f01e5cada745efedb34e34256c1e",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1396.webp",
+    "path": "apps/web/public/assets/oripathy/1396.webp",
+    "bytes": 177376,
+    "size": [
+      600,
+      850
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455128593/AFFC098AE9598D05DA19235BB4005688818DE02F/",
+    "sourceSha256": "6c306926e82a7247e6540f0d8f1f236b7be2307c443592680e52a98dfb56f4cf",
+    "sha256": "6c0ce17574d82afaba433f60cfce04bd1af28812780c33c134336f6c9bc39cbd",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1397.webp",
+    "path": "apps/web/public/assets/oripathy/1397.webp",
+    "bytes": 337212,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455129279/8A3246D88E6882BC0B3CEE27ADF851BD6C2464B9/",
+    "sourceSha256": "bd87abf97aeb37682a9d4eb03d1f4fd9986e81d32c6a9782ed64165cd8afc67f",
+    "sha256": "3f66a67f8cf8963a3ff79be4f978458ad15040ca3fb2ee409f133b362c2df682",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1398.webp",
+    "path": "apps/web/public/assets/oripathy/1398.webp",
+    "bytes": 243532,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455130171/B7112ACEB0398FE0516969DAC612FFA562BA4562/",
+    "sourceSha256": "277efdfee8e2bb014562482263fbda85de179764dec08d7b9478e98b7c69477c",
+    "sha256": "a88953ea8935e8f8e1e8705e092f8010f15df405e244fa75f87bd9154aa9bafc",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1398-back.webp",
+    "path": "apps/web/public/assets/oripathy/1398-back.webp",
+    "bytes": 267494,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455130345/40C3AF91CA8017B2D159385A098A36845B3E1682/",
+    "sourceSha256": "0a284bcbc3b72fc4ed947ba09cdba84e00bb9224e39798f72cb9e32ac4576778",
+    "sha256": "c7af5bd72b891bafe66a3056ca3d40958123e46de5cfc24d8ed3dcc85fdba1d4",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1399.webp",
+    "path": "apps/web/public/assets/oripathy/1399.webp",
+    "bytes": 241282,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455130929/38CF74A5ECC6B2CF4017C1DA7F764C31278F4351/",
+    "sourceSha256": "daeee89f3244e2204be0c5072e078b7759b720f3d2b349d0e60799203b411ccb",
+    "sha256": "9d59fcf914816c272b75fc3240fb684cdb2e2392c909ac2cf488c190d25b90cc",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1399-back.webp",
+    "path": "apps/web/public/assets/oripathy/1399-back.webp",
+    "bytes": 265368,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455131043/2E766A6C95A798FB1417F422BE62225839A152D1/",
+    "sourceSha256": "3c41b7b502292ef331b294ee54327c33f2785d6e16fa2468f76d2b053c55a4fc",
+    "sha256": "754be9591d1583da8af12d190e0eb429e4c887586e5e25163e97e6aa913cf45f",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1400.webp",
+    "path": "apps/web/public/assets/oripathy/1400.webp",
+    "bytes": 276926,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455131802/5353BFB28EDFBCFB83332EAB849315C954B66600/",
+    "sourceSha256": "e4eff292650c894a85f9c29ae3986b8894f8a99a8c1654dfaad085ede7c28885",
+    "sha256": "1384ec821d15c2552621a186c5c3e91e0092874761ae36bdbca13939141fc406",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1400-back.webp",
+    "path": "apps/web/public/assets/oripathy/1400-back.webp",
+    "bytes": 260054,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455132268/559EC61BE77ACED71AC88C1B737A38C1448F95A7/",
+    "sourceSha256": "b53a1b9744eb4e1d0e95d007765d669a743a692611325d9a793f686031662f1b",
+    "sha256": "c45547c258f09c9b0f1ce35312802bdd81e26f056bdb93ad951760612dbf8ec9",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1402.webp",
+    "path": "apps/web/public/assets/oripathy/1402.webp",
+    "bytes": 226552,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455134087/4AD19F6220AEC435F6DDE910D1D4D725D5635234/",
+    "sourceSha256": "81bc83928af9c4174c29ad55ee4f661eadd6d9579e4faca2f031ae82e6d29bf1",
+    "sha256": "53888a54ea121773616a6cbda6cea7a3d89d239d12b5ca9946b1d3416c76e334",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1403.webp",
+    "path": "apps/web/public/assets/oripathy/1403.webp",
+    "bytes": 304918,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455134607/F05C4199F586B18F535F8403088AA0F62DCCC67D/",
+    "sourceSha256": "624e51aa5016d679754f7546c21f8cd0cdb7f0d18705cffdc0e72dd26a5f75f0",
+    "sha256": "ec61ccf68dd2be2ec29dc640224b52922f73f483291a073664ea7c486533f6f7",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1404.webp",
+    "path": "apps/web/public/assets/oripathy/1404.webp",
+    "bytes": 351838,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455134973/43C39C626A900B36F3D6BFD159750EF95F2BA122/",
+    "sourceSha256": "a3466b5f3db77199e7d14a5e24b2e33906472728e4a4f2017fd5dda926e78707",
+    "sha256": "7109a5bddfb6f7330ccc75fbac4b6fbe9540e9f0dc3900ba59f21c805b8ed30c",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1405.webp",
+    "path": "apps/web/public/assets/oripathy/1405.webp",
+    "bytes": 373814,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455135327/2672A6E4F4EB813E3B38585DB2CF357EECF8C7C7/",
+    "sourceSha256": "49d9eb43a29d85b41cd4cf133bf9a10c345ba47357f9e3af4e467ef46c4cdb00",
+    "sha256": "8dedfd230d512e949132e33ddbcd62cccecbb755b2d27231de1aac12359a629a",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1406.webp",
+    "path": "apps/web/public/assets/oripathy/1406.webp",
+    "bytes": 236422,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455164872/7EE528C7AA0F838E0FC0CFECD21C7EF815E5B613/",
+    "sourceSha256": "a345c0286e3f0bdcd0da04b898f45cc19f3e3b9d3a19a60fdc23244cd5d32e6b",
+    "sha256": "59a0673e7a65b6ae3768012518ef45a731427df89fcd85514e9e8c58883dcf61",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
+  },
+  {
+    "id": "oripathy/1406-back.webp",
+    "path": "apps/web/public/assets/oripathy/1406-back.webp",
+    "bytes": 241922,
+    "size": [
+      1200,
+      1700
+    ],
+    "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455133225/B8E560412FE72424D4227AFEE429B5989E0AFE54/",
+    "sourceSha256": "136c278cd7a500bc00b5766b986d79ad7f3a40c7b4ab45293ebfea8934bea202",
+    "sha256": "28e857eb5f152097adefd0e8e65df73e74b374b99f8778bfd7ad75200d31c1b7",
+    "processing": "完整牌面；不放大原图，最大 1200×2200；Pillow WebP quality=92 method=6；保留原件。",
+    "usage": "明日方舟相关美术权利归原权利人；沿用本项目非商业使用边界，运行素材不提交公开 Git。"
   }
 ]

@@ -1,0 +1,343 @@
+.permit-oripathy .permit-expansion {
+  border-color: #74845a;
+}
+.permit-expert {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.4rem 0.8rem 0.85rem;
+  color: #44503b;
+  font-size: 0.8rem;
+}
+.permit-expert input {
+  accent-color: #b8c88d;
+  width: 1rem;
+  height: 1rem;
+}
+.permit-expert > span {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+}
+.permit-expert small {
+  color: #766e57;
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+.oripathy-choices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  padding: 0.5rem 0 1rem;
+}
+.oripathy-choices.dilemma-choices {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 740px;
+  margin: auto;
+  gap: 1.75rem;
+}
+.oripathy-choices article {
+  min-width: 0;
+  border: 1px solid #a39367;
+  background: #262721;
+  box-shadow: 0 10px 22px #0003;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+.oripathy-choices article.is-picked {
+  transform: translateY(-5px);
+  box-shadow:
+    0 0 0 2px #b9c792,
+    0 12px 25px #0005;
+}
+.oripathy-choice-art {
+  padding: 0;
+  border: 0;
+  background: #20271d;
+  width: 100%;
+  position: relative;
+  cursor: pointer;
+}
+.oripathy-choice-art img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 12 / 17;
+  object-fit: contain;
+}
+.oripathy-choice-art span {
+  display: block;
+  padding: 0.7rem;
+  background: #465337;
+  color: #fff1ce;
+  font-weight: 700;
+}
+.is-picked .oripathy-choice-art span {
+  background: #b8ca8d;
+  color: #192015;
+}
+.oripathy-face-detail {
+  width: 100%;
+  padding: 0.45rem;
+  border: 0;
+  background: transparent;
+  color: #dac58a;
+  cursor: pointer;
+}
+.oripathy-choices article p {
+  color: #e8debc;
+  margin: 0.5rem 0.75rem 0.8rem;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+.oripathy-roster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  border-bottom: 1px solid #b3a372;
+  padding-bottom: 1rem;
+}
+.oripathy-roster button {
+  background: transparent;
+  border: 1px solid #afa16e;
+  padding: 0.65rem 1rem;
+  cursor: pointer;
+}
+.oripathy-roster button[aria-pressed="true"] {
+  background: #333d30;
+  color: #fff0c5;
+  border-color: var(--seat-color);
+}
+.oripathy-dossier-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+.oripathy-dossier-heading h3 {
+  font-size: 1.3rem;
+  margin: 0.3rem 0;
+}
+.oripathy-dossier-heading small {
+  color: #7b6f4f;
+  letter-spacing: 0.12em;
+}
+.oripathy-dossier-heading > span {
+  padding: 0.65rem 0.8rem;
+  border: 1px solid #b9ae8f;
+  background: #dedecb;
+}
+.oripathy-dossier-heading b {
+  font-size: 1.35rem;
+  margin-left: 0.75rem;
+}
+.oripathy-identity-row {
+  display: grid;
+  grid-template-columns: minmax(130px, 200px) 1fr;
+  gap: 1.5rem;
+}
+.oripathy-reference {
+  width: 150px;
+  flex: 0 0 150px;
+  padding: 0;
+  border: 1px solid #a8966b;
+  background: #353e30;
+  color: #fff2d3;
+  cursor: pointer;
+}
+.oripathy-reference img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 12 / 17;
+  object-fit: contain;
+}
+.oripathy-reference span {
+  display: block;
+  padding: 0.6rem 0.4rem;
+  font-size: 0.8rem;
+}
+.oripathy-identity-row > .oripathy-reference {
+  width: 100%;
+}
+.oripathy-dilemma-history {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-top: 1.5rem;
+}
+.oripathy-dilemma-history > * {
+  display: grid;
+  gap: 0.65rem;
+  text-align: center;
+  padding: 0.9rem 0.3rem;
+  border: 1px solid #a19470;
+  background: #e6e4d2;
+  color: #35402d;
+}
+.oripathy-dilemma-history button {
+  cursor: pointer;
+}
+.oripathy-dilemma-history b {
+  font:
+    700 2rem Georgia,
+    serif;
+}
+.oripathy-dilemma-history span {
+  font-size: 0.7rem;
+}
+.oripathy-dilemma-history .is-used {
+  opacity: 0.65;
+}
+.oripathy-public-status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  background: #d9dac7;
+  padding: 1rem;
+  margin: 1.25rem 0;
+  font-size: 0.85rem;
+}
+.oripathy-reference-list {
+  display: flex;
+  overflow-x: auto;
+  gap: 0.8rem;
+  padding: 0.25rem 0 1rem;
+}
+.covered-flows {
+  position: absolute;
+  left: 100%;
+  bottom: 0.5rem;
+  display: grid;
+  gap: 0.35rem;
+  width: 160px;
+  padding-left: 0.5rem;
+}
+.covered-flows button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #26352eed;
+  color: #e6d49e;
+  border: 1px solid #a79967;
+  font-size: 0.7rem;
+  padding: 0.3rem;
+  cursor: pointer;
+}
+.covered-flows img {
+  width: 25px;
+}
+.flow-skip {
+  position: absolute;
+  right: 1rem;
+  top: -2.5rem;
+}
+.city-layer-count {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.4rem;
+  padding: 0.2rem 0.35rem;
+  color: #ffedc2;
+  background: #343228e8;
+  font-size: 0.65rem;
+}
+.can-overbuild {
+  position: relative;
+}
+.overbuild-label {
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  padding: 2px 4px;
+  background: #394c30eb;
+  color: #fae7b4;
+  font-size: 0.65rem;
+}
+.buried-facilities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.8rem;
+}
+.buried-facilities button,
+.supply-stack button {
+  border: 1px solid #a59b79;
+  background: #e3dfc8;
+  color: #414735;
+  padding: 0.4rem;
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+.supply-stack {
+  display: grid;
+  gap: 0.3rem;
+  padding: 0.5rem;
+  background: #d4d5c0;
+}
+.oripathy-map-marker {
+  pointer-events: none;
+}
+.region-lock-frame {
+  fill: #60497718;
+  stroke: #ddc2ff;
+  stroke-width: 1.6;
+  stroke-dasharray: 5 4;
+  animation: lock-trace 5s linear infinite;
+}
+.region-lock-emblem {
+  fill: #2e2537;
+  stroke: #ecd4b0;
+  stroke-width: 1.2;
+}
+.gavial-marker {
+  fill: #1f6052;
+  stroke: #c5f1d3;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 3px 3px #0008);
+}
+.oripathy-marker-text {
+  fill: #fff2d2;
+  font-size: 10px;
+  text-anchor: middle;
+}
+@keyframes lock-trace {
+  to {
+    stroke-dashoffset: -90;
+  }
+}
+@media (max-width: 780px), (max-height: 560px) {
+  .oripathy-choices {
+    gap: 0.6rem;
+    grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+  }
+  .oripathy-choices.dilemma-choices {
+    gap: 0.8rem;
+  }
+  .oripathy-identity-row {
+    grid-template-columns: 130px minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+  .oripathy-dilemma-history {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+  }
+  .covered-flows {
+    width: 130px;
+  }
+  .permit-expert {
+    font-size: 0.7rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .region-lock-frame {
+    animation: none;
+  }
+  .oripathy-choices article {
+    transition: none;
+  }
+}
+.oripathy-dossier {
+  padding: clamp(0.75rem, 2vw, 1.5rem);
+}

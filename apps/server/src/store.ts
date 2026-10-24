@@ -13,6 +13,8 @@ export type Room = {
   id: string;
   hostId: string;
   expansion: boolean;
+  oripathy?: boolean;
+  expert?: boolean;
   revision: number;
   seats: Seat[];
   game: GameState | null;

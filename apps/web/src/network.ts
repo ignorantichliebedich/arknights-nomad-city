@@ -5,6 +5,8 @@ export type RoomView = {
   hostId: string;
   revision: number;
   expansion: boolean;
+  oripathy?: boolean;
+  expert?: boolean;
   phase: string;
   me: string | null;
   rulesVersion: string;

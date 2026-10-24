@@ -93,6 +93,79 @@ async function client(
   return { ws, next };
 }
 describe("房间服务", () => {
+  it("感染者首页配置经真实 WebSocket 开局，企业家选择保存并重启恢复", async () => {
+    const directory = mkdtempSync(join(tmpdir(), "nomad-oripathy-"));
+    const database = join(directory, "rooms.sqlite");
+    const server = await start(database);
+    const host = (
+      await post(`${server.url}/api/rooms`, {
+        name: "感染者房主",
+        expansion: false,
+        oripathy: true,
+        expert: true,
+      })
+    ).body;
+    expect(host.room).toMatchObject({
+      oripathy: true,
+      expert: true,
+      expansion: true,
+      rulesVersion: "oripathy-2024.1111",
+    });
+    const guest = (
+      await post(`${server.url}/api/rooms/${host.room.id}/join`, {
+        name: "感染者朋友",
+      })
+    ).body;
+    const a = await client(server.ws, host.room.id, host.token),
+      b = await client(server.ws, host.room.id, guest.token);
+    await a.next((m) => m.type === "state");
+    await b.next((m) => m.type === "state");
+    async function send(seat: typeof a, type: string, extra = {}) {
+      const requestId = randomUUID();
+      const message = {
+        type,
+        requestId,
+        revision: server.app.store.get(host.room.id)!.revision,
+        ...extra,
+      };
+      seat.ws.send(JSON.stringify(message));
+      const response = await seat.next((m) => m.requestId === requestId);
+      expect(response.type).toBe("ack");
+      return message;
+    }
+    await send(a, "ready", { ready: true });
+    await send(b, "ready", { ready: true });
+    await send(a, "start");
+    expect(server.app.store.get(host.room.id)!.game!.decision).toMatchObject({
+      kind: "o:entrepreneur-draft",
+      playerId: guest.room.me,
+    });
+    const command = await send(b, "command", {
+      command: { type: "choose", optionId: "martin" },
+    });
+    const saved = structuredClone(server.app.store.get(host.room.id)!.game!);
+    b.ws.send(JSON.stringify(command));
+    expect((await b.next((m) => m.requestId === command.requestId)).type).toBe(
+      "ack",
+    );
+    expect(server.app.store.get(host.room.id)!.game).toEqual(saved);
+    a.ws.close();
+    b.ws.close();
+    await server.app.close();
+    running.splice(running.indexOf(server.app), 1);
+    const restored = await start(database);
+    const reconnected = await client(restored.ws, host.room.id, guest.token);
+    const snapshot = await reconnected.next((m) => m.type === "state");
+    expect(restored.app.store.get(host.room.id)!.game).toEqual(saved);
+    expect(
+      snapshot.room.game.players.find((p: any) => p.id === guest.room.me)
+        .oripathy.blueprint,
+    ).toHaveLength(9);
+    expect(snapshot.room.game.decision.options).toEqual([]);
+    expect(snapshot.room.game.actions).toEqual([]);
+    expect(JSON.stringify(snapshot.room.game)).not.toContain('"randomState"');
+    reconnected.ws.close();
+  });
   it("只有房主可增删人机，重复添加只执行一次，开局后锁定席位", async () => {
     const server = await start(":memory:", { botDelayMs: 5 });
     const host = (await post(`${server.url}/api/rooms`, { name: "房主" })).body;

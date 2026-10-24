@@ -74,15 +74,17 @@ export function TablePiece({
   x = 0,
   y = 0,
   ghost = false,
+  variant,
 }: {
   kind: "city" | "influence";
   seat: number;
   x?: number;
   y?: number;
   ghost?: boolean;
+  variant?: "gang";
 }) {
   const city = kind === "city";
-  const color = PLAYER_COLORS[seat];
+  const color = variant === "gang" ? "#9663b8" : PLAYER_COLORS[seat];
   return (
     <g
       transform={`translate(${x} ${y})`}
@@ -119,6 +121,14 @@ export function TablePiece({
       ))}
       {!city && (
         <>
+          {variant === "gang" && (
+            <path
+              d="M-12 -3 L-12 -20 L-4 -24 L-4 -7 Z"
+              fill={PLAYER_COLORS[seat]}
+              stroke="#fce8b9"
+              strokeWidth="1"
+            />
+          )}
           <path
             d="M-8.6 -14 L0 -18.3 L8.6 -14 L0 -9.7 Z"
             fill={tint(color, 0.65)}

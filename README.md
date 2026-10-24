@@ -10,6 +10,8 @@
 
 本体与企业扩展均支持八回合完整对局。企业扩展包含罗德岛、海德兄弟、莱茵生命、富森银行、雷神工业、约翰老妈、黑钢国际和雷姆必拓；莱茵生命使用原版工程科、防卫科、结构科及全体玩家共用的激活科室。规则包为 `founders-2023.1`，逐档奖励及原牌出处见 [规则证据](docs/rules-evidence.md)。
 
+首页建房可选择《感染者》，自动包含企业扩展；另可勾选企业家与抉择。新增干员、流形、设施、城市样式、岩蹄安保、梅兰德授勋，以及五位企业家的专属能力，采用独立规则包 `oripathy-2024.1111`。原书出处、配件与操作见 [感染者扩展](docs/oripathy.md)。
+
 ## 更新与发布
 
 每轮交付通过 `pnpm release:prepare --note '更新说明'` 自动递增应用版本并维护 [更新记录](CHANGELOG.md)，新增功能使用 `--type minor`。本地检查后先推送 GitHub，用户本地试玩并明确确认该版本上线后才部署云端。GitHub Actions 仅运行版本、源码、测试和构建检查。详细约定见 [开发规范](CONTRIBUTING.md) 与 [发布流程](docs/release.md)。
@@ -24,6 +26,8 @@
 pnpm install --frozen-lockfile
 python -m pip install -r tools/requirements.txt
 python tools/prepare-title-glyphs.py
+python tools/research-oripathy.py
+python tools/import-oripathy.py
 pnpm assets:restore
 pnpm assets:check
 pnpm music:import

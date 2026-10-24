@@ -1,3 +1,7 @@
+import {
+  oripathyEnterpriseImage,
+  ORIPATHY_ENTERPRISE_TEXT,
+} from "../../../../packages/rules/src/oripathy-data.ts";
 import { useState, type CSSProperties } from "react";
 import {
   ENTERPRISE_IMAGES,
@@ -57,7 +61,11 @@ export function EnterprisePanel({
           >
             <span className="enterprise-brand-art" aria-hidden="true">
               <img
-                src={highResolutionArt(ENTERPRISE_IMAGES[id])}
+                src={highResolutionArt(
+                  game.oripathy
+                    ? (oripathyEnterpriseImage(id) ?? ENTERPRISE_IMAGES[id])
+                    : ENTERPRISE_IMAGES[id],
+                )}
                 alt=""
                 draggable={false}
               />

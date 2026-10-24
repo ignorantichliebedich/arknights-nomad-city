@@ -1,3 +1,7 @@
+import {
+  oripathyEnterpriseImage,
+  ORIPATHY_ENTERPRISE_TEXT,
+} from "../../../../packages/rules/src/oripathy-data.ts";
 import { useState } from "react";
 import {
   ENTERPRISE_IMAGES,
@@ -37,9 +41,15 @@ export function EnterpriseBoard({
           onClick={() =>
             onDetail({
               title: ENTERPRISE_NAMES[company],
-              image: ENTERPRISE_IMAGES[company],
+              image: game.oripathy
+                ? (oripathyEnterpriseImage(company) ??
+                  ENTERPRISE_IMAGES[company])
+                : ENTERPRISE_IMAGES[company],
               text: [
-                ENTERPRISE_TEXT[company],
+                game.oripathy
+                  ? (ORIPATHY_ENTERPRISE_TEXT[company] ??
+                    ENTERPRISE_TEXT[company])
+                  : ENTERPRISE_TEXT[company],
                 company === "rhine" ? currentDetail?.text : "",
               ]
                 .filter(Boolean)
@@ -48,7 +58,12 @@ export function EnterpriseBoard({
           }
         >
           <img
-            src={highResolutionArt(ENTERPRISE_IMAGES[company])}
+            src={highResolutionArt(
+              game.oripathy
+                ? (oripathyEnterpriseImage(company) ??
+                    ENTERPRISE_IMAGES[company])
+                : ENTERPRISE_IMAGES[company],
+            )}
             alt={`${ENTERPRISE_NAMES[company]}原版企业板`}
             draggable={false}
           />

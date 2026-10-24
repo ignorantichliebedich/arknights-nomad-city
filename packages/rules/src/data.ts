@@ -1,3 +1,10 @@
+import {
+  AMIYA,
+  FLOW_ROLES,
+  ORIPATHY_OPERATIVES,
+  ORIPATHY_FACILITIES,
+  ORIPATHY_PATTERNS,
+} from "./oripathy-data.ts";
 import type { Facility, Reward, Role, BoardDef, Resource } from "./types.ts";
 import { COMPLETE_RHINE_RULES } from "./original-labs.ts";
 export const RULES_VERSION = "founders-2023.1";
@@ -33,8 +40,14 @@ export const RESOURCE_NAMES: Record<Resource, string> = {
   cash: "金券",
   score: "分数",
 };
-export const PLAYER_COLORS = ["#db674d", "#66a89d", "#6e9fcd", "#d4b65b"];
-export const PLAYER_SYMBOLS = ["◆", "●", "▲", "■"];
+export const PLAYER_COLORS = [
+  "#db674d",
+  "#66a89d",
+  "#6e9fcd",
+  "#d4b65b",
+  "#a8894e",
+];
+export const PLAYER_SYMBOLS = ["◆", "●", "▲", "■", "✚"];
 const facility = (
   id: string,
   name: string,
@@ -62,6 +75,7 @@ const facility = (
   image: `/assets/cards-166/${index}.webp`,
 });
 export const FACILITIES: Facility[] = [
+  ...ORIPATHY_FACILITIES,
   facility(
     "administration",
     "城邦行政区",
@@ -323,6 +337,12 @@ export const FACILITY_BY_ID = Object.fromEntries(
   FACILITIES.map((f) => [f.id, f]),
 );
 export const FACILITY_EFFECT_TEXT: Record<string, string> = {
+  "o-rhodes-office":
+    "入场：选择干员特派，或分别提升两家不同企业各一级。干员特派抽取三张，招募时公开退役一张手牌或弃牌，也可放弃招募获得 1 分。",
+  "o-settlement": "用于宣告样式后，可移除此设施，获得 12 金券。",
+  "o-urban-place": "入场：自己城市面板上每个核心枢纽，使你放置一次影响力。",
+  "o-urban-score": "入场：自己城市面板上每个核心枢纽，使你获得 1 分。",
+  "o-urban-cash": "入场：自己城市面板上每个核心枢纽，使你获得 12 金券。",
   none: "没有入场效果。",
   rock7: "入场：获得 7 源岩。",
   ore6: "入场：获得 6 源石。",
@@ -358,6 +378,10 @@ export function facilityText(id: string): string {
 export const ENTERPRISE_TEXT: Record<string, string> = {
   rhine:
     "1 级解锁特效：切换为另一科室，获得与自己当前合作等级对应的科室奖励。\n2–5 级升级奖励：按全体玩家当前共用的激活科室，结算到达等级的奖励。\n切换科室只给操作者奖励，其他玩家后续升级按新科室结算。",
+  stonehoove:
+    "1 级：移除一个影响力并放置或移动安保影响力。\n2 级：部署安保并可提升合作等级。\n3 级升级奖励：获得 1 分。\n4 级：部署自己的影响力并移动安保。\n5 级升级奖励：获得至纯源石、安保影响力与终身合约。",
+  maylander:
+    "1 级：获得 4 金券与合计两个基础资源。\n2 级：探索并移除自己的一个影响力。\n3 级：可支付 4 异铁获得 2 分。\n4 级：选择剩余授勋牌。\n5 级升级奖励：获得 2 分。",
   rhodes:
     "1 级：提升另一家企业一级。\n2 级：在航道放置一个影响力，按自己在全部航道的影响力数量获得金券。\n3、5 级升级奖励：抽取干员并选择招募或得 1 分；两人局抽 3 张，其余抽 2 张。\n4 级：收回一张弃牌，弃置其余手牌，获得 10 金券。",
   heide:
@@ -494,7 +518,13 @@ export const OPERATIVES: Role[] = [
     operative: true,
   },
 ];
-export const ROLES = [...BASE_ROLES, ...OPERATIVES];
+export const ROLES = [
+  ...BASE_ROLES,
+  ...OPERATIVES,
+  AMIYA,
+  ...ORIPATHY_OPERATIVES,
+  ...FLOW_ROLES,
+];
 export const ROLE_BY_ID = Object.fromEntries(ROLES.map((r) => [r.id, r]));
 export const ENTERPRISES = [
   "rhodes",
@@ -515,22 +545,30 @@ export const ENTERPRISE_NAMES: Record<string, string> = {
   mama: "约翰老妈",
   blacksteel: "黑钢国际",
   rim: "雷姆必拓",
+  stonehoove: "岩蹄安保",
+  maylander: "梅兰德基金会",
 };
-export const ENTERPRISE_IMAGES = Object.fromEntries(
-  ENTERPRISES.map((id, i) => [id, `/assets/cards-625/${i}.webp`]),
-);
+export const ENTERPRISE_IMAGES: Record<string, string> = {
+  ...Object.fromEntries(
+    ENTERPRISES.map((id, i) => [id, `/assets/cards-625/${i}.webp`]),
+  ),
+  stonehoove: "/assets/oripathy/1191.webp",
+  maylander: "/assets/oripathy/1192.webp",
+};
 export type Pattern = {
   id: string;
   name: string;
   score: number;
   level: 1 | 2;
   expansion?: boolean;
+  oripathy?: boolean;
   image: string;
   shape: [number, number, string][];
   effect: string;
   description: string;
 };
 export const PATTERNS: Pattern[] = [
+  ...ORIPATHY_PATTERNS,
   {
     id: "military",
     name: "军工化区域",

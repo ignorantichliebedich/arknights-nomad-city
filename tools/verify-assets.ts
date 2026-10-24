@@ -9,6 +9,10 @@ import {
   ENTERPRISE_IMAGES,
   boardFor,
 } from "../packages/rules/src/data.ts";
+import {
+  ENTREPRENEURS,
+  oripathyArt,
+} from "../packages/rules/src/oripathy-data.ts";
 const root = resolve("apps/web/public");
 const images = new Set(
   [...FACILITIES, ...ROLES, ...EVENTS, ...PATTERNS].map((x) => x.image),
@@ -26,6 +30,15 @@ for (const role of ROLES)
     images.add(role.image.replace(".webp", "-hd.webp"));
 images.add("/assets/cards-167/11.webp");
 images.add("/assets/cards-156/6.webp");
+for (const who of ENTREPRENEURS) {
+  images.add(oripathyArt(who.face));
+  for (const face of who.dilemmas) {
+    images.add(oripathyArt(face));
+    images.add(oripathyArt(face + "-back"));
+  }
+}
+for (const face of ["1072", "1184", "1185", "1186", "1187"])
+  images.add(oripathyArt(face));
 for (let seat = 0; seat < 4; seat++) {
   images.add(`/assets/avatar-${seat}.webp`);
   images.add(`/assets/entrepreneur-${seat}.webp`);

@@ -12,6 +12,7 @@ import { TablePiece } from "./TablePieces.tsx";
 import { RouteOverlay } from "./MapRoutes.tsx";
 import { ScoreTrack } from "./TableMotion.tsx";
 import { OriginiumFog } from "./OriginiumFog.tsx";
+import { OripathyMapMarkers } from "./OripathyMapMarkers.tsx";
 import {
   useInfluenceDrag,
   useInfluenceTravel,
@@ -268,7 +269,9 @@ export function BoardMap({
               )}
               {state.slots.map((owner, i) => {
                 if (!owner) return null;
-                const p = game.players.find((p) => p.id === owner)!;
+                const p = game.players.find((p) => p.id === owner) ?? {
+                  seat: 4,
+                };
                 return (
                   <g
                     key={`${i}:${owner}`}
@@ -281,6 +284,13 @@ export function BoardMap({
                     <TablePiece
                       kind="influence"
                       seat={p.seat}
+                      variant={
+                        game.players.some((v) =>
+                          v.oripathy?.gangSlots.includes(`${site.id}:${i}`),
+                        )
+                          ? "gang"
+                          : undefined
+                      }
                       x={influencePoint(game, `${site.id}:${i}`).x}
                       y={influencePoint(game, `${site.id}:${i}`).y}
                     />
@@ -335,6 +345,7 @@ export function BoardMap({
             </g>
           );
         })}
+        <OripathyMapMarkers game={game} />
         {game.players
           .filter((p) => p.city)
           .map((p) => {

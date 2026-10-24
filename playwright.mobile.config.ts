@@ -20,6 +20,7 @@ export default defineConfig({
   use: { ...desktop.use, actionTimeout: 10000 },
   testIgnore: [],
   testMatch: [
+    "oripathy.spec.ts",
     "entry-scenes.spec.ts",
     "practice-entry.spec.ts",
     "mobile.spec.ts",

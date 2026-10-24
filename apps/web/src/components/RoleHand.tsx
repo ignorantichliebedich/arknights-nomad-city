@@ -38,8 +38,9 @@ export function RoleHand({
   const me = game.players.find((p) => p.id === game.me)!;
   const quick = useQuickActivate();
   const picking =
-    ["select-role", "trim"].includes(game.decision?.kind ?? "") &&
-    game.decision?.playerId === me.id;
+    ["select-role", "trim", "o:cover-flow"].includes(
+      game.decision?.kind ?? "",
+    ) && game.decision?.playerId === me.id;
   const trim = game.decision?.kind === "trim";
   const picked =
     picking && selected?.command.type === "choose"
@@ -309,6 +310,33 @@ export function RoleHand({
       )}
       {!me.hand.length && expanded && (
         <p className="fan-empty">手牌已用尽，下次盖放时收回可用弃牌。</p>
+      )}
+      {game.decision?.kind === "o:cover-flow" && expanded && (
+        <button
+          className="secondary-button flow-skip"
+          disabled={disabled}
+          onClick={() => {
+            const skip = game.actions.find(
+              (a) => a.command.optionId === "skip",
+            );
+            if (skip) onQuickCommit(skip);
+          }}
+        >
+          不额外盖放流形
+        </button>
+      )}
+      {!!me.coveredFlows?.length && (
+        <div className="covered-flows">
+          {me.coveredFlows.map((id) => (
+            <button key={id} onClick={() => detail(id)}>
+              <img src={roleCardBack(me.seat, id)} alt="流形牌背" />
+              <span>{ROLE_BY_ID[id].name} · 已额外盖放</span>
+            </button>
+          ))}
+          {game.actions.some((a) => a.command.mode?.startsWith("flow|")) && (
+            <button onClick={onAction}>安排流形能力 →</button>
+          )}
+        </div>
       )}
       {me.selected && (
         <div className="selected-role-summary">
