@@ -1,0 +1,875 @@
+{
+  "schemaVersion": 1,
+  "pack": "oripathy-2024",
+  "title": "游城拓荒：感染者",
+  "status": "source-review",
+  "sources": {
+    "official": "https://ak.hypergryph.com/boardgame_nomadcity/",
+    "inventory": "https://prts.wiki/w/游城拓荒：铸基者",
+    "publicArchive": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448"
+  },
+  "printedCardCount": 71,
+  "componentGroups": [
+    {
+      "id": "initial-role",
+      "name": "初始角色牌",
+      "printedCopies": 4,
+      "faces": ["1291", "1290", "1292", "1293"],
+      "names": ["阿米娅"]
+    },
+    {
+      "id": "operatives",
+      "name": "干员角色牌",
+      "printedCopies": 16,
+      "faces": [
+        "1321",
+        "1324",
+        "1319",
+        "1322",
+        "1323",
+        "1320",
+        "1318",
+        "1206",
+        "1335",
+        "1333",
+        "1332",
+        "1334",
+        "1330",
+        "1337",
+        "1336",
+        "1345"
+      ],
+      "names": [
+        "淬羽赫默",
+        "刻俄柏",
+        "诗怀雅",
+        "赫拉格",
+        "百炼嘉维尔",
+        "林",
+        "涤火杰西卡",
+        "缪尔赛思",
+        "可露希尔",
+        "银灰",
+        "泥岩",
+        "凯尔希",
+        "异客",
+        "多萝西",
+        "森蚺",
+        "W"
+      ]
+    },
+    {
+      "id": "flowing-shapes",
+      "name": "流形角色牌",
+      "printedCopies": 3,
+      "faces": ["1089", "1090", "1091"],
+      "names": ["流形甲", "流形乙", "流形丙"]
+    },
+    {
+      "id": "rhodes-offices",
+      "name": "罗德岛办事处",
+      "printedCopies": 3,
+      "faces": ["1394", "1395", "1396"]
+    },
+    {
+      "id": "settlements",
+      "name": "临时聚居点",
+      "printedCopies": 3,
+      "faces": ["1158"]
+    },
+    {
+      "id": "urban-areas",
+      "name": "马丁的城市化区域",
+      "printedCopies": 9,
+      "faces": ["1156", "1157", "1154"]
+    },
+    {
+      "id": "core",
+      "name": "马丁的核心指挥塔",
+      "printedCopies": 1,
+      "faces": [],
+      "note": "原模组与本体设施图集共用图源；原规则书页码用于核对初始设施数量与位置。"
+    },
+    {
+      "id": "entrepreneurs",
+      "name": "企业家能力牌",
+      "printedCopies": 5,
+      "faces": ["1405", "1404", "1403", "1397", "1402"],
+      "names": [
+        "蒂亚戈·H·罗德里格斯",
+        "马丁·费舍尔",
+        "保罗·蒂尔曼",
+        "艾格尼丝·史密斯",
+        "第五号企业家"
+      ]
+    },
+    {
+      "id": "dilemmas",
+      "name": "企业家抉择牌",
+      "printedCopies": 20,
+      "faces": [
+        "1346",
+        "1347",
+        "1348",
+        "1349",
+        "1386",
+        "1387",
+        "1388",
+        "1389",
+        "1381",
+        "1382",
+        "1383",
+        "1384",
+        "1406",
+        "1400",
+        "1399",
+        "1398",
+        "1393",
+        "1392",
+        "1391",
+        "1390"
+      ],
+      "twoSided": true
+    },
+    {
+      "id": "patterns",
+      "name": "城市样式牌",
+      "printedCopies": 3,
+      "faces": ["1188", "1189", "1190"]
+    },
+    {
+      "id": "awards",
+      "name": "梅兰德基金会授勋卡",
+      "printedCopies": 4,
+      "faces": ["1184", "1185", "1186", "1187"]
+    }
+  ],
+  "enterpriseBoards": [
+    {
+      "name": "罗德岛（升级版）",
+      "face": "1072"
+    },
+    {
+      "name": "岩蹄安保",
+      "face": "1191"
+    },
+    {
+      "name": "梅兰德基金会",
+      "face": "1192"
+    }
+  ],
+  "review": {
+    "cardFaces": "archived-candidates",
+    "fullManual": "required",
+    "productionEnabled": false,
+    "questions": [
+      {
+        "id": "player-count",
+        "question": "原规则支持人数及是否包含两人变体。PRTS 配件页列 3–4 人，公开教程说明列 2–4 人；需以原规则书核对。"
+      },
+      {
+        "id": "setup",
+        "question": "企业家分配顺序、起始设施、阿米娅加入及初始手牌裁剪、企业与干员牌池的替换或混入流程。"
+      },
+      {
+        "id": "dilemmas",
+        "question": "第一、三、五、七回合抉择相对角色盖放、起始玩家变更、红区开放升级的顺序，以及 A／B 面的选择与保留。"
+      },
+      {
+        "id": "overbuilding",
+        "question": "全体玩家的设施叠放费用与合法条件、下层设施的分数和样式标记处理；马丁的替代支付与城市化区域入场分享。"
+      },
+      {
+        "id": "long-distance-city",
+        "question": "长途移动的费用、最大距离、中途资源点与城市阻挡、影响力清除、探索及放置的结算顺序。"
+      },
+      {
+        "id": "timing-and-symbols",
+        "question": "新增战术行动、持续效果、替代支付、棕色安保与帮派影响力的移除和返回规则。"
+      }
+    ]
+  },
+  "faces": [
+    {
+      "id": "1072",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693612143350/A06DB3E419BD10D46CFF2FC285084B0A32ACB3DB/",
+      "sha256": "cce8fd0218536e993ef86d25187729cff072f46326a43f642938aa7cc6468ff8",
+      "bytes": 369771,
+      "cacheFile": ".data/sources/oripathy/1072.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1089",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693614542236/C6CE757C89F21E2FA425A383F314DF1C2239AD6D/",
+      "sha256": "4267cb9a8a3cc9db2d60a76f356620cb36bda21db6ab09a912942a5eebd1dea9",
+      "bytes": 242246,
+      "cacheFile": ".data/sources/oripathy/1089.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1090",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693614543214/F22C76DC5CDB25ADB4C6713C182BC09037CC85DB/",
+      "sha256": "10fa9489830d707d055454119ee2247105cfa03972480d70175dc992c213a6c0",
+      "bytes": 251800,
+      "cacheFile": ".data/sources/oripathy/1090.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1091",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693614543818/047B27664B407A58F2CB6BDD961446AF79B4AE64/",
+      "sha256": "7deb494fa33b57bf8bc627a60637bdd3bc3631d23527fd10658bc3a1cd8437bd",
+      "bytes": 250768,
+      "cacheFile": ".data/sources/oripathy/1091.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1154",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693633896444/6FDED525BB3A0E426339F29E27DFC88065907149/",
+      "sha256": "2a321bbe9726c65fe990688350ee41a89532d33fb86df557c03f9b73c45b2510",
+      "bytes": 225506,
+      "cacheFile": ".data/sources/oripathy/1154.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1156",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693633898405/174518385CF6353D2F1B396C16D9F078A0F28327/",
+      "sha256": "41afb7bf6c9fb2893942f685756c27e63b109585eeca8e1bd4cd7d504ef850dd",
+      "bytes": 198769,
+      "cacheFile": ".data/sources/oripathy/1156.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1157",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693633899057/ADE9A2154480F0F642D838DDC718FE016E866FC1/",
+      "sha256": "719ed854fb8e7d72c455534d7ce8ff4129ad914745ee963e81a65e43df1e0530",
+      "bytes": 240024,
+      "cacheFile": ".data/sources/oripathy/1157.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1158",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693633901188/566378F60806F663B1386505F1B28E7A11C77FD2/",
+      "sha256": "157352e15ff9404db84f8fc19efc5ce0067e94cb86431902da357a31522ad51c",
+      "bytes": 248599,
+      "cacheFile": ".data/sources/oripathy/1158.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1184",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693639234383/01A61A405DF531CED8180160C72A83A579B29F44/",
+      "sha256": "62f1c45d4d01cd5c70b24a1dddfb82202514adfaa8e84ec7a3d7197f92b998de",
+      "bytes": 184254,
+      "cacheFile": ".data/sources/oripathy/1184.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1185",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693639235372/61F450159774E7453ED41CDD9728FCE643D0A103/",
+      "sha256": "c45606856e4060d43ba95f2f361f24450c6dac5817e98ec10183704c3c2a0e94",
+      "bytes": 180358,
+      "cacheFile": ".data/sources/oripathy/1185.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1186",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693639236068/E09AEEB1ED5AAA3B1CBB78636F85364943B73B1C/",
+      "sha256": "62313eb1213a5937e22e136de4525466f981dbb5c9dde2b67e266f59cfd96f80",
+      "bytes": 193066,
+      "cacheFile": ".data/sources/oripathy/1186.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1187",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693639236804/87AE82E7E70B983DCB0DCDD71F1CB1A8A310A85B/",
+      "sha256": "0f56d8f5663c0ef18cc8e5bba7ed882dfd96dd0d420dac91f020297779ee4424",
+      "bytes": 187280,
+      "cacheFile": ".data/sources/oripathy/1187.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1188",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693639238062/40F65D1CC5243CB59B8445661119A586FE7CCA7F/",
+      "sha256": "d2f14ef53ae04696f1141842092c46055a27437a98f69e80e03d36c5a79b5f61",
+      "bytes": 303401,
+      "cacheFile": ".data/sources/oripathy/1188.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1189",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693639238822/6C86D269D116B70C2D7EDC62113554F0B7D273FD/",
+      "sha256": "9b6560098800a86f4e2449de0b837f260df15125d4b606c5e340722f0f4befc5",
+      "bytes": 301158,
+      "cacheFile": ".data/sources/oripathy/1189.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1190",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2411202693639239637/608A08185CAF373EEB1B0E9E8B9720F01DB6EFA4/",
+      "sha256": "6ed6a7c9f0f66be7f25e4126fb98f1bd497fddccb7ed079193bddf40c5df1159",
+      "bytes": 314373,
+      "cacheFile": ".data/sources/oripathy/1190.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1191",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2410077427276854351/51694E95669FCD0C9A8ABD22876335FC13009938/",
+      "sha256": "6f1921ac61014b68564211897ecea705b31bd6e969e8e6a82578a299178799bb",
+      "bytes": 287165,
+      "cacheFile": ".data/sources/oripathy/1191.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1192",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2410077427276855138/7D9AA109A743B3D1F0D280FC2BF988188F46F720/",
+      "sha256": "fcc493e9a49a37c31bae37dbb30e63a6b91997f10e043714cce30a4ddc19dffb",
+      "bytes": 287593,
+      "cacheFile": ".data/sources/oripathy/1192.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1206",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2410077611324906006/8DA39D7FAEF53079A2B06176EFCA21F7D1AB9B05/",
+      "sha256": "46a8196d3b7c1023d9564c74f5e2d8395e6d24d17fdc2653071c7c31ed024040",
+      "bytes": 642337,
+      "cacheFile": ".data/sources/oripathy/1206.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1290",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855109755480/6E0AE4EB4EBD06342C51E1BADE6283F3B075639C/",
+      "sha256": "275525ffb0070751014e304c778d8423d23941866c5a7b9be781b20063be39d0",
+      "bytes": 520002,
+      "cacheFile": ".data/sources/oripathy/1290.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1291",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855109755480/6E0AE4EB4EBD06342C51E1BADE6283F3B075639C/",
+      "sha256": "275525ffb0070751014e304c778d8423d23941866c5a7b9be781b20063be39d0",
+      "bytes": 520002,
+      "cacheFile": ".data/sources/oripathy/1291.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1292",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855109755480/6E0AE4EB4EBD06342C51E1BADE6283F3B075639C/",
+      "sha256": "275525ffb0070751014e304c778d8423d23941866c5a7b9be781b20063be39d0",
+      "bytes": 520002,
+      "cacheFile": ".data/sources/oripathy/1292.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1293",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855109755480/6E0AE4EB4EBD06342C51E1BADE6283F3B075639C/",
+      "sha256": "275525ffb0070751014e304c778d8423d23941866c5a7b9be781b20063be39d0",
+      "bytes": 520002,
+      "cacheFile": ".data/sources/oripathy/1293.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1318",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855115551866/04109033D45E47C48FAA7A933BD23DD238D4F7D5/",
+      "sha256": "16689db51a14f9ea45bb0f788e4943cc7fd8118e5397c841c8080826cc6bd448",
+      "bytes": 616492,
+      "cacheFile": ".data/sources/oripathy/1318.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1319",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855115552708/611EB548EF15B6B2CA08DF8A93CED6460813CC26/",
+      "sha256": "108fe83bca3137616f536b2edd891d7e3115324276bb8ba362721d76c14151d6",
+      "bytes": 577890,
+      "cacheFile": ".data/sources/oripathy/1319.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1320",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855115553547/4547127AB5D6ADE89E74328834D14374D148C402/",
+      "sha256": "e4292ca8521142a2381ee7e0317d6670d40b4e155ed2a28c71b01f5fc4008575",
+      "bytes": 608432,
+      "cacheFile": ".data/sources/oripathy/1320.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1321",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855115554276/7DBABBE283A96161C24CCF7A239391E7E5411E8B/",
+      "sha256": "809be61ab8c707daf0cc5aa19af48e62390b944d5b79dabd7008bcfb9f84613c",
+      "bytes": 606810,
+      "cacheFile": ".data/sources/oripathy/1321.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1322",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855115555166/2D4D26C541EF94A61B7710C85E95009203BAEE86/",
+      "sha256": "3fd9fdcbef2c047078c4ac646037e3071dca60f1524e043ae638504049ba969a",
+      "bytes": 556807,
+      "cacheFile": ".data/sources/oripathy/1322.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1323",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855115555898/58B438FA9E2CC03609CAFE61D0FB195455AD6EFC/",
+      "sha256": "d8a54e1dd3403509ae819ae5de82108358c1a12edf4cf9435334e2771427a700",
+      "bytes": 680427,
+      "cacheFile": ".data/sources/oripathy/1323.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1324",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855115556905/90661D28CD919B58DA38781B016D14CA39ADED29/",
+      "sha256": "fe9f352fa826b60d022a6e8bea8bab8743275c2c84bdbb16ebebf05e59d12a0c",
+      "bytes": 654592,
+      "cacheFile": ".data/sources/oripathy/1324.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1330",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855120696659/F6A1486D7E40FF5A863B0DA32F40C6F7047666AA/",
+      "sha256": "99b85f436d3b180a5364a5e22e572d6ec41c941ecd696f5339a8f72175d9b91d",
+      "bytes": 615469,
+      "cacheFile": ".data/sources/oripathy/1330.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1332",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855120698877/523CA4E533F12262167A7D51DCD855A610628185/",
+      "sha256": "a664537f8a6c36bb999a62c25093886605c498878d3e3d5ec148f8768cfd900f",
+      "bytes": 492711,
+      "cacheFile": ".data/sources/oripathy/1332.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1333",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855120699445/163F24FF43496FD2E330244F96095EA01D533D54/",
+      "sha256": "326e165bb90579d60ea504a7f296d281892acf3c2f8c2992ba190d0689398400",
+      "bytes": 543813,
+      "cacheFile": ".data/sources/oripathy/1333.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1334",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855120700000/90E0621BE01AF7BE811338CC5559618AA904CC12/",
+      "sha256": "9179dff9d4153a4282018e1b6080904b243d01ee162a88a7fb232ed1198cbe7c",
+      "bytes": 538342,
+      "cacheFile": ".data/sources/oripathy/1334.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1335",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855120700922/0FBA38D7F86D6DFDC15AD9437251BB2A62C34E1E/",
+      "sha256": "ff38494a044e259635174f5524261ebb6673fa4bdbd8fb5ff3a4115d2eee1fe3",
+      "bytes": 531366,
+      "cacheFile": ".data/sources/oripathy/1335.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1336",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855120701635/1E587D2485E0EC5E51DE22FF9D1E203D446D915D/",
+      "sha256": "6f0b574898b1085bb70e5d64ce561e913c88cc84bcfacf1c008845401467c90a",
+      "bytes": 638944,
+      "cacheFile": ".data/sources/oripathy/1336.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1337",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2491142855120702937/C69ED12CCE81A379CEB7E6AF73B75629E3BA8E94/",
+      "sha256": "6b9d26519f78c17da5a470deaece484e03500854daa3abc8949a9b7ae957de3d",
+      "bytes": 590047,
+      "cacheFile": ".data/sources/oripathy/1337.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1345",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/2488891688792577732/D043E777E908BEDC24D63C802DA2DC7A0CE87A9F/",
+      "sha256": "89b905cb3846da5c9535ca955de0989e0801fabb95f1a6e7e7a9fd5656ceda54",
+      "bytes": 556195,
+      "cacheFile": ".data/sources/oripathy/1345.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1346",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26556207415956413/7FF3C0B195081CFD1AED23959EFC1321FD1F92B7/",
+      "sha256": "920aa61f0135c5cccb8b4af5bc5fe01b89c965de6d1313de1232f1e71179853c",
+      "bytes": 407706,
+      "cacheFile": ".data/sources/oripathy/1346.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1346-back",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26556207415956656/FD5374F41610747AED3301C601FE8A4548F05D63/",
+      "sha256": "b201439b253162f7e3b70a8b7f56f6c9578c138ad2ca8f4ac13755d8adcd3f0c",
+      "bytes": 393465,
+      "cacheFile": ".data/sources/oripathy/1346-back.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1347",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26556207415957805/C6EB60E8980D79090419EB8AE00708DBD3AED11A/",
+      "sha256": "f12e11cf2f9dcf02bf777dcf9b94ee35c6e070dd6c2b119017066e386db9ab97",
+      "bytes": 431278,
+      "cacheFile": ".data/sources/oripathy/1347.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1347-back",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26556207415957888/2C4EFF08CF2E6AF6584432A9104B48F3785662A8/",
+      "sha256": "4dbf5d36214ad6b0f39beda682dd9c4d47cbb21dfd0b4cd20b35032dcd2b66b8",
+      "bytes": 420431,
+      "cacheFile": ".data/sources/oripathy/1347-back.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1348",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26556207415958771/1B63EC9C7804B10F027864B61119A404428091DF/",
+      "sha256": "7807ab4d09ea78244a4931171adad02ea30dac73ffa71f4cf2c4b670707cc281",
+      "bytes": 415953,
+      "cacheFile": ".data/sources/oripathy/1348.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1348-back",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26556207415958992/1AD52AA9E365A8C15936260B8CF9DB991FA059B1/",
+      "sha256": "ffbe92c5a190b4aefd3086a87032512258479759e00fd2c0dc0f83a05f7e9475",
+      "bytes": 414616,
+      "cacheFile": ".data/sources/oripathy/1348-back.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1349",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26556207415959492/C948742E9A647FAD7BCB7DEA340A804D59925468/",
+      "sha256": "cc222cd212d09700086240c79db2b67fa7f0f6fb71f4947410825f82ac1bcc81",
+      "bytes": 391371,
+      "cacheFile": ".data/sources/oripathy/1349.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1349-back",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26556207415959662/BB41F7250E02B7C756C79862826E39EAF1EFD87B/",
+      "sha256": "173c8b1b6b7fa681546cf967ee520c4ca3f3f096efe4bab34782e919333085cc",
+      "bytes": 369605,
+      "cacheFile": ".data/sources/oripathy/1349-back.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1381",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834947816207/0D51ABE854E24166405E71F742F72752E6593665/",
+      "sha256": "aa32d75a9fc1bd067bcef9e4bccfd37353ea8bba8788dc96c3128ac6cbff517e",
+      "bytes": 422725,
+      "cacheFile": ".data/sources/oripathy/1381.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1381-back",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834947816341/C44791148959E32FD6461A5FEDAD6FF34C369570/",
+      "sha256": "6e7cca4f1147e0450f487e40a2b1000b3dcd85de4b78ff0ebdb99e4ebcc36142",
+      "bytes": 422446,
+      "cacheFile": ".data/sources/oripathy/1381-back.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1382",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834947817077/1E1B994F9BFAE8E3F18E49D3E91B1771922C7341/",
+      "sha256": "416fee123997af96b1209f6608ba9ced45dfec82e8441dbe5a1cc566d3131b29",
+      "bytes": 499703,
+      "cacheFile": ".data/sources/oripathy/1382.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1382-back",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834947817266/635D563C136F9C5789D95DC216A7B8A969D512C6/",
+      "sha256": "128b2c46219ee05d7e61b00699634ecbcf0ce2c20e90a8afe1da515ed4f80f76",
+      "bytes": 499558,
+      "cacheFile": ".data/sources/oripathy/1382-back.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1383",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834947818631/CE6380862CCF8A08977407ABD0511B7F96849E4E/",
+      "sha256": "f12911a9fe8e74b91d64e949393c3f030144f74aa64851a81e60c7e36f62c92a",
+      "bytes": 466520,
+      "cacheFile": ".data/sources/oripathy/1383.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1383-back",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834947818779/D70C9D1AAD4106BB6E4819465668961E4353D560/",
+      "sha256": "575463b1387c419a4de9f260b39a17e5e4e8afe4bcfcc87e38ed0b5461463445",
+      "bytes": 479740,
+      "cacheFile": ".data/sources/oripathy/1383-back.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1384",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834947819660/BB18162243100004AB49398A39A9C6F481996020/",
+      "sha256": "ce1f874b2fc99096bac4b7a0fc35e340951896f3ac94b5d1c656b5e5ef000ee4",
+      "bytes": 428983,
+      "cacheFile": ".data/sources/oripathy/1384.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1384-back",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834947819851/A6A31FC159D07C0710F554660901D1C4B44ACCF8/",
+      "sha256": "00010f344c98ae5f2f0e1323ac268c7918c3b4437832b594824fd68896ffc319",
+      "bytes": 386023,
+      "cacheFile": ".data/sources/oripathy/1384-back.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1386",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834948210905/D5F5529ABC722701ECDD035D093629A51D2A8C2D/",
+      "sha256": "23b1e628fc065f15dd8ece568e00d588a2104433278b733d97332526be1c551e",
+      "bytes": 404964,
+      "cacheFile": ".data/sources/oripathy/1386.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1386-back",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834948211120/20DC1C74DE0C28C733E2952BDC0248CCE0FCA38E/",
+      "sha256": "e4e99e5d668c71fc2166633b871963c75452885b2acbc39ba0e937b524d7f823",
+      "bytes": 403514,
+      "cacheFile": ".data/sources/oripathy/1386-back.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1387",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834948212812/384EFEA5A2084AB4E03E0D7F9D63A37FF9044D00/",
+      "sha256": "0de5820abd645784c9db46042d00ae889041cc2e869d0d3acfcd155b93dbbc9d",
+      "bytes": 410578,
+      "cacheFile": ".data/sources/oripathy/1387.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1387-back",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834948213116/888DBFDEAF5C26F166A2DF322965A4EFCBA76C68/",
+      "sha256": "0b8187c72f75e5e0e2fe20d067b245cda1e33191967f1ec6083a3209add76f40",
+      "bytes": 423995,
+      "cacheFile": ".data/sources/oripathy/1387-back.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1388",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834948214606/B58C74ABACC0C633EB514EA4850E13C7685A1437/",
+      "sha256": "b8717abda6a2380e2a829c1a17f5e7e47c36f3b0eb160a4102cab7e40eeaeb62",
+      "bytes": 504706,
+      "cacheFile": ".data/sources/oripathy/1388.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1388-back",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834948214855/3061A8DCC7E6541324557215041B6A3AE1DE2DE8/",
+      "sha256": "8a0e2b33dfa68ac5f568b25de191f74fe2b347f8cff439ff45f8ec205d3fb7ac",
+      "bytes": 471435,
+      "cacheFile": ".data/sources/oripathy/1388-back.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1389",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834948249970/FCE382A5D322B6A75DF128CED053E0AA8254B06C/",
+      "sha256": "fd96faaca72c679cbc0f8ff31672c7bad8f0daf485cb7f6b3bd8a132d549ae90",
+      "bytes": 400010,
+      "cacheFile": ".data/sources/oripathy/1389.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1389-back",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26558834948250134/5CE68A4D74462C49628116DF4EC1A1D94206390D/",
+      "sha256": "9f077308f8bea63d7ab711999be01b826b9c3eed724f7c617e1b6db722a7baeb",
+      "bytes": 380734,
+      "cacheFile": ".data/sources/oripathy/1389-back.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1390",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378454910858/C25C1A4242BBFBD437F52CED2F03ACDF42BC9E16/",
+      "sha256": "f9809bf4b8161433c2fa7a6dad8f127085563eeae4a1a999ec126a6cb7f377cc",
+      "bytes": 351499,
+      "cacheFile": ".data/sources/oripathy/1390.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1390-back",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378454911172/302DF4356A510C944BD0419C65D889082F2B1FA4/",
+      "sha256": "fd40ffe77a57caccfe8d88d6d33e016b732833f84d8df4404687bdf3f964a2e1",
+      "bytes": 349619,
+      "cacheFile": ".data/sources/oripathy/1390-back.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1391",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378454912036/29551D48D8AA2A6FDD9AA0DAB5002226E3095C8F/",
+      "sha256": "6323ca7338318fe210287da7fcef42a06de5edb1bc25f8ebd3b839556bbf5517",
+      "bytes": 360431,
+      "cacheFile": ".data/sources/oripathy/1391.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1391-back",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378454912285/1613ACFD3975DBD59338CA6892EDF0C78E44BE15/",
+      "sha256": "c2ab90bbc5a8e37e03d4e60030051522c05bc96893e9af70e9fa4b893554d8b5",
+      "bytes": 350536,
+      "cacheFile": ".data/sources/oripathy/1391-back.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1392",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378454912880/91C565817F5B4A5B34722D020CD69B51E03FFC12/",
+      "sha256": "24cddb727b5179a53fbc036894e78c4022d1d5217ba6dffe48836d3ab906c427",
+      "bytes": 348693,
+      "cacheFile": ".data/sources/oripathy/1392.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1392-back",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378454913067/CA4D005774DF7D9BB6B6EAAA8CA007232E6478F1/",
+      "sha256": "2f21cf11aa1fa6957514a449037461608ee5ce4a2b8650feb3d1ec7148046503",
+      "bytes": 349146,
+      "cacheFile": ".data/sources/oripathy/1392-back.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1393",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378454913481/12C9736439CCA30E7BDFD73A20B5E33700AEB9F8/",
+      "sha256": "eb2f926ee2509204bf2dbcd07bf6df506f4fffe5f8c2957fac101a306d62f29a",
+      "bytes": 330272,
+      "cacheFile": ".data/sources/oripathy/1393.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1393-back",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378454913713/00831BAFB9420E41E7716C0133DA6E740B071493/",
+      "sha256": "b74d9e659e602c69da8f6504592a7e81b49f7ec8e6053f2337fb7e5ac315e169",
+      "bytes": 328191,
+      "cacheFile": ".data/sources/oripathy/1393-back.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1394",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455126706/68108F9FBA81B373398A7A2522E934A88E54A9B3/",
+      "sha256": "00f25f2d2e6616d596d7570b416bbde00b3123da6c957e0b16f1afe69acf1532",
+      "bytes": 262712,
+      "cacheFile": ".data/sources/oripathy/1394.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1395",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455128280/B587F6192039F890B5E652A768A8A801DE13994F/",
+      "sha256": "8d92023f554c56a07c83aa4ba326f24c7afd2f44b8c746e76b4b0942b3dda4d4",
+      "bytes": 261710,
+      "cacheFile": ".data/sources/oripathy/1395.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1396",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455128593/AFFC098AE9598D05DA19235BB4005688818DE02F/",
+      "sha256": "6c306926e82a7247e6540f0d8f1f236b7be2307c443592680e52a98dfb56f4cf",
+      "bytes": 260415,
+      "cacheFile": ".data/sources/oripathy/1396.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1397",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455129279/8A3246D88E6882BC0B3CEE27ADF851BD6C2464B9/",
+      "sha256": "bd87abf97aeb37682a9d4eb03d1f4fd9986e81d32c6a9782ed64165cd8afc67f",
+      "bytes": 531751,
+      "cacheFile": ".data/sources/oripathy/1397.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1398",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455130171/B7112ACEB0398FE0516969DAC612FFA562BA4562/",
+      "sha256": "277efdfee8e2bb014562482263fbda85de179764dec08d7b9478e98b7c69477c",
+      "bytes": 418349,
+      "cacheFile": ".data/sources/oripathy/1398.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1398-back",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455130345/40C3AF91CA8017B2D159385A098A36845B3E1682/",
+      "sha256": "0a284bcbc3b72fc4ed947ba09cdba84e00bb9224e39798f72cb9e32ac4576778",
+      "bytes": 450880,
+      "cacheFile": ".data/sources/oripathy/1398-back.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1399",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455130929/38CF74A5ECC6B2CF4017C1DA7F764C31278F4351/",
+      "sha256": "daeee89f3244e2204be0c5072e078b7759b720f3d2b349d0e60799203b411ccb",
+      "bytes": 416376,
+      "cacheFile": ".data/sources/oripathy/1399.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1399-back",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455131043/2E766A6C95A798FB1417F422BE62225839A152D1/",
+      "sha256": "3c41b7b502292ef331b294ee54327c33f2785d6e16fa2468f76d2b053c55a4fc",
+      "bytes": 449873,
+      "cacheFile": ".data/sources/oripathy/1399-back.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1400",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455131802/5353BFB28EDFBCFB83332EAB849315C954B66600/",
+      "sha256": "e4eff292650c894a85f9c29ae3986b8894f8a99a8c1654dfaad085ede7c28885",
+      "bytes": 467908,
+      "cacheFile": ".data/sources/oripathy/1400.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1400-back",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455132268/559EC61BE77ACED71AC88C1B737A38C1448F95A7/",
+      "sha256": "b53a1b9744eb4e1d0e95d007765d669a743a692611325d9a793f686031662f1b",
+      "bytes": 451360,
+      "cacheFile": ".data/sources/oripathy/1400-back.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1402",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455134087/4AD19F6220AEC435F6DDE910D1D4D725D5635234/",
+      "sha256": "81bc83928af9c4174c29ad55ee4f661eadd6d9579e4faca2f031ae82e6d29bf1",
+      "bytes": 376887,
+      "cacheFile": ".data/sources/oripathy/1402.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1403",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455134607/F05C4199F586B18F535F8403088AA0F62DCCC67D/",
+      "sha256": "624e51aa5016d679754f7546c21f8cd0cdb7f0d18705cffdc0e72dd26a5f75f0",
+      "bytes": 477957,
+      "cacheFile": ".data/sources/oripathy/1403.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1404",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455134973/43C39C626A900B36F3D6BFD159750EF95F2BA122/",
+      "sha256": "a3466b5f3db77199e7d14a5e24b2e33906472728e4a4f2017fd5dda926e78707",
+      "bytes": 546134,
+      "cacheFile": ".data/sources/oripathy/1404.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1405",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455135327/2672A6E4F4EB813E3B38585DB2CF357EECF8C7C7/",
+      "sha256": "49d9eb43a29d85b41cd4cf133bf9a10c345ba47357f9e3af4e467ef46c4cdb00",
+      "bytes": 563814,
+      "cacheFile": ".data/sources/oripathy/1405.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1406",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455164872/7EE528C7AA0F838E0FC0CFECD21C7EF815E5B613/",
+      "sha256": "a345c0286e3f0bdcd0da04b898f45cc19f3e3b9d3a19a60fdc23244cd5d32e6b",
+      "bytes": 414415,
+      "cacheFile": ".data/sources/oripathy/1406.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    },
+    {
+      "id": "1406-back",
+      "sourceUrl": "https://steamusercontent-a.akamaihd.net/ugc/26559378455133225/B8E560412FE72424D4227AFEE429B5989E0AFE54/",
+      "sha256": "136c278cd7a500bc00b5766b986d79ad7f3a40c7b4ab45293ebfea8934bea202",
+      "bytes": 423761,
+      "cacheFile": ".data/sources/oripathy/1406-back.png",
+      "classification": "original-component-candidate; requires printed-manual cross-check"
+    }
+  ],
+  "rights": "原画及原桌游内容归鹰角网络等各自权利人所有。公开仓库只保存出处、摘要与哈希；扫描原件保留在忽略的研究缓存中。"
+}
