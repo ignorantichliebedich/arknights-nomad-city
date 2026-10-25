@@ -91,7 +91,9 @@ export function ExpeditionPermit({
           disabled={loading}
         />
         {!code && (
-          <label className={`permit-expansion ${expansion ? "enabled" : ""}`}>
+          <label
+            className={`permit-expansion permit-enterprise-slip ${expansion ? "enabled" : ""}`}
+          >
             <input
               type="checkbox"
               checked={expansion}
@@ -100,7 +102,7 @@ export function ExpeditionPermit({
               aria-label="创建房间时启用企业扩展"
             />
             <span className="permit-expansion-icon" aria-hidden="true">
-              ＋
+              I
             </span>
             <span>
               <strong>携手合作企业</strong>
@@ -120,7 +122,7 @@ export function ExpeditionPermit({
                 aria-label="创建房间时启用感染者扩展"
               />
               <span className="permit-expansion-icon" aria-hidden="true">
-                O
+                II
               </span>
               <span>
                 <strong>感染者 · 做出你的抉择</strong>

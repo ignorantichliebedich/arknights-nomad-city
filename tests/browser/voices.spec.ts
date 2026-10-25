@@ -1,5 +1,7 @@
 import { test, expect } from "./fixtures/test.ts";
 import { fixture, clickHandCard } from "./fixtures/table.ts";
+import { RoomStore } from "../../apps/server/src/store.ts";
+import { createGame, applyCommand } from "../../packages/rules/src/engine.ts";
 
 test("多窗口盖牌只有本人播放选中语音，最后一人提交与刷新保持隐私", async ({
   page,
@@ -63,7 +65,7 @@ test("多窗口盖牌只有本人播放选中语音，最后一人提交与刷�
     await context.close();
   }
 });
-test("中日盖牌语音真实播放、降低音乐音量，静音立即停止且刷新不重播", async ({
+test("本体与感染者中日盖牌语音真实播放、降低音乐音量，静音立即停止且刷新不重播", async ({
   page,
 }, info) => {
   test.skip(!!info.project.use.hasTouch, "桌面检查实际媒体，触屏操作另有覆盖");
@@ -80,12 +82,48 @@ test("中日盖牌语音真实播放、降低音乐音量，静音立即停止�
       return play.call(this);
     };
   });
-  for (const language of ["zh", "ja"]) {
-    await fixture(page, "select");
+  for (const [language, infection] of [
+    ["zh", false],
+    ["ja", false],
+    ["zh", true],
+    ["ja", true],
+  ] as const) {
+    const result = await fixture(page, "select", 2);
+    if (infection) {
+      const store = new RoomStore(process.env.E2E_DATABASE_PATH!);
+      try {
+        const room = store.get(result.id)!;
+        let game = createGame(room.seats, { oripathy: true, seed: 42 });
+        for (let n = 0; game.parallel?.kind !== "select-role"; n++) {
+          expect(n).toBeLessThan(250);
+          const d = game.decision!;
+          const option = d.options.find((o) => o.id !== "o-amiya")!;
+          game = applyCommand(game, d.playerId, {
+            type: "choose",
+            optionId: option.id,
+          });
+        }
+        room.game = game;
+        room.oripathy = true;
+        room.expansion = true;
+        room.revision++;
+        store.save(room);
+      } finally {
+        store.close();
+      }
+      await page.reload();
+      await expect(page.locator(".connection")).toContainText("已连接");
+    }
     await page.getByRole("button", { name: "声音设置" }).click();
     await page.getByLabel("语音语言").selectOption(language);
     await page.getByRole("button", { name: "关闭弹窗" }).click();
-    await clickHandCard(page, page.locator(".hand-card.playable").first(), 2);
+    await clickHandCard(
+      page,
+      infection
+        ? page.getByRole("button", { name: "选择角色 阿米娅", exact: true })
+        : page.locator(".hand-card.playable").first(),
+      2,
+    );
     await expect
       .poll(
         () =>
@@ -102,6 +140,10 @@ test("中日盖牌语音真实播放、降低音乐音量，静音立即停止�
         { timeout: 12000 },
       )
       .toBe(true);
+    if (infection)
+      expect(
+        await page.evaluate(() => (window as any).__voice.getAttribute("src")),
+      ).toContain("/o-amiya/select-");
     const volumes = await page.evaluate(() => ({
       voice: (window as any).__voice.volume,
       music: (window as any).__music.volume,

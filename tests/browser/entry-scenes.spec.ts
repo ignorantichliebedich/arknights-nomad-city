@@ -110,6 +110,22 @@ test("实际资源解码推进加载，选择窗口后播放音乐，双场景�
     path: info.outputPath("entry-poster.png"),
     animations: "disabled",
   });
+  const founder = page.getByRole("button", {
+    name: "查看企业家 保罗·蒂尔曼",
+    exact: true,
+  });
+  if (!info.project.use.hasTouch) {
+    await founder.hover();
+    await expect(founder).toHaveClass(/is-lifted/);
+    await expect(page.locator(".founder-caption")).toContainText("保罗·蒂尔曼");
+    await page.mouse.move(12, 12);
+    await expect(founder).not.toHaveClass(/is-lifted/);
+  }
+  await founder.focus();
+  await founder.press("Enter");
+  await expect(founder).toHaveAttribute("aria-pressed", "true");
+  await founder.press("Enter");
+  await expect(founder).toHaveAttribute("aria-pressed", "false");
   await openHomeLobby(page);
   await expect(page.getByLabel("企业家昵称")).toBeFocused();
   await page.getByLabel("企业家昵称").fill("一起拓荒");
@@ -244,6 +260,12 @@ test("邀请直达大厅，减少动态保留错落构图，横竖屏切换保�
   expect(
     await page
       .locator(".poster-wave")
+      .first()
+      .evaluate((el) => getComputedStyle(el).animationName),
+  ).toBe("none");
+  expect(
+    await page
+      .locator(".founder-print")
       .first()
       .evaluate((el) => getComputedStyle(el).animationName),
   ).toBe("none");

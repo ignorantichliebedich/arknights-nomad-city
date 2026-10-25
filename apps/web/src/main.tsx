@@ -79,6 +79,8 @@ import "./entry-redesign.css";
 import "./entry-motion.css";
 import "./practice-curtain.css";
 import "./oripathy.css";
+import "./frontier-stationery.css";
+import "./entrepreneur-dossier.css";
 import {
   InfluencePreview,
   type InfluenceTransfer,
@@ -1541,7 +1543,11 @@ function GameRoom({
             </Modal>
           )}
           {drawer === "oripathy" && game.oripathy && (
-            <Modal title="感染者 · 企业家档案" onClose={() => setDrawer(null)}>
+            <Modal
+              className="entrepreneur-window"
+              title="感染者 · 企业家档案"
+              onClose={() => setDrawer(null)}
+            >
               <OripathyPanel game={game} onDetail={setDetail} />
             </Modal>
           )}

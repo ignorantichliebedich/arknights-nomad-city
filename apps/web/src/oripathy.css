@@ -92,51 +92,6 @@
 }
 .oripathy-roster {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  border-bottom: 1px solid #b3a372;
-  padding-bottom: 1rem;
-}
-.oripathy-roster button {
-  background: transparent;
-  border: 1px solid #afa16e;
-  padding: 0.65rem 1rem;
-  cursor: pointer;
-}
-.oripathy-roster button[aria-pressed="true"] {
-  background: #333d30;
-  color: #fff0c5;
-  border-color: var(--seat-color);
-}
-.oripathy-dossier-heading {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin: 1.25rem 0;
-}
-.oripathy-dossier-heading h3 {
-  font-size: 1.3rem;
-  margin: 0.3rem 0;
-}
-.oripathy-dossier-heading small {
-  color: #7b6f4f;
-  letter-spacing: 0.12em;
-}
-.oripathy-dossier-heading > span {
-  padding: 0.65rem 0.8rem;
-  border: 1px solid #b9ae8f;
-  background: #dedecb;
-}
-.oripathy-dossier-heading b {
-  font-size: 1.35rem;
-  margin-left: 0.75rem;
-}
-.oripathy-identity-row {
-  display: grid;
-  grid-template-columns: minmax(130px, 200px) 1fr;
-  gap: 1.5rem;
 }
 .oripathy-reference {
   width: 150px;
@@ -158,46 +113,12 @@
   padding: 0.6rem 0.4rem;
   font-size: 0.8rem;
 }
-.oripathy-identity-row > .oripathy-reference {
-  width: 100%;
-}
 .oripathy-dilemma-history {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.65rem;
-  margin-top: 1.5rem;
-}
-.oripathy-dilemma-history > * {
-  display: grid;
-  gap: 0.65rem;
-  text-align: center;
-  padding: 0.9rem 0.3rem;
-  border: 1px solid #a19470;
-  background: #e6e4d2;
-  color: #35402d;
-}
-.oripathy-dilemma-history button {
-  cursor: pointer;
-}
-.oripathy-dilemma-history b {
-  font:
-    700 2rem Georgia,
-    serif;
-}
-.oripathy-dilemma-history span {
-  font-size: 0.7rem;
-}
-.oripathy-dilemma-history .is-used {
-  opacity: 0.65;
 }
 .oripathy-public-status {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5rem;
-  background: #d9dac7;
-  padding: 1rem;
-  margin: 1.25rem 0;
-  font-size: 0.85rem;
 }
 .oripathy-reference-list {
   display: flex;
@@ -313,15 +234,6 @@
   }
   .oripathy-choices.dilemma-choices {
     gap: 0.8rem;
-  }
-  .oripathy-identity-row {
-    grid-template-columns: 130px minmax(0, 1fr);
-    gap: 0.75rem;
-  }
-  .oripathy-dilemma-history {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.4rem;
-    margin-top: 0.5rem;
   }
   .covered-flows {
     width: 130px;

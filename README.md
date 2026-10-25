@@ -40,7 +40,7 @@ pnpm start
 
 公开仓库包含源码、规则数据和素材来源清单。运行图像与操作音效由 `assets:restore` 按 SHA-256 获取到本地，背景音乐由 `music:import` 从开发者本地 `music/` 导入；原始研究扫描及历史截图保存在开发者本地。未持有音乐原件时可跳过两项 `music:*` 命令，在声音设置关闭背景音乐。可设置 `ASSET_BASE_URL` 使用自己维护的素材源；素材权利见 [第三方说明](THIRD_PARTY_NOTICES.md)。
 
-开发版新增素材可直接从原始公开来源重建：先安装 `tools/requirements.txt` 并运行 `python tools/prepare-table-experience.py`，再使用 `pnpm voices:acquire` 获取中日语音，最后执行 `assets:restore` 校验其余已发布素材。这条路径可在本轮云端验收前使用。语音采集需要 Playwright Chromium 与 FFmpeg，音乐封面提取也使用 FFmpeg；可通过 `FFMPEG_PATH` 指定程序路径。测量参数和出处见 [本轮素材记录](assets/table-experience-art.md)。
+开发版新增素材可直接从原始公开来源重建：先安装 `tools/requirements.txt` 并运行 `python tools/prepare-table-experience.py`，再使用 `pnpm voices:acquire` 获取中日语音，最后执行 `assets:restore` 校验其余已发布素材。这条路径可在本轮云端验收前使用。语音采集通过 HTTP 读取公开索引，需要 Node.js 与 FFmpeg，音乐封面提取也使用 FFmpeg；可通过 `FFMPEG_PATH` 指定程序路径。测量参数和出处见 [本轮素材记录](assets/table-experience-art.md)。
 
 另一台 Windows 电脑可使用预编译运行包：在开发电脑运行 `pnpm package:windows`，将生成的 `.data/releases/nomad-city-windows.zip` 复制过去完整解压。目标电脑安装 Node.js 24 后，双击 `start-game.cmd` 启动；运行素材和服务端依赖已随包提供。局域网、隧道、配置检测及备份操作见 [Windows 运行说明](deploy/windows/START-HERE.txt)。
 
