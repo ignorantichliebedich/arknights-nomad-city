@@ -4,7 +4,7 @@
 
 游戏入口：[http://106.52.74.24](http://106.52.74.24)。朋友在桌面浏览器打开，创建房间后分享邀请链接或六位房间码。房主可在“邀请朋友 → 人机同行”安排人机席位；实操教程在顶部“实操练习”中打开。
 
-部署采用 Ubuntu 24.04、Docker Compose、Node.js 24 和 Caddy。项目位于 `/home/ubuntu/nomad-city`。最近一次已确认发布为 v0.4.1，记录位于 `/home/ubuntu/nomad-city-releases/20261016-v0.4.1-retry`，对应提交 `c3f83d8`；该次发布保留了原有 15 个房间和 2569 条指令回执，并完成异地备份。数据库与备份分别保存于 `nomad-city_game-data`、`nomad-city_game-backups` 卷；更新和重启沿用这些卷。游戏容器以 UID 1000 运行，内部端口 3000 由 Caddy 代理。Docker 已设置开机启动，两项服务均设置 `unless-stopped`。
+部署采用 Ubuntu 24.04、Docker Compose、Node.js 24 和 Caddy。项目位于 `/home/ubuntu/nomad-city`。最近一次已确认发布为 v0.7.1，对应提交 `7b26e18`，发布目录为 `/home/ubuntu/nomad-city-releases/20261025-v0.7.1`；切换前后的 28 个房间及 4,841 条指令回执摘要一致。按用户选择，本次三份备份均仅保留在服务器；部署与验收摘要见 [v0.7.1 上线记录](releases/v0.7.1.md)。数据库与备份分别保存于 `nomad-city_game-data`、`nomad-city_game-backups` 卷；更新和重启沿用这些卷。游戏容器以 UID 1000 运行，内部端口 3000 由 Caddy 代理。Docker 已设置开机启动，两项服务均设置 `unless-stopped`。
 
 本次入口配置：
 
