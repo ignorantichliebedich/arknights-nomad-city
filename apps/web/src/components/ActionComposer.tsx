@@ -280,9 +280,15 @@ export function ActionComposer({
   useLayoutEffect(() => {
     // Enterprise dossiers show their summary below the cards; keep the selected
     // card in view when the offer list spans several rows.
-    if (selected && !isBuild && !isEnterpriseChoice && body.current)
+    if (
+      selected &&
+      !isBuild &&
+      !isEnterpriseChoice &&
+      !isOripathyChoice &&
+      body.current
+    )
       body.current.scrollTop = 0;
-  }, [selected?.id, isBuild, isEnterpriseChoice]);
+  }, [selected?.id, isBuild, isEnterpriseChoice, isOripathyChoice]);
   return (
     <>
       <div

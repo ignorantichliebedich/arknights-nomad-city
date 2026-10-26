@@ -51,4 +51,6 @@ pnpm assets:check
 
 `tests/oripathy.test.ts` 覆盖全部新增角色的策略与计谋、全部企业家抉择正反面及关键时机；`tests/oripathy-invariants.test.ts` 按五种身份分别运行 2／3／4 人多分支整局，核对资源、实体设施、普通／帮派／安保供应与存档恢复。人机通过普通玩家视图参加新玩法，WebSocket 测试核对实际建房、重复提交与重启恢复。
 
+`pnpm audit:oripathy 300` 运行固定种子的 240 局专家玩法与 60 局常规玩法，结果写入忽略目录 `.data/acceptance/oripathy-audit/`。2026-10-27 的规则复核、缺陷修正及统计见 [专项检查记录](oripathy-audit.md)。这是本地规则组合检查；网络承压使用独立的 `pnpm load:test`。
+
 本地入口 `http://localhost:3000`。建议先使用常规玩法熟悉新干员，再开启企业家抉择。验收重点为：查看和选择完整牌面、流形额外盖放、马丁叠建、安保采集、奇数回合抉择，以及刷新后接续待选步骤。发布按 `docs/release.md` 执行，源码推送与云端部署分开。

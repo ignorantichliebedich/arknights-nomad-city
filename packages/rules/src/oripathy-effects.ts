@@ -520,27 +520,23 @@ export function executeOripathy(
       s.oripathy.gavial!.node = data.node;
       choose(
         "嘉维尔：移动该点一个影响力",
-        c
-          .occupied(s, "any", id, [data.node])
-          .filter(
-            (slot) =>
-              !!s.sites[data.node].slots[Number(slot.split(":").at(-1))],
-          )
-          .map((slot) =>
-            o(
-              slot,
-              slot,
-              [
-                t("shift-target", id, {
-                  slot,
-                  owner:
-                    s.sites[data.node].slots[Number(slot.split(":").at(-1))],
-                  count: 1,
-                }),
-              ],
-              data.node,
-            ),
+        c.occupied(s, "any", id, [data.node]).map((slot) =>
+          o(
+            slot,
+            slot,
+            [
+              s.oripathy!.security.includes(slot)
+                ? t("o:security-destination", id, { slot, count: 1 })
+                : t("shift-target", id, {
+                    slot,
+                    owner:
+                      s.sites[data.node].slots[Number(slot.split(":").at(-1))],
+                    count: 1,
+                  }),
+            ],
+            data.node,
           ),
+        ),
       );
       return;
     case "o:lin-trade": {
@@ -901,19 +897,8 @@ export function executeOripathy(
       );
       return;
     case "o:security-fourth":
-      choose(
-        "岩蹄安保：放置自己的影响力后移动一次安保影响力",
-        c
-          .emptySlots(s, id)
-          .map((slot) =>
-            o(
-              slot,
-              slot,
-              [t("place-at", id, { slot }), t("o:security-shift", id)],
-              slot.slice(0, slot.lastIndexOf(":")),
-            ),
-          ),
-      );
+      // Official p. 6: Paul cannot substitute a gang token for Stonehoove's effect.
+      prepend(s, [t("o:normal-place", id), t("o:security-shift", id)]);
       return;
     case "o:security-contract":
       if (

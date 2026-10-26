@@ -36,6 +36,50 @@
   margin: auto;
   gap: 1.75rem;
 }
+.dossier-window.interaction-window:has(.entrepreneur-choices) {
+  width: min(1160px, calc(100vw - 32px));
+}
+.identity-offer-summary {
+  display: grid;
+  gap: 6px;
+  color: #4d402d;
+  margin: 0 0 16px;
+  font-size: 14px;
+}
+.identity-offer-summary span {
+  font-size: 12px;
+  color: #76654a;
+}
+.oripathy-choices.entrepreneur-choices {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+.entrepreneur-choices .oripathy-choice-art img {
+  max-height: clamp(142px, 32dvh, 310px);
+}
+.oripathy-choices article.is-taken .oripathy-choice-art img {
+  filter: grayscale(1);
+  opacity: 0.55;
+}
+.oripathy-choices article.is-taken .oripathy-choice-art span {
+  background: #504c43;
+  color: #dbcfb5;
+}
+.entrepreneur-portrait .entrepreneur-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.phone-phase-bar .entrepreneur-image {
+  width: 22px;
+  height: 22px;
+  object-fit: cover;
+}
+@media (max-width: 600px) and (min-height: 561px) {
+  .oripathy-choices.entrepreneur-choices {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
 .oripathy-choices article {
   min-width: 0;
   border: 1px solid #a39367;

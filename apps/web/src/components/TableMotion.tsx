@@ -11,7 +11,8 @@ import {
   redZoneOpensAt,
 } from "../../../../packages/rules/src/data.ts";
 import type { PlayerView } from "../../../../packages/rules/src/types.ts";
-import { ENTREPRENEURS } from "../../../../packages/rules/src/oripathy-data.ts";
+import { entrepreneurPresentation } from "../entrepreneur.ts";
+import { EntrepreneurPortrait } from "./EntrepreneurPortrait.tsx";
 
 export function FlipNumber({ value }: { value: number }) {
   const previous = useRef(value);
@@ -87,13 +88,7 @@ export function ActiveEntrepreneur({
 }) {
   const player = game.players.find((p) => p.id === activeId);
   if (!player) return null;
-  const expert = ENTREPRENEURS.find(
-    (v) => v.id === player.oripathy?.entrepreneur,
-  );
-  const portrait =
-    ({ thiago: 0, martin: 1, paul: 2, agnes: 3 } as Record<string, number>)[
-      expert?.id ?? ""
-    ] ?? player.seat;
+  const expert = entrepreneurPresentation(player).identity;
   return (
     <div
       className="entrepreneur-station"
@@ -101,11 +96,11 @@ export function ActiveEntrepreneur({
     >
       {children}
       <div className="active-entrepreneur">
-        <img
+        <EntrepreneurPortrait
           className="entrepreneur-bust"
-          key={player.id}
-          src={`/assets/entrepreneur-bust-${portrait}.webp`}
-          alt={`当班企业家：${player.name}`}
+          key={`${player.id}:${expert?.id ?? ""}`}
+          player={player}
+          variant="bust"
         />
         {game.players[game.first]?.id === player.id && <PresidentBadge />}
         <div className="active-entrepreneur-caption">

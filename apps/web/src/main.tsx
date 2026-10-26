@@ -81,6 +81,7 @@ import "./practice-curtain.css";
 import "./oripathy.css";
 import "./frontier-stationery.css";
 import "./entrepreneur-dossier.css";
+import { EntrepreneurPortrait } from "./components/EntrepreneurPortrait.tsx";
 import {
   InfluencePreview,
   type InfluenceTransfer,
@@ -967,9 +968,11 @@ function GameRoom({
           {phone && (
             <div className="phone-phase-bar">
               <span>
-                <img
-                  src={`/assets/avatar-${game.players.find((p) => p.id === activeId)?.seat ?? 0}.webp`}
-                  alt=""
+                <EntrepreneurPortrait
+                  player={
+                    game.players.find((p) => p.id === activeId) ??
+                    game.players[0]
+                  }
                 />
                 {activeId === game.players[game.first]?.id && (
                   <img src="/assets/president.webp" alt="大总统" />

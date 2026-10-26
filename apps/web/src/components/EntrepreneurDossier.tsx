@@ -12,6 +12,7 @@ import {
 } from "../../../../packages/rules/src/data.ts";
 import type { PlayerView } from "../../../../packages/rules/src/types.ts";
 import type { CardDetail } from "./ActionComposer.tsx";
+import { EntrepreneurPortrait } from "./EntrepreneurPortrait.tsx";
 
 export function EntrepreneurDossier({
   game,
@@ -30,10 +31,6 @@ export function EntrepreneurDossier({
       string
     >
   )[e.entrepreneur ?? ""];
-  const portrait =
-    ({ thiago: 0, martin: 1, paul: 2, agnes: 3 } as Record<string, number>)[
-      identity?.id ?? ""
-    ] ?? p.seat;
   const hasContract = game.oripathy!.contracts.includes(p.id);
   const cardButton = (
     id: string,
@@ -100,10 +97,7 @@ export function EntrepreneurDossier({
               cardButton(identity.id, "企业家能力", oripathyArt(identity.face))
             ) : (
               <div className="dossier-standard-portrait">
-                <img
-                  src={`/assets/entrepreneur-${portrait}.webp`}
-                  alt="本席企业家立绘"
-                />
+                <EntrepreneurPortrait player={p} variant="portrait" />
                 <span>常规拓荒 · 无专属能力</span>
               </div>
             )}

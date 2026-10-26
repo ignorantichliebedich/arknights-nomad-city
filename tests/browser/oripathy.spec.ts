@@ -3,6 +3,154 @@ import { openHomeLobby, clickRoomButton } from "./fixtures/rooms.ts";
 import { fixture } from "./fixtures/table.ts";
 import { RoomStore } from "../../apps/server/src/store.ts";
 import { applyCommand, createGame } from "../../packages/rules/src/engine.ts";
+import { ENTREPRENEURS } from "../../packages/rules/src/oripathy-data.ts";
+
+test("五位企业家完整展示，第五号可确认，已选身份保留在名册中", async ({
+  page,
+}, info) => {
+  test.setTimeout(120000);
+  const { id, seatTokens } = await fixture(page);
+  const store = new RoomStore(process.env.E2E_DATABASE_PATH!);
+  let names: string[] = [];
+  try {
+    const room = store.get(id)!;
+    room.game = createGame(room.seats, {
+      oripathy: true,
+      expert: true,
+      seed: 42,
+    });
+    names = room.seats.map((s) => s.name);
+    room.oripathy = true;
+    room.expert = true;
+    room.expansion = true;
+    room.revision++;
+    store.save(room);
+  } finally {
+    store.close();
+  }
+  await page.addInitScript(
+    ({ id, token }) => localStorage.setItem("nomad:seat:" + id, token),
+    { id, token: seatTokens[3] },
+  );
+  await page.reload();
+  const modal = page.getByRole("dialog", { name: "行动安排", exact: true });
+  await expect(modal).toBeVisible();
+  await expect(modal.locator(".entrepreneur-choices article")).toHaveCount(5);
+  await expect(modal.locator(".oripathy-choice-art:enabled")).toHaveCount(5);
+  await expect(modal.locator(".identity-offer-summary")).toContainText(
+    "剩余 5 位可选",
+  );
+  const pioneer = modal.locator(
+    '[data-identity="pioneer"] .oripathy-choice-art',
+  );
+  await pioneer.scrollIntoViewIfNeeded();
+  await pioneer.click();
+  await expect(pioneer).toHaveAttribute("aria-pressed", "true");
+  await fits(page, modal);
+  await page.screenshot({
+    path: `test-results/${info.project.name}-entrepreneur-all-five.png`,
+    animations: "disabled",
+  });
+  await modal.getByRole("button", { name: "确认选择 →", exact: true }).click();
+  await expect(
+    page.locator(".player-row").nth(3).locator(".entrepreneur-image"),
+  ).toHaveAttribute("data-entrepreneur", "pioneer");
+  await page.addInitScript(
+    ({ id, token }) => localStorage.setItem("nomad:seat:" + id, token),
+    { id, token: seatTokens[2] },
+  );
+  await page.reload();
+  await expect(modal).toBeVisible();
+  await expect(modal.locator(".entrepreneur-choices article")).toHaveCount(5);
+  await expect(modal.locator(".oripathy-choice-art:enabled")).toHaveCount(4);
+  await expect(modal.locator('[data-identity="pioneer"]')).toContainText(
+    names[3] + "已选",
+  );
+  await expect(
+    modal.locator('[data-identity="pioneer"] .oripathy-choice-art'),
+  ).toBeDisabled();
+  await expect(modal.locator(".identity-offer-summary")).toContainText(
+    "剩余 4 位可选",
+  );
+});
+
+test("五种身份的侧栏、半身图、手机回合条与档案保持一致", async ({
+  page,
+}, info) => {
+  test.setTimeout(150000);
+  const errors: string[] = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  const { id } = await infectionFixture(page);
+  const indices: Record<string, number> = {
+    thiago: 0,
+    martin: 1,
+    paul: 2,
+    agnes: 3,
+  };
+  for (const [index, who] of ENTREPRENEURS.entries()) {
+    const store = new RoomStore(process.env.E2E_DATABASE_PATH!);
+    try {
+      const room = store.get(id)!,
+        s = room.game!;
+      s.players.forEach(
+        (p, i) =>
+          (p.oripathy!.entrepreneur = ENTREPRENEURS[(index + i) % 5].id),
+      );
+      s.active = 0;
+      s.first = 0;
+      s.parallel = null;
+      s.decision = null;
+      s.queue = [];
+      s.phase = "actions";
+      room.revision++;
+      store.save(room);
+    } finally {
+      store.close();
+    }
+    await page.reload();
+    await expect(page.locator(".entrepreneur-bust")).toHaveAttribute(
+      "data-entrepreneur",
+      who.id,
+    );
+    const portrait = page
+      .locator(".player-row")
+      .first()
+      .locator(".entrepreneur-image");
+    await expect(portrait).toHaveAttribute("data-entrepreneur", who.id);
+    if (who.id === "pioneer")
+      await expect(portrait.locator("image")).toHaveAttribute(
+        "href",
+        "/assets/oripathy/1402.webp",
+      );
+    else
+      await expect(portrait).toHaveAttribute(
+        "src",
+        `/assets/avatar-${indices[who.id]}.webp`,
+      );
+    await expect(page.locator(".active-entrepreneur-caption")).toContainText(
+      who.name,
+    );
+    if (await page.locator(".phone-phase-bar").count())
+      await expect(
+        page.locator(".phone-phase-bar .entrepreneur-image"),
+      ).toHaveAttribute("data-entrepreneur", who.id);
+    await page.getByRole("button", { name: "感染者档案", exact: true }).click();
+    const modal = page.getByRole("dialog", {
+      name: "感染者 · 企业家档案",
+      exact: true,
+    });
+    await expect(modal.locator("h3")).toContainText(who.name);
+    await expect(
+      modal.locator(".dossier-identity .oripathy-reference img"),
+    ).toHaveAttribute("src", `/assets/oripathy/${who.face}.webp`);
+    await modal.getByRole("button", { name: "关闭弹窗", exact: true }).click();
+  }
+  await page.screenshot({
+    path: `test-results/${info.project.name}-entrepreneur-pioneer.png`,
+    animations: "disabled",
+  });
+  expect(errors).toEqual([]);
+});
 
 async function fits(page: Page, el: Locator) {
   await el.evaluate(async (node) => {

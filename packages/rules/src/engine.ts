@@ -2782,7 +2782,7 @@ function execute(s: GameState, step: Step) {
             gain(id, { score: 1 }),
             task("return-operatives", id, { roles: pool }),
           ]),
-          ...pool.map((role) =>
+          ...(p.hand.length || p.discard.length ? pool : []).map((role) =>
             option(
               role,
               ROLE_BY_ID[role].name,

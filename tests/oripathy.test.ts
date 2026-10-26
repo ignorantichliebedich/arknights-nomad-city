@@ -87,6 +87,30 @@ const step = (kind: string, data: Record<string, unknown> = {}): Step => ({
 });
 
 describe("感染者配置与隐私", () => {
+  it.each([2, 3, 4])(
+    "%i 人首位选人可选五位，逆序减去已选身份且第五号可选",
+    (count) => {
+      let s = createGame(players(count), {
+        oripathy: true,
+        expert: true,
+        seed: 42,
+      });
+      expect(s.decision!.options.map((o) => o.id)).toEqual(
+        ENTREPRENEURS.map((e) => e.id),
+      );
+      for (let i = count - 1; i >= 0; i--) {
+        expect(s.decision!.playerId).toBe(`p${i}`);
+        expect(s.decision!.options).toHaveLength(5 - (count - 1 - i));
+        const who = i === count - 1 ? "pioneer" : s.decision!.options[0].id;
+        s = choose(s, who);
+        expect(s.players[i].oripathy!.entrepreneur).toBe(who);
+      }
+      expect(s.players[count - 1].oripathy!.markers).toBe(2);
+      expect(new Set(s.players.map((p) => p.oripathy!.entrepreneur)).size).toBe(
+        count,
+      );
+    },
+  );
   it("旧规则包的设施、样式、干员池不包含感染者", () => {
     for (const expansion of [false, true]) {
       const s = createGame(players(3), { expansion, seed: 42 });
@@ -426,6 +450,61 @@ describe("企业家时机与计分", () => {
 });
 
 describe("官方牌面时机、费用与抉择覆盖", () => {
+  it.each(["A", "B"])("保罗第三回合 %s：岩蹄四级仍只放普通影响力", (side) => {
+    let s = fixture();
+    const e = s.players[0].oripathy!;
+    e.entrepreneur = "paul";
+    e.dilemmas = [
+      { round: 3, side: side as "A" | "B", used: false, marker: true },
+    ];
+    s = effect(s, [step("o:security-fourth")]);
+    expect(s.decision!.kind).toBe("o:normal-place");
+    const target = s.decision!.options[0].id;
+    s = choose(s, target);
+    expect(s.players[0].oripathy!.gangSlots).toEqual([]);
+    const [site, index] = target.split(":");
+    expect(s.sites[site].slots[Number(index)]).toBe("p0");
+  });
+  it("普通标记耗尽时岩蹄四级仍可移动安保，不凭空放置帮派", () => {
+    let s = fixture();
+    s.players[0].oripathy!.entrepreneur = "paul";
+    s.players[0].tokenLimit = 0;
+    const site = s.board.roads[0].id;
+    s.oripathy!.security = [`${site}:0`];
+    s = effect(s, [step("o:security-fourth")]);
+    expect(s.decision!.kind).toBe("o:security-shift");
+    expect(s.players[0].oripathy!.gangSlots).toEqual([]);
+  });
+  it("嘉维尔指示物可移动资源点上的安保，保持中立标记身份", () => {
+    let s = fixture();
+    const node = s.board.nodes.find(
+      (n) => !s.players.some((p) => p.city === n.id),
+    )!.id;
+    s.sites[node].slots[0] = null;
+    const from = `${node}:0`;
+    s.oripathy!.security = [from];
+    s.oripathy!.gavial = { owner: "p0", node: s.players[0].city! };
+    s = effect(s, [step("o:gavial-move", { node })]);
+    expect(s.decision!.options.map((o) => o.id)).toContain(from);
+    s = choose(s, from);
+    expect(s.decision!.kind).toBe("o:security-destination");
+    const to = s.decision!.options[0].id;
+    s = choose(s, to);
+    expect(s.oripathy!.security).toEqual([to]);
+    const [site, index] = to.split(":");
+    expect(s.sites[site].slots[Number(index)]).toBeNull();
+  });
+  it("无可退役手牌或弃牌时特派只能选得分，抽取的干员全部归还", () => {
+    let s = fixture();
+    s.players[0].hand = [];
+    s.players[0].discard = [];
+    const deck = [...s.operativeDeck];
+    s = effect(s, [step("operative-draw")]);
+    expect(s.decision!.options.map((o) => o.id)).toEqual(["score"]);
+    s = choose(s, "score");
+    expect([...s.operativeDeck].sort()).toEqual(deck.sort());
+    expect(s.players[0].wallet.score).toBe(1);
+  });
   it.each(["1184", "1185", "1186", "1187"])(
     "授勋 %s：奖励、保留与消耗遵循原牌",
     (award) => {
