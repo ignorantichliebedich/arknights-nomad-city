@@ -212,8 +212,17 @@ export type GameState = {
   winners: string[];
 };
 export type Command = {
-  type: "choose" | "main" | "role" | "declare" | "special" | "ability" | "end";
+  type:
+    | "choose"
+    | "choose-many"
+    | "main"
+    | "role"
+    | "declare"
+    | "special"
+    | "ability"
+    | "end";
   optionId?: string;
+  optionIds?: string[];
   action?: string;
   mode?: string;
   patternId?: string;
@@ -230,6 +239,11 @@ export type InfluencePlacement = {
   target: string;
   optionId: string;
   label: string;
+};
+export type BatchChoice = {
+  count: number;
+  label: string;
+  limits: Record<string, number>;
 };
 export type PlayerView = Omit<
   GameState,
@@ -260,6 +274,7 @@ export type PlayerView = Omit<
   })[];
   decision:
     | (Omit<Decision, "options"> & {
+        batch?: BatchChoice;
         options: (Omit<Option, "steps"> & { preview?: ChoicePreview })[];
       })
     | null;

@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import {
   PLAYER_COLORS,
@@ -29,6 +29,8 @@ import {
   ExpeditionEntry,
 } from "./components/ExpeditionEntry.tsx";
 import { RoomLobby } from "./components/RoomLobby.tsx";
+import { Modal } from "./components/Modal.tsx";
+import { BatchChoices } from "./components/BatchChoices.tsx";
 import { HelpCenter, type GuideMode } from "./components/HelpCenter.tsx";
 import { usePractice } from "./usePractice.ts";
 import { PRACTICE_LESSONS } from "./practice.ts";
@@ -81,6 +83,7 @@ import "./practice-curtain.css";
 import "./oripathy.css";
 import "./frontier-stationery.css";
 import "./entrepreneur-dossier.css";
+import "./interaction-polish.css";
 import { EntrepreneurPortrait } from "./components/EntrepreneurPortrait.tsx";
 import {
   InfluencePreview,
@@ -108,57 +111,6 @@ function Marker({ seat }: { seat: number }) {
     </span>
   );
 }
-function Modal({
-  title,
-  children,
-  onClose,
-  className = "",
-}: {
-  className?: string;
-  title: string;
-  children: React.ReactNode;
-  onClose: () => void;
-}) {
-  const ref = useRef<HTMLDialogElement>(null);
-  const headingId = useId();
-  useEffect(() => {
-    const dialog = ref.current;
-    void gameAudio.play("open");
-    const opener = document.activeElement;
-    const parentDialog = opener?.closest("dialog");
-    const scrollPosition = parentDialog && {
-      top: parentDialog.scrollTop,
-      left: parentDialog.scrollLeft,
-    };
-    dialog?.showModal();
-    return () => {
-      dialog?.close();
-      if (opener instanceof HTMLElement && opener.isConnected)
-        opener.focus({ preventScroll: true });
-      if (parentDialog?.isConnected && scrollPosition)
-        parentDialog.scrollTo(scrollPosition);
-    };
-  }, []);
-  return (
-    <dialog
-      ref={ref}
-      className={`modal ${className || "dossier-window"}`}
-      aria-labelledby={headingId}
-      onCancel={onClose}
-      onClick={(e) => {
-        if (e.target === ref.current) onClose();
-      }}
-    >
-      <div className="modal-heading">
-        <h2 id={headingId}>{title}</h2>
-        <button className="icon-button" onClick={onClose} aria-label="关闭弹窗">
-          ×
-        </button>
-      </div>
-      {children}
-    </dialog>
-  );
-}
 function App() {
   const display = useDisplayMode();
   const [code, setCode] = useState(currentCode);
@@ -175,6 +127,9 @@ function App() {
   const [help, setHelp] = useState(false);
   const [guide, setGuide] = useState<GuideMode | null>(null);
   const [audioSettings, setAudioSettings] = useState(false);
+  const [roomOverview, setRoomOverview] = useState(
+    () => new URLSearchParams(location.search).get("view") === "lobby",
+  );
   useEffect(() => {
     gameAudio.preload();
   }, []);
@@ -184,13 +139,17 @@ function App() {
   const net = useRoom(code, token);
   const practice = usePractice();
   const activeRoom = net.room?.id === code ? net.room : null;
-  const playing = practice.active || !!(code && token && activeRoom?.game);
+  const playing =
+    practice.active || !!(code && token && activeRoom?.game && !roomOverview);
   useEffect(() => {
     const listener = () => {
       const id = currentCode();
       setCode(id);
       setEntryCode(id);
       setToken(readCredential(id));
+      setRoomOverview(
+        new URLSearchParams(location.search).get("view") === "lobby",
+      );
     };
     window.addEventListener("popstate", listener);
     return () => window.removeEventListener("popstate", listener);
@@ -202,6 +161,14 @@ function App() {
       const id = entryCode.trim().toUpperCase();
       if (join && !/^[A-Z0-9]{6}$/.test(id))
         throw new Error("房间码需要 6 位字母或数字");
+      const saved = join ? readCredential(id) : "";
+      if (saved) {
+        history.pushState({}, "", `/room/${id}`);
+        setRoomOverview(false);
+        setCode(id);
+        setToken(saved);
+        return;
+      }
       const response = await fetch(
         join ? `/api/rooms/${id}/join` : "/api/rooms",
         {
@@ -216,6 +183,7 @@ function App() {
       localStorage.setItem("nomad:nickname", name.trim());
       history.pushState({}, "", `/room/${result.room.id}`);
       setCode(result.room.id);
+      setRoomOverview(false);
       setToken(result.token);
     } catch (error) {
       setEntryError(error instanceof Error ? error.message : "连接房间失败");
@@ -229,6 +197,23 @@ function App() {
     setCode("");
     setToken("");
     setEntryCode("");
+    setRoomOverview(false);
+  }
+  function roomBack() {
+    if (activeRoom?.game && !roomOverview) {
+      history.pushState({}, "", `/room/${code}?view=lobby`);
+      setRoomOverview(true);
+    } else {
+      history.pushState({}, "", "/?view=lobby");
+      setEntryCode(code);
+      setCode("");
+      setToken("");
+      setRoomOverview(false);
+    }
+  }
+  function resumeGame() {
+    history.pushState({}, "", `/room/${code}`);
+    setRoomOverview(false);
   }
   return (
     <div
@@ -336,9 +321,13 @@ function App() {
           net={practice.net}
           training={<PracticeGuide practice={practice} />}
           phone={display.phone}
+          onBack={practice.exit}
         />
       ) : !code || !token ? (
         <ExpeditionEntry
+          initialLobby={
+            new URLSearchParams(location.search).get("view") === "lobby"
+          }
           code={code}
           name={name}
           entryCode={entryCode}
@@ -365,14 +354,20 @@ function App() {
           paused={!!guide || help || audioSettings}
         />
       ) : activeRoom ? (
-        <GameRoom net={net} phone={display.phone} />
+        <GameRoom
+          net={net}
+          phone={display.phone}
+          overview={roomOverview}
+          onBack={roomBack}
+          onResume={resumeGame}
+        />
       ) : (
         <main className="connection-screen">
           <span className="brand-mark">▥</span>
           <h1>连接拓荒区 {code}</h1>
           <p>{net.error || "正在恢复你的玩家席位…"}</p>
-          <button className="secondary-button" onClick={home}>
-            返回入口
+          <button className="secondary-button" onClick={roomBack}>
+            ← 返回联机大厅
           </button>
         </main>
       )}
@@ -462,10 +457,16 @@ function GameRoom({
   net,
   training,
   phone = false,
+  overview = false,
+  onBack,
+  onResume,
 }: {
   net: ReturnType<typeof useRoom>;
   training?: React.ReactNode;
   phone?: boolean;
+  overview?: boolean;
+  onBack: () => void;
+  onResume?: () => void;
 }) {
   const room = net.room!;
   const game = room.game;
@@ -477,6 +478,7 @@ function GameRoom({
   } | null>(null);
   const [cityPlayer, setCityPlayer] = useState<string | null>(null);
   const [confirm, setConfirm] = useState<LegalAction | null>(null);
+  const [batchSelected, setBatchSelected] = useState<string[]>([]);
   const [target, setTarget] = useState("");
   const [preferredFacility, setPreferredFacility] = useState("");
   const [plannedCity, setPlannedCity] = useState<{
@@ -534,6 +536,7 @@ function GameRoom({
   useEffect(() => {
     setTarget("");
     setConfirm(null);
+    setBatchSelected([]);
     setPlannedInfluence(null);
     setPlannedPlacement(null);
     const decision = game?.decision;
@@ -545,7 +548,7 @@ function GameRoom({
       setHandOpen(true);
     const moved = game?.players.some(
       (p) =>
-        previousCities.current[p.id] &&
+        Object.prototype.hasOwnProperty.call(previousCities.current, p.id) &&
         p.city &&
         previousCities.current[p.id] !== p.city,
     );
@@ -579,6 +582,15 @@ function GameRoom({
     setInteraction((current) => (shouldOpen ? nextWindow : null));
   }, [choiceContext, room.id]);
   useEffect(() => {
+    if (overview) {
+      setInvite(false);
+      setDetail(null);
+      setCityPlayer(null);
+      setDrawer(null);
+      showInteraction(null);
+    }
+  }, [overview]);
+  useEffect(() => {
     const changed = () => setTableFullscreen(!!document.fullscreenElement);
     changed();
     document.addEventListener("fullscreenchange", changed);
@@ -599,7 +611,7 @@ function GameRoom({
     observer.observe(node);
     resize();
     return () => observer.disconnect();
-  }, [!!game, game?.players.length]);
+  }, [!!game, game?.players.length, overview]);
   useEffect(() => {
     if (scroll.current) scroll.current.scrollTop = scroll.current.scrollHeight;
   }, [game?.log.length, drawer]);
@@ -761,6 +773,19 @@ function GameRoom({
   function commit() {
     submit(confirm);
   }
+  function commitBatch() {
+    const batch = game?.decision?.batch;
+    if (
+      !batch ||
+      batchSelected.length !== batch.count ||
+      net.busy ||
+      net.status !== "online"
+    )
+      return;
+    net.send("command", {
+      command: { type: "choose-many", optionIds: batchSelected },
+    });
+  }
   async function fullscreen() {
     if (displaySnapshot().fullscreen) await exitGameFullscreen();
     else await enterGameFullscreen();
@@ -853,7 +878,7 @@ function GameRoom({
       }
       setTarget(id);
       setConfirm(actions.length === 1 ? actions[0] : null);
-      if (!["city", "explore"].includes(decision?.kind ?? ""))
+      if (!["city", "explore", "initial-node"].includes(decision?.kind ?? ""))
         showInteraction("action");
     } else {
       const site = game.sites[id];
@@ -880,7 +905,7 @@ function GameRoom({
       submit(main, { placement: null, city: null, influence: null });
       return;
     }
-    if (game.decision?.kind === "explore") {
+    if (["explore", "initial-node"].includes(game.decision?.kind ?? "")) {
       const option = game.actions.find((a) => a.target === id);
       if (option)
         submit(option, { placement: null, city: null, influence: null });
@@ -892,10 +917,23 @@ function GameRoom({
   return (
     <>
       <div
-        className={`room-toolbar ${game ? "in-game" : ""}`}
+        className={`room-toolbar ${game && !overview ? "in-game" : ""}`}
         data-revision={room.revision}
       >
         <div>
+          <button
+            className="room-back"
+            onClick={onBack}
+            aria-label={
+              training
+                ? "返回练习前页面"
+                : game && !overview
+                  ? "返回房间大厅"
+                  : "返回联机大厅"
+            }
+          >
+            ← <span>{game && !overview ? "房间大厅" : "返回"}</span>
+          </button>
           <span className="eyebrow">PRIVATE EXPEDITION</span>
           <span className="room-code">{room.id}</span>
           {!training && (
@@ -935,11 +973,12 @@ function GameRoom({
           </button>
         </div>
       )}
-      {!game ? (
+      {!game || overview ? (
         <RoomLobby
           room={room}
           busy={net.busy}
           status={net.status}
+          onResume={onResume}
           onReady={() =>
             net.send("ready", {
               ready: !room.seats.find((s) => s.id === room.me)?.ready,
@@ -1277,15 +1316,23 @@ function GameRoom({
                           ? `等待 ${waitingNames} 完成后继续`
                           : waiting
                             ? `${activeName} 正在作出选择`
-                            : (decision?.title ??
-                              (placements.length
-                                ? "点击地图高亮位置，放置影响力"
-                                : "打开行动窗口，安排本轮行动"))}
+                            : decision?.kind === "initial-node"
+                              ? confirm
+                                ? `${confirm.target} · 双击落城，或确认此处`
+                                : "选择高亮资源点 · 双击落城"
+                              : (decision?.title ??
+                                (placements.length
+                                  ? "点击地图高亮位置，放置影响力"
+                                  : "打开行动窗口，安排本轮行动"))}
                       </strong>
                     </div>
                     {!waiting && (
                       <button
                         onClick={() => {
+                          if (decision?.kind === "initial-node" && confirm) {
+                            commit();
+                            return;
+                          }
                           if (boardChoice) {
                             setTarget("");
                             setConfirm(null);
@@ -1293,11 +1340,13 @@ function GameRoom({
                           openAction();
                         }}
                       >
-                        {boardChoice
-                          ? "目标列表 ↗"
-                          : choosingHand
-                            ? "打开手牌 ↗"
-                            : "打开窗口 ↗"}
+                        {decision?.kind === "initial-node" && confirm
+                          ? "在此落城 ↓"
+                          : boardChoice
+                            ? "目标列表 ↗"
+                            : choosingHand
+                              ? "打开手牌 ↗"
+                              : "打开窗口 ↗"}
                       </button>
                     )}
                   </div>
@@ -1347,6 +1396,26 @@ function GameRoom({
               onDetail={setDetail}
               onAction={() => showInteraction("action")}
               touch={phone}
+              multi={
+                decision?.kind === "trim" &&
+                decision.batch &&
+                decision.batch.count > 1
+                  ? {
+                      selected: batchSelected,
+                      count: decision.batch.count,
+                      toggle: (id) =>
+                        setBatchSelected((ids) =>
+                          ids.includes(id)
+                            ? ids.filter((v) => v !== id)
+                            : ids.length < decision.batch!.count
+                              ? [...ids, id]
+                              : ids,
+                        ),
+                      clear: () => setBatchSelected([]),
+                      commit: commitBatch,
+                    }
+                  : undefined
+              }
             />
             <nav className="map-dock" aria-label="地图旁操作">
               <button
@@ -1517,21 +1586,33 @@ function GameRoom({
                         ← 返回地图选择位置
                       </button>
                     )}
-                    <ActionComposer
-                      key={game.revision}
-                      game={game}
-                      selected={confirm}
-                      target={target}
-                      disabled={net.busy || net.status !== "online"}
-                      onSelect={(value) =>
-                        value ? action(value) : setConfirm(null)
-                      }
-                      onCommit={commit}
-                      onTarget={setTarget}
-                      onDetail={setDetail}
-                      hideOptions={interaction === "hand"}
-                      preferredFacility={preferredFacility}
-                    />
+                    {decision?.batch &&
+                    decision.batch.count > 1 &&
+                    decision.kind !== "trim" ? (
+                      <BatchChoices
+                        game={game}
+                        selected={batchSelected}
+                        disabled={net.busy || net.status !== "online"}
+                        onChange={setBatchSelected}
+                        onCommit={commitBatch}
+                      />
+                    ) : (
+                      <ActionComposer
+                        key={game.revision}
+                        game={game}
+                        selected={confirm}
+                        target={target}
+                        disabled={net.busy || net.status !== "online"}
+                        onSelect={(value) =>
+                          value ? action(value) : setConfirm(null)
+                        }
+                        onCommit={commit}
+                        onTarget={setTarget}
+                        onDetail={setDetail}
+                        hideOptions={interaction === "hand"}
+                        preferredFacility={preferredFacility}
+                      />
+                    )}
                   </div>
                 )}
             </Modal>

@@ -7,17 +7,25 @@ import {
 } from "../../../packages/rules/src/engine.ts";
 
 /** Rotated cards overlap: aim at a visible part of the actual card, then its raised face. */
-export async function clickHandCard(page: Page, card: Locator, clicks = 1) {
-  await page.locator(".fan-toggle").hover();
+export async function clickHandCard(
+  page: Page,
+  card: Locator,
+  clicks = 1,
+  touch = false,
+) {
+  if (!touch) await page.locator(".fan-toggle").hover();
   if (
     (await page.locator(".fan-toggle").getAttribute("aria-expanded")) !== "true"
   )
-    await page.locator(".fan-toggle").click();
+    if (touch) await page.locator(".fan-toggle").tap();
+    else await page.locator(".fan-toggle").click();
   await expect(page.locator(".fan-hand")).toHaveClass(/is-expanded/);
   await page.locator(".hand-cards").evaluate(async (el) => {
     getComputedStyle(el).bottom;
     await Promise.all(
-      el.getAnimations().map((a) => a.finished.catch(() => {})),
+      el
+        .getAnimations({ subtree: true })
+        .map((a) => a.finished.catch(() => {})),
     );
   });
   const visiblePoint = () =>
@@ -51,6 +59,11 @@ export async function clickHandCard(page: Page, card: Locator, clicks = 1) {
     });
   const point = await visiblePoint();
   expect(point).toBeTruthy();
+  if (touch) {
+    for (let i = 0; i < clicks; i++)
+      await page.touchscreen.tap(point.x, point.y);
+    return;
+  }
   await page.mouse.move(point.x, point.y);
   await card.evaluate(async (el) => {
     getComputedStyle(el.parentElement!).transform;

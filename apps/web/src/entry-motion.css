@@ -55,6 +55,12 @@
   top: 64%;
   right: 12%;
 }
+.boot-scan-clip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
 .boot-scan {
   position: absolute;
   inset: 0 auto 0 0;

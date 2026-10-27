@@ -1,4 +1,5 @@
 import { oripathyEnterpriseImage } from "./oripathy-data.ts";
+import { batchChoice } from "./batch-choices.ts";
 import {
   allBuilt,
   discountCosts,
@@ -3575,6 +3576,47 @@ export function applyCommand(
     command !== null && typeof command === "object" && !Array.isArray(command),
     "行动指令格式无效",
   );
+  if (command.type === "choose-many") {
+    const batch = batchChoice(original, id);
+    ensure(batch, "此选择不能批量提交");
+    ensure(
+      Object.keys(command).length === 2 &&
+        Array.isArray(command.optionIds) &&
+        command.optionIds.length === batch.count &&
+        command.optionIds.every(
+          (v) => typeof v === "string" && v.length <= 128,
+        ),
+      `请选满 ${batch.count} 项后确认`,
+    );
+    const ids = command.optionIds!;
+    for (const value of new Set(ids))
+      ensure(
+        ids.filter((v) => v === value).length <= (batch.limits[value] ?? 0),
+        "所选项目或数量不可用",
+      );
+    const kind = (
+      original.parallel
+        ? original.parallel.players[id].decision
+        : original.decision
+    )!.kind;
+    let next = original;
+    for (const [index, optionId] of ids.entries()) {
+      const d = next.parallel
+        ? next.parallel.players[id]?.decision
+        : next.decision;
+      ensure(
+        d?.playerId === id &&
+          d.kind === kind &&
+          batchChoice(next, id)?.count === ids.length - index,
+        "选择内容已变化，请重新选择",
+      );
+      // Each step uses the ordinary validator on a copy. Any failure discards
+      // the entire batch; persistence and broadcast happen only after success.
+      next = applyCommand(next, id, { type: "choose", optionId });
+    }
+    next.revision = original.revision + 1;
+    return next;
+  }
   const legal = getLegalActions(original, id);
   ensure(
     legal.some(({ command: expected }) => {
@@ -3930,6 +3972,9 @@ export function projectView(s: GameState, id: string): PlayerView {
               : decision.title,
           kind: decision.kind,
           private: decision.private,
+          ...(decision.playerId === id && batchChoice(s, id)
+            ? { batch: batchChoice(s, id) }
+            : {}),
           ...(decision.playerId === id && decisionMap
             ? { map: decisionMap }
             : {}),

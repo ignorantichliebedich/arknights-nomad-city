@@ -1,4 +1,10 @@
-import { useEffect, useRef, useState, type PointerEvent } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type PointerEvent,
+} from "react";
 import { RESOURCE_NAMES } from "../../../../packages/rules/src/data.ts";
 import { gameAudio } from "../audio.ts";
 import { useQuickActivate } from "../useQuickActivate.ts";
@@ -62,6 +68,29 @@ export function BoardMap({
   const quick = useQuickActivate();
   const decision = game.decision;
   const bounds = mapBounds(game);
+  const previousCities = useRef(
+    Object.fromEntries(game.players.map((p) => [p.id, p.city])),
+  );
+  const [arrivals, setArrivals] = useState<string[]>([]);
+  const cityLocations = game.players.map((p) => `${p.id}:${p.city}`).join("|");
+  useLayoutEffect(() => {
+    const landed = game.players
+      .filter((p) => p.city && previousCities.current[p.id] === null)
+      .map((p) => p.id);
+    previousCities.current = Object.fromEntries(
+      game.players.map((p) => [p.id, p.city]),
+    );
+    if (
+      !landed.length ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      setArrivals([]);
+      return;
+    }
+    setArrivals(landed);
+    const timer = setTimeout(() => setArrivals([]), 1000);
+    return () => clearTimeout(timer);
+  }, [cityLocations]);
   const svgRef = useRef<SVGSVGElement>(null);
   const influence = useInfluenceDrag(
     game,
@@ -216,7 +245,9 @@ export function BoardMap({
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
-                    chooseSite(site.id);
+                    if (decision?.kind === "initial-node" && e.key === "Enter")
+                      quickSite(site.id);
+                    else chooseSite(site.id);
                   }
                 }}
               />
@@ -392,7 +423,22 @@ export function BoardMap({
                   if (!canDrag) chooseSite(p.city!);
                 }}
               >
-                <TablePiece kind="city" seat={p.seat} />
+                <g className={arrivals.includes(p.id) ? "city-arrival" : ""}>
+                  {arrivals.includes(p.id) && (
+                    <g
+                      className="city-landing-dust"
+                      aria-hidden="true"
+                      pointerEvents="none"
+                    >
+                      <ellipse rx="42" ry="17" cy="5" />
+                      <ellipse rx="29" ry="11" cy="5" />
+                      <path d="M-44 8l-12 4m96-2 14 5m-65 6-5 9m37-8 5 9" />
+                    </g>
+                  )}
+                  <g className="city-arrival-model">
+                    <TablePiece kind="city" seat={p.seat} />
+                  </g>
+                </g>
                 {canDrag && (
                   <rect
                     className="city-grab-area"

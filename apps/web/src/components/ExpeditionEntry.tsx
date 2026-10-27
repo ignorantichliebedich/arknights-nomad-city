@@ -25,6 +25,7 @@ type Props = ComponentProps<typeof ExpeditionPermit> & {
   onGuide: () => void;
   onPractice: () => void;
   paused?: boolean;
+  initialLobby?: boolean;
 };
 
 /** Scene changes are presentation only. App owns room requests and form values. */
@@ -32,10 +33,11 @@ export function ExpeditionEntry({
   onGuide,
   onPractice,
   paused,
+  initialLobby,
   ...permit
 }: Props) {
   const { scene, moving, arriving, hidden, start, change, motion, busy } =
-    useHomeScene(permit.code, permit.loading);
+    useHomeScene(permit.code, permit.loading, initialLobby);
   return (
     <main
       className={`departure-entry departure-stage home-scene-${scene} ${moving ? "is-changing" : ""} ${arriving ? "is-arriving" : ""}`}
