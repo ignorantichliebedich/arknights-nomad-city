@@ -1,0 +1,34 @@
+{
+  "source": "Local production UI; disposable synthetic rooms; no player data",
+  "viewport": {
+    "width": 1600,
+    "height": 900
+  },
+  "screenshots": [
+    {
+      "file": "home.jpg",
+      "sha256": "b0baae4a84db74af34dc2f6dd9f40a0717f4a62a1baba5dce57c398d581b48f3",
+      "bytes": 175265
+    },
+    {
+      "file": "table.jpg",
+      "sha256": "72cf3608279332920de98d8b26fd497ec97486a6ad04a7b5cfe02ea8b19c9258",
+      "bytes": 318085
+    },
+    {
+      "file": "enterprises.jpg",
+      "sha256": "3cf4b6d81d76ba0e751e342edddd59928362ad50189f0999e8c0186fd55427a4",
+      "bytes": 152764
+    },
+    {
+      "file": "practice.jpg",
+      "sha256": "1d11ddc4a4b49740328029b599b3c9fdacc33567bc8df3cd827edddb2f692767",
+      "bytes": 334242
+    },
+    {
+      "file": "oripathy.jpg",
+      "sha256": "18050a9bed07a814063ba87560bacec3d80002422b3b50fbe6b8c53be28e368a",
+      "bytes": 195669
+    }
+  ]
+}
