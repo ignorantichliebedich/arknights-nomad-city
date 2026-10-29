@@ -82,6 +82,6 @@ pnpm backup
 | `tools/`              | 开发启动、备份、公开资料读取、素材归一化及校验                           |
 | `deploy/`             | Caddy 配置；根目录另有 Dockerfile 与 Compose                             |
 
-已归一化素材随项目运行目录提供，启动游戏不需要重新下载。重建素材使用 `python -m pip install -r tools/requirements.txt`，依次运行 `tools/research.py`、`tools/extract-tabletop.py`、`tools/import-assets.py`、`tools/prepare-hd-assets.py`、`tools/prepare-table-motion-assets.py`、`tools/prepare-fan-assets.py`，再运行 `pnpm assets:catalog` 和 `pnpm assets:check`。资料脚本只读取公开内容，不执行模组里的 Lua 脚本。
+完成素材恢复或解压 Windows 运行包后，归一化素材保存在本地运行目录，再次启动游戏无需重新下载。重建素材使用 `python -m pip install -r tools/requirements.txt`，依次运行 `tools/research.py`、`tools/extract-tabletop.py`、`tools/import-assets.py`、`tools/prepare-hd-assets.py`、`tools/prepare-table-motion-assets.py`、`tools/prepare-fan-assets.py`，再运行 `pnpm assets:catalog` 和 `pnpm assets:check`。资料脚本只读取公开内容，不执行模组里的 Lua 脚本。
 
 项目用于朋友私人试玩。原画及桌游素材权利归原作者；公开下载地址本身不构成素材再分发授权。出处及处理记录保存在 `assets/manifest.json`。
