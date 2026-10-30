@@ -376,6 +376,9 @@
   left: 50%;
   transform: none;
 }
+.phone-layout .fan-hand.is-expanded.is-picking {
+  --fan-center: 50%;
+}
 .phone-layout .fan-hand.is-expanded .hand-cards {
   bottom: 92px;
 }

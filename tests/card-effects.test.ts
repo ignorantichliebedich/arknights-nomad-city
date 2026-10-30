@@ -69,7 +69,9 @@ function effect(s: GameState, steps: Step[]) {
 
 describe("设施牌面与入场结算", () => {
   it.each(
-    FACILITIES.filter((f) => f.id !== "core" && !f.id.startsWith("extension-")),
+    FACILITIES.filter(
+      (f) => !f.oripathy && f.id !== "core" && !f.id.startsWith("extension-"),
+    ),
   )("$name（$id）：支付、入城、结算及市场即时补牌", (card) => {
     let s = fixture();
     s.market = [`${card.id}@test`];
@@ -205,7 +207,7 @@ describe("角色的策略、计谋与持续状态", () => {
     },
   );
   it.each(
-    ROLES.flatMap((r) =>
+    ROLES.filter((r) => !r.oripathy).flatMap((r) =>
       ["strategy", "tactic"].map((mode) => ({ role: r.id, mode })),
     ),
   )(
@@ -449,37 +451,40 @@ describe("企业升级与连锁裁定", () => {
 });
 
 describe("城市样式和收尾边界", () => {
-  it.each(PATTERNS)("$name：宣告得分和特殊行动可自动裁定", (pattern) => {
-    let s = fixture();
-    s.patterns = [pattern.id];
-    s.players[0].built = {};
-    for (const [row, col, colors] of pattern.shape) {
-      const id =
-        colors.split("|")[0] === "blue"
-          ? "trade"
-          : colors.split("|")[0] === "red"
-            ? "garage"
-            : "industrial";
-      s.players[0].built[String(row * 3 + col)] = { cardId: id, used: false };
-    }
-    s = settle(
-      applyCommand(s, "p0", { type: "declare", patternId: pattern.id }),
-    );
-    expect(s.players[0].wallet.score).toBe(pattern.score);
-    expect(s.players[0].claims[0].uses).toBe(pattern.level === 2 ? 2 : -1);
-    if (pattern.effect !== "relay") {
+  it.each(PATTERNS.filter((p) => !p.oripathy))(
+    "$name：宣告得分和特殊行动可自动裁定",
+    (pattern) => {
+      let s = fixture();
+      s.patterns = [pattern.id];
+      s.players[0].built = {};
+      for (const [row, col, colors] of pattern.shape) {
+        const id =
+          colors.split("|")[0] === "blue"
+            ? "trade"
+            : colors.split("|")[0] === "red"
+              ? "garage"
+              : "industrial";
+        s.players[0].built[String(row * 3 + col)] = { cardId: id, used: false };
+      }
       s = settle(
-        applyCommand(s, "p0", { type: "special", patternId: pattern.id }),
+        applyCommand(s, "p0", { type: "declare", patternId: pattern.id }),
       );
-      expect(s.players[0].claims[0].cooldown).toBe(1);
-      expect(s.queue).toEqual([]);
-    } else
-      expect(s.players[0].wallet).toMatchObject({
-        rock: 101,
-        ore: 101,
-        iron: 101,
-      });
-  });
+      expect(s.players[0].wallet.score).toBe(pattern.score);
+      expect(s.players[0].claims[0].uses).toBe(pattern.level === 2 ? 2 : -1);
+      if (pattern.effect !== "relay") {
+        s = settle(
+          applyCommand(s, "p0", { type: "special", patternId: pattern.id }),
+        );
+        expect(s.players[0].claims[0].cooldown).toBe(1);
+        expect(s.queue).toEqual([]);
+      } else
+        expect(s.players[0].wallet).toMatchObject({
+          rock: 101,
+          ore: 101,
+          iron: 101,
+        });
+    },
+  );
   it("工业中枢消费一次特殊行动，提供两次普通主要行动且本轮禁用角色", () => {
     let s = fixture();
     s.players[0].claims = [

@@ -4,6 +4,8 @@ import { PosterTitle } from "./PosterTitle.tsx";
 import { useHomeScene } from "../useHomeScene.ts";
 import { ENTRY_MOTION } from "../entry-motion.ts";
 import { ExpeditionShortcuts } from "./ExpeditionShortcuts.tsx";
+import { FoundersDisplay } from "./FoundersDisplay.tsx";
+import { FrontierPostcard } from "./FrontierPostcard.tsx";
 
 export function ExpeditionAtmosphere() {
   return (
@@ -23,6 +25,7 @@ type Props = ComponentProps<typeof ExpeditionPermit> & {
   onGuide: () => void;
   onPractice: () => void;
   paused?: boolean;
+  initialLobby?: boolean;
 };
 
 /** Scene changes are presentation only. App owns room requests and form values. */
@@ -30,10 +33,11 @@ export function ExpeditionEntry({
   onGuide,
   onPractice,
   paused,
+  initialLobby,
   ...permit
 }: Props) {
   const { scene, moving, arriving, hidden, start, change, motion, busy } =
-    useHomeScene(permit.code, permit.loading);
+    useHomeScene(permit.code, permit.loading, initialLobby);
   return (
     <main
       className={`departure-entry departure-stage home-scene-${scene} ${moving ? "is-changing" : ""} ${arriving ? "is-arriving" : ""}`}
@@ -77,26 +81,7 @@ export function ExpeditionEntry({
           </div>
           <ExpeditionShortcuts onPractice={onPractice} onGuide={onGuide} />
         </div>
-        <div className="poster-founders" aria-hidden="true">
-          <div className="founder-orbit" />
-          <span className="founder-large-number">105</span>
-          {[0, 1, 2, 3].map((i) => (
-            <div className={`founder-card founder-card-${i}`} key={i}>
-              <img
-                src={`/assets/entrepreneur-${i}.webp`}
-                alt=""
-                draggable={false}
-                onError={(event) => {
-                  event.currentTarget.hidden = true;
-                }}
-              />
-            </div>
-          ))}
-          <div className="founder-caption">
-            <span>FOUR FOUNDERS / ONE FRONTIER</span>
-            <b>四席之约 · 一同拓荒</b>
-          </div>
-        </div>
+        <FoundersDisplay />
         <div className="hero-spec">
           <span>
             <b>02—04</b> 位企业家
@@ -128,16 +113,7 @@ export function ExpeditionEntry({
             <br />
             从这里启程，去往尚未命名的荒野。
           </p>
-          <div className="lobby-city" aria-hidden="true">
-            <span>105</span>
-            <img
-              src="/assets/city-model-0.svg"
-              alt=""
-              onError={(event) => {
-                event.currentTarget.hidden = true;
-              }}
-            />
-          </div>
+          <FrontierPostcard oripathy={permit.oripathy} />
           <button
             className="subtle-button lobby-return"
             disabled={permit.loading || busy}
@@ -146,7 +122,12 @@ export function ExpeditionEntry({
             ← 返回主视觉
           </button>
         </div>
-        <ExpeditionPermit {...permit} />
+        <div className="permit-folio">
+          <span className="permit-folder-tab" aria-hidden="true">
+            105 / 拓荒许可
+          </span>
+          <ExpeditionPermit {...permit} />
+        </div>
       </section>
       <div className="home-scene-index" aria-label="首页场景">
         <button

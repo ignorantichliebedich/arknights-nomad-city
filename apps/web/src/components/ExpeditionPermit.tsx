@@ -5,6 +5,10 @@ export function ExpeditionPermit({
   name,
   entryCode,
   expansion,
+  oripathy,
+  expert,
+  onOripathy,
+  onExpert,
   loading,
   error,
   onName,
@@ -17,6 +21,10 @@ export function ExpeditionPermit({
   name: string;
   entryCode: string;
   expansion: boolean;
+  oripathy: boolean;
+  expert: boolean;
+  onOripathy: (enabled: boolean) => void;
+  onExpert: (enabled: boolean) => void;
   loading: boolean;
   error: string;
   onName: (value: string) => void;
@@ -83,7 +91,9 @@ export function ExpeditionPermit({
           disabled={loading}
         />
         {!code && (
-          <label className={`permit-expansion ${expansion ? "enabled" : ""}`}>
+          <label
+            className={`permit-expansion permit-enterprise-slip ${expansion ? "enabled" : ""}`}
+          >
             <input
               type="checkbox"
               checked={expansion}
@@ -92,7 +102,7 @@ export function ExpeditionPermit({
               aria-label="创建房间时启用企业扩展"
             />
             <span className="permit-expansion-icon" aria-hidden="true">
-              ＋
+              I
             </span>
             <span>
               <strong>携手合作企业</strong>
@@ -102,10 +112,51 @@ export function ExpeditionPermit({
           </label>
         )}
         {!code && (
+          <div className="permit-oripathy">
+            <label className={`permit-expansion ${oripathy ? "enabled" : ""}`}>
+              <input
+                type="checkbox"
+                checked={oripathy}
+                onChange={(e) => onOripathy(e.target.checked)}
+                disabled={loading}
+                aria-label="创建房间时启用感染者扩展"
+              />
+              <span className="permit-expansion-icon" aria-hidden="true">
+                II
+              </span>
+              <span>
+                <strong>感染者 · 做出你的抉择</strong>
+                <small>自动包含企业扩展 · 新干员、合作企业与城市样式</small>
+              </span>
+              <b aria-hidden="true">{oripathy ? "已启用" : "可选"}</b>
+            </label>
+            {oripathy && (
+              <label className="permit-expert">
+                <input
+                  type="checkbox"
+                  checked={expert}
+                  onChange={(e) => onExpert(e.target.checked)}
+                  disabled={loading}
+                />
+                <span>
+                  企业家与抉择
+                  <small>
+                    原版可选专家规则 · 逆序选人、A／B 抉择与专属能力
+                  </small>
+                </span>
+              </label>
+            )}
+          </div>
+        )}
+        {!code && (
           <p className="permit-edition" aria-live="polite">
             本次启航{" "}
             <strong>
-              {expansion ? "铸基者 + 企业扩展" : "铸基者 · 基础版"}
+              {oripathy
+                ? `感染者${expert ? " · 企业家抉择" : " · 常规玩法"}`
+                : expansion
+                  ? "铸基者 + 企业扩展"
+                  : "铸基者 · 基础版"}
             </strong>
           </p>
         )}

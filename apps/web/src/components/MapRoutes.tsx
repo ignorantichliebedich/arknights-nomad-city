@@ -209,7 +209,7 @@ export function RoutePanel({
               <span>
                 {t.amount === 0
                   ? "免费通行"
-                  : `${t.amount} 金券 → ${t.recipients.length ? t.recipients.map((id) => game.players.find((p) => p.id === id)!.name).join(" / ") : "银行"}`}
+                  : `${t.amount} 金券 → ${t.recipients.length ? t.recipients.map((id) => game.players.find((p) => p.id === id)?.name ?? "银行").join(" / ") : "银行"}`}
               </span>
             </li>
           ))}

@@ -27,6 +27,8 @@ export function SupplyWindow({
   const build = game.actions.find(
     (a) => a.command.type === "main" && a.command.action === "build",
   );
+  const blueprint =
+    game.players.find((p) => p.id === game.me)?.oripathy?.blueprint ?? [];
   return (
     <section className="supply-workshop">
       <header className="supply-intro">
@@ -40,7 +42,7 @@ export function SupplyWindow({
         查看费用与能力，选定设施后依次安排城市格和付款。建设完成后展示补入的新牌。
       </p>
       <div className="supply-cards">
-        {game.market.map((instance, i) => {
+        {[...game.market, ...blueprint].map((instance, i) => {
           const card = FACILITY_BY_ID[instance.split("@")[0]];
           return (
             <article
@@ -65,6 +67,31 @@ export function SupplyWindow({
                 {card.name}
                 <small> +{card.points} 分</small>
               </strong>
+              {blueprint.includes(instance) && (
+                <small>马丁 · 私有建设图纸</small>
+              )}
+              {!!game.oripathy?.marketUnder[instance]?.length && (
+                <div className="supply-stack">
+                  <small>供应叠层 · 只能建设最上层</small>
+                  {game.oripathy.marketUnder[instance].map((under, index) => {
+                    const c = FACILITY_BY_ID[under.split("@")[0]];
+                    return (
+                      <button
+                        key={under}
+                        onClick={() =>
+                          onDetail({
+                            title: `下层 ${index + 1} · ${c.name}`,
+                            image: c.image,
+                            text: facilityText(c.id),
+                          })
+                        }
+                      >
+                        下层 {index + 1} · {c.name} ↗
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
               <div className="supply-cost">
                 {Object.entries(card.cost).map(([r, n]) => (
                   <span key={r}>

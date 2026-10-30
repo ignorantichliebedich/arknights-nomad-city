@@ -1,3 +1,20 @@
+import { oripathyEnterpriseImage } from "./oripathy-data.ts";
+import { batchChoice } from "./batch-choices.ts";
+import {
+  allBuilt,
+  discountCosts,
+  expertActions,
+  hasDilemma,
+  takeMarket,
+} from "./oripathy-experts.ts";
+import {
+  AMIYA,
+  FLOW_ROLES,
+  ORIPATHY_OPERATIVES,
+  ORIPATHY_RULES_VERSION,
+  ENTREPRENEURS,
+} from "./oripathy-data.ts";
+import { executeOripathy, oripathyRoleSteps } from "./oripathy-effects.ts";
 import {
   BASIC,
   BASE_ROLES,
@@ -122,15 +139,30 @@ function canPay(p: Player, cost: Reward) {
   );
 }
 function removeInfluence(s: GameState, siteId: string, index: number): Step[] {
+  const slot = `${siteId}:${index}`;
+  if (s.oripathy?.security.includes(slot)) {
+    s.oripathy.security = s.oripathy.security.filter((v) => v !== slot);
+    return [];
+  }
   const owner = s.sites[siteId].slots[index];
   if (!owner) return [];
   s.sites[siteId].slots[index] = null;
-  const persistent = player(s, owner).persistent.find(
-    (v) => v.roleId === "dorothy",
-  );
-  return persistent && persistent.markers < 4
-    ? [task("capture-marker", owner)]
-    : [];
+  const p = player(s, owner),
+    steps: Step[] = [];
+  const gang = !!p.oripathy?.gangSlots.includes(slot);
+  if (gang) {
+    p.oripathy!.gangSlots = p.oripathy!.gangSlots.filter((v) => v !== slot);
+    if (hasDilemma(p, 1) && p.city)
+      steps.push(task("o:normal-place", owner, { targets: [p.city] }));
+  }
+  const dorothy = p.persistent.find((v) => v.roleId === "dorothy");
+  if (!gang && p.oripathy?.entrepreneur === "pioneer")
+    steps.push(task("o:removed-marker", owner));
+  else if (!gang && dorothy && dorothy.markers < 4)
+    steps.push(task("capture-marker", owner));
+  if (p.oripathy?.entrepreneur === "agnes" && hasDilemma(p, 3, "A"))
+    steps.push(task("o:commands", owner, { count: 1 }));
+  return steps;
 }
 function paymentOptions(
   p: Player,
@@ -193,14 +225,50 @@ function stock(s: GameState, id: string): number {
     ) -
     p.claims.length -
     Object.keys(p.enterprise).length -
-    p.persistent.reduce((n, v) => n + v.markers, 0)
+    p.persistent.reduce((n, v) => n + v.markers, 0) -
+    s.players.reduce(
+      (n, other) =>
+        n +
+        other.persistent.reduce(
+          (m, e) => m + (e.owners ?? []).filter((owner) => owner === id).length,
+          0,
+        ),
+      0,
+    ) -
+    (p.oripathy?.markers ?? 0) -
+    (p.oripathy?.dilemmas.filter((v) => v.marker).length ?? 0) +
+    (p.oripathy?.gangSlots.length ?? 0)
   );
 }
-function emptySlots(s: GameState, id: string, targets?: string[]): string[] {
-  if (stock(s, id) <= 0) return [];
+function emptySlots(
+  s: GameState,
+  id: string,
+  targets?: string[],
+  mode: { normal?: boolean; moving?: boolean } = {},
+): string[] {
+  const p = player(s, id),
+    paul = p.oripathy?.entrepreneur === "paul",
+    gangFree = 4 - (p.oripathy?.gangSlots.length ?? 0);
+  if (!mode.moving) {
+    if (
+      mode.normal
+        ? stock(s, id) <= 0
+        : paul && hasDilemma(p, 3)
+          ? gangFree <= 0
+          : stock(s, id) <= 0 && (!paul || gangFree <= 0)
+    )
+      return [];
+  }
   return Object.entries(s.sites).flatMap(([siteId, site]) => {
     if (targets && !targets.includes(siteId)) return [];
     const n = s.board.nodes.find((n) => n.id === siteId);
+    if (s.oripathy?.lock && !mode.moving) {
+      const region = s.oripathy.lock.region;
+      const at = [...s.board.nodes, ...s.board.roads].find(
+        (n) => n.id === siteId,
+      );
+      if (at?.region === region) return [];
+    }
     if (
       site.publicRoad ||
       (n &&
@@ -209,7 +277,9 @@ function emptySlots(s: GameState, id: string, targets?: string[]): string[] {
     )
       return [];
     return site.slots.flatMap((owner, i) =>
-      owner === null ? [`${siteId}:${i}`] : [],
+      owner === null && !s.oripathy?.security.includes(`${siteId}:${i}`)
+        ? [`${siteId}:${i}`]
+        : [],
     );
   });
 }
@@ -223,7 +293,9 @@ function occupied(
     targets && !targets.includes(id)
       ? []
       : site.slots.flatMap((owner, i) =>
-          owner &&
+          (owner ||
+            ((who === "any" || who === "opponent") &&
+              s.oripathy?.security.includes(`${id}:${i}`))) &&
           (who === "any" ||
             (who === "self"
               ? owner === actor
@@ -358,7 +430,7 @@ function buildCost(p: Player, cardId: string): Reward {
   const cost = { ...card.cost };
   if (cardId === "industrial") {
     const types = new Set(
-      Object.values(p.built)
+      allBuilt(p)
         .filter((b) => FACILITY_BY_ID[b.cardId].color !== "wild")
         .map((b) => FACILITY_BY_ID[b.cardId].color),
     );
@@ -410,17 +482,39 @@ export function patternMatches(p: Player, id: string): string[][] {
 }
 export function createGame(
   players: { id: string; name: string }[],
-  config: { expansion?: boolean; seed?: number } = {},
+  config: {
+    expansion?: boolean;
+    oripathy?: boolean;
+    expert?: boolean;
+    seed?: number;
+  } = {},
 ): GameState {
   ensure(players.length >= 2 && players.length <= 4, "需要 2–4 位玩家");
   ensure(
     new Set(players.map((p) => p.id)).size === players.length,
     "玩家席位重复",
   );
+  const expansion = !!config.expansion || !!config.oripathy;
   const board = boardFor(players.length);
   const s: GameState = {
-    rulesVersion: RULES_VERSION,
-    expansion: !!config.expansion,
+    rulesVersion: config.oripathy ? ORIPATHY_RULES_VERSION : RULES_VERSION,
+    expansion,
+    ...(config.oripathy
+      ? {
+          oripathy: {
+            expert: !!config.expert,
+            entrepreneurs: ENTREPRENEURS.map((v) => v.id),
+            security: [],
+            contracts: [],
+            awards: ["1184", "1185", "1186", "1187"],
+            flows: FLOW_ROLES.map((v) => v.id),
+            lock: null,
+            gavial: null,
+            turn: 0,
+            marketUnder: {},
+          },
+        }
+      : {}),
     revision: 0,
     phase: "setup",
     round: 1,
@@ -438,9 +532,22 @@ export function createGame(
       seat: i,
       wallet: wallet(),
       city: null,
-      hand: BASE_ROLES.filter((r) => config.expansion || !r.expansion).map(
-        (r) => r.id,
-      ),
+      ...(config.oripathy
+        ? {
+            coveredFlows: [],
+            oripathy: {
+              entrepreneur: null,
+              dilemmas: [],
+              markers: 0,
+              gangSlots: [],
+              awards: [],
+              blueprint: [],
+            },
+          }
+        : {}),
+      hand: [...BASE_ROLES, ...(config.oripathy ? [AMIYA] : [])]
+        .filter((r) => expansion || !r.expansion)
+        .map((r) => r.id),
       discard: [],
       selected: null,
       revealed: false,
@@ -485,7 +592,9 @@ export function createGame(
       (f) =>
         f.id !== "core" &&
         !f.id.startsWith("extension-") &&
-        (s.expansion || !f.expansion),
+        (s.expansion || !f.expansion) &&
+        (s.oripathy || !f.oripathy) &&
+        !f.id.startsWith("o-urban-"),
     ).flatMap((f) =>
       Array.from({ length: f.copies }, (_, i) => `${f.id}@${i}`),
     ),
@@ -502,20 +611,35 @@ export function createGame(
     ? [
         ...shuffle(
           s,
-          PATTERNS.filter((p) => p.level === 1).map((p) => p.id),
+          PATTERNS.filter(
+            (p) => p.level === 1 && (s.oripathy || !p.oripathy),
+          ).map((p) => p.id),
         ).slice(0, 4),
         ...shuffle(
           s,
-          PATTERNS.filter((p) => p.level === 2).map((p) => p.id),
+          PATTERNS.filter(
+            (p) => p.level === 2 && (s.oripathy || !p.oripathy),
+          ).map((p) => p.id),
         ).slice(0, 2),
       ]
     : PATTERNS.filter((p) => !p.expansion).map((p) => p.id);
   if (s.expansion) {
-    s.enterpriseDeck = shuffle(s, [...VERIFIED_ENTERPRISES]);
+    s.enterpriseDeck = shuffle(s, [
+      ...VERIFIED_ENTERPRISES,
+      ...(s.oripathy ? ["stonehoove", "maylander"] : []),
+    ]);
     s.operativeDeck = shuffle(
       s,
-      OPERATIVES.map((r) => r.id),
+      [...OPERATIVES, ...(s.oripathy ? ORIPATHY_OPERATIVES : [])].map(
+        (r) => r.id,
+      ),
     );
+    if (s.oripathy?.expert)
+      s.queue.push(
+        ...[...s.players]
+          .reverse()
+          .map((p) => task("o:entrepreneur-draft", p.id)),
+      );
     s.queue.push(
       ...s.players.map((p) =>
         task("draft-company", p.id, { count: players.length === 2 ? 2 : 1 }),
@@ -525,7 +649,8 @@ export function createGame(
   }
   for (const p of s.players) {
     s.queue.push(task("initial-node", p.id));
-    if (s.expansion) s.queue.push(task("trim-hand", p.id, { count: 2 }));
+    if (s.expansion)
+      s.queue.push(task("trim-hand", p.id, { count: s.oripathy ? 3 : 2 }));
   }
   if (players.length === 2)
     s.queue.push(task("place", players[1].id, { count: 1 }));
@@ -543,8 +668,12 @@ function entrySteps(
 ): Step[] {
   const p = player(s, id);
   const card = FACILITY_BY_ID[cardId];
+  if (card.effect === "o-rhodes-office") return [task("o:rhodes-office", id)];
+  if (card.effect.startsWith("o-urban-"))
+    return [task("o:urban-entry", id, { cardId })];
   switch (card.effect) {
     case "none":
+    case "o-settlement":
       return [];
     case "rock7":
       return [gain(id, { rock: 7 })];
@@ -601,6 +730,8 @@ function roleSteps(
 ): Step[] {
   const strategy = mode === "strategy";
   const p = player(s, id);
+  const addition = oripathyRoleSteps(roleId, strategy, id, { task, gain });
+  if (addition) return addition;
   switch (roleId) {
     case "liskarm":
       return strategy
@@ -767,6 +898,39 @@ function enterpriseSteps(
   level: number,
 ): Step[] {
   const p = player(s, id);
+  if (s.oripathy) {
+    if (company === "rhodes" && level === 3) return [task("rhodes-recall", id)];
+    if (company === "rhodes" && level === 4) return [];
+    if (company === "stonehoove")
+      return level === 1
+        ? [task("remove", id), task("o:security-first", id)]
+        : level === 2
+          ? [
+              task("o:security-place", id, { count: 2 }),
+              task("o:security-upgrade", id),
+            ]
+          : level === 4
+            ? [task("o:security-fourth", id)]
+            : [];
+    if (company === "maylander")
+      return level === 1
+        ? [
+            gain(id, { cash: 4 }),
+            task("allocate", id, { count: 2, resources: BASIC }),
+          ]
+        : level === 2
+          ? [task("explore", id), task("remove", id, { who: "self" })]
+          : level === 3
+            ? [
+                task("conditional", id, {
+                  cost: { iron: 4 },
+                  steps: [gain(id, { score: 2 })],
+                }),
+              ]
+            : level === 4
+              ? [task("o:award-select", id)]
+              : [];
+  }
   if (company === "rhodes") {
     if (level === 1) return [task("upgrade", id, { exclude: company })];
     if (level === 2)
@@ -871,7 +1035,10 @@ function enterpriseSteps(
   }
   return [];
 }
-function unlocked(company: string, level: number): boolean {
+function unlocked(company: string, level: number, oripathy = false): boolean {
+  if (oripathy && company === "rhodes") return [1, 2, 3].includes(level);
+  if (oripathy && company === "stonehoove") return [1, 2, 4].includes(level);
+  if (oripathy && company === "maylander") return [1, 2, 3, 4].includes(level);
   return (
     (
       {
@@ -921,6 +1088,24 @@ function upgradeReward(
   company: string,
   level: number,
 ): Step[] {
+  if (s.oripathy && company === "rhodes")
+    return level === 4
+      ? [task("operative-draw", id, { select: true })]
+      : level === 5
+        ? [gain(id, { score: 2 })]
+        : [];
+  if (s.oripathy && company === "stonehoove")
+    return level === 3
+      ? [gain(id, { score: 1 })]
+      : level === 5
+        ? [
+            gain(id, { prime: 1 }),
+            task("o:security-place", id),
+            task("o:security-contract", id),
+          ]
+        : [];
+  if (s.oripathy && company === "maylander")
+    return level === 5 ? [gain(id, { score: 2 })] : [];
   if (company === "rhodes" && [3, 5].includes(level))
     return [task("operative-draw", id)];
   if (company === "rhine")
@@ -945,9 +1130,18 @@ function buildOptions(
   data: Record<string, any>,
 ): Option[] {
   const p = player(s, id);
-  const cards = data.source === "deck" ? s.facilityDeck : s.market;
+  const cards =
+    data.source === "deck"
+      ? s.facilityDeck
+      : data.source === "blueprint"
+        ? (p.oripathy?.blueprint ?? [])
+        : s.market;
   const stash = data.marketOnly ? [] : p.persistent.flatMap((v) => v.stash);
-  const pool = [...cards, ...(data.source === "deck" ? [] : stash)];
+  const pool = [
+    ...cards,
+    ...(data.source === "deck" || data.source === "blueprint" ? [] : stash),
+    ...(!data.marketOnly && !data.source ? (p.oripathy?.blueprint ?? []) : []),
+  ];
   const options: Option[] = [];
   for (const instance of [...new Set(pool)]) {
     const cardId = instance.split("@")[0];
@@ -961,12 +1155,19 @@ function buildOptions(
       continue;
     if (
       card.unique &&
-      Object.values(p.built).some(
-        (b) => FACILITY_BY_ID[b.cardId].name === card.name,
-      )
+      allBuilt(p).some((b) => FACILITY_BY_ID[b.cardId].name === card.name)
     )
       continue;
-    for (const cell of freeCells(p))
+    if (data.nonWild && card.color === "wild") continue;
+    const stackable =
+      p.oripathy?.entrepreneur === "martin" &&
+      !data.nonWild &&
+      occupied(s, "self", id).length
+        ? Object.keys(p.built).filter(
+            (cell) => card.points > FACILITY_BY_ID[p.built[cell].cardId].points,
+          )
+        : [];
+    for (const cell of [...freeCells(p), ...stackable])
       for (const mode of data.free ? ["free"] : ["resources", "cash"]) {
         const cost: Reward =
           mode === "free"
@@ -974,18 +1175,35 @@ function buildOptions(
             : mode === "cash"
               ? { cash: card.cashCost }
               : buildCost(p, cardId);
-        if (!canPay(p, cost)) continue;
+        const discount =
+          s.players.some(
+            (v) =>
+              v.id !== id &&
+              v.oripathy?.entrepreneur === "martin" &&
+              hasDilemma(v, 5),
+          ) && mode === "resources";
+        const discounted = discount ? discountCosts(p, cost, canPay) : [];
+        if (!canPay(p, cost) && !discounted.length) continue;
+        const construct = task("construct", id, {
+          instance,
+          cell,
+          source: p.oripathy?.blueprint.includes(instance)
+            ? "blueprint"
+            : (data.source ?? "market"),
+          stack: !!p.built[cell],
+          mortgage: !!data.mortgage,
+        });
+        const finish = p.built[cell]
+          ? [task("o:stack-payment", id, { construct })]
+          : [construct];
         options.push(
           option(
             `${instance}:${cell}:${mode}`,
-            `${card.name} → 城市 ${Number(cell) + 1} · ${moneyText(cost)}`,
+            `${card.name} → 城市 ${Number(cell) + 1} · ${moneyText(cost)}${p.built[cell] ? "（叠建另移除自己的一个影响力）" : ""}`,
             [
-              pay(id, cost),
-              task("construct", id, {
-                instance,
-                cell,
-                source: data.source ?? "market",
-              }),
+              ...(discount
+                ? [task("o:build-payment", id, { cost, steps: finish })]
+                : [pay(id, cost), ...finish]),
             ],
             undefined,
             card.image,
@@ -1010,6 +1228,18 @@ function cityOptions(
           n !== p.city &&
           nodeOpen(s, n) &&
           !s.players.some((v) => v.id !== id && v.city === n) &&
+          !s.players.some(
+            (v) =>
+              v.id !== id &&
+              v.oripathy?.entrepreneur === "paul" &&
+              hasDilemma(v, 5, "B") &&
+              v.oripathy.gangSlots.some((slot) => slot.startsWith(`${n}:`)) &&
+              s.sites[n].slots.some(
+                (owner, index) =>
+                  owner === v.id &&
+                  !v.oripathy!.gangSlots.includes(`${n}:${index}`),
+              ),
+          ) &&
           (!data.requiredOwn || s.sites[n].slots.includes(id)),
       )
       .map((n) =>
@@ -1075,7 +1305,7 @@ function advanceParallelChoice(s: GameState, id: string) {
     ensure(
       (phase.kind === "harvest"
         ? ["harvest", "toll"]
-        : ["select-role", "select-role-at"]
+        : ["select-role", "select-role-at", "o:cover-flow", "o:cover-flow-at"]
       ).includes(step.kind),
       "并行阶段出现了不适用的效果",
     );
@@ -1190,6 +1420,33 @@ function execute(s: GameState, step: Step) {
   const d = step.data ?? ({} as Record<string, any>);
   const data = d as Record<string, any>;
   const count = Number(data.count ?? 1);
+  if (step.kind.startsWith("o:")) {
+    executeOripathy(s, step, {
+      task,
+      gain,
+      pay,
+      option,
+      player,
+      decide,
+      prepend,
+      log,
+      random,
+      stock,
+      emptySlots,
+      occupied,
+      unlocked: (company, level) => unlocked(company, level, !!s.oripathy),
+      enterpriseSteps,
+      mainOptions,
+      buildOptions,
+      roleSteps,
+      canPay,
+      entrySteps,
+      freeCells,
+      removeInfluence,
+      cityOptions,
+    });
+    return;
+  }
   switch (step.kind) {
     case "gain": {
       const reward = data.reward as Reward;
@@ -1288,7 +1545,9 @@ function execute(s: GameState, step: Step) {
                 : []),
             ],
             undefined,
-            ENTERPRISE_IMAGES[c],
+            s.oripathy
+              ? (oripathyEnterpriseImage(c) ?? ENTERPRISE_IMAGES[c])
+              : ENTERPRISE_IMAGES[c],
           ),
         ),
         "company-draft",
@@ -1476,12 +1735,19 @@ function execute(s: GameState, step: Step) {
         s,
         id,
         `${data.road} · 选择收取路费的玩家`,
-        owners.map((owner) =>
-          option(owner, player(s, owner).name, [
-            pay(id, { cash: 2 }),
-            gain(owner, { cash: 2 }),
-          ]),
-        ),
+        [
+          ...owners.map((owner) =>
+            option(owner, player(s, owner).name, [
+              pay(id, { cash: 2 }),
+              gain(owner, { cash: 2 }),
+            ]),
+          ),
+          ...(s.oripathy?.security.some((slot) =>
+            slot.startsWith(`${data.road}:`),
+          )
+            ? [option("bank", "银行 · 岩蹄安保", [pay(id, { cash: 2 })])]
+            : []),
+        ],
         "toll",
       );
       if (s.decision)
@@ -1513,8 +1779,25 @@ function execute(s: GameState, step: Step) {
       return;
     }
     case "place-at": {
+      if (p.oripathy?.entrepreneur === "paul" && !data.markerChoice) {
+        prepend(s, [task("o:paul-marker", id, data)]);
+        return;
+      }
       const [site, index] = slotParts(data.slot);
-      ensure(emptySlots(s, id).includes(data.slot), "该位置无法放置影响力");
+      ensure(
+        emptySlots(s, id, undefined, { normal: !!data.normal }).includes(
+          data.slot,
+        ),
+        "该位置无法放置影响力",
+      );
+      if (data.gang) {
+        ensure(
+          p.oripathy?.entrepreneur === "paul" &&
+            p.oripathy.gangSlots.length < 4,
+          "帮派标记不足",
+        );
+        p.oripathy.gangSlots.push(data.slot);
+      } else ensure(stock(s, id) > 0, "普通玩家标记不足");
       s.sites[site].slots[index] = id;
       log(s, id, `在 ${site} 放置影响力`);
       return;
@@ -1529,7 +1812,7 @@ function execute(s: GameState, step: Step) {
         targets.map((slot) =>
           option(
             slot,
-            `${player(s, s.sites[slotParts(slot)[0]].slots[slotParts(slot)[1]]!).name} · ${slot}`,
+            `${s.sites[slotParts(slot)[0]].slots[slotParts(slot)[1]] ? player(s, s.sites[slotParts(slot)[0]].slots[slotParts(slot)[1]]!).name : "岩蹄安保"} · ${slot}`,
             [
               task("remove-at", id, { slot }),
               ...(count > 1
@@ -1545,7 +1828,10 @@ function execute(s: GameState, step: Step) {
     }
     case "remove-at": {
       const [site, index] = slotParts(data.slot);
-      ensure(s.sites[site].slots[index], "影响力不存在");
+      ensure(
+        s.sites[site].slots[index] || s.oripathy?.security.includes(data.slot),
+        "影响力不存在",
+      );
       prepend(s, removeInfluence(s, site, index));
       log(s, id, `移除 ${site} 的影响力`);
       return;
@@ -1650,6 +1936,11 @@ function execute(s: GameState, step: Step) {
       );
       s.sites[a].slots[ai] = null;
       s.sites[b].slots[bi] = data.owner;
+      const moved = player(s, data.owner).oripathy;
+      if (moved?.gangSlots.includes(data.from))
+        moved.gangSlots = moved.gangSlots.map((slot) =>
+          slot === data.from ? data.to : slot,
+        );
       log(s, id, `将影响力从 ${a} 移动至 ${b}`);
       return;
     }
@@ -1693,10 +1984,20 @@ function execute(s: GameState, step: Step) {
       const from = p.city;
       ensure(from, "城市尚未入场");
       p.city = data.to;
+      if (s.oripathy?.lock?.owner === id)
+        s.oripathy.lock.region = s.board.nodes.find(
+          (n) => n.id === data.to,
+        )!.region;
       const next: Step[] = [];
-      for (const siteId of [data.road, data.to])
+      const displaced =
+        s.sites[data.to].slots.some((owner) => owner && owner !== id) ||
+        !!s.oripathy?.security.some((slot) => slot.startsWith(`${data.to}:`));
+      for (const siteId of [data.road, data.to].filter(Boolean))
         s.sites[siteId].slots.forEach((owner, index) => {
-          if (owner && owner !== id)
+          if (
+            (owner && owner !== id) ||
+            s.oripathy?.security.includes(`${siteId}:${index}`)
+          )
             next.push(...removeInfluence(s, siteId, index));
         });
       log(s, id, `城市从 ${from} 移动到 ${data.to}`);
@@ -1708,6 +2009,9 @@ function execute(s: GameState, step: Step) {
           targets: data.placeRoad ? [data.road] : [from, data.to],
         }),
       );
+      if (data.gavial && displaced) next.push(task("place", id));
+      if (p.oripathy?.entrepreneur === "agnes" && hasDilemma(p, 5, "A"))
+        next.push(gain(id, { ore: 2 }), task("shift", id));
       prepend(s, next);
       return;
     }
@@ -1724,9 +2028,21 @@ function execute(s: GameState, step: Step) {
     case "construct": {
       const cardId = data.instance.split("@")[0];
       const card = FACILITY_BY_ID[cardId];
-      ensure(!p.built[data.cell], "城市位置已被占用");
-      ensure(freeCells(p).includes(data.cell), "城市位置不存在");
-      let pool = data.source === "deck" ? s.facilityDeck : s.market;
+      const previous = p.built[data.cell];
+      ensure(!previous || data.stack, "城市位置已被占用");
+      ensure(previous || freeCells(p).includes(data.cell), "城市位置不存在");
+      if (previous)
+        ensure(
+          p.oripathy?.entrepreneur === "martin" &&
+            card.points > FACILITY_BY_ID[previous.cardId].points,
+          "马丁叠建需要分数严格更高的新设施",
+        );
+      let pool =
+        data.source === "deck"
+          ? s.facilityDeck
+          : data.source === "blueprint"
+            ? p.oripathy!.blueprint
+            : s.market;
       let pos = pool.indexOf(data.instance);
       if (pos < 0) {
         const persistent = p.persistent.find((v) =>
@@ -1736,7 +2052,8 @@ function execute(s: GameState, step: Step) {
         pool = persistent.stash;
         pos = pool.indexOf(data.instance);
       }
-      pool.splice(pos, 1);
+      if (pool === s.market) takeMarket(s, data.instance);
+      else pool.splice(pos, 1);
       const completedStash = p.persistent.find(
         (v) => v.roleId === "closure" && v.stash === pool && !v.stash.length,
       );
@@ -1744,11 +2061,38 @@ function execute(s: GameState, step: Step) {
         p.persistent = p.persistent.filter((v) => v !== completedStash);
         p.discard.push("closure");
       }
-      p.built[data.cell] = { cardId, used: false };
+      p.built[data.cell] = {
+        cardId,
+        used: false,
+        ...(previous
+          ? {
+              layers: [
+                { ...previous, layers: undefined },
+                ...(previous.layers ?? []),
+              ],
+            }
+          : {}),
+      };
+      if (data.mortgage) {
+        p.persistent.push({
+          roleId: "o-jessica",
+          markers: 0,
+          stash: [],
+          cell: data.cell,
+          mortgageCardId: cardId,
+        });
+        if (p.selected === "o-jessica") p.selected = null;
+      }
       p.wallet.score += card.points;
       refill(s);
       log(s, id, `建设 ${card.name}，获得 ${card.points} 分`);
-      prepend(s, entrySteps(s, id, cardId, data.cell));
+      prepend(s, [
+        ...entrySteps(s, id, cardId, data.cell),
+        ...(p.oripathy?.entrepreneur === "martin" &&
+        card.name.includes("城市化区域")
+          ? [task("o:share-urban", id, { cardId, cell: data.cell })]
+          : []),
+      ]);
       return;
     }
     case "override-first":
@@ -1871,7 +2215,7 @@ function execute(s: GameState, step: Step) {
     case "market-remove-at": {
       const index = s.market.indexOf(data.instance);
       ensure(index >= 0, "设施已经离开市场");
-      s.market.splice(index, 1);
+      takeMarket(s, data.instance);
       if (data.stash)
         p.persistent
           .find((v) => v.roleId === data.stash)!
@@ -2069,7 +2413,9 @@ function execute(s: GameState, step: Step) {
       s.sites[data.road].publicRoad = true;
       prepend(s, [
         ...steps,
-        ...owners.map((owner) => gain(owner, { score: 1 })),
+        ...(data.noCompensation
+          ? []
+          : owners.map((owner) => gain(owner, { score: 1 }))),
       ]);
       log(s, id, `${data.road} 改造为公路`);
       return;
@@ -2132,7 +2478,7 @@ function execute(s: GameState, step: Step) {
       return;
     }
     case "persistent-at":
-      if (data.role === "passenger" && data.markers === 0)
+      if (["passenger", "o-lin"].includes(data.role) && data.markers === 0)
         p.discard.push(data.role);
       else
         p.persistent.push({
@@ -2149,7 +2495,7 @@ function execute(s: GameState, step: Step) {
       if (p.selected === data.role) p.selected = null;
       return;
     case "finish-role": {
-      if (p.selected) {
+      if (p.selected && (!data.role || p.selected === data.role)) {
         p.discard.push(p.selected);
         p.selected = null;
       }
@@ -2173,7 +2519,9 @@ function execute(s: GameState, step: Step) {
             `${ENTERPRISE_NAMES[c]} · ${p.enterprise[c]} → ${Math.min(5, p.enterprise[c] + count)}`,
             [task("upgrade-at", id, { company: c, count, all: !!data.all })],
             undefined,
-            ENTERPRISE_IMAGES[c],
+            s.oripathy
+              ? (oripathyEnterpriseImage(c) ?? ENTERPRISE_IMAGES[c])
+              : ENTERPRISE_IMAGES[c],
           ),
         ),
         "upgrade",
@@ -2194,7 +2542,7 @@ function execute(s: GameState, step: Step) {
         for (let i = 0; i < count; i++) {
           if (v.enterprise[company] >= 5) break;
           v.enterprise[company]++;
-          if (!unlocked(company, v.enterprise[company]))
+          if (!unlocked(company, v.enterprise[company], !!s.oripathy))
             steps.push(
               ...upgradeReward(s, v.id, company, v.enterprise[company]),
             );
@@ -2223,7 +2571,9 @@ function execute(s: GameState, step: Step) {
               task("trigger", id, { company: c }),
             ],
             undefined,
-            ENTERPRISE_IMAGES[c],
+            s.oripathy
+              ? (oripathyEnterpriseImage(c) ?? ENTERPRISE_IMAGES[c])
+              : ENTERPRISE_IMAGES[c],
           ),
         ),
         "upgrade-trigger",
@@ -2233,14 +2583,16 @@ function execute(s: GameState, step: Step) {
       const pool = data.company ? [data.company] : s.activeEnterprises;
       const options = pool.flatMap((c: string) =>
         Array.from({ length: p.enterprise[c] }, (_, i) => i + 1)
-          .filter((l) => unlocked(c, l))
+          .filter((l) => unlocked(c, l, !!s.oripathy))
           .map((l) =>
             option(
               `${c}:${l}`,
               `${ENTERPRISE_NAMES[c]} · ${l} 级`,
               enterpriseSteps(s, id, c, l),
               undefined,
-              ENTERPRISE_IMAGES[c],
+              s.oripathy
+                ? (oripathyEnterpriseImage(c) ?? ENTERPRISE_IMAGES[c])
+                : ENTERPRISE_IMAGES[c],
             ),
           ),
       );
@@ -2271,11 +2623,13 @@ function execute(s: GameState, step: Step) {
                   levels: Array.from(
                     { length: p.enterprise[c] },
                     (_, i) => i + 1,
-                  ).filter((l) => unlocked(c, l)),
+                  ).filter((l) => unlocked(c, l, !!s.oripathy)),
                 }),
               ],
               undefined,
-              ENTERPRISE_IMAGES[c],
+              s.oripathy
+                ? (oripathyEnterpriseImage(c) ?? ENTERPRISE_IMAGES[c])
+                : ENTERPRISE_IMAGES[c],
             ),
           ),
         "trigger-all-company",
@@ -2339,7 +2693,12 @@ function execute(s: GameState, step: Step) {
       );
       return;
     case "refresh-market":
-      s.facilityDeck = shuffle(s, [...s.facilityDeck, ...s.market]);
+      s.facilityDeck = shuffle(s, [
+        ...s.facilityDeck,
+        ...s.market,
+        ...Object.values(s.oripathy?.marketUnder ?? {}).flat(),
+      ]);
+      if (s.oripathy) s.oripathy.marketUnder = {};
       s.market = [];
       refill(s);
       return;
@@ -2407,7 +2766,14 @@ function execute(s: GameState, step: Step) {
       );
       return;
     case "operative-draw": {
-      const pool = s.operativeDeck.splice(0, s.players.length === 2 ? 3 : 2);
+      const pool = s.operativeDeck.splice(
+        0,
+        data.select
+          ? s.operativeDeck.length
+          : s.oripathy || s.players.length === 2
+            ? 3
+            : 2,
+      );
       decide(
         s,
         id,
@@ -2417,7 +2783,7 @@ function execute(s: GameState, step: Step) {
             gain(id, { score: 1 }),
             task("return-operatives", id, { roles: pool }),
           ]),
-          ...pool.map((role) =>
+          ...(p.hand.length || p.discard.length ? pool : []).map((role) =>
             option(
               role,
               ROLE_BY_ID[role].name,
@@ -2505,7 +2871,13 @@ function execute(s: GameState, step: Step) {
       const eligible = s.board.nodes.filter(
         (n) =>
           s.sites[n.id].resource &&
-          (s.sites[n.id].slots.includes(id) || p.city === n.id) &&
+          (s.sites[n.id].slots.includes(id) ||
+            p.city === n.id ||
+            (s.phase === "harvest" &&
+              s.oripathy?.contracts.includes(id) &&
+              s.oripathy.security.some((slot) =>
+                slot.startsWith(`${n.id}:`),
+              ))) &&
           !selected.includes(n.id),
       );
       const options = [
@@ -2605,6 +2977,13 @@ function execute(s: GameState, step: Step) {
       });
       p.wallet.score += pattern.score;
       log(s, id, `宣告 ${pattern.name}，获得 ${pattern.score} 分`);
+      for (const cell of data.cells)
+        if (p.built[cell]?.cardId === "o-settlement")
+          prepend(s, [task("o:settlement-return", id, { cell })]);
+      if (pattern.effect === "o-emerging")
+        prepend(s, [task("build", id, { nonWild: true })]);
+      if (pattern.effect === "o-management")
+        prepend(s, [task("o:management", id)]);
       if (pattern.effect === "relay")
         prepend(s, [gain(id, { rock: 1, ore: 1, iron: 1 })]);
       return;
@@ -2613,18 +2992,28 @@ function execute(s: GameState, step: Step) {
       const index = p.claims.findIndex(
         (c) => c.patternId === data.pattern && c.cooldown === 0 && c.uses !== 0,
       );
-      ensure(index >= 0, "样式行动本回合不可用");
+      ensure(data.borrowed || index >= 0, "样式行动本回合不可用");
       const claim = p.claims[index];
       const pattern = PATTERN_BY_ID[data.pattern];
-      for (const c of p.claims) if (c.patternId === pattern.id) c.cooldown = 1;
-      if (claim.uses > 0) claim.uses--;
-      if (pattern.level === 2 && pattern.effect !== "command-center") {
+      if (!data.borrowed) {
+        for (const c of p.claims)
+          if (c.patternId === pattern.id) c.cooldown = 1;
+        if (claim.uses > 0) claim.uses--;
+      }
+      if (
+        !data.borrowed &&
+        pattern.level === 2 &&
+        pattern.effect !== "command-center"
+      ) {
         ensure(!p.roleUsedThisTurn, "本轮已使用角色，不能执行此高级样式");
         s.roleBlocked = true;
       }
       const markers = p.claims.filter((c) => c.patternId === pattern.id).length;
       const steps: Step[] = [];
       switch (pattern.effect) {
+        case "o-offices":
+          steps.push(task("o:company-double-trigger", id));
+          break;
         case "military":
           steps.push(task("place", id, { count: Math.min(3, markers) }));
           break;
@@ -2812,9 +3201,14 @@ function execute(s: GameState, step: Step) {
       s.roleBlocked = false;
       s.roleDualThisTurn = false;
       const steps: Step[] = [];
+      const marketSteps: Step[] = [];
+      if (s.oripathy && s.players.length === 3)
+        marketSteps.push(
+          task("market-remove", s.players[s.first].id, { count: 1 }),
+        );
       if (s.players.length === 2)
         for (let i = 0; i < s.players.length; i++)
-          steps.push(
+          marketSteps.push(
             task(
               "market-remove",
               s.players[(s.first + i) % s.players.length].id,
@@ -2830,6 +3224,9 @@ function execute(s: GameState, step: Step) {
           steps.push(
             task("upgrade", s.players[(s.first + i) % s.players.length].id),
           );
+      // Infection flow card p. 10: red-zone upgrades precede market removal.
+      if (s.oripathy) steps.push(...marketSteps);
+      else steps.unshift(...marketSteps);
       for (let i = 0; i < s.players.length; i++) {
         const v = s.players[(s.first + i) % s.players.length];
         if (!v.hand.length) {
@@ -2837,6 +3234,13 @@ function execute(s: GameState, step: Step) {
           v.discard = [];
         }
       }
+      if (s.oripathy?.expert && s.round % 2 === 1)
+        for (const actor of playerOrder(s))
+          steps.push(task("o:dilemma", actor));
+      if (s.oripathy?.expert)
+        for (const v of s.players)
+          if (v.oripathy?.entrepreneur === "agnes" && hasDilemma(v, 1))
+            steps.push(task("o:commands", v.id, { count: 1 }));
       steps.push(task("parallel-roles", id));
       steps.push(task("begin-actions", id));
       prepend(s, steps);
@@ -2846,6 +3250,15 @@ function execute(s: GameState, step: Step) {
       beginParallel(s, "select-role");
       return;
     case "parallel-harvest":
+      if (s.oripathy)
+        for (const v of s.players) {
+          v.hand.push(...(v.coveredFlows ?? []));
+          v.coveredFlows = [];
+          if (v.selected?.startsWith("o-flow-")) {
+            v.hand.push(v.selected);
+            v.selected = null;
+          }
+        }
       beginParallel(s, "harvest");
       return;
     case "select-role": {
@@ -2872,11 +3285,17 @@ function execute(s: GameState, step: Step) {
       p.selected = data.role;
       p.hand = p.hand.filter((r) => r !== data.role);
       p.revealed = false;
+      if (p.persistent.some((v) => v.roleId === "o-muelsyse"))
+        prepend(s, [task("o:cover-flow", id)]);
       log(s, id, "盖放了一张角色牌");
       return;
     case "begin-actions":
       s.phase = "actions";
       s.active = s.first;
+      if (s.oripathy?.lock?.owner === s.players[s.first].id)
+        s.oripathy.lock = null;
+      if (s.oripathy)
+        for (const v of s.players) v.oripathy!.turnBlocked = false;
       for (const v of s.players) v.roleUsedThisTurn = false;
       log(s, null, `第 ${s.round} 回合 · 第 1 轮行动`);
       return;
@@ -2891,6 +3310,14 @@ function execute(s: GameState, step: Step) {
           .filter((t) => t.step.actor === v.id)
           .map((t) => t.step);
         for (const persistent of v.persistent) {
+          const added: Record<string, string> = {
+            "o-swire": "o:swire-cleanup",
+            "o-gavial": "o:gavial-cleanup",
+            "o-lin": "o:lin-cleanup",
+            "o-jessica": "o:mortgage-cleanup",
+          };
+          if (added[persistent.roleId])
+            effects.push(task(added[persistent.roleId], v.id));
           if (persistent.roleId === "mudrock")
             effects.push(
               task("conditional", v.id, {
@@ -2901,6 +3328,10 @@ function execute(s: GameState, step: Step) {
           if (persistent.roleId === "dorothy" && persistent.markers >= 2)
             effects.push(task("dorothy-cleanup", v.id));
         }
+        if (v.oripathy?.awards.includes("1187"))
+          effects.push(task("o:award-cleanup", v.id));
+        if (v.oripathy?.entrepreneur)
+          effects.push(task("o:entrepreneur-cleanup", v.id));
         steps.push(task("cleanup-order", v.id, { effects }));
       }
       steps.push(task("next-round", id));
@@ -2937,6 +3368,7 @@ function execute(s: GameState, step: Step) {
     case "next-round": {
       for (const v of s.players) {
         for (const claim of v.claims) claim.cooldown = 0;
+        for (const d of v.oripathy?.dilemmas ?? []) d.used = false;
         if (v.selected) {
           v.hand.push(v.selected, ...v.discard);
           v.discard = [];
@@ -2991,7 +3423,9 @@ function emptySlotsForMoving(
   const [site, index] = slotParts(from);
   const copy = structuredClone(s);
   copy.sites[site].slots[index] = null;
-  return emptySlots(copy, owner).filter((to) => to !== from);
+  return emptySlots(copy, owner, undefined, { moving: true }).filter(
+    (to) => to !== from,
+  );
 }
 function mainOptions(s: GameState, id: string): Option[] {
   const options: Option[] = [];
@@ -3038,7 +3472,7 @@ export function getLegalActions(s: GameState, id: string): LegalAction[] {
   if (s.parallel) return [];
   if (s.phase !== "actions" || s.players[s.active].id !== id || s.queue.length)
     return [];
-  const actions: LegalAction[] = [];
+  const actions: LegalAction[] = [...expertActions(s, p)];
   if (!s.mainDone) {
     for (const o of mainOptions(s, id))
       actions.push({
@@ -3053,7 +3487,7 @@ export function getLegalActions(s: GameState, id: string): LegalAction[] {
         s.extraOnly ||
         claim.cooldown ||
         claim.uses === 0 ||
-        pattern.effect === "relay" ||
+        ["relay", "o-emerging", "o-management"].includes(pattern.effect) ||
         (pattern.level === 2 &&
           pattern.effect !== "command-center" &&
           p.roleUsedThisTurn)
@@ -3068,9 +3502,10 @@ export function getLegalActions(s: GameState, id: string): LegalAction[] {
         });
     }
   }
-  if (p.selected && !s.roleBlocked) {
-    const modes =
-      s.active === s.first || s.roleDualThisTurn
+  if (p.selected && !s.roleBlocked && !p.oripathy?.turnBlocked) {
+    const modes = p.persistent.some((v) => v.roleId === "o-amiya")
+      ? ["strategy-tactic", "tactic-strategy"]
+      : s.active === s.first || s.roleDualThisTurn
         ? ["strategy", "tactic", "strategy-tactic", "tactic-strategy"]
         : ["strategy", "tactic"];
     for (const mode of modes)
@@ -3088,6 +3523,30 @@ export function getLegalActions(s: GameState, id: string): LegalAction[] {
         command: { type: "role", mode },
       });
   }
+  if (p.oripathy?.awards.includes("1184"))
+    actions.push({
+      id: "award:1184",
+      label: "授勋 · 触发企业特效",
+      group: "quick",
+      command: { type: "ability", action: "award:1184" },
+    });
+  if (!s.roleBlocked)
+    for (const role of p.coveredFlows ?? [])
+      for (const mode of p.persistent.some((v) => v.roleId === "o-amiya")
+        ? ["strategy-tactic", "tactic-strategy"]
+        : [
+            "strategy",
+            "tactic",
+            ...(s.active === s.first || s.roleDualThisTurn
+              ? ["strategy-tactic", "tactic-strategy"]
+              : []),
+          ])
+        actions.push({
+          id: `role:flow:${role}:${mode}`,
+          label: `${ROLE_BY_ID[role].name} · ${mode.includes("-") ? "策略与计谋" : mode === "strategy" ? "策略" : "计谋"}`,
+          group: "quick",
+          command: { type: "role", mode: `flow|${role}|${mode}` },
+        });
   if (stock(s, id) > 0)
     for (const patternId of s.patterns)
       if (patternMatches(p, patternId).length)
@@ -3117,6 +3576,47 @@ export function applyCommand(
     command !== null && typeof command === "object" && !Array.isArray(command),
     "行动指令格式无效",
   );
+  if (command.type === "choose-many") {
+    const batch = batchChoice(original, id);
+    ensure(batch, "此选择不能批量提交");
+    ensure(
+      Object.keys(command).length === 2 &&
+        Array.isArray(command.optionIds) &&
+        command.optionIds.length === batch.count &&
+        command.optionIds.every(
+          (v) => typeof v === "string" && v.length <= 128,
+        ),
+      `请选满 ${batch.count} 项后确认`,
+    );
+    const ids = command.optionIds!;
+    for (const value of new Set(ids))
+      ensure(
+        ids.filter((v) => v === value).length <= (batch.limits[value] ?? 0),
+        "所选项目或数量不可用",
+      );
+    const kind = (
+      original.parallel
+        ? original.parallel.players[id].decision
+        : original.decision
+    )!.kind;
+    let next = original;
+    for (const [index, optionId] of ids.entries()) {
+      const d = next.parallel
+        ? next.parallel.players[id]?.decision
+        : next.decision;
+      ensure(
+        d?.playerId === id &&
+          d.kind === kind &&
+          batchChoice(next, id)?.count === ids.length - index,
+        "选择内容已变化，请重新选择",
+      );
+      // Each step uses the ordinary validator on a copy. Any failure discards
+      // the entire batch; persistence and broadcast happen only after success.
+      next = applyCommand(next, id, { type: "choose", optionId });
+    }
+    next.revision = original.revision + 1;
+    return next;
+  }
   const legal = getLegalActions(original, id);
   ensure(
     legal.some(({ command: expected }) => {
@@ -3157,20 +3657,38 @@ export function applyCommand(
     log(s, id, selected.label);
     prepend(s, selected.steps);
   } else if (command.type === "role") {
-    const role = p.selected!;
-    p.revealed = true;
+    const flow = command.mode!.startsWith("flow|")
+      ? command.mode!.split("|")
+      : null;
+    const role = flow ? flow[1] : p.selected!;
+    const mode = flow ? flow[2] : command.mode!;
+    if (flow) {
+      p.coveredFlows = p.coveredFlows!.filter((v) => v !== role);
+      p.discard.push(role);
+    }
+    p.revealed = flow ? p.revealed : true;
     p.roleUsedThisTurn = true;
     log(
       s,
       id,
-      `使用 ${ROLE_BY_ID[role].name} · ${{ strategy: "策略", tactic: "计谋", "strategy-tactic": "策略后计谋", "tactic-strategy": "计谋后策略" }[command.mode!]}`,
+      `使用 ${ROLE_BY_ID[role].name} · ${{ strategy: "策略", tactic: "计谋", "strategy-tactic": "策略后计谋", "tactic-strategy": "计谋后策略" }[mode]}`,
     );
     prepend(s, [
-      ...command
-        .mode!.split("-")
-        .flatMap((mode) => roleSteps(s, id, role, mode)),
-      task("finish-role", id),
+      ...(p.persistent.some((v) => v.roleId === "o-amiya") && role !== "o-amiya"
+        ? [task("o:consume-amiya", id)]
+        : []),
+      ...mode.split("-").flatMap((mode) => roleSteps(s, id, role, mode)),
+      ...(flow ? [] : [task("finish-role", id, { role })]),
     ]);
+  } else if (command.type === "ability") {
+    if (command.action === "award:1184") prepend(s, [task("o:award-use", id)]);
+    else {
+      if (command.action?.endsWith(":main")) {
+        s.mainRemaining--;
+        s.mainDone = s.mainRemaining <= 0;
+      }
+      prepend(s, [task("o:ability", id, { action: command.action })]);
+    }
   } else if (command.type === "declare")
     prepend(s, [task("pattern-declare", id, { pattern: command.patternId })]);
   else if (command.type === "special") {
@@ -3191,6 +3709,12 @@ export function applyCommand(
       s.roleBlocked = false;
       s.roleDualThisTurn = false;
       s.players[next].roleUsedThisTurn = false;
+      if (s.oripathy) {
+        s.oripathy.turn++;
+        if (s.oripathy.lock?.owner === s.players[next].id)
+          s.oripathy.lock = null;
+        s.players[next].oripathy!.turnBlocked = false;
+      }
     }
   }
   advance(s);
@@ -3199,48 +3723,139 @@ export function applyCommand(
   return result;
 }
 export function scoreGame(s: GameState): ScoreLine[] {
-  const regions = [
+  const regionIds = [
     ...new Set([...s.board.nodes, ...s.board.roads].map((n) => n.region)),
   ];
   const control: Record<string, Record<string, number>> = {};
-  for (const region of regions) {
+  const gangRegions = (p: Player) =>
+    new Set(
+      (p.oripathy?.gangSlots ?? [])
+        .map(
+          (slot) =>
+            [...s.board.nodes, ...s.board.roads].find(
+              (n) => n.id === slot.slice(0, slot.lastIndexOf(":")),
+            )?.region,
+        )
+        .filter((v): v is string => !!v),
+    );
+  for (const region of regionIds) {
+    const sites = [...s.board.nodes, ...s.board.roads].filter(
+      (n) => n.region === region,
+    );
+    const security =
+      s.oripathy?.security.filter((slot) =>
+        sites.some((site) => slot.startsWith(`${site.id}:`)),
+      ).length ?? 0;
     const totals = s.players.map((p) => ({
       id: p.id,
       count:
-        [...s.board.nodes, ...s.board.roads]
-          .filter((n) => n.region === region)
-          .reduce(
-            (n, site) =>
-              n +
-              s.sites[site.id].slots.filter((owner) => owner === p.id).length,
-            0,
-          ) +
-        (s.board.nodes.find((n) => n.id === p.city)?.region === region ? 2 : 0),
+        sites.reduce(
+          (n, site) =>
+            n + s.sites[site.id].slots.filter((owner) => owner === p.id).length,
+          0,
+        ) +
+        (s.board.nodes.find((n) => n.id === p.city)?.region === region
+          ? 2 +
+            (p.oripathy?.entrepreneur === "agnes" && hasDilemma(p, 7, "B")
+              ? 2
+              : 0)
+          : 0) +
+        (s.oripathy?.contracts.includes(p.id) ? Math.floor(security / 2) : 0) +
+        (p.oripathy?.entrepreneur === "paul" &&
+        hasDilemma(p, 5, "A") &&
+        gangRegions(p).has(region)
+          ? 1
+          : 0),
     }));
     const max = Math.max(...totals.map((v) => v.count));
     const winners = totals.filter((v) => v.count === max && max > 0);
-    if (winners.length === 1)
-      (control[winners[0].id] ??= {})[region] = ["E", "F"].includes(region)
-        ? 4
-        : 3;
+    const agnes = winners.find((v) => {
+      const p = player(s, v.id);
+      return p.oripathy?.entrepreneur === "agnes" && hasDilemma(p, 7, "A");
+    });
+    const winner = winners.length === 1 ? winners[0] : agnes;
+    if (winner) {
+      const bonus = s.players.some(
+        (p) =>
+          p.oripathy?.entrepreneur === "paul" &&
+          hasDilemma(p, 7, "B") &&
+          gangRegions(p).has(region),
+      )
+        ? 1
+        : 0;
+      (control[winner.id] ??= {})[region] =
+        (["E", "F"].includes(region) ? 4 : 3) +
+        bonus -
+        (winners.length > 1 ? 2 : 0);
+    }
   }
   return s.players.map((p) => {
-    const resources = {
-      rock: Math.floor(p.wallet.rock / 9),
-      ore: Math.floor(p.wallet.ore / 8),
-      iron: Math.floor(p.wallet.iron / 6),
+    const regions = control[p.id] ?? {},
+      expert: Record<string, number> = {};
+    const martin = p.oripathy?.entrepreneur === "martin",
+      paul = p.oripathy?.entrepreneur === "paul";
+    const piles = Object.values(p.built),
+      stacks = piles.filter((v) => v.layers?.length).length;
+    const ironExtra = martin && hasDilemma(p, 3, "A") ? stacks : 0;
+    const alternate = paul && hasDilemma(p, 7, "A");
+    const resources: Reward = {
+      rock: Math.floor(
+        p.wallet.rock / (alternate ? (s.players.length === 3 ? 7 : 6) : 9),
+      ),
+      ore: alternate ? 0 : Math.floor(p.wallet.ore / 8),
+      iron: Math.floor(
+        (p.wallet.iron + ironExtra) /
+          (alternate ? (s.players.length === 3 ? 5 : 4) : 6),
+      ),
       prime: p.wallet.prime,
     };
-    const regions = control[p.id] ?? {};
+    if (alternate)
+      resources.cash = Math.floor(
+        p.wallet.cash / (s.players.length === 3 ? 30 : 25),
+      );
+    if (martin && hasDilemma(p, 3))
+      expert[
+        hasDilemma(p, 3, "A") ? "设施集群（另获同数异铁）" : "最高设施叠层"
+      ] = hasDilemma(p, 3, "A")
+        ? stacks
+        : Math.max(0, ...piles.map((v) => 1 + (v.layers?.length ?? 0))) * 2;
+    if (p.oripathy?.entrepreneur === "agnes") {
+      if (hasDilemma(p, 5)) {
+        const influence = (id: string) =>
+          Object.values(s.sites).reduce(
+            (n, site) => n + site.slots.filter((v) => v === id).length,
+            0,
+          );
+        const mine = influence(p.id);
+        expert["影响力优势"] = s.players.every(
+          (v) => v.id === p.id || influence(v.id) < mine,
+        )
+          ? 2
+          : -1;
+      }
+      if (hasDilemma(p, 7, "A"))
+        expert["区块治理"] = Object.keys(regions).length;
+    }
+    if (paul && hasDilemma(p, 7, "B")) expert["帮派秩序"] = gangRegions(p).size;
+    if (p.oripathy?.entrepreneur === "pioneer" && hasDilemma(p, 7))
+      expert[hasDilemma(p, 7, "A") ? "至纯源石储备" : "荒野管辖"] = hasDilemma(
+        p,
+        7,
+        "A",
+      )
+        ? Math.floor(p.wallet.prime / 4)
+        : Object.keys(regions).length * 2;
     return {
       playerId: p.id,
       ongoing: p.wallet.score,
       regions,
       resources,
+      ...(Object.keys(expert).length ? { expert } : {}),
       total:
         p.wallet.score +
+        Object.values(regions).reduce((a, b) => a + b, 0) +
         Object.values(resources).reduce((a, b) => a + b, 0) +
-        Object.values(regions).reduce((a, b) => a + b, 0),
+        Object.values(expert).reduce((a, b) => a + b, 0),
     };
   });
 }
@@ -3299,6 +3914,19 @@ export function projectView(s: GameState, id: string): PlayerView {
   }
   return {
     ...publicState,
+    sites: Object.fromEntries(
+      Object.entries(publicState.sites).map(([siteId, site]) => [
+        siteId,
+        {
+          ...site,
+          slots: site.slots.map((owner, index) =>
+            s.oripathy?.security.includes(`${siteId}:${index}`)
+              ? "@stonehoove"
+              : owner,
+          ),
+        },
+      ]),
+    ),
     parallel: parallel
       ? {
           id: parallel.id,
@@ -3332,6 +3960,8 @@ export function projectView(s: GameState, id: string): PlayerView {
       handCount: p.hand.length,
       availableMarkers: stock(s, p.id),
       selected: p.id === id || p.revealed ? p.selected : null,
+      coveredFlows: p.id === id ? p.coveredFlows : [],
+      oripathy: p.oripathy,
     })),
     decision: decision
       ? {
@@ -3342,6 +3972,9 @@ export function projectView(s: GameState, id: string): PlayerView {
               : decision.title,
           kind: decision.kind,
           private: decision.private,
+          ...(decision.playerId === id && batchChoice(s, id)
+            ? { batch: batchChoice(s, id) }
+            : {}),
           ...(decision.playerId === id && decisionMap
             ? { map: decisionMap }
             : {}),
@@ -3361,7 +3994,9 @@ export function projectView(s: GameState, id: string): PlayerView {
                     decision.kind === "explore" && o.target
                       ? routeTo(s, id, o.target).roads
                       : relocate
-                        ? [String(relocate.road)]
+                        ? relocate.road
+                          ? [String(relocate.road)]
+                          : []
                         : harvest
                           ? (harvest.roads as string[])
                           : decision.kind === "harvest" && o.id === "done"
@@ -3387,6 +4022,11 @@ export function projectView(s: GameState, id: string): PlayerView {
                                     !!owner && owner !== id,
                                 ),
                               ),
+                              ...(s.oripathy?.security.some((slot) =>
+                                slot.startsWith(`${road}:`),
+                              )
+                                ? ["bank"]
+                                : []),
                             ],
                           })),
                         }

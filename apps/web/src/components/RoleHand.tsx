@@ -22,6 +22,7 @@ export function RoleHand({
   onQuickCommit,
   onDetail,
   onAction,
+  multi,
 }: {
   touch?: boolean;
   game: PlayerView;
@@ -34,12 +35,20 @@ export function RoleHand({
   onQuickCommit: (action: LegalAction) => void;
   onDetail: (detail: CardDetail) => void;
   onAction: () => void;
+  multi?: {
+    selected: string[];
+    count: number;
+    toggle: (id: string) => void;
+    clear: () => void;
+    commit: () => void;
+  };
 }) {
   const me = game.players.find((p) => p.id === game.me)!;
   const quick = useQuickActivate();
   const picking =
-    ["select-role", "trim"].includes(game.decision?.kind ?? "") &&
-    game.decision?.playerId === me.id;
+    ["select-role", "trim", "o:cover-flow"].includes(
+      game.decision?.kind ?? "",
+    ) && game.decision?.playerId === me.id;
   const trim = game.decision?.kind === "trim";
   const picked =
     picking && selected?.command.type === "choose"
@@ -107,7 +116,7 @@ export function RoleHand({
   return (
     <section
       ref={hand}
-      className={`role-hand fan-hand ${expanded ? "is-expanded" : "is-folded"} ${picking ? "is-picking" : ""}`}
+      className={`role-hand fan-hand ${expanded ? "is-expanded" : "is-folded"} ${picking ? "is-picking" : ""} ${multi ? "is-multiselect" : ""}`}
       aria-label="角色手牌"
       style={
         {
@@ -129,6 +138,7 @@ export function RoleHand({
       onKeyDown={(e) => {
         cancelFold();
         if (e.key === "Escape") {
+          multi?.clear();
           onSelect(null);
           fold();
         }
@@ -148,9 +158,11 @@ export function RoleHand({
             ? touch
               ? "点击收起 ▾"
               : "移开收起 ▾"
-            : picked
-              ? `${picked.name} · 待确认 ▴`
-              : "展开 ▴"}
+            : multi?.selected.length
+              ? `已选 ${multi.selected.length}/${multi.count} · 待确认 ▴`
+              : picked
+                ? `${picked.name} · 待确认 ▴`
+                : "展开 ▴"}
         </span>
       </button>
       <div
@@ -171,7 +183,9 @@ export function RoleHand({
               )
             : undefined;
           const offset = i - (me.hand.length - 1) / 2;
-          const isPicked = !!choice && selected?.id === choice.id;
+          const isPicked =
+            !!choice &&
+            (multi ? multi.selected.includes(id) : selected?.id === choice.id);
           return (
             <div
               key={id}
@@ -190,7 +204,10 @@ export function RoleHand({
                 aria-label={`${choice ? "选择" : "查看"}角色 ${card.name}`}
                 aria-pressed={isPicked}
                 tabIndex={expanded ? 0 : -1}
-                disabled={disabled && !!choice}
+                disabled={
+                  (disabled && !!choice) ||
+                  (!!multi && !isPicked && multi.selected.length >= multi.count)
+                }
                 onPointerDown={(e) => {
                   // Keep the release on this card while its hover/focus lift moves it.
                   if (e.button === 0)
@@ -208,9 +225,10 @@ export function RoleHand({
                     quick.double(id, e, () => onQuickCommit(choice));
                 }}
                 onClick={(event) => {
-                  if (quick.quiet(id) || event.detail > 1) return;
+                  if (quick.quiet(id) || (!trim && event.detail > 1)) return;
                   onExpand(true);
-                  if (choice) onSelect(isPicked ? null : choice);
+                  if (choice && multi) multi.toggle(id);
+                  else if (choice) onSelect(isPicked ? null : choice);
                   else detail(id);
                 }}
                 onFocus={(e) => {
@@ -267,18 +285,24 @@ export function RoleHand({
         <div className="fan-confirm" aria-live="polite">
           <div className="action-explanation">
             <strong>
-              {picked
-                ? picked.name
-                : trim
-                  ? "选择要移出的手牌"
-                  : "选一张角色牌"}
+              {multi
+                ? `放回卡盒 · 已选 ${multi.selected.length} / ${multi.count} 张`
+                : picked
+                  ? picked.name
+                  : trim
+                    ? "选择要移出的手牌"
+                    : "选一张角色牌"}
             </strong>
             <p>
-              {picked
-                ? `策略：${picked.strategy}`
-                : trim
-                  ? game.decision?.title
-                  : "点选预览，再确认盖放。"}
+              {multi
+                ? multi.selected.length
+                  ? multi.selected.map((id) => ROLE_BY_ID[id].name).join("、")
+                  : `点选 ${multi.count} 张角色牌，再一次确认。`
+                : picked
+                  ? `策略：${picked.strategy}`
+                  : trim
+                    ? game.decision?.title
+                    : "点选预览，再确认盖放。"}
             </p>
             {picked && (
               <button
@@ -292,23 +316,57 @@ export function RoleHand({
           <div className="fan-confirm-buttons">
             <button
               className="secondary-button"
-              disabled={!picked || disabled}
-              onClick={() => onSelect(null)}
+              disabled={(multi ? !multi.selected.length : !picked) || disabled}
+              onClick={() => (multi ? multi.clear() : onSelect(null))}
             >
               取消选择
             </button>
             <button
               className="primary-button"
-              disabled={!picked || disabled}
-              onClick={onCommit}
+              disabled={
+                (multi ? multi.selected.length !== multi.count : !picked) ||
+                disabled
+              }
+              onClick={multi ? multi.commit : onCommit}
             >
-              {trim ? "确认移出" : "确认盖放"}
+              {multi
+                ? `确认放回 ${multi.count} 张`
+                : trim
+                  ? "确认移出"
+                  : "确认盖放"}
             </button>
           </div>
         </div>
       )}
       {!me.hand.length && expanded && (
         <p className="fan-empty">手牌已用尽，下次盖放时收回可用弃牌。</p>
+      )}
+      {game.decision?.kind === "o:cover-flow" && expanded && (
+        <button
+          className="secondary-button flow-skip"
+          disabled={disabled}
+          onClick={() => {
+            const skip = game.actions.find(
+              (a) => a.command.optionId === "skip",
+            );
+            if (skip) onQuickCommit(skip);
+          }}
+        >
+          不额外盖放流形
+        </button>
+      )}
+      {!!me.coveredFlows?.length && (
+        <div className="covered-flows">
+          {me.coveredFlows.map((id) => (
+            <button key={id} onClick={() => detail(id)}>
+              <img src={roleCardBack(me.seat, id)} alt="流形牌背" />
+              <span>{ROLE_BY_ID[id].name} · 已额外盖放</span>
+            </button>
+          ))}
+          {game.actions.some((a) => a.command.mode?.startsWith("flow|")) && (
+            <button onClick={onAction}>安排流形能力 →</button>
+          )}
+        </div>
       )}
       {me.selected && (
         <div className="selected-role-summary">

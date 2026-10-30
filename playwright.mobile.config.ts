@@ -20,6 +20,8 @@ export default defineConfig({
   use: { ...desktop.use, actionTimeout: 10000 },
   testIgnore: [],
   testMatch: [
+    "interaction-polish.spec.ts",
+    "oripathy.spec.ts",
     "entry-scenes.spec.ts",
     "practice-entry.spec.ts",
     "mobile.spec.ts",

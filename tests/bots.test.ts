@@ -9,17 +9,22 @@ import { chooseBotAction } from "../packages/rules/src/bot.ts";
 describe("人机使用正常玩家视图做出合法选择", () => {
   it.each(
     [2, 3, 4].flatMap((count) =>
-      [false, true].map((expansion) => ({ count, expansion })),
+      [
+        { expansion: false, oripathy: false, expert: false },
+        { expansion: true, oripathy: false, expert: false },
+        { expansion: true, oripathy: true, expert: false },
+        { expansion: true, oripathy: true, expert: true },
+      ].map((config) => ({ count, ...config })),
     ),
   )(
-    "$count 人 / 企业 $expansion：完成八回合并恢复后继续相同选择",
-    ({ count, expansion }) => {
+    "$count 人 / 企业 $expansion / 感染者 $oripathy / 专家 $expert：完成八回合并恢复后继续相同选择",
+    ({ count, expansion, oripathy, expert }) => {
       let game = createGame(
         Array.from({ length: count }, (_, i) => ({
           id: `bot-${i}`,
           name: `人机 ${i}`,
         })),
-        { expansion, seed: 52 },
+        { expansion, oripathy, expert, seed: 52 },
       );
       for (let n = 0; game.phase !== "finished"; n++) {
         expect(n, `${game.phase}: ${game.decision?.title}`).toBeLessThan(2000);

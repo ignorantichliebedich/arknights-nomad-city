@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { oripathyEnterpriseImage } from "../../../../packages/rules/src/oripathy-data.ts";
 import {
   ENTERPRISE_IMAGES,
   ENTERPRISE_NAMES,
@@ -22,11 +23,15 @@ const profiles: Record<string, string> = {
   mama: "金券与分数的交换",
   blacksteel: "影响力部署 · 战术调度",
   rim: "资源采集 · 据点争夺",
+  stonehoove: "中立安保 · 终身合约",
+  maylander: "授勋奖励 · 拓荒保障",
 };
 
 export function enterpriseForImage(image?: string) {
   return Object.keys(ENTERPRISE_IMAGES).find(
-    (id) => ENTERPRISE_IMAGES[id] === image,
+    (id) =>
+      ENTERPRISE_IMAGES[id] === image ||
+      (oripathyEnterpriseImage(id) === image && !!image),
   );
 }
 
@@ -74,7 +79,11 @@ export function EnterpriseChoices({
           .map(({ action, option, company }) => {
             const id = company!;
             const picked = action.id === selected?.id;
-            const levels = enterpriseLevels(id, game.activeLab ?? null);
+            const levels = enterpriseLevels(
+              id,
+              game.activeLab ?? null,
+              !!game.oripathy,
+            );
             const current = me.enterprise[id] ?? 0;
             // Upgrades and individual triggers must keep their exact level visible.
             const targetLevel = /(?:→\s*| · )([1-5])(?: 级)?$/.exec(
@@ -107,7 +116,7 @@ export function EnterpriseChoices({
                 >
                   <span className="enterprise-offer-art" aria-hidden="true">
                     <img
-                      src={highResolutionArt(ENTERPRISE_IMAGES[id])}
+                      src={highResolutionArt(option!.image!)}
                       alt=""
                       draggable={false}
                     />
@@ -196,7 +205,11 @@ export function EnterpriseChoices({
             <span>已选中 · 确认后生效</span>
           </div>
           <ol>
-            {enterpriseLevels(selectedCompany, game.activeLab ?? null)
+            {enterpriseLevels(
+              selectedCompany,
+              game.activeLab ?? null,
+              !!game.oripathy,
+            )
               .filter((level) => level.level > 0)
               .reverse()
               .map((level) => (

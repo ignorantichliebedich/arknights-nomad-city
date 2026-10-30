@@ -16,8 +16,6 @@
 
 [![游戏首页：错峰标题、四位企业家与拓荒入口](docs/media/home.jpg)](http://106.52.74.24)
 
-> **版本导航**：默认分支提供本体与企业扩展代码；本页实机截图来自 **v0.8.1 开发版**，包含感染者与新版棋桌。最新开发源码与合并进度见 [感染者开发 PR #1](https://github.com/ignorantichliebedich/arknights-nomad-city/pull/1)。
-
 ## 一起把棋桌展开
 
 保留原桌游的棋盘、牌面与城市配件，把记账、行动校验和结算交给系统。选哪张角色、往哪里走、先建什么，仍由你决定。
@@ -34,13 +32,13 @@ _实际浏览器界面。截图使用独立演示房间和虚构昵称，点击�
 
 ## 从铸基者到感染者
 
-| 玩法                    | 你将面对什么                                                                                               |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------- |
-| **铸基者本体**          | 角色策略与计谋、地图探索、城市建设、资源采集，以及八回合后的区域控制与最终计分。                           |
-| **企业扩展**            | 罗德岛、莱茵生命等八家企业；选择合作方向，推进等级，利用企业奖励和特殊能力。                               |
-| **感染者扩展 · 开发版** | 新增干员与流形、公共设施、城市样式、岩蹄安保和梅兰德授勋；可进一步启用五位企业家的专属能力与奇数回合抉择。 |
+| 玩法           | 你将面对什么                                                                                               |
+| -------------- | ---------------------------------------------------------------------------------------------------------- |
+| **铸基者本体** | 角色策略与计谋、地图探索、城市建设、资源采集，以及八回合后的区域控制与最终计分。                           |
+| **企业扩展**   | 罗德岛、莱茵生命等八家企业；选择合作方向，推进等级，利用企业奖励和特殊能力。                               |
+| **感染者扩展** | 新增干员与流形、公共设施、城市样式、岩蹄安保和梅兰德授勋；可进一步启用五位企业家的专属能力与奇数回合抉择。 |
 
-本体可以独立开局；开发版的感染者玩法自动包含企业扩展。玩法在建房时选择，已有房间继续使用原规则版本。默认分支的创建界面提供本体和企业扩展选项，感染者选项位于开发分支。细节见[规则证据](docs/rules-evidence.md)、[感染者说明](https://github.com/ignorantichliebedich/arknights-nomad-city/blob/codex/oripathy-evidence/docs/oripathy.md)与[规则审计](https://github.com/ignorantichliebedich/arknights-nomad-city/blob/codex/oripathy-evidence/docs/oripathy-audit.md)。
+本体可以独立开局；感染者自动包含企业扩展。玩法在建房时选择，已有房间继续使用原规则版本。细节见[规则证据](docs/rules-evidence.md)、[感染者说明](docs/oripathy.md)与[规则审计](docs/oripathy-audit.md)。
 
 <table>
   <tr>
@@ -71,7 +69,7 @@ _实际浏览器界面。截图使用独立演示房间和虚构昵称，点击�
 
 ## 在自己的电脑上开桌
 
-需要 **Node.js 24.14+（24.x）与 pnpm 11**。获取默认分支源码后，在项目根目录运行以下命令。若要体验截图中的感染者与新版棋桌，先切换到 `codex/oripathy-evidence` 开发分支。
+需要 **Node.js 24.14+（24.x）与 pnpm 11**。获取源码后，在项目根目录运行：
 
 ```sh
 pnpm install --frozen-lockfile
@@ -88,13 +86,13 @@ pnpm start
 
 前端使用 React + Vite，棋盘采用原图与 SVG 交互层；Node.js 服务通过 HTTP / WebSocket 同步状态，SQLite 持久化房间、日志与待选步骤。独立 TypeScript 规则模块负责合法行动、效果执行、信息投影和计分。
 
-| 想了解什么         | 从这里开始                                                                                                                                                                                        |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 规则与证据         | [本体／企业](docs/rules-evidence.md) · [感染者](https://github.com/ignorantichliebedich/arknights-nomad-city/blob/codex/oripathy-evidence/docs/oripathy.md) · [并行阶段](docs/parallel-phases.md) |
-| 项目结构与本地检查 | [运行与开发](docs/quickstart.md#结构) · [验证命令](docs/quickstart.md#验证)                                                                                                                       |
-| 修改与发布         | [贡献约定](CONTRIBUTING.md) · [发布流程](docs/release.md) · [更新记录](CHANGELOG.md)                                                                                                              |
-| 自行部署与运维     | [部署说明](docs/deployment.md) · [安全说明](SECURITY.md) · [承压测试](docs/capacity-test.md)                                                                                                      |
-| 报告问题           | [提交 Issue](https://github.com/ignorantichliebedich/arknights-nomad-city/issues)；附上版本、人数、扩展配置与复现步骤                                                                             |
+| 想了解什么         | 从这里开始                                                                                                            |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| 规则与证据         | [本体／企业](docs/rules-evidence.md) · [感染者](docs/oripathy.md) · [并行阶段](docs/parallel-phases.md)               |
+| 项目结构与本地检查 | [运行与开发](docs/quickstart.md#结构) · [验证命令](docs/quickstart.md#验证)                                           |
+| 修改与发布         | [贡献约定](CONTRIBUTING.md) · [发布流程](docs/release.md) · [更新记录](CHANGELOG.md)                                  |
+| 自行部署与运维     | [部署说明](docs/deployment.md) · [安全说明](SECURITY.md) · [承压测试](docs/capacity-test.md)                          |
+| 报告问题           | [提交 Issue](https://github.com/ignorantichliebedich/arknights-nomad-city/issues)；附上版本、人数、扩展配置与复现步骤 |
 
 更新先通过本地检查并推送 GitHub，经本地试玩确认后再部署；GitHub Actions 只运行源码、版本、测试和构建检查。
 

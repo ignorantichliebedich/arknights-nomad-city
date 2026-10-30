@@ -79,6 +79,10 @@ test("实际资源解码推进加载，选择窗口后播放音乐，双场景�
   expect(loadingBox.x).toBe(0);
   expect(loadingBox.y).toBe(0);
   expect(loadingBox.width).toBe(page.viewportSize()!.width);
+  const trackBox = (await progress.boundingBox())!;
+  expect(
+    Math.abs(trackBox.x + trackBox.width / 2 - loadingBox.width / 2),
+  ).toBeLessThanOrEqual(1);
   expect(await page.evaluate(() => (window as any).__musicStarts)).toBe(0);
   await page.screenshot({ path: info.outputPath("entry-loading.png") });
   release();
@@ -86,6 +90,16 @@ test("实际资源解码推进加载，选择窗口后播放音乐，双场景�
   await expect(
     page.getByRole("button", { name: "窗口进入", exact: true }),
   ).toBeFocused();
+  expect(
+    await page
+      .locator(".entry-bootstrap")
+      .evaluate((el) => el.scrollWidth - el.clientWidth),
+  ).toBeLessThanOrEqual(1);
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth - innerWidth,
+    ),
+  ).toBeLessThanOrEqual(1);
   const phases = await page.evaluate(
     () => (window as any).__entryPhases as { phase: string; at: number }[],
   );
@@ -110,6 +124,22 @@ test("实际资源解码推进加载，选择窗口后播放音乐，双场景�
     path: info.outputPath("entry-poster.png"),
     animations: "disabled",
   });
+  const founder = page.getByRole("button", {
+    name: "查看企业家 保罗·蒂尔曼",
+    exact: true,
+  });
+  if (!info.project.use.hasTouch) {
+    await founder.hover();
+    await expect(founder).toHaveClass(/is-lifted/);
+    await expect(page.locator(".founder-caption")).toContainText("保罗·蒂尔曼");
+    await page.mouse.move(12, 12);
+    await expect(founder).not.toHaveClass(/is-lifted/);
+  }
+  await founder.focus();
+  await founder.press("Enter");
+  await expect(founder).toHaveAttribute("aria-pressed", "true");
+  await founder.press("Enter");
+  await expect(founder).toHaveAttribute("aria-pressed", "false");
   await openHomeLobby(page);
   await expect(page.getByLabel("企业家昵称")).toBeFocused();
   await page.getByLabel("企业家昵称").fill("一起拓荒");
@@ -161,10 +191,9 @@ test("首页入场与双向回弹切换完整播放，运动期间锁定表单�
   expect(
     await page.evaluate(() => !!document.activeElement?.closest(".home-scene")),
   ).toBe(false);
-  await page.waitForTimeout(260);
-  expect(await lobby.evaluate((el) => getComputedStyle(el).transform)).not.toBe(
-    before,
-  );
+  await expect
+    .poll(() => lobby.evaluate((el) => getComputedStyle(el).transform))
+    .not.toBe(before);
   await page.screenshot({ path: info.outputPath("home-switch-motion.png") });
   await expect(stage).not.toHaveClass(/is-changing/);
   await expect(page.getByLabel("企业家昵称")).toBeFocused();
@@ -244,6 +273,12 @@ test("邀请直达大厅，减少动态保留错落构图，横竖屏切换保�
   expect(
     await page
       .locator(".poster-wave")
+      .first()
+      .evaluate((el) => getComputedStyle(el).animationName),
+  ).toBe("none");
+  expect(
+    await page
+      .locator(".founder-print")
       .first()
       .evaluate((el) => getComputedStyle(el).animationName),
   ).toBe("none");

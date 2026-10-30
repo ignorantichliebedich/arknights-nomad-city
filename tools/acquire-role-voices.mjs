@@ -1,36 +1,58 @@
-import { chromium } from "@playwright/test";
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { createHash } from "node:crypto";
 import { spawnSync } from "node:child_process";
-import { ROLES } from "../packages/rules/src/data.ts";
+import { VOICED_ROLES } from "../apps/web/src/voice-catalog.ts";
 
 const sourceRoot = resolve(".data/sources/voices");
 const htmlRoot = resolve(".data/research-voices");
 mkdirSync(htmlRoot, { recursive: true });
-const chrome = resolve(".data/browsers/chrome-win64/chrome.exe");
-const browser = await chromium.launch({
-  headless: true,
-  ...(existsSync(chrome) ? { executablePath: chrome } : {}),
-  args: ["--no-proxy-server"],
-});
 const hash = (bytes) => createHash("sha256").update(bytes).digest("hex");
 const records = [];
-try {
-  const page = await browser.newPage();
-  await page.goto("https://prts.wiki/w/银灰/语音记录", {
-    waitUntil: "domcontentloaded",
-  });
-  for (const role of ROLES.filter((role) => role.id !== "cannott")) {
+const previous = JSON.parse(readFileSync("assets/voice-manifest.json", "utf8"));
+async function download(url) {
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const response = await fetch(url, { signal: AbortSignal.timeout(30000) });
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${url}`);
+      const bytes = Buffer.from(await response.arrayBuffer());
+      if (!bytes.length || bytes.length > 8 * 1024 * 1024)
+        throw new Error("Unexpected source size: " + url);
+      return bytes;
+    } catch (error) {
+      if (attempt === 2) throw error;
+    }
+  }
+}
+{
+  for (const role of VOICED_ROLES) {
+    const verified = previous.filter((record) => record.roleId === role.id);
+    if (
+      verified.length === 12 &&
+      verified.every(
+        (record) =>
+          existsSync(record.path) &&
+          existsSync(record.sourceFile) &&
+          hash(readFileSync(record.path)) === record.sha256 &&
+          hash(readFileSync(record.sourceFile)) === record.sourceSha256,
+      )
+    ) {
+      records.push(...verified);
+      console.info(role.name + ": preserved 12 verified voice clips");
+      continue;
+    }
     const sourcePage =
       "https://prts.wiki/w/" + encodeURIComponent(role.name) + "/语音记录";
     const cache = resolve(htmlRoot, role.id + ".html");
     if (!existsSync(cache)) {
-      await page.goto(sourcePage, { waitUntil: "domcontentloaded" });
-      await page.locator("#voice-data-root").waitFor({ state: "attached" });
-      writeFileSync(cache, await page.content());
+      const html = (await download(sourcePage)).toString("utf8");
+      if (!html.includes("data-voice-base"))
+        throw new Error("Missing public voice index: " + role.id);
+      writeFileSync(cache, html);
     }
-    const html = readFileSync(cache, "utf8");
+    const html = readFileSync(cache, "utf8")
+      .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
+      .replaceAll("&amp;", "&");
     const base = /data-voice-base="([^"]+)"/.exec(html)?.[1];
     if (!base) throw new Error("Missing voice base: " + role.id);
     const bases = Object.fromEntries(
@@ -90,30 +112,10 @@ try {
           );
           mkdirSync(dirname(original), { recursive: true });
           if (!existsSync(original)) {
-            let downloaded = false;
-            for (let attempt = 0; attempt < 3 && !downloaded; attempt++)
-              try {
-                const result = await page.evaluate(async (url) => {
-                  const response = await fetch(url, {
-                    signal: AbortSignal.timeout(25000),
-                  });
-                  if (!response.ok)
-                    throw new Error(
-                      "Voice HTTP " + response.status + ": " + url,
-                    );
-                  const blob = await response.blob();
-                  return await new Promise((done, fail) => {
-                    const reader = new FileReader();
-                    reader.onload = () => done(reader.result.split(",")[1]);
-                    reader.onerror = fail;
-                    reader.readAsDataURL(blob);
-                  });
-                }, sourceUrl);
-                writeFileSync(original, Buffer.from(result, "base64"));
-                downloaded = true;
-              } catch (error) {
-                if (attempt === 2) throw error;
-              }
+            const bytes = await download(sourceUrl);
+            if (bytes.toString("ascii", 0, 4) !== "RIFF")
+              throw new Error("Expected original WAV: " + sourceUrl);
+            writeFileSync(original, bytes);
           }
           const path = `apps/web/public/audio/voices/${job.language}/${role.id}/${job.cue}.mp3`;
           mkdirSync(dirname(resolve(path)), { recursive: true });
@@ -196,8 +198,6 @@ try {
   console.info(
     "Verified " +
       records.length +
-      " Chinese/Japanese role voice files. Cannott uses a nonverbal table cue.",
+      " Chinese/Japanese role voice files. Cannott and Flow cards use nonverbal table cues.",
   );
-} finally {
-  await browser.close();
 }
