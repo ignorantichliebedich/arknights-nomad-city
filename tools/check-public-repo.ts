@@ -15,6 +15,8 @@ if (batch.status !== 0 || batch.error)
 let offset = 0;
 const forbidden =
   /(^|\/)(\.data|node_modules|backups|test-results|playwright-report|\.ssh)(\/|$)|(^|\/)\.env(?!\.example$)|\.(sqlite(?:-wal|-shm)?|db|pem|key|zip|7z|tar\.gz)$|^music\/|^apps\/web\/public\/(assets|audio\/(sfx|music|voices))\//i;
+const internalNotes =
+  /(^|\/)(?:agents?|claude|gemini)\.md$|(^|\/)(?:\.agents|\.codex|\.claude)(?:\/|$)|^docs\/(?:acceptance|cloud-server)\.md$|^docs\/releases\/v0\.7\.1\.md$/i;
 const secrets = [
   /-----BEGIN (?:OPENSSH|RSA|EC|DSA|ENCRYPTED)? ?PRIVATE KEY-----/,
   /\bgh[pousr]_[A-Za-z0-9]{30,}\b/,
@@ -25,7 +27,7 @@ const secrets = [
 const problems: string[] = [];
 let bytes = 0;
 for (const file of files) {
-  if (forbidden.test(file))
+  if (forbidden.test(file) || internalNotes.test(file))
     problems.push("Forbidden runtime/private file: " + file);
   const end = batch.stdout.indexOf(10, offset);
   const header = batch.stdout.subarray(offset, end).toString("utf8");

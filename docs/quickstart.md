@@ -50,7 +50,7 @@ pnpm browsers:prepare
 pnpm test:e2e
 ```
 
-浏览器项目覆盖 Chromium、系统 Microsoft Edge 和 Firefox，分辨率为 1920×1080 与 1366×768。整局测试同时验证服务端状态重放和实际浏览器 WebSocket 同步，自动对局属于回归验收，朋友试玩按 [验收记录](acceptance.md) 执行。
+浏览器项目覆盖 Chromium、系统 Microsoft Edge 和 Firefox，分辨率为 1920×1080 与 1366×768。整局测试同时验证服务端状态重放和实际浏览器 WebSocket 同步，自动对局属于回归验收。手动试玩重点核对多人准备与开局、合法落点、资源结算、断线恢复及本次修改；详细执行记录保存在维护者本地。
 
 容量复测使用 `pnpm load:test --tables 1,4,8,16,32 --seconds 30`，工具自动创建独立服务与合成数据库，结果保存到私有 `.data/load-tests/`。云端常规负载、同步盖牌高峰、压缩对照及建议容量见 [承压测试报告](capacity-test.md)；`pnpm load:test --help` 查看参数。正式服务器压测需单独授权，不随 CI 或发布自动运行。
 
@@ -58,7 +58,7 @@ pnpm test:e2e
 
 ## 备份与恢复
 
-已部署的云端入口：[http://106.52.74.24](http://106.52.74.24)，管理与备份步骤见 [云端运行](cloud-server.md)。本地房间与云端房间分别保存。
+已部署的云端入口：[http://106.52.74.24](http://106.52.74.24)，自行部署与备份步骤见 [部署指南](deployment.md)。本地房间与云端房间分别保存。
 
 公网开服的选购、上传、安装、HTTPS、备份和停服步骤见 [公网部署说明](deployment.md)。本地运行 `pnpm package:deploy` 生成可上传的部署包和 SHA-256 校验文件。
 

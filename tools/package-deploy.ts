@@ -18,7 +18,6 @@ const paths = [
   ".dockerignore",
   ".env.example",
   "README.md",
-  "AGENTS.md",
   "CONTRIBUTING.md",
   "CHANGELOG.md",
   "apps/server/src",
@@ -38,7 +37,6 @@ const paths = [
   "docs/mobile.md",
   "docs/release.md",
   "docs/deployment.md",
-  "docs/cloud-server.md",
 ];
 mkdirSync(dirname(output), { recursive: true });
 const result = spawnSync("tar", ["-czf", output, "-C", root, ...paths], {

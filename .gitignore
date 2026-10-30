@@ -27,3 +27,15 @@ known_hosts*
 *.zip
 *.7z
 __pycache__/
+
+# Local assistant instructions and maintainer-only records
+[Aa][Gg][Ee][Nn][Tt].[Mm][Dd]
+[Aa][Gg][Ee][Nn][Tt][Ss].[Mm][Dd]
+[Cc][Ll][Aa][Uu][Dd][Ee].[Mm][Dd]
+[Gg][Ee][Mm][Ii][Nn][Ii].[Mm][Dd]
+.agents/
+.codex/
+.claude/
+/docs/acceptance.md
+/docs/cloud-server.md
+/docs/releases/v0.7.1.md
