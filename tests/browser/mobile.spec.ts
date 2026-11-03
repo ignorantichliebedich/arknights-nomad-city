@@ -94,6 +94,7 @@ test("手机启程提示和表单适配竖屏与横屏，取消后可直接建�
   await expect(page.locator(".assembly-seat.is-mine")).toContainText(
     "手机上的企业家",
   );
+  await expect(page.locator(".scene-transition")).toHaveCount(0);
   await page.screenshot({
     path: info.outputPath("phone-lobby.png"),
     animations: "disabled",
@@ -223,14 +224,18 @@ test("触控棋桌占满视野，配件盘查看城市后可直接部署", async
   await expect(reference.locator(".round-track .current")).toHaveText("1");
   await expect(reference.locator("img")).toBeVisible();
   await reference.getByRole("button", { name: "关闭计分说明" }).tap();
+  await expect(page.locator(".turn-announcement")).toHaveCount(0);
+  await page.screenshot({
+    path: info.outputPath("phone-complete-table.png"),
+    animations: "disabled",
+    scale: "css",
+  });
   await expect(page.locator(".game-sidebar")).toBeHidden();
   await expect(page.locator(".board-toolbar")).toBeHidden();
-  await page.getByRole("button", { name: "调整棋盘视野" }).tap();
-  await expect(page.locator(".board-toolbar")).toBeVisible();
-  await page.getByRole("button", { name: "放大棋盘" }).tap();
-  await expect(page.locator(".board-viewport")).toHaveClass(/can-pan/);
-  await page.getByRole("button", { name: "复位", exact: true }).tap();
-  await page.getByRole("button", { name: "调整棋盘视野" }).tap();
+  await expect(page.getByRole("button", { name: "调整棋盘视野" })).toHaveCount(
+    0,
+  );
+  await fits(page, page.locator(".board-surface"));
   await expect(page.locator(".phone-resource-hud [data-resource]")).toHaveCount(
     6,
   );
@@ -302,7 +307,7 @@ test("手指选牌、收放扇面与确认盖放，旋转刷新不丢席位", as
   await expect(page.locator(".selected-role")).toBeVisible();
 });
 
-test("双指缩放仅移动镜头，结束手势不误放棋子", async ({
+test("双指手势保持完整棋盘，结束手势不误放棋子", async ({
   page,
   browserName,
 }) => {
@@ -334,14 +339,95 @@ test("双指缩放仅移动镜头，结束手势不误放棋子", async ({
     type: "touchEnd",
     touchPoints: [],
   });
-  await expect(page.locator(".board-viewport")).toHaveClass(/can-pan/);
-  await expect(page.locator(".zoom-controls > span")).toContainText("233%");
+  await expect(page.locator(".board-viewport")).not.toHaveClass(/can-pan/);
+  await fits(page, page.locator(".board-surface"));
+  expect(
+    await page
+      .locator(".board-viewport")
+      .evaluate((el) => ({ left: el.scrollLeft, top: el.scrollTop })),
+  ).toEqual({ left: 0, top: 0 });
   expect(read(id).revision).toBe(before.revision);
   await expect(
     page.locator(
       ".placement-panel, .influence-preview, .route-panel, dialog[open]",
     ),
   ).toHaveCount(0);
+});
+
+test("手机房间与长说明固定一屏，翻页可到末尾并返回", async ({ page }, info) => {
+  await skipWelcome(page);
+  const { id } = await fixture(page);
+  await page.getByRole("button", { name: "返回房间大厅", exact: true }).tap();
+  await fits(page, page.locator(".assembly-lobby"));
+  await fits(page, page.getByRole("button", { name: /返回棋桌/ }));
+  for (const seat of await page.locator(".assembly-seat").all())
+    await fits(page, seat);
+  await page.getByRole("button", { name: /拓荒档案/ }).tap();
+  const dossier = page.locator("#phone-room-dossier");
+  await fits(page, dossier);
+  await page.getByRole("button", { name: "关闭拓荒档案" }).tap();
+  await page.getByRole("button", { name: /返回棋桌/ }).tap();
+  await page.getByRole("button", { name: "声音设置" }).tap();
+  const sheet = page.getByRole("dialog", { name: "声音与音乐" });
+  await fits(page, sheet);
+  await fits(page, sheet.locator(".music-sleeve"));
+  await expect(sheet.locator(".music-sleeve")).toBeInViewport({ ratio: 1 });
+  await fits(page, sheet.getByRole("button", { name: "下一首", exact: true }));
+  await page.screenshot({
+    path: info.outputPath("phone-music-player.png"),
+    animations: "disabled",
+    scale: "css",
+  });
+  await sheet.getByRole("button", { name: "音量与音效", exact: true }).tap();
+  await expect(sheet.getByRole("slider", { name: "总音量" })).toBeVisible();
+  await sheet.getByRole("button", { name: "角色语音", exact: true }).tap();
+  await expect(sheet.getByRole("combobox", { name: "语音语言" })).toBeVisible();
+  await sheet.getByRole("button", { name: "关闭弹窗" }).tap();
+  const store = new RoomStore(process.env.E2E_DATABASE_PATH!);
+  try {
+    const room = store.get(id)!;
+    room.game!.log = Array.from({ length: 40 }, (_, i) => ({
+      seq: i + 1,
+      round: 1,
+      actor: null,
+      text: `翻页验收记录 ${i + 1}`,
+    }));
+    room.revision++;
+    store.save(room);
+  } finally {
+    store.close();
+  }
+  await page.reload();
+  await page.getByRole("button", { name: "拓荒日志", exact: true }).tap();
+  const journal = page.getByRole("dialog", { name: "拓荒日志" });
+  const next = journal.getByRole("button", { name: "下一页 →", exact: true });
+  const view = journal.locator(".phone-page-viewport");
+  await expect(next).toBeVisible();
+  const initial = await view.evaluate((el) => el.scrollTop);
+  await next.tap();
+  expect(await view.evaluate((el) => el.scrollTop)).toBeGreaterThan(initial);
+  await page.screenshot({
+    path: info.outputPath("phone-paged-journal.png"),
+    animations: "disabled",
+    scale: "css",
+  });
+  while (await next.isEnabled()) await next.tap();
+  await fits(page, journal.getByRole("button", { name: "关闭弹窗" }));
+  await expect(journal.locator(".journal-entry").last()).toBeInViewport({
+    ratio: 1,
+  });
+  const back = journal.getByRole("button", { name: "← 上一页", exact: true });
+  while (await back.isEnabled()) await back.tap();
+  expect(await view.evaluate((el) => el.scrollTop)).toBe(0);
+  expect(
+    await page.evaluate(() => ({
+      x: scrollX,
+      y: scrollY,
+      width: document.documentElement.scrollWidth - innerWidth,
+      height: document.documentElement.scrollHeight - innerHeight,
+    })),
+  ).toEqual({ x: 0, y: 0, width: 0, height: 0 });
+  expect(read(id).game!.phase).toBe("actions");
 });
 
 test("手机事件卡、结果按钮与合作企业长内容可查看和关闭", async ({

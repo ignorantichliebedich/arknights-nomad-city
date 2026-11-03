@@ -118,7 +118,11 @@ test("五首原始音乐可真实播放，切歌与循环控制适配当前屏�
 
 test("结束后自动接续，后台暂停并恢复，静音和音乐开关独立", async ({ page }) => {
   await openSettings(page);
-  const music = page.getByRole("checkbox", { name: "背景音乐", exact: true });
+  const music = page.getByRole("checkbox", {
+    name: "背景音乐",
+    exact: true,
+    includeHidden: true,
+  });
   await music.check();
   await page.getByLabel("播放曲目").selectOption(tracks[0].id);
   await playing(page, tracks[0].src);
@@ -145,6 +149,8 @@ test("结束后自动接续，后台暂停并恢复，静音和音乐开关独�
     document.dispatchEvent(new Event("visibilitychange"));
   });
   await playing(page, tracks[1].src);
+  const levels = page.getByRole("button", { name: "音量与音效", exact: true });
+  if (await levels.count()) await levels.click();
   await page.getByRole("button", { name: /全部静音/ }).click();
   await expect
     .poll(() => page.evaluate(() => (window as any).__music.paused))
@@ -152,6 +158,8 @@ test("结束后自动接续，后台暂停并恢复，静音和音乐开关独�
   await expect(music).toBeChecked();
   await page.getByRole("button", { name: /开启声音/ }).click();
   await playing(page, tracks[1].src);
+  if (await levels.count())
+    await page.getByRole("button", { name: "唱片机", exact: true }).click();
   await music.uncheck();
   await expect
     .poll(() => page.evaluate(() => (window as any).__music.paused))

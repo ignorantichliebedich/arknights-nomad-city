@@ -94,6 +94,8 @@ import "./frontier-stationery.css";
 import "./entrepreneur-dossier.css";
 import "./interaction-polish.css";
 import "./recruitment.css";
+import "./phone-screen.css";
+import { PhonePages } from "./components/PhonePages.tsx";
 import { EntrepreneurPortrait } from "./components/EntrepreneurPortrait.tsx";
 import {
   InfluencePreview,
@@ -294,7 +296,7 @@ function App() {
       }}
     >
       {!playing && <ExpeditionAtmosphere />}
-      {display.phone && display.portrait && display.fullscreen && (
+      {display.phone && display.portrait && (
         <div className="phone-rotate-hint" role="status">
           <span aria-hidden="true">↻</span> 横放手机，展开横屏棋桌
         </div>
@@ -602,7 +604,13 @@ function GameRoom({
   const [tableFullscreen, setTableFullscreen] = useState(false);
   const table = useRef<HTMLElement>(null);
   const [zoom, setZoom] = useState(1);
-  const touchMap = useMapTouch(zoom, setZoom);
+  const touchMap = useMapTouch(zoom, setZoom, !phone);
+  useEffect(() => {
+    if (phone) {
+      setZoom(1);
+      boardViewport.current?.scrollTo(0, 0);
+    }
+  }, [phone]);
   const [boardSide, setBoardSide] = useState(650);
   const [mapGutter, setMapGutter] = useState(180);
   const boardViewport = useRef<HTMLDivElement>(null);
@@ -1132,7 +1140,9 @@ function GameRoom({
                   ×
                 </button>
               </header>
-              <BoardEdgeHints game={game} expanded />
+              <PhonePages label="计分说明">
+                <BoardEdgeHints game={game} expanded />
+              </PhonePages>
             </div>
           )}
           <section
@@ -1140,67 +1150,74 @@ function GameRoom({
             style={{ "--map-gutter": `${mapGutter}px` } as React.CSSProperties}
           >
             {training}
-            <div
-              className="board-toolbar"
-              id="phone-camera-controls"
-              popover={phone ? "auto" : undefined}
-            >
-              <div>
-                <span className="phase-dot" />
-                <strong>
-                  {game.phase === "finished"
-                    ? "拓荒结束"
-                    : game.parallel
-                      ? parallelReady
-                        ? "已确认，等待全员"
-                        : "所有玩家同时选择"
-                      : waiting
-                        ? `${activeName} 正在${phaseNames[game.phase]}`
-                        : "轮到你了"}
-                </strong>
-                <span className="muted">
-                  {game.phase === "actions"
-                    ? `第 ${game.lap} 轮主要行动`
-                    : phaseNames[game.phase]}
-                </span>
+            {!phone && (
+              <div
+                className="board-toolbar"
+                id="phone-camera-controls"
+                popover={phone ? "auto" : undefined}
+              >
+                <div>
+                  <span className="phase-dot" />
+                  <strong>
+                    {game.phase === "finished"
+                      ? "拓荒结束"
+                      : game.parallel
+                        ? parallelReady
+                          ? "已确认，等待全员"
+                          : "所有玩家同时选择"
+                        : waiting
+                          ? `${activeName} 正在${phaseNames[game.phase]}`
+                          : "轮到你了"}
+                  </strong>
+                  <span className="muted">
+                    {game.phase === "actions"
+                      ? `第 ${game.lap} 轮主要行动`
+                      : phaseNames[game.phase]}
+                  </span>
+                </div>
+                <div className="zoom-controls">
+                  <button
+                    onClick={() => setZoom(Math.max(1, zoom - 0.25))}
+                    aria-label="缩小棋盘"
+                  >
+                    −
+                  </button>
+                  <span>{Math.round(zoom * 100)}%</span>
+                  <button
+                    onClick={() => setZoom(Math.min(3, zoom + 0.25))}
+                    aria-label="放大棋盘"
+                  >
+                    +
+                  </button>
+                  <button onClick={() => setZoom(1)}>复位</button>
+                  <button
+                    onClick={() =>
+                      void fullscreen().catch(() =>
+                        setDetail({
+                          title: "全屏棋桌",
+                          text: "浏览器未允许全屏，可按 F11 放大游戏窗口。",
+                        }),
+                      )
+                    }
+                  >
+                    {tableFullscreen ? "退出全屏" : "全屏棋桌"}
+                  </button>
+                </div>
               </div>
-              <div className="zoom-controls">
-                <button
-                  onClick={() => setZoom(Math.max(1, zoom - 0.25))}
-                  aria-label="缩小棋盘"
-                >
-                  −
-                </button>
-                <span>{Math.round(zoom * 100)}%</span>
-                <button
-                  onClick={() => setZoom(Math.min(3, zoom + 0.25))}
-                  aria-label="放大棋盘"
-                >
-                  +
-                </button>
-                <button onClick={() => setZoom(1)}>复位</button>
-                <button
-                  onClick={() =>
-                    void fullscreen().catch(() =>
-                      setDetail({
-                        title: "全屏棋桌",
-                        text: "浏览器未允许全屏，可按 F11 放大游戏窗口。",
-                      }),
-                    )
-                  }
-                >
-                  {tableFullscreen ? "退出全屏" : "全屏棋桌"}
-                </button>
-              </div>
-            </div>
+            )}
             <div
               className={`board-viewport ${zoom > 1 ? "can-pan" : ""}`}
               ref={boardViewport}
               {...touchMap}
               tabIndex={0}
-              aria-label="棋盘视野，放大后可拖动空白处或使用滚动条"
+              aria-label={
+                phone
+                  ? "完整棋盘，点选节点或拖动棋子"
+                  : "棋盘视野，放大后可拖动空白处或使用滚动条"
+              }
               onPointerDown={(e) => {
                 if (
+                  phone ||
                   zoom <= 1 ||
                   e.button !== 0 ||
                   (e.target as Element).closest(
@@ -1550,14 +1567,6 @@ function GameRoom({
                   <strong>感染者档案</strong>
                 </button>
               )}
-              {phone && (
-                <button
-                  popoverTarget="phone-camera-controls"
-                  aria-label="调整棋盘视野"
-                >
-                  <strong>视野</strong>
-                </button>
-              )}
             </nav>
           </section>
           <aside
@@ -1580,55 +1589,57 @@ function GameRoom({
                 </button>
               </div>
             )}
-            <TableDashboard
-              game={game}
-              activeId={activeId}
-              connectedIds={room.seats
-                .filter((p) => p.connected)
-                .map((p) => p.id)}
-              onCity={setCityPlayer}
-              onSupply={() => setDrawer("supply")}
-              onEnterprise={() => setDrawer("enterprise")}
-            />
-            <TableFeedback game={game} />
-            {game.phase === "finished" && (
-              <div className="final-summary">
-                <h3>
-                  {game.winners
-                    .map((id) => game.players.find((p) => p.id === id)!.name)
-                    .join("、")}{" "}
-                  获胜
-                </h3>
-                {game.finalScores.map((s) => (
-                  <div key={s.playerId}>
-                    <strong>
-                      {game.players.find((p) => p.id === s.playerId)!.name}
-                    </strong>
-                    <b>{s.total} 分</b>
-                    <small>
-                      对局 {s.ongoing} + 区域{" "}
-                      {Object.values(s.regions).reduce((a, b) => a + b, 0)} +
-                      资源{" "}
-                      {Object.values(s.resources).reduce(
-                        (a, b) => a + (b ?? 0),
-                        0,
-                      )}
-                      {s.expert && (
-                        <>
-                          {" "}
-                          + 企业家{" "}
-                          {Object.values(s.expert).reduce((a, b) => a + b, 0)}
-                          <br />
-                          {Object.entries(s.expert)
-                            .map(([label, n]) => `${label} ${n}`)
-                            .join(" · ")}
-                        </>
-                      )}
-                    </small>
-                  </div>
-                ))}
-              </div>
-            )}
+            <PhonePages label="配件盘" pageKey={game.phase}>
+              <TableDashboard
+                game={game}
+                activeId={activeId}
+                connectedIds={room.seats
+                  .filter((p) => p.connected)
+                  .map((p) => p.id)}
+                onCity={setCityPlayer}
+                onSupply={() => setDrawer("supply")}
+                onEnterprise={() => setDrawer("enterprise")}
+              />
+              <TableFeedback game={game} />
+              {game.phase === "finished" && (
+                <div className="final-summary">
+                  <h3>
+                    {game.winners
+                      .map((id) => game.players.find((p) => p.id === id)!.name)
+                      .join("、")}{" "}
+                    获胜
+                  </h3>
+                  {game.finalScores.map((s) => (
+                    <div key={s.playerId}>
+                      <strong>
+                        {game.players.find((p) => p.id === s.playerId)!.name}
+                      </strong>
+                      <b>{s.total} 分</b>
+                      <small>
+                        对局 {s.ongoing} + 区域{" "}
+                        {Object.values(s.regions).reduce((a, b) => a + b, 0)} +
+                        资源{" "}
+                        {Object.values(s.resources).reduce(
+                          (a, b) => a + (b ?? 0),
+                          0,
+                        )}
+                        {s.expert && (
+                          <>
+                            {" "}
+                            + 企业家{" "}
+                            {Object.values(s.expert).reduce((a, b) => a + b, 0)}
+                            <br />
+                            {Object.entries(s.expert)
+                              .map(([label, n]) => `${label} ${n}`)
+                              .join(" · ")}
+                          </>
+                        )}
+                      </small>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </PhonePages>
           </aside>
           {interaction && (
             <Modal

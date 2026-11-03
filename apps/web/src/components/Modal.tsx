@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { gameAudio } from "../audio.ts";
+import { PhonePages } from "./PhonePages.tsx";
 
 export function Modal({
   title,
@@ -89,7 +90,9 @@ export function Modal({
           ×
         </button>
       </div>
-      {children}
+      <PhonePages label={title} pageKey={title}>
+        {children}
+      </PhonePages>
     </dialog>
   );
 }

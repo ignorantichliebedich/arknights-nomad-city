@@ -1,4 +1,5 @@
 import { RESOURCE_NAMES } from "../../../../packages/rules/src/data.ts";
+import { PhonePages } from "./PhonePages.tsx";
 import type {
   LegalAction,
   PlayerView,
@@ -161,131 +162,135 @@ export function RoutePanel({
                 : "探索路线"}
         </h3>
       </header>
-      {parallel && (
-        <p className="parallel-route-note">
-          全员确认后统一支付与采集。路费预算为现有金券，本阶段路费收入在结算后到账。
-        </p>
-      )}
-      {harvest && (
-        <>
-          <p>点击高亮资源点加入路线，再次点击撤回。共用航道只付一次。</p>
-          <div className="route-target-list">
-            {d?.options
-              .filter((o) => o.target)
-              .map((o) => (
-                <button
-                  key={o.id}
-                  disabled={disabled}
-                  className={selectedNodes.includes(o.target!) ? "picked" : ""}
-                  onClick={() => onChoose(o.target!)}
-                >
-                  {selectedNodes.includes(o.target!) ? "✓ " : "+ "}
-                  {o.target}
-                  <small>
-                    {game.sites[o.target!].amount}{" "}
-                    {RESOURCE_NAMES[game.sites[o.target!].resource!]}
-                  </small>
-                </button>
-              ))}
-          </div>
-          <strong className="route-total">{done?.label}</strong>
-        </>
-      )}
-      {plannedCity && <p className="route-total">{plannedCity.label}</p>}
-      {!harvest && !toll && !plannedCity && (
-        <p>
-          {selected
-            ? selected.label
-            : d?.kind === "city"
-              ? "拖起你的城市，沿虚线选择停靠点；也可点击高亮位置。"
-              : "点击高亮资源点，查看到达路线与费用。"}
-        </p>
-      )}
-      {tolls.length > 0 && (
-        <ul className="toll-breakdown">
-          {tolls.map((t) => (
-            <li key={t.road}>
-              <b>{t.road}</b>
-              <span>
-                {t.amount === 0
-                  ? "免费通行"
-                  : `${t.amount} 金券 → ${t.recipients.length ? t.recipients.map((id) => game.players.find((p) => p.id === id)?.name ?? "银行").join(" / ") : "银行"}`}
-              </span>
-            </li>
-          ))}
-        </ul>
-      )}
-      {toll && (
-        <>
-          <p>
-            {d?.map?.roads[0] ?? d?.title.split(" · ")[0]} · 支付 2
-            金券，选择收款玩家。
+      <PhonePages label="路线与支付" pageKey={d?.kind}>
+        {parallel && (
+          <p className="parallel-route-note">
+            全员确认后统一支付与采集。路费预算为现有金券，本阶段路费收入在结算后到账。
           </p>
-          <div className="toll-recipients">
-            {game.actions.map((a) => {
-              const p = game.players.find((p) => p.id === a.command.optionId);
-              return (
-                <button
-                  key={a.id}
-                  disabled={disabled}
-                  className={selected?.id === a.id ? "picked" : ""}
-                  onClick={() => onSelect(a)}
-                >
-                  {p && (
-                    <img
-                      src={`/assets/avatar-${p.seat}.webp?v=founders`}
-                      alt=""
-                    />
-                  )}
-                  {a.label}
-                </button>
-              );
-            })}
-          </div>
-        </>
-      )}
-      <div className="route-controls">
-        {selected && (
-          <button
-            className="secondary-button"
-            disabled={disabled}
-            onClick={() => onSelect(null)}
-          >
-            取消预览
-          </button>
         )}
-        {harvest && selected?.id !== done?.id ? (
-          <button
-            className="primary-button"
-            disabled={disabled || !done}
-            onClick={() => done && onSelect(done)}
-          >
-            核对路费与采集
-          </button>
-        ) : (
-          <button
-            className="primary-button"
-            disabled={disabled || !selected}
-            onClick={onCommit}
-          >
-            {disabled
-              ? parallel
-                ? "保存中…"
-                : "结算中…"
-              : plannedCity || d?.kind === "city"
-                ? "确认移动 →"
-                : harvest
-                  ? parallel
-                    ? "确认采集方案 →"
-                    : "确认支付并采集 →"
-                  : toll
+        {harvest && (
+          <>
+            <p>点击高亮资源点加入路线，再次点击撤回。共用航道只付一次。</p>
+            <div className="route-target-list">
+              {d?.options
+                .filter((o) => o.target)
+                .map((o) => (
+                  <button
+                    key={o.id}
+                    disabled={disabled}
+                    className={
+                      selectedNodes.includes(o.target!) ? "picked" : ""
+                    }
+                    onClick={() => onChoose(o.target!)}
+                  >
+                    {selectedNodes.includes(o.target!) ? "✓ " : "+ "}
+                    {o.target}
+                    <small>
+                      {game.sites[o.target!].amount}{" "}
+                      {RESOURCE_NAMES[game.sites[o.target!].resource!]}
+                    </small>
+                  </button>
+                ))}
+            </div>
+            <strong className="route-total">{done?.label}</strong>
+          </>
+        )}
+        {plannedCity && <p className="route-total">{plannedCity.label}</p>}
+        {!harvest && !toll && !plannedCity && (
+          <p>
+            {selected
+              ? selected.label
+              : d?.kind === "city"
+                ? "拖起你的城市，沿虚线选择停靠点；也可点击高亮位置。"
+                : "点击高亮资源点，查看到达路线与费用。"}
+          </p>
+        )}
+        {tolls.length > 0 && (
+          <ul className="toll-breakdown">
+            {tolls.map((t) => (
+              <li key={t.road}>
+                <b>{t.road}</b>
+                <span>
+                  {t.amount === 0
+                    ? "免费通行"
+                    : `${t.amount} 金券 → ${t.recipients.length ? t.recipients.map((id) => game.players.find((p) => p.id === id)?.name ?? "银行").join(" / ") : "银行"}`}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+        {toll && (
+          <>
+            <p>
+              {d?.map?.roads[0] ?? d?.title.split(" · ")[0]} · 支付 2
+              金券，选择收款玩家。
+            </p>
+            <div className="toll-recipients">
+              {game.actions.map((a) => {
+                const p = game.players.find((p) => p.id === a.command.optionId);
+                return (
+                  <button
+                    key={a.id}
+                    disabled={disabled}
+                    className={selected?.id === a.id ? "picked" : ""}
+                    onClick={() => onSelect(a)}
+                  >
+                    {p && (
+                      <img
+                        src={`/assets/avatar-${p.seat}.webp?v=founders`}
+                        alt=""
+                      />
+                    )}
+                    {a.label}
+                  </button>
+                );
+              })}
+            </div>
+          </>
+        )}
+        <div className="route-controls">
+          {selected && (
+            <button
+              className="secondary-button"
+              disabled={disabled}
+              onClick={() => onSelect(null)}
+            >
+              取消预览
+            </button>
+          )}
+          {harvest && selected?.id !== done?.id ? (
+            <button
+              className="primary-button"
+              disabled={disabled || !done}
+              onClick={() => done && onSelect(done)}
+            >
+              核对路费与采集
+            </button>
+          ) : (
+            <button
+              className="primary-button"
+              disabled={disabled || !selected}
+              onClick={onCommit}
+            >
+              {disabled
+                ? parallel
+                  ? "保存中…"
+                  : "结算中…"
+                : plannedCity || d?.kind === "city"
+                  ? "确认移动 →"
+                  : harvest
                     ? parallel
-                      ? "确认收款人 →"
-                      : "确认支付 2 金券 →"
-                    : "确认路费并探索 →"}
-          </button>
-        )}
-      </div>
+                      ? "确认采集方案 →"
+                      : "确认支付并采集 →"
+                    : toll
+                      ? parallel
+                        ? "确认收款人 →"
+                        : "确认支付 2 金券 →"
+                      : "确认路费并探索 →"}
+            </button>
+          )}
+        </div>
+      </PhonePages>
     </section>
   );
 }

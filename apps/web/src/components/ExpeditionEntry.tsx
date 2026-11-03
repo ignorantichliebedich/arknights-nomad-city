@@ -6,6 +6,7 @@ import { ENTRY_MOTION } from "../entry-motion.ts";
 import { ExpeditionShortcuts } from "./ExpeditionShortcuts.tsx";
 import { FoundersDisplay } from "./FoundersDisplay.tsx";
 import { FrontierPostcard } from "./FrontierPostcard.tsx";
+import { PhonePages } from "./PhonePages.tsx";
 
 export function ExpeditionAtmosphere() {
   return (
@@ -126,7 +127,9 @@ export function ExpeditionEntry({
           <span className="permit-folder-tab" aria-hidden="true">
             105 / 拓荒许可
           </span>
-          <ExpeditionPermit {...permit} />
+          <PhonePages label="拓荒许可" pageKey={permit.code || "create"}>
+            <ExpeditionPermit {...permit} />
+          </PhonePages>
         </div>
       </section>
       <div className="home-scene-index" aria-label="首页场景">

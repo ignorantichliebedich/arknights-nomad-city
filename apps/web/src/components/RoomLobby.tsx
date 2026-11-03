@@ -10,6 +10,8 @@ import {
   type PlayerCount,
 } from "../../../../packages/shared/lobby.ts";
 import { RoomRecruitment } from "./RoomRecruitment.tsx";
+import { useDisplayMode } from "../display-mode.ts";
+import { PhonePages } from "./PhonePages.tsx";
 
 export function RoomLobby({
   room,
@@ -32,6 +34,7 @@ export function RoomLobby({
   onSettings?: (isPublic: boolean, players: PlayerCount) => void;
   onLeave?: () => Promise<void>;
 }) {
+  const { phone } = useDisplayMode();
   const mine = room.seats.find((s) => s.id === room.me);
   const isHost = room.me === room.hostId;
   const readyCount = room.seats.filter(
@@ -63,6 +66,14 @@ export function RoomLobby({
     <main className="assembly-lobby">
       <section className="assembly-table" aria-labelledby="assembly-title">
         <div className="assembly-heading">
+          {phone && (
+            <button
+              className="phone-room-details secondary-button"
+              popoverTarget="phone-room-dossier"
+            >
+              拓荒档案 ↗
+            </button>
+          )}
           <div>
             <span className="departure-kicker">
               <i /> PIONEER ASSEMBLY / 企业家集结
@@ -275,60 +286,77 @@ export function RoomLobby({
           </li>
         </ol>
       </section>
-      <aside className="assembly-dossier" aria-labelledby="dossier-title">
-        <div className="dossier-heading">
-          <span className="eyebrow">EXPEDITION FILE</span>
-          <h2 id="dossier-title">本次拓荒档案</h2>
-          <span aria-hidden="true">105</span>
-        </div>
-        <div className="dossier-map">
-          <img
-            src={
-              room.seats.length === 4
-                ? "/assets/board-4.webp"
-                : "/assets/board-3.webp"
-            }
-            alt="拓荒区棋盘预览"
-          />
-          <span>第 105 号拓荒区</span>
-          <i aria-hidden="true" />
-        </div>
-        <dl className="dossier-facts">
-          <div>
-            <dt>桌游版本</dt>
-            <dd>
-              {room.oripathy
-                ? `感染者${room.expert ? " · 企业家抉择" : " · 常规玩法"}`
-                : room.expansion
-                  ? "铸基者 + 企业扩展"
-                  : "铸基者 · 基础版"}
-            </dd>
-          </div>
-          <div>
-            <dt>拓荒周期</dt>
-            <dd>8 回合</dd>
-          </div>
-          <div>
-            <dt>同行席位</dt>
-            <dd>2–4 人 · 私人邀请</dd>
-          </div>
-        </dl>
-        <div className="dossier-invitation">
-          <span>邀请房间码</span>
-          <strong>{room.id}</strong>
-          <button className="secondary-button" onClick={onInvite}>
-            邀请朋友 <span aria-hidden="true">↗</span>
+      <aside
+        className="assembly-dossier"
+        aria-labelledby="dossier-title"
+        id="phone-room-dossier"
+        popover={phone ? "auto" : undefined}
+      >
+        {phone && (
+          <button
+            className="phone-sheet-close"
+            popoverTarget="phone-room-dossier"
+            popoverTargetAction="hide"
+            aria-label="关闭拓荒档案"
+          >
+            ×
           </button>
-          <small>分享地址或房间码，即可入座。</small>
-        </div>
-        <div className="dossier-note">
-          <img src="/assets/resource-score.webp" alt="" />
-          <p>
-            控制航道，经营城市。
-            <br />
-            让你的名字留在这片荒野。
-          </p>
-        </div>
+        )}
+        <PhonePages label="拓荒档案">
+          <div className="dossier-heading">
+            <span className="eyebrow">EXPEDITION FILE</span>
+            <h2 id="dossier-title">本次拓荒档案</h2>
+            <span aria-hidden="true">105</span>
+          </div>
+          <div className="dossier-map">
+            <img
+              src={
+                room.seats.length === 4
+                  ? "/assets/board-4.webp"
+                  : "/assets/board-3.webp"
+              }
+              alt="拓荒区棋盘预览"
+            />
+            <span>第 105 号拓荒区</span>
+            <i aria-hidden="true" />
+          </div>
+          <dl className="dossier-facts">
+            <div>
+              <dt>桌游版本</dt>
+              <dd>
+                {room.oripathy
+                  ? `感染者${room.expert ? " · 企业家抉择" : " · 常规玩法"}`
+                  : room.expansion
+                    ? "铸基者 + 企业扩展"
+                    : "铸基者 · 基础版"}
+              </dd>
+            </div>
+            <div>
+              <dt>拓荒周期</dt>
+              <dd>8 回合</dd>
+            </div>
+            <div>
+              <dt>同行席位</dt>
+              <dd>2–4 人 · 私人邀请</dd>
+            </div>
+          </dl>
+          <div className="dossier-invitation">
+            <span>邀请房间码</span>
+            <strong>{room.id}</strong>
+            <button className="secondary-button" onClick={onInvite}>
+              邀请朋友 <span aria-hidden="true">↗</span>
+            </button>
+            <small>分享地址或房间码，即可入座。</small>
+          </div>
+          <div className="dossier-note">
+            <img src="/assets/resource-score.webp" alt="" />
+            <p>
+              控制航道，经营城市。
+              <br />
+              让你的名字留在这片荒野。
+            </p>
+          </div>
+        </PhonePages>
       </aside>
     </main>
   );
