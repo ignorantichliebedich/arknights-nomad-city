@@ -154,7 +154,7 @@ export function oripathyRoleSteps(
     case "o-flow-c":
       return strategy
         ? [t("o:flow-income", id, { count: 2 })]
-        : [t("upgrade", id, { count: 2 }), t("retire-role", id, { role })];
+        : [t("upgrade", id), t("retire-role", id, { role })];
     default:
       return null;
   }
@@ -205,9 +205,15 @@ export function executeOripathy(
   switch (step.kind) {
     case "o:borrow-pattern":
       choose(
-        "淬羽赫默：执行场上一张Ⅱ级样式的特殊行动",
+        "淬羽赫默：执行场上一张Ⅰ级样式的特殊行动",
         s.patterns
-          .filter((k) => PATTERN_BY_ID[k].level === 2)
+          .filter(
+            (k) =>
+              PATTERN_BY_ID[k].level === 1 &&
+              !["relay", "o-emerging", "o-management"].includes(
+                PATTERN_BY_ID[k].effect,
+              ),
+          )
           .map((pattern) =>
             o(
               pattern,

@@ -329,10 +329,12 @@ describe("新增设施、企业与叠层", () => {
     s.mainDone = false;
     s.mainRemaining = 1;
     s.market = ["camp@1"];
-    s = applyCommand(s, "p0", { type: "main", action: "build" });
-    expect(s.decision!.options.some((o) => o.id === "camp@1:0:cash")).toBe(
+    expect(getLegalActions(s, "p0").some((a) => a.id === "main:build")).toBe(
       false,
     );
+    expect(() =>
+      applyCommand(s, "p0", { type: "main", action: "build" }),
+    ).toThrow();
   });
   it("马丁叠建后不能用被埋的设施宣告样式", () => {
     const s = fixture();
@@ -540,7 +542,7 @@ describe("官方牌面时机、费用与抉择覆盖", () => {
   it("岩蹄与梅兰德只触发已解锁特效；三级奖励不会作为岩蹄特效", () => {
     for (const [company, expected] of [
       ["stonehoove", [1, 2, 4]],
-      ["maylander", [1, 2, 3, 4]],
+      ["maylander", [1, 2, 3]],
       ["rhodes", [1, 2, 3]],
     ] as const) {
       const s = effect(fixture(), [step("trigger", { company })]);

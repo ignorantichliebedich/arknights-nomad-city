@@ -184,6 +184,8 @@ export type GameState = {
   active: number;
   mainDone: boolean;
   mainRemaining: number;
+  /** Non-special credits within mainRemaining; absent in older saves. */
+  ordinaryMainRemaining?: number;
   extraOnly: boolean;
   roleBlocked: boolean;
   roleDualThisTurn: boolean;

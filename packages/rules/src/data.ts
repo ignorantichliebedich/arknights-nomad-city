@@ -121,11 +121,12 @@ export const FACILITIES: Facility[] = [
     -1,
     2,
     9,
-    "free-build",
+    "build",
+    true,
   ),
   facility(
     "logistics",
-    "物流枢纽",
+    "物流中枢",
     "blue",
     { prime: 1, cash: 2 },
     24,
@@ -268,7 +269,7 @@ export const FACILITIES: Facility[] = [
     1,
     3,
     35,
-    "replace-place",
+    "replace-or-place",
   ),
   facility(
     "escort",
@@ -340,23 +341,24 @@ export const FACILITY_EFFECT_TEXT: Record<string, string> = {
   "o-rhodes-office":
     "入场：选择干员特派，或分别提升两家不同企业各一级。干员特派抽取三张，招募时公开退役一张手牌或弃牌，也可放弃招募获得 1 分。",
   "o-settlement": "用于宣告样式后，可移除此设施，获得 12 金券。",
-  "o-urban-place": "入场：自己城市面板上每个核心枢纽，使你放置一次影响力。",
-  "o-urban-score": "入场：自己城市面板上每个核心枢纽，使你获得 1 分。",
-  "o-urban-cash": "入场：自己城市面板上每个核心枢纽，使你获得 12 金券。",
+  "o-urban-place": "入场：自己城市面板上每个核心指挥塔，使你放置一次影响力。",
+  "o-urban-score": "入场：自己城市面板上每个核心指挥塔，使你获得 1 分。",
+  "o-urban-cash": "入场：自己城市面板上每个核心指挥塔，使你获得 12 金券。",
   none: "没有入场效果。",
   rock7: "入场：获得 7 源岩。",
   ore6: "入场：获得 6 源石。",
   iron4: "入场：获得 4 异铁。",
   basic5: "入场：获得合计 5 个基础资源，种类自行分配。",
   place2: "入场：放置两次自己的影响力。",
-  "replace-place": "入场：替换一个影响力，再放置一个自己的影响力。",
+  "replace-or-place": "入场：选择替换一个影响力，或放置一个自己的影响力。",
   "first-player": "入场：获得起始玩家标记，在下回合成为起始玩家。",
-  "free-build": "入场：从设施供应区免费建设一张设施，并结算其入场效果。",
+  build: "入场：执行一次建设，照常支付设施费用，并结算其入场效果。",
   extend:
     "入场：可选择余下的蓝、黄、红色延伸枢纽之一，建在城市空格，失去 1 分。",
-  "adjacent-cash": "入场：每个十字相邻的非彩色设施带来 4 金券。",
+  "adjacent-cash": "入场：城市中每个与核心指挥塔十字相邻的设施带来 4 金券。",
   "copy-entry": "入场：选择一个十字相邻的非彩色设施，结算其入场效果。",
-  trade: "入场：可任意出售资源，基础资源每个 1 金券，至纯源石每个 15 金券。",
+  trade:
+    "入场：可任意出售资源，源岩／源石／异铁／至纯源石单价分别为 3／3／4／15 金券。",
   "free-move": "入场：免费移动城市，并在经过的航道放置一个自己的影响力。",
   "remove-move-explore":
     "入场：移除一个影响力并移动一次自己的影响力，或执行一次探索。",
@@ -369,7 +371,7 @@ export function facilityText(id: string): string {
     id === "industrial"
       ? "资源支付时，城市里每种非彩色设施颜色降低 1 源岩费用；红、黄、蓝各计算一次，最多降低 3 源岩。"
       : "",
-    id.startsWith("extension-") ? "只能通过物流枢纽的入场效果建设。" : "",
+    id.startsWith("extension-") ? "只能通过物流中枢的入场效果建设。" : "",
     card.unique ? "唯一：同名设施在自己的城市内只能建设一张。" : "",
   ]
     .filter(Boolean)
@@ -381,7 +383,7 @@ export const ENTERPRISE_TEXT: Record<string, string> = {
   stonehoove:
     "1 级：移除一个影响力并放置或移动安保影响力。\n2 级：部署安保并可提升合作等级。\n3 级升级奖励：获得 1 分。\n4 级：部署自己的影响力并移动安保。\n5 级升级奖励：获得至纯源石、安保影响力与终身合约。",
   maylander:
-    "1 级：获得 4 金券与合计两个基础资源。\n2 级：探索并移除自己的一个影响力。\n3 级：可支付 4 异铁获得 2 分。\n4 级：选择剩余授勋牌。\n5 级升级奖励：获得 2 分。",
+    "1 级：获得 4 金券与合计两个基础资源。\n2 级：探索并移除自己的一个影响力。\n3 级：可支付 4 异铁获得 2 分。\n4 级升级奖励：选择剩余授勋牌。\n5 级升级奖励：获得 2 分。",
   rhodes:
     "1 级：提升另一家企业一级。\n2 级：在航道放置一个影响力，按自己在全部航道的影响力数量获得金券。\n3、5 级升级奖励：抽取干员并选择招募或得 1 分；两人局抽 3 张，其余抽 2 张。\n4 级：收回一张弃牌，弃置其余手牌，获得 10 金券。",
   heide:
@@ -455,7 +457,7 @@ export const OPERATIVES: Role[] = [
     name: "W",
     image: "/assets/operatives/w.webp",
     strategy: "放置三次影响力；收尾移除两个自己的影响力。",
-    tactic: "支付 4 金券，移除两名不同对手各一个影响力；一次性。",
+    tactic: "支付 4 金券，替换两名不同对手各一个影响力；一次性。",
     operative: true,
   },
   {
@@ -471,7 +473,7 @@ export const OPERATIVES: Role[] = [
     name: "可露希尔",
     image: "/assets/operatives/closure.webp",
     strategy: "获得 1 源岩、1 源石、1 异铁；提升一家企业。",
-    tactic: "取走市场两种不同设施保留，之后可支付费用建设；持续。",
+    tactic: "取走供应区至多两张名称不同的设施保留，之后可支付费用建设；持续。",
     operative: true,
   },
   {
@@ -489,14 +491,14 @@ export const OPERATIVES: Role[] = [
     image: "/assets/operatives/silverash.webp",
     strategy:
       "选择资源种类和玩家，令其以 4 金券单价售出全部该资源；获得 1 分。",
-    tactic: "移动每位玩家一个影响力；一次性。",
+    tactic: "移除每位玩家一个影响力；一次性。",
     operative: true,
   },
   {
     id: "mudrock",
     name: "泥岩",
     image: "/assets/operatives/mudrock.webp",
-    strategy: "支付 1 源岩，放置两次影响力。",
+    strategy: "支付 1 源岩，执行一次建设，照常支付设施费用。",
     tactic: "每次收尾可支付 2 源岩，放置一次影响力；持续。",
     operative: true,
   },
@@ -513,8 +515,9 @@ export const OPERATIVES: Role[] = [
     id: "eunectes",
     name: "森蚺",
     image: "/assets/operatives/eunectes.webp",
-    strategy: "免费移动城市；移动每位对手一个影响力。",
-    tactic: "移除市场两种不同设施，获得 3 异铁。",
+    strategy:
+      "免费移动城市；本次移动中应被移除的对手影响力改为由你移动，放置限制按其所属玩家判断。",
+    tactic: "移除供应区至多两张名称不同的设施，获得 3 异铁。",
     operative: true,
   },
 ];
@@ -580,7 +583,7 @@ export const PATTERNS: Pattern[] = [
       [0, 1, "red"],
     ],
     effect: "military",
-    description: "放置该样式标记数量的影响力，最多 3 个。",
+    description: "按自己在该样式上的标记数量放置影响力，最多 3 个。",
   },
   {
     id: "mobilize",
@@ -653,7 +656,7 @@ export const PATTERNS: Pattern[] = [
     ],
     effect: "outpost",
     description:
-      "在自己城市的资源点放置两次影响力；移动该样式标记数量的影响力。",
+      "在自己城市的资源点放置两次影响力；按自己在该样式上的标记数量移动影响力。",
   },
   {
     id: "commercial",
@@ -668,7 +671,7 @@ export const PATTERNS: Pattern[] = [
       [0, 2, "red"],
     ],
     effect: "commercial",
-    description: "自选 4 金券或一种基础资源，然后执行一次其他主要行动。",
+    description: "自选 4 金券或一种基础资源，然后执行一次非特殊主要行动。",
   },
   {
     id: "enterprise-park",
@@ -700,7 +703,8 @@ export const PATTERNS: Pattern[] = [
       [2, 2, "red"],
     ],
     effect: "industrial-core",
-    description: "本轮禁用角色；支付 6 金券，额外执行两次主要行动。",
+    description:
+      "本轮禁用角色；支付 6 金券，额外执行两次主要行动，可以是特殊行动。",
   },
   {
     id: "efficient",
@@ -850,7 +854,10 @@ export const EVENTS: EventCard[] = [
     "ore",
     1,
     [
-      { label: "在本点或相邻航道放置影响力", effect: "local-place" },
+      {
+        label: "在此资源点相邻的航道放置影响力",
+        effect: "adjacent-road-place",
+      },
       { label: "获得 1 源岩、3 源石", gain: { rock: 1, ore: 3 } },
       { label: "获得 3 异铁", gain: { iron: 3 } },
     ],

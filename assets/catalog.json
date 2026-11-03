@@ -1,10 +1,12 @@
 {
   "rulesVersion": "founders-2023.1",
+  "oripathyRulesVersion": "oripathy-2024.1111",
   "sources": {
     "official": "https://ak.hypergryph.com/boardgame_nomadcity/",
     "wiki": "https://prts.wiki/w/游城拓荒：铸基者",
     "archive": "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
-    "manual": "https://steamusercontent-a.akamaihd.net/ugc/2282825689394632887/8F1D80001580DF5B3F528E7B80302B646C2AF857/"
+    "manual": "https://steamusercontent-a.akamaihd.net/ugc/2282825689394632887/8F1D80001580DF5B3F528E7B80302B646C2AF857/",
+    "oripathyManual": "https://web.hycdn.cn/arknights/boardgame/nomadcity/file/%E6%B8%B8%E5%9F%8E%E6%8B%93%E8%8D%92%E6%84%9F%E6%9F%93%E8%80%85-%E8%A7%84%E5%88%99%E4%B9%A620241111.pdf"
   },
   "components": {
     "base": {
@@ -25,9 +27,429 @@
       "companyBoards": 8,
       "laboratoryBoards": 3,
       "publicRoadTokens": 8
+    },
+    "oripathy": {
+      "total": 63,
+      "groups": [
+        {
+          "id": "initial-role",
+          "name": "初始角色牌",
+          "printedCopies": 4,
+          "faces": [
+            "1291",
+            "1290",
+            "1292",
+            "1293"
+          ],
+          "names": [
+            "阿米娅"
+          ]
+        },
+        {
+          "id": "operatives",
+          "name": "干员角色牌",
+          "printedCopies": 8,
+          "faces": [
+            "1321",
+            "1324",
+            "1319",
+            "1322",
+            "1323",
+            "1320",
+            "1318",
+            "1206"
+          ],
+          "names": [
+            "淬羽赫默",
+            "刻俄柏",
+            "诗怀雅",
+            "赫拉格",
+            "百炼嘉维尔",
+            "林",
+            "涤火杰西卡",
+            "缪尔赛思"
+          ],
+          "referenceFaces": [
+            "1335",
+            "1333",
+            "1332",
+            "1334",
+            "1330",
+            "1337",
+            "1336",
+            "1345"
+          ],
+          "referenceNames": [
+            "可露希尔",
+            "银灰",
+            "泥岩",
+            "凯尔希",
+            "异客",
+            "多萝西",
+            "森蚺",
+            "W"
+          ],
+          "note": "官方规则书第 1 页列 8 张新增干员；本体企业扩展的 8 张干员及进阶样式仅作参照，不能重复加入牌库。"
+        },
+        {
+          "id": "flowing-shapes",
+          "name": "流形角色牌",
+          "printedCopies": 3,
+          "faces": [
+            "1089",
+            "1090",
+            "1091"
+          ],
+          "names": [
+            "流形甲",
+            "流形乙",
+            "流形丙"
+          ]
+        },
+        {
+          "id": "rhodes-offices",
+          "name": "罗德岛办事处",
+          "printedCopies": 3,
+          "faces": [
+            "1394",
+            "1395",
+            "1396"
+          ]
+        },
+        {
+          "id": "settlements",
+          "name": "临时聚居点",
+          "printedCopies": 3,
+          "faces": [
+            "1158"
+          ]
+        },
+        {
+          "id": "urban-areas",
+          "name": "马丁的城市化区域",
+          "printedCopies": 9,
+          "faces": [
+            "1156",
+            "1157",
+            "1154"
+          ]
+        },
+        {
+          "id": "core",
+          "name": "马丁的核心指挥塔",
+          "printedCopies": 1,
+          "faces": [],
+          "note": "原模组与本体设施图集共用图源；原规则书页码用于核对初始设施数量与位置。"
+        },
+        {
+          "id": "entrepreneurs",
+          "name": "企业家能力牌",
+          "printedCopies": 5,
+          "faces": [
+            "1405",
+            "1404",
+            "1403",
+            "1397",
+            "1402"
+          ],
+          "names": [
+            "蒂亚戈·H·罗德里格斯",
+            "马丁·费舍尔",
+            "保罗·蒂尔曼",
+            "艾格尼丝·史密斯",
+            "第五号企业家"
+          ]
+        },
+        {
+          "id": "dilemmas",
+          "name": "企业家抉择牌",
+          "printedCopies": 20,
+          "faces": [
+            "1346",
+            "1347",
+            "1348",
+            "1349",
+            "1386",
+            "1387",
+            "1388",
+            "1389",
+            "1381",
+            "1382",
+            "1383",
+            "1384",
+            "1406",
+            "1400",
+            "1399",
+            "1398",
+            "1393",
+            "1392",
+            "1391",
+            "1390"
+          ],
+          "twoSided": true
+        },
+        {
+          "id": "patterns",
+          "name": "城市样式牌",
+          "printedCopies": 3,
+          "faces": [
+            "1188",
+            "1189",
+            "1190"
+          ]
+        },
+        {
+          "id": "awards",
+          "name": "梅兰德基金会授勋卡",
+          "printedCopies": 4,
+          "faces": [
+            "1184",
+            "1185",
+            "1186",
+            "1187"
+          ]
+        }
+      ]
     }
   },
   "facilities": [
+    {
+      "id": "o-rhodes-red",
+      "name": "罗德岛办事处",
+      "color": "red",
+      "cost": {
+        "rock": 1,
+        "ore": 1,
+        "iron": 2
+      },
+      "cashCost": 14,
+      "points": 0,
+      "copies": 1,
+      "effect": "o-rhodes-office",
+      "unique": true,
+      "image": "/assets/oripathy/1394.webp",
+      "index": -1,
+      "expansion": true,
+      "oripathy": true,
+      "text": "入场：选择干员特派，或分别提升两家不同企业各一级。干员特派抽取三张，招募时公开退役一张手牌或弃牌，也可放弃招募获得 1 分。\n唯一：同名设施在自己的城市内只能建设一张。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/oripathy/1394.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "source": "oripathyManual",
+          "pages": [
+            1,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "id": "o-rhodes-blue",
+      "name": "罗德岛办事处",
+      "color": "blue",
+      "cost": {
+        "rock": 1,
+        "ore": 1,
+        "iron": 2
+      },
+      "cashCost": 14,
+      "points": 0,
+      "copies": 1,
+      "effect": "o-rhodes-office",
+      "unique": true,
+      "image": "/assets/oripathy/1395.webp",
+      "index": -1,
+      "expansion": true,
+      "oripathy": true,
+      "text": "入场：选择干员特派，或分别提升两家不同企业各一级。干员特派抽取三张，招募时公开退役一张手牌或弃牌，也可放弃招募获得 1 分。\n唯一：同名设施在自己的城市内只能建设一张。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/oripathy/1395.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "source": "oripathyManual",
+          "pages": [
+            1,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "id": "o-rhodes-yellow",
+      "name": "罗德岛办事处",
+      "color": "yellow",
+      "cost": {
+        "rock": 1,
+        "ore": 1,
+        "iron": 2
+      },
+      "cashCost": 14,
+      "points": 0,
+      "copies": 1,
+      "effect": "o-rhodes-office",
+      "unique": true,
+      "image": "/assets/oripathy/1396.webp",
+      "index": -1,
+      "expansion": true,
+      "oripathy": true,
+      "text": "入场：选择干员特派，或分别提升两家不同企业各一级。干员特派抽取三张，招募时公开退役一张手牌或弃牌，也可放弃招募获得 1 分。\n唯一：同名设施在自己的城市内只能建设一张。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/oripathy/1396.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "source": "oripathyManual",
+          "pages": [
+            1,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "id": "o-settlement",
+      "name": "临时聚居点",
+      "color": "wild",
+      "cost": {
+        "ore": 1,
+        "iron": 2
+      },
+      "cashCost": 11,
+      "points": 0,
+      "copies": 3,
+      "effect": "o-settlement",
+      "unique": true,
+      "image": "/assets/oripathy/1158.webp",
+      "index": -1,
+      "expansion": true,
+      "oripathy": true,
+      "text": "用于宣告样式后，可移除此设施，获得 12 金券。\n唯一：同名设施在自己的城市内只能建设一张。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/oripathy/1158.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "source": "oripathyManual",
+          "pages": [
+            1,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "id": "o-urban-red",
+      "name": "城市化区域",
+      "color": "red",
+      "cost": {
+        "rock": 2,
+        "ore": 1,
+        "iron": 1
+      },
+      "cashCost": 13,
+      "points": 0,
+      "copies": 3,
+      "effect": "o-urban-place",
+      "unique": false,
+      "image": "/assets/oripathy/1156.webp",
+      "index": -1,
+      "expansion": true,
+      "oripathy": true,
+      "text": "入场：自己城市面板上每个核心指挥塔，使你放置一次影响力。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/oripathy/1156.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "source": "oripathyManual",
+          "pages": [
+            1,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "id": "o-urban-yellow",
+      "name": "城市化区域",
+      "color": "yellow",
+      "cost": {
+        "rock": 1,
+        "ore": 2,
+        "iron": 4
+      },
+      "cashCost": 24,
+      "points": 1,
+      "copies": 3,
+      "effect": "o-urban-score",
+      "unique": false,
+      "image": "/assets/oripathy/1157.webp",
+      "index": -1,
+      "expansion": true,
+      "oripathy": true,
+      "text": "入场：自己城市面板上每个核心指挥塔，使你获得 1 分。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/oripathy/1157.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "source": "oripathyManual",
+          "pages": [
+            1,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "id": "o-urban-blue",
+      "name": "城市化区域",
+      "color": "blue",
+      "cost": {
+        "rock": 2,
+        "ore": 2,
+        "iron": 2
+      },
+      "cashCost": 20,
+      "points": 1,
+      "copies": 3,
+      "effect": "o-urban-cash",
+      "unique": false,
+      "image": "/assets/oripathy/1154.webp",
+      "index": -1,
+      "expansion": true,
+      "oripathy": true,
+      "text": "入场：自己城市面板上每个核心指挥塔，使你获得 12 金券。",
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/oripathy/1154.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "source": "oripathyManual",
+          "pages": [
+            1,
+            6
+          ]
+        }
+      ]
+    },
     {
       "id": "administration",
       "name": "城邦行政区",
@@ -53,6 +475,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -85,6 +508,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -116,6 +540,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -135,11 +560,11 @@
       "points": -1,
       "copies": 2,
       "index": 9,
-      "effect": "free-build",
-      "unique": false,
+      "effect": "build",
+      "unique": true,
       "expansion": false,
       "image": "/assets/cards-166/9.webp",
-      "text": "入场：从设施供应区免费建设一张设施，并结算其入场效果。",
+      "text": "入场：执行一次建设，照常支付设施费用，并结算其入场效果。\n唯一：同名设施在自己的城市内只能建设一张。",
       "evidence": [
         {
           "kind": "card-face",
@@ -147,6 +572,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -156,7 +582,7 @@
     },
     {
       "id": "logistics",
-      "name": "物流枢纽",
+      "name": "物流中枢",
       "color": "blue",
       "cost": {
         "prime": 1,
@@ -178,6 +604,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -210,6 +637,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -233,7 +661,7 @@
       "unique": false,
       "expansion": false,
       "image": "/assets/cards-166/14.webp",
-      "text": "入场：每个十字相邻的非彩色设施带来 4 金券。",
+      "text": "入场：城市中每个与核心指挥塔十字相邻的设施带来 4 金券。",
       "evidence": [
         {
           "kind": "card-face",
@@ -241,6 +669,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -273,6 +702,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -296,7 +726,7 @@
       "unique": false,
       "expansion": false,
       "image": "/assets/cards-166/18.webp",
-      "text": "入场：可任意出售资源，基础资源每个 1 金券，至纯源石每个 15 金券。",
+      "text": "入场：可任意出售资源，源岩／源石／异铁／至纯源石单价分别为 3／3／4／15 金券。",
       "evidence": [
         {
           "kind": "card-face",
@@ -304,6 +734,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -324,7 +755,7 @@
       "unique": false,
       "expansion": false,
       "image": "/assets/cards-166/21.webp",
-      "text": "没有入场效果。\n只能通过物流枢纽的入场效果建设。",
+      "text": "没有入场效果。\n只能通过物流中枢的入场效果建设。",
       "evidence": [
         {
           "kind": "card-face",
@@ -332,6 +763,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -352,7 +784,7 @@
       "unique": false,
       "expansion": false,
       "image": "/assets/cards-166/32.webp",
-      "text": "没有入场效果。\n只能通过物流枢纽的入场效果建设。",
+      "text": "没有入场效果。\n只能通过物流中枢的入场效果建设。",
       "evidence": [
         {
           "kind": "card-face",
@@ -360,6 +792,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -380,7 +813,7 @@
       "unique": false,
       "expansion": false,
       "image": "/assets/cards-166/43.webp",
-      "text": "没有入场效果。\n只能通过物流枢纽的入场效果建设。",
+      "text": "没有入场效果。\n只能通过物流中枢的入场效果建设。",
       "evidence": [
         {
           "kind": "card-face",
@@ -388,6 +821,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -420,6 +854,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -451,6 +886,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -483,6 +919,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -515,6 +952,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -546,6 +984,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -578,6 +1017,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -610,6 +1050,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -630,11 +1071,11 @@
       "points": 1,
       "copies": 3,
       "index": 35,
-      "effect": "replace-place",
+      "effect": "replace-or-place",
       "unique": false,
       "expansion": false,
       "image": "/assets/cards-166/35.webp",
-      "text": "入场：替换一个影响力，再放置一个自己的影响力。",
+      "text": "入场：选择替换一个影响力，或放置一个自己的影响力。",
       "evidence": [
         {
           "kind": "card-face",
@@ -642,6 +1083,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -674,6 +1116,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -705,6 +1148,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -733,6 +1177,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -765,6 +1210,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -797,6 +1243,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -829,6 +1276,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             7,
             13
@@ -848,9 +1296,14 @@
       "evidence": [
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             14
           ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/role-1231.webp"
         }
       ]
     },
@@ -864,9 +1317,14 @@
       "evidence": [
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             14
           ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/role-1271.webp"
         }
       ]
     },
@@ -880,9 +1338,14 @@
       "evidence": [
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             14
           ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/role-1232.webp"
         }
       ]
     },
@@ -896,9 +1359,14 @@
       "evidence": [
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             14
           ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/role-1272.webp"
         }
       ]
     },
@@ -912,9 +1380,14 @@
       "evidence": [
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             14
           ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/role-1273.webp"
         }
       ]
     },
@@ -929,9 +1402,14 @@
       "evidence": [
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             19
           ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/role-1306.webp"
         }
       ]
     },
@@ -946,9 +1424,14 @@
       "evidence": [
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             19
           ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/role-1307.webp"
         }
       ]
     },
@@ -957,16 +1440,21 @@
       "name": "W",
       "image": "/assets/operatives/w.webp",
       "strategy": "放置三次影响力；收尾移除两个自己的影响力。",
-      "tactic": "支付 4 金券，移除两名不同对手各一个影响力；一次性。",
+      "tactic": "支付 4 金券，替换两名不同对手各一个影响力；一次性。",
       "operative": true,
       "copies": 1,
       "evidence": [
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             19,
             20
           ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/operatives/w.webp"
         }
       ]
     },
@@ -981,10 +1469,15 @@
       "evidence": [
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             19,
             20
           ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/operatives/kaltsit.webp"
         }
       ]
     },
@@ -993,16 +1486,21 @@
       "name": "可露希尔",
       "image": "/assets/operatives/closure.webp",
       "strategy": "获得 1 源岩、1 源石、1 异铁；提升一家企业。",
-      "tactic": "取走市场两种不同设施保留，之后可支付费用建设；持续。",
+      "tactic": "取走供应区至多两张名称不同的设施保留，之后可支付费用建设；持续。",
       "operative": true,
       "copies": 1,
       "evidence": [
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             19,
             20
           ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/operatives/closure.webp"
         }
       ]
     },
@@ -1017,10 +1515,15 @@
       "evidence": [
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             19,
             20
           ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/operatives/dorothy.webp"
         }
       ]
     },
@@ -1029,16 +1532,21 @@
       "name": "银灰",
       "image": "/assets/operatives/silverash.webp",
       "strategy": "选择资源种类和玩家，令其以 4 金券单价售出全部该资源；获得 1 分。",
-      "tactic": "移动每位玩家一个影响力；一次性。",
+      "tactic": "移除每位玩家一个影响力；一次性。",
       "operative": true,
       "copies": 1,
       "evidence": [
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             19,
             20
           ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/operatives/silverash.webp"
         }
       ]
     },
@@ -1046,17 +1554,22 @@
       "id": "mudrock",
       "name": "泥岩",
       "image": "/assets/operatives/mudrock.webp",
-      "strategy": "支付 1 源岩，放置两次影响力。",
+      "strategy": "支付 1 源岩，执行一次建设，照常支付设施费用。",
       "tactic": "每次收尾可支付 2 源岩，放置一次影响力；持续。",
       "operative": true,
       "copies": 1,
       "evidence": [
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             19,
             20
           ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/operatives/mudrock.webp"
         }
       ]
     },
@@ -1071,10 +1584,15 @@
       "evidence": [
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             19,
             20
           ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/operatives/passenger.webp"
         }
       ]
     },
@@ -1082,17 +1600,310 @@
       "id": "eunectes",
       "name": "森蚺",
       "image": "/assets/operatives/eunectes.webp",
-      "strategy": "免费移动城市；移动每位对手一个影响力。",
-      "tactic": "移除市场两种不同设施，获得 3 异铁。",
+      "strategy": "免费移动城市；本次移动中应被移除的对手影响力改为由你移动，放置限制按其所属玩家判断。",
+      "tactic": "移除供应区至多两张名称不同的设施，获得 3 异铁。",
       "operative": true,
       "copies": 1,
       "evidence": [
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             19,
             20
           ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/operatives/eunectes.webp"
+        }
+      ]
+    },
+    {
+      "id": "o-amiya",
+      "name": "阿米娅",
+      "image": "/assets/oripathy/1291.webp",
+      "strategy": "干员特派：抽取三张干员，选择一张并公开退役一张手牌或弃牌；也可放弃招募获得 1 分。",
+      "tactic": "合作协议：持续；下次使用角色时弃置本牌，按自选顺序连续使用其策略和计谋。",
+      "operative": false,
+      "oripathy": true,
+      "copies": 4,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "source": "oripathyManual",
+          "pages": [
+            7,
+            8
+          ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/oripathy/1291.webp"
+        }
+      ]
+    },
+    {
+      "id": "o-silence",
+      "name": "淬羽赫默",
+      "image": "/assets/oripathy/1321.webp",
+      "strategy": "执行一张场上Ⅰ级样式的特殊行动，无需宣告，不移动其标记；与宣告数量有关的效果仍按实际数量计算。",
+      "tactic": "获得 1 分；锁定移动城市所在区块，所有玩家不能在其中放置影响力；下一个行动轮移除锁定。",
+      "operative": true,
+      "oripathy": true,
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "source": "oripathyManual",
+          "pages": [
+            7,
+            8
+          ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/oripathy/1321.webp"
+        }
+      ]
+    },
+    {
+      "id": "o-ceobe",
+      "name": "刻俄柏",
+      "image": "/assets/oripathy/1324.webp",
+      "strategy": "支付 1 源石，额外执行一次非特殊主要行动。",
+      "tactic": "掷骰：1–2 移除一次、放置两次；3–4 获得 2 至纯源石；5–6 执行一次主要行动，随后把刻俄柏交给一位对手。",
+      "operative": true,
+      "oripathy": true,
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "source": "oripathyManual",
+          "pages": [
+            7,
+            8
+          ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/oripathy/1324.webp"
+        }
+      ]
+    },
+    {
+      "id": "o-swire",
+      "name": "诗怀雅",
+      "image": "/assets/oripathy/1319.webp",
+      "strategy": "触发两个不同的 1–2 级企业特效。",
+      "tactic": "选择至多两位对手各放一个玩家标记；每次收尾移除一个，获得 6 金券，选择一家企业，与标记所有者各提升一次合作等级。",
+      "operative": true,
+      "oripathy": true,
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "source": "oripathyManual",
+          "pages": [
+            7,
+            8
+          ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/oripathy/1319.webp"
+        }
+      ]
+    },
+    {
+      "id": "o-hellagur",
+      "name": "赫拉格",
+      "image": "/assets/oripathy/1322.webp",
+      "strategy": "依次三次选择放置或移除一次影响力；收尾移除自己的两个影响力。",
+      "tactic": "可先弃置一张手牌；从手牌或弃牌中秘密盖放一个角色，本轮不能使用。",
+      "operative": true,
+      "oripathy": true,
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "source": "oripathyManual",
+          "pages": [
+            7,
+            8
+          ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/oripathy/1322.webp"
+        }
+      ]
+    },
+    {
+      "id": "o-gavial",
+      "name": "百炼嘉维尔",
+      "image": "/assets/oripathy/1323.webp",
+      "strategy": "免费移动到一个已探索且未停泊其他城市的资源点；若移除了对手影响力，额外放置一次影响力。",
+      "tactic": "在任意资源点放置嘉维尔；每次收尾转移到相邻资源点，并移动该点一个影响力，由你执行。",
+      "operative": true,
+      "oripathy": true,
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "source": "oripathyManual",
+          "pages": [
+            7,
+            8
+          ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/oripathy/1323.webp"
+        }
+      ]
+    },
+    {
+      "id": "o-lin",
+      "name": "林",
+      "image": "/assets/oripathy/1320.webp",
+      "strategy": "至多交易十个资源：源岩／源石／异铁／至纯源石售价 3／4／5／15；购入单价分别少 2 金券。",
+      "tactic": "放置至多两个玩家标记；每次收尾可移除一个，从持有至少 20 金券的对手处取走 10 金券。",
+      "operative": true,
+      "oripathy": true,
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "source": "oripathyManual",
+          "pages": [
+            7,
+            8
+          ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/oripathy/1320.webp"
+        }
+      ]
+    },
+    {
+      "id": "o-jessica",
+      "name": "涤火杰西卡",
+      "image": "/assets/oripathy/1318.webp",
+      "strategy": "选择一名对手，触发其一个已解锁的企业特效。",
+      "tactic": "失去 2 分，免费建设并将本牌抵押在设施下；以后收尾可支付设施金券价加 2，获得 2 分并收回本牌至弃牌。",
+      "operative": true,
+      "oripathy": true,
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "source": "oripathyManual",
+          "pages": [
+            7,
+            8
+          ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/oripathy/1318.webp"
+        }
+      ]
+    },
+    {
+      "id": "o-muelsyse",
+      "name": "缪尔赛思",
+      "image": "/assets/oripathy/1206.webp",
+      "strategy": "放置并移动一次影响力；本回合收尾再放置并移动一次。",
+      "tactic": "取得三张流形，分别加入手牌或弃牌；盖放阶段可额外盖放一张流形，未使用的流形在采集开始时收回。",
+      "operative": true,
+      "oripathy": true,
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "source": "oripathyManual",
+          "pages": [
+            7,
+            8
+          ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/oripathy/1206.webp"
+        }
+      ]
+    },
+    {
+      "id": "o-flow-a",
+      "name": "流形甲",
+      "image": "/assets/oripathy/1089.webp",
+      "strategy": "移动两次影响力。",
+      "tactic": "放置一次影响力，随后将本牌放回游戏盒。",
+      "operative": false,
+      "oripathy": true,
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "source": "oripathyManual",
+          "pages": [
+            7,
+            8
+          ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/oripathy/1089.webp"
+        }
+      ]
+    },
+    {
+      "id": "o-flow-b",
+      "name": "流形乙",
+      "image": "/assets/oripathy/1090.webp",
+      "strategy": "将供应区至多两张名称不同的设施放到牌堆底。",
+      "tactic": "触发一个 1–2 级企业特效，随后将本牌放回游戏盒。",
+      "operative": false,
+      "oripathy": true,
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "source": "oripathyManual",
+          "pages": [
+            7,
+            8
+          ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/oripathy/1090.webp"
+        }
+      ]
+    },
+    {
+      "id": "o-flow-c",
+      "name": "流形丙",
+      "image": "/assets/oripathy/1091.webp",
+      "strategy": "执行两次：选择获得 1 源岩、1 源石、1 异铁或 4 金券。",
+      "tactic": "选择一家企业提升一次合作等级，随后将本牌放回游戏盒。",
+      "operative": false,
+      "oripathy": true,
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "printed-manual",
+          "source": "oripathyManual",
+          "pages": [
+            7,
+            8
+          ]
+        },
+        {
+          "kind": "card-face",
+          "asset": "/assets/oripathy/1091.webp"
         }
       ]
     }
@@ -1417,8 +2228,8 @@
       "amount": 1,
       "options": [
         {
-          "label": "在本点或相邻航道放置影响力",
-          "effect": "local-place"
+          "label": "在此资源点相邻的航道放置影响力",
+          "effect": "adjacent-road-place"
         },
         {
           "label": "获得 1 源岩、3 源石",
@@ -1828,6 +2639,155 @@
   ],
   "patterns": [
     {
+      "id": "o-emerging",
+      "name": "新兴建筑群",
+      "score": 4,
+      "level": 1,
+      "expansion": true,
+      "oripathy": true,
+      "image": "/assets/oripathy/1188.webp",
+      "shape": [
+        [
+          0,
+          1,
+          "blue|red"
+        ],
+        [
+          1,
+          0,
+          "yellow"
+        ],
+        [
+          1,
+          1,
+          "yellow"
+        ],
+        [
+          1,
+          2,
+          "red"
+        ]
+      ],
+      "effect": "o-emerging",
+      "description": "宣告后立即建设；只能选择非彩色设施，且必须建在空位上。",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/oripathy/1188.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "source": "oripathyManual",
+          "pages": [
+            1,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "id": "o-management",
+      "name": "城区管理中心",
+      "score": 3,
+      "level": 1,
+      "expansion": true,
+      "oripathy": true,
+      "image": "/assets/oripathy/1189.webp",
+      "shape": [
+        [
+          0,
+          0,
+          "blue"
+        ],
+        [
+          1,
+          0,
+          "yellow"
+        ],
+        [
+          1,
+          1,
+          "red"
+        ]
+      ],
+      "effect": "o-management",
+      "description": "宣告后收回一个Ⅱ级样式上的玩家标记，获得 1 至纯源石。",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/oripathy/1189.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "source": "oripathyManual",
+          "pages": [
+            1,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "id": "o-offices",
+      "name": "综合企业办公区",
+      "score": 6,
+      "level": 2,
+      "expansion": true,
+      "oripathy": true,
+      "image": "/assets/oripathy/1190.webp",
+      "shape": [
+        [
+          0,
+          0,
+          "yellow"
+        ],
+        [
+          1,
+          0,
+          "red"
+        ],
+        [
+          1,
+          1,
+          "yellow"
+        ],
+        [
+          2,
+          0,
+          "blue"
+        ],
+        [
+          2,
+          1,
+          "blue"
+        ],
+        [
+          2,
+          2,
+          "red"
+        ]
+      ],
+      "effect": "o-offices",
+      "description": "本轮不能使用角色；选择同一家企业，提升两次合作等级后触发一次已解锁特效。",
+      "copies": 1,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/oripathy/1190.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "source": "oripathyManual",
+          "pages": [
+            1,
+            6
+          ]
+        }
+      ]
+    },
+    {
       "id": "military",
       "name": "军工化区域",
       "score": 2,
@@ -1846,7 +2806,7 @@
         ]
       ],
       "effect": "military",
-      "description": "放置该样式标记数量的影响力，最多 3 个。",
+      "description": "按自己在该样式上的标记数量放置影响力，最多 3 个。",
       "copies": 1,
       "evidence": [
         {
@@ -1855,6 +2815,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             8,
             9,
@@ -1897,6 +2858,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             8,
             9,
@@ -1939,6 +2901,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             8,
             9,
@@ -1976,6 +2939,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             8,
             9,
@@ -2024,6 +2988,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             8,
             9,
@@ -2053,7 +3018,7 @@
         ]
       ],
       "effect": "outpost",
-      "description": "在自己城市的资源点放置两次影响力；移动该样式标记数量的影响力。",
+      "description": "在自己城市的资源点放置两次影响力；按自己在该样式上的标记数量移动影响力。",
       "copies": 1,
       "evidence": [
         {
@@ -2062,6 +3027,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             8,
             9,
@@ -2096,7 +3062,7 @@
         ]
       ],
       "effect": "commercial",
-      "description": "自选 4 金券或一种基础资源，然后执行一次其他主要行动。",
+      "description": "自选 4 金券或一种基础资源，然后执行一次非特殊主要行动。",
       "copies": 1,
       "evidence": [
         {
@@ -2105,6 +3071,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             8,
             9,
@@ -2148,6 +3115,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             8,
             9,
@@ -2196,7 +3164,7 @@
         ]
       ],
       "effect": "industrial-core",
-      "description": "本轮禁用角色；支付 6 金券，额外执行两次主要行动。",
+      "description": "本轮禁用角色；支付 6 金券，额外执行两次主要行动，可以是特殊行动。",
       "copies": 1,
       "evidence": [
         {
@@ -2205,6 +3173,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             8,
             9,
@@ -2262,6 +3231,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             8,
             9,
@@ -2320,6 +3290,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             8,
             9,
@@ -2378,6 +3349,7 @@
         },
         {
           "kind": "printed-manual",
+          "source": "manual",
           "pages": [
             8,
             9,
@@ -2392,6 +3364,7 @@
     {
       "id": "rhodes",
       "name": "罗德岛",
+      "rulesVersion": "founders-2023.1",
       "text": "1 级：提升另一家企业一级。\n2 级：在航道放置一个影响力，按自己在全部航道的影响力数量获得金券。\n3、5 级升级奖励：抽取干员并选择招募或得 1 分；两人局抽 3 张，其余抽 2 张。\n4 级：收回一张弃牌，弃置其余手牌，获得 10 金券。",
       "enabled": true,
       "evidence": [
@@ -2412,6 +3385,7 @@
     {
       "id": "heide",
       "name": "海德兄弟",
+      "rulesVersion": "founders-2023.1",
       "text": "1 级：获得 4 源岩。\n2 级：可支付 2 源岩，获得 15 金券。\n3 级升级奖励：1 分。\n4 级：可支付 6 源岩，洗回全部供应设施并重抽，再从新的供应区免费建设一张。\n5 级升级奖励：2 分。",
       "enabled": true,
       "evidence": [
@@ -2432,6 +3406,7 @@
     {
       "id": "rhine",
       "name": "莱茵生命",
+      "rulesVersion": "founders-2023.1",
       "text": "1 级解锁特效：切换为另一科室，获得与自己当前合作等级对应的科室奖励。\n2–5 级升级奖励：按全体玩家当前共用的激活科室，结算到达等级的奖励。\n切换科室只给操作者奖励，其他玩家后续升级按新科室结算。",
       "enabled": true,
       "evidence": [
@@ -2452,6 +3427,7 @@
     {
       "id": "bank",
       "name": "富森银行",
+      "rulesVersion": "founders-2023.1",
       "text": "1 级：获得 8 金券。\n3 级：获得 20 金券，其他玩家各获得 4 金券。\n4 级：自己获得 1 分，选择一名对手失去 1 分。\n5 级升级奖励：3 分。",
       "enabled": true,
       "evidence": [
@@ -2472,6 +3448,7 @@
     {
       "id": "raythean",
       "name": "雷神工业",
+      "rulesVersion": "founders-2023.1",
       "text": "1 级：获得 3 源石。\n2、4 级升级奖励：各 1 分。\n3 级：可支付 2 源石，执行一次付费建设。\n5 级：从设施牌堆选择并付费建设一张设施，然后洗牌。",
       "enabled": true,
       "evidence": [
@@ -2492,6 +3469,7 @@
     {
       "id": "mama",
       "name": "约翰老妈",
+      "rulesVersion": "founders-2023.1",
       "text": "2 级：可失去 1 分，获得 20 金券。\n3 级：获得 1 分。\n4 级：可支付 25 金券，获得 3 分。\n5 级升级奖励：3 分。",
       "enabled": true,
       "evidence": [
@@ -2512,6 +3490,7 @@
     {
       "id": "blacksteel",
       "name": "黑钢国际",
+      "rulesVersion": "founders-2023.1",
       "text": "1 级：移除或放置一个影响力。\n2 级：移动两次自己的影响力。\n3、5 级升级奖励：各 1 分。\n4 级：依次执行两次移除或放置影响力。",
       "enabled": true,
       "evidence": [
@@ -2532,6 +3511,7 @@
     {
       "id": "rim",
       "name": "雷姆必拓",
+      "rulesVersion": "founders-2023.1",
       "text": "1 级：获得各一种基础资源。\n2 级：可支付 4 金券，替换资源点的一个影响力。\n3 级升级奖励：1 分。\n4 级：可失去 1 分，立即执行一次采集并按当前局面支付路费。\n5 级升级奖励：2 分。",
       "enabled": true,
       "evidence": [
@@ -2545,6 +3525,66 @@
             16,
             21,
             22
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rhodes",
+      "name": "罗德岛",
+      "rulesVersion": "oripathy-2024.1111",
+      "text": "1 级：提升另一家企业一级。\n2 级：在航道放置一个影响力，按自己在全部航道的影响力数量获得金券。\n3 级：收回一张弃牌，弃置其余手牌，获得 10 金券。\n4 级升级奖励：从干员牌堆直接选择一张干员进行特派。\n5 级升级奖励：获得 2 分。",
+      "enabled": true,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/oripathy/1072.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "source": "oripathyManual",
+          "pages": [
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stonehoove",
+      "name": "岩蹄安保",
+      "rulesVersion": "oripathy-2024.1111",
+      "text": "1 级：移除一个影响力；之后选择放置一个安保影响力，或移动两次安保影响力。\n2 级：放置两个安保影响力；可移除一个自己的影响力，提升本企业一级。\n3 级升级奖励：获得 1 分。\n4 级：放置一个自己的影响力，之后移动一个安保影响力。\n5 级升级奖励：获得 1 至纯源石，放置一个安保影响力，并从剩余供应中获得终身安保合约。",
+      "enabled": true,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/oripathy/1191.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "source": "oripathyManual",
+          "pages": [
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "id": "maylander",
+      "name": "梅兰德基金会",
+      "rulesVersion": "oripathy-2024.1111",
+      "text": "1 级：获得 4 金券与合计两个基础资源。\n2 级：进行探索，之后移除一个自己的影响力。\n3 级：可支付 4 异铁，获得 2 分。\n4 级升级奖励：从剩余授勋牌中选择一张并获得其奖励。\n5 级升级奖励：获得 2 分。",
+      "enabled": true,
+      "evidence": [
+        {
+          "kind": "card-face",
+          "asset": "/assets/oripathy/1192.webp"
+        },
+        {
+          "kind": "printed-manual",
+          "source": "oripathyManual",
+          "pages": [
+            9
           ]
         }
       ]

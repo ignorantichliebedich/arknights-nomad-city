@@ -63,6 +63,30 @@ export class RuleError extends Error {
 function ensure(condition: unknown, message: string): asserts condition {
   if (!condition) throw new RuleError(message);
 }
+function ordinaryCredits(s: GameState): number {
+  return Math.min(
+    s.mainRemaining,
+    s.ordinaryMainRemaining ?? (s.extraOnly ? s.mainRemaining : 0),
+  );
+}
+function grantMain(s: GameState, special: boolean) {
+  s.ordinaryMainRemaining = ordinaryCredits(s) + (special ? 0 : 1);
+  s.mainRemaining++;
+  s.mainDone = false;
+  s.extraOnly = s.ordinaryMainRemaining === s.mainRemaining;
+}
+function consumeMain(s: GameState, special: boolean) {
+  const ordinary = ordinaryCredits(s);
+  ensure(
+    s.mainRemaining > 0 && (!special || ordinary < s.mainRemaining),
+    "没有可用的主要行动次数",
+  );
+  // Spend restricted credits first, preserving credits that allow specials.
+  s.ordinaryMainRemaining = ordinary - (!special && ordinary > 0 ? 1 : 0);
+  s.mainRemaining--;
+  s.mainDone = s.mainRemaining <= 0;
+  s.extraOnly = !s.mainDone && s.ordinaryMainRemaining === s.mainRemaining;
+}
 const task = (
   kind: string,
   actor: string,
@@ -685,32 +709,34 @@ function entrySteps(
       return [task("allocate", id, { count: 5, resources: BASIC })];
     case "place2":
       return [task("place", id, { count: 2 })];
-    case "replace-place":
-      return [task("replace", id), task("place", id, { count: 1 })];
+    case "replace-or-place":
+      return [task("mercenary-choice", id)];
     case "first-player":
       return [task("override-first", id)];
-    case "free-build":
-      return [task("build", id, { free: true })];
+    case "build":
+      return [task("build", id)];
     case "extend":
       return [task("extend", id)];
     case "adjacent-cash": {
-      const [r, c] = cellCoords(cell);
-      const n = Object.keys(p.built)
-        .filter((k) => k !== cell)
-        .filter((k) => {
-          const [a, b] = cellCoords(k);
-          return (
-            Math.abs(a - r) + Math.abs(b - c) === 1 &&
-            FACILITY_BY_ID[p.built[k].cardId].color !== "wild"
-          );
-        }).length;
+      // The reference point is the core tower, not the entering facility.
+      // Only visible facilities participate in adjacency (Infected p.6).
+      const cores = Object.keys(p.built).filter(
+        (k) => p.built[k].cardId === "core",
+      );
+      const n = Object.keys(p.built).filter((k) => {
+        const [a, b] = cellCoords(k);
+        return cores.some((core) => {
+          const [r, c] = cellCoords(core);
+          return Math.abs(a - r) + Math.abs(b - c) === 1;
+        });
+      }).length;
       return [gain(id, { cash: n * 4 })];
     }
     case "copy-entry":
       return [task("copy-entry", id, { cell })];
     case "trade":
       return [
-        task("sell", id, { prices: { rock: 1, ore: 1, iron: 1, prime: 15 } }),
+        task("sell", id, { prices: { rock: 3, ore: 3, iron: 4, prime: 15 } }),
       ];
     case "free-move":
       return [task("city", id, { free: true, placeRoad: true })];
@@ -844,6 +870,7 @@ function roleSteps(
               count: 2,
               stash: roleId,
               different: true,
+              upTo: true,
             }),
           ];
     case "dorothy":
@@ -858,7 +885,7 @@ function roleSteps(
         ? [task("forced-sale", id, { price: 4 }), gain(id, { score: 1 })]
         : [
             ...s.players.map((other) =>
-              task("shift", id, { count: 1, owner: other.id }),
+              task("remove", id, { count: 1, who: other.id }),
             ),
             task("retire-role", id, { role: roleId }),
           ];
@@ -867,7 +894,7 @@ function roleSteps(
         ? [
             task("conditional", id, {
               cost: { rock: 1 },
-              steps: [task("place", id, { count: 2 })],
+              steps: [task("build", id)],
             }),
           ]
         : [task("persistent", id, { role: roleId, markers: 0 })];
@@ -877,14 +904,13 @@ function roleSteps(
         : [task("persistent", id, { role: roleId, markers: 5 })];
     case "eunectes":
       return strategy
-        ? [
-            task("city", id, { free: true }),
-            ...s.players
-              .filter((other) => other.id !== id)
-              .map((other) => task("shift", id, { count: 1, owner: other.id })),
-          ]
+        ? [task("city", id, { free: true, eunectes: true })]
         : [
-            task("market-remove", id, { count: 2, different: true }),
+            task("market-remove", id, {
+              count: 2,
+              different: true,
+              upTo: true,
+            }),
             gain(id, { iron: 3 }),
           ];
     default:
@@ -927,9 +953,7 @@ function enterpriseSteps(
                   steps: [gain(id, { score: 2 })],
                 }),
               ]
-            : level === 4
-              ? [task("o:award-select", id)]
-              : [];
+            : [];
   }
   if (company === "rhodes") {
     if (level === 1) return [task("upgrade", id, { exclude: company })];
@@ -1038,7 +1062,7 @@ function enterpriseSteps(
 function unlocked(company: string, level: number, oripathy = false): boolean {
   if (oripathy && company === "rhodes") return [1, 2, 3].includes(level);
   if (oripathy && company === "stonehoove") return [1, 2, 4].includes(level);
-  if (oripathy && company === "maylander") return [1, 2, 3, 4].includes(level);
+  if (oripathy && company === "maylander") return [1, 2, 3].includes(level);
   return (
     (
       {
@@ -1105,7 +1129,11 @@ function upgradeReward(
           ]
         : [];
   if (s.oripathy && company === "maylander")
-    return level === 5 ? [gain(id, { score: 2 })] : [];
+    return level === 4
+      ? [task("o:award-select", id)]
+      : level === 5
+        ? [gain(id, { score: 2 })]
+        : [];
   if (company === "rhodes" && [3, 5].includes(level))
     return [task("operative-draw", id)];
   if (company === "rhine")
@@ -1252,6 +1280,7 @@ function cityOptions(
               to: n,
               road: r.id,
               placeRoad: !!data.placeRoad,
+              eunectes: !!data.eunectes,
             }),
           ],
           n,
@@ -1685,16 +1714,18 @@ function execute(s: GameState, step: Step) {
                 ...(o.effect
                   ? [
                       task(
-                        o.effect === "local-place"
+                        o.effect === "local-place" ||
+                          o.effect === "adjacent-road-place"
                           ? "place"
                           : o.effect === "upgrade2"
                             ? "upgrade"
                             : o.effect,
                         id,
-                        o.effect === "local-place"
+                        o.effect === "local-place" ||
+                          o.effect === "adjacent-road-place"
                           ? {
                               targets: [
-                                n.id,
+                                ...(o.effect === "local-place" ? [n.id] : []),
                                 ...roadsFor(s, n.id).map((r) => r.id),
                               ],
                               count: 1,
@@ -1970,6 +2001,22 @@ function execute(s: GameState, step: Step) {
       );
       return;
     }
+    case "mercenary-choice":
+      decide(
+        s,
+        id,
+        "佣兵指挥部：替换或放置一次影响力",
+        [
+          ...(occupied(s, "any", id).length
+            ? [option("replace", "替换一个影响力", [task("replace", id)])]
+            : []),
+          ...(emptySlots(s, id).length
+            ? [option("place", "放置一个影响力", [task("place", id)])]
+            : []),
+        ],
+        "mercenary",
+      );
+      return;
     case "place-exact":
       if (emptySlots(s, id).includes(data.slot))
         prepend(s, [task("place-at", id, data)]);
@@ -1994,11 +2041,17 @@ function execute(s: GameState, step: Step) {
         !!s.oripathy?.security.some((slot) => slot.startsWith(`${data.to}:`));
       for (const siteId of [data.road, data.to].filter(Boolean))
         s.sites[siteId].slots.forEach((owner, index) => {
-          if (
-            (owner && owner !== id) ||
-            s.oripathy?.security.includes(`${siteId}:${index}`)
-          )
-            next.push(...removeInfluence(s, siteId, index));
+          const slot = `${siteId}:${index}`;
+          const security = s.oripathy?.security.includes(slot);
+          if ((owner && owner !== id) || security) {
+            if (data.eunectes)
+              next.push(
+                security
+                  ? task("o:security-destination", id, { slot })
+                  : task("shift-target", id, { slot, owner }),
+              );
+            else next.push(...removeInfluence(s, siteId, index));
+          }
         });
       log(s, id, `城市从 ${from} 移动到 ${data.to}`);
       if (!s.sites[data.to].resource)
@@ -2104,7 +2157,7 @@ function execute(s: GameState, step: Step) {
       decide(
         s,
         id,
-        "物流枢纽：是否建设延伸枢纽",
+        "物流中枢：是否建设延伸枢纽",
         [
           ...s.extensions.flatMap((cardId) =>
             freeCells(p).map((cell) =>
@@ -2183,33 +2236,54 @@ function execute(s: GameState, step: Step) {
         s,
         id,
         "选择市场设施",
-        available.map((instance) =>
-          option(
-            instance,
-            FACILITY_BY_ID[instance.split("@")[0]].name,
-            [
-              task("market-remove-at", id, { instance, ...data }),
-              ...(count > 1
-                ? [
-                    task("market-remove", id, {
-                      ...data,
-                      count: count - 1,
-                      excluded: data.different
-                        ? [
-                            ...(data.excluded ?? []),
-                            FACILITY_BY_ID[instance.split("@")[0]].name,
-                          ]
-                        : data.excluded,
-                    }),
-                  ]
-                : []),
-            ],
-            undefined,
-            FACILITY_BY_ID[instance.split("@")[0]].image,
+        [
+          ...available.map((instance) =>
+            option(
+              instance,
+              FACILITY_BY_ID[instance.split("@")[0]].name,
+              [
+                task("market-remove-at", id, { instance, ...data }),
+                ...(count > 1
+                  ? [
+                      task("market-remove", id, {
+                        ...data,
+                        count: count - 1,
+                        excluded: data.different
+                          ? [
+                              ...(data.excluded ?? []),
+                              FACILITY_BY_ID[instance.split("@")[0]].name,
+                            ]
+                          : data.excluded,
+                      }),
+                    ]
+                  : []),
+              ],
+              undefined,
+              FACILITY_BY_ID[instance.split("@")[0]].image,
+            ),
           ),
-        ),
+          ...(data.upTo
+            ? [
+                option("done", "完成选择", [
+                  ...(data.stash
+                    ? [task("close-empty-stash", id, { role: data.stash })]
+                    : []),
+                ]),
+              ]
+            : []),
+        ],
         "market-remove",
       );
+      return;
+    }
+    case "close-empty-stash": {
+      const index = p.persistent.findIndex(
+        (v) => v.roleId === data.role && !v.stash.length,
+      );
+      if (index >= 0) {
+        p.persistent.splice(index, 1);
+        p.discard.push(data.role);
+      }
       return;
     }
     case "market-remove-at": {
@@ -2438,6 +2512,7 @@ function execute(s: GameState, step: Step) {
             slot,
             [
               task("remove-at", id, { slot }),
+              task("place-exact", id, { slot }),
               ...(count > 1
                 ? [
                     task("different-opponents", id, {
@@ -3046,7 +3121,10 @@ function execute(s: GameState, step: Step) {
           steps.push(
             task("conditional", id, {
               cost: { cash: 6 },
-              steps: [task("extra-main", id), task("extra-main", id)],
+              steps: [
+                task("extra-main", id, { special: true }),
+                task("extra-main", id, { special: true }),
+              ],
             }),
           );
           break;
@@ -3176,9 +3254,7 @@ function execute(s: GameState, step: Step) {
       );
       return;
     case "extra-main":
-      s.mainRemaining++;
-      s.mainDone = false;
-      s.extraOnly = true;
+      grantMain(s, !!data.special);
       return;
     case "start-round": {
       if (s.round === 1) {
@@ -3197,6 +3273,7 @@ function execute(s: GameState, step: Step) {
       s.lap = 1;
       s.mainDone = false;
       s.mainRemaining = 1;
+      delete s.ordinaryMainRemaining;
       s.extraOnly = false;
       s.roleBlocked = false;
       s.roleDualThisTurn = false;
@@ -3652,8 +3729,7 @@ export function applyCommand(
     prepend(s, selected.steps);
   } else if (command.type === "main") {
     const selected = mainOptions(s, id).find((o) => o.id === command.action)!;
-    s.mainRemaining--;
-    s.mainDone = s.mainRemaining <= 0;
+    consumeMain(s, false);
     log(s, id, selected.label);
     prepend(s, selected.steps);
   } else if (command.type === "role") {
@@ -3684,16 +3760,14 @@ export function applyCommand(
     if (command.action === "award:1184") prepend(s, [task("o:award-use", id)]);
     else {
       if (command.action?.endsWith(":main")) {
-        s.mainRemaining--;
-        s.mainDone = s.mainRemaining <= 0;
+        consumeMain(s, true);
       }
       prepend(s, [task("o:ability", id, { action: command.action })]);
     }
   } else if (command.type === "declare")
     prepend(s, [task("pattern-declare", id, { pattern: command.patternId })]);
   else if (command.type === "special") {
-    s.mainRemaining--;
-    s.mainDone = s.mainRemaining <= 0;
+    consumeMain(s, true);
     prepend(s, [task("special", id, { pattern: command.patternId })]);
   } else if (command.type === "end") {
     const next = (s.active + 1) % s.players.length;
@@ -3705,6 +3779,7 @@ export function applyCommand(
       if (next === s.first) s.lap = 2;
       s.mainDone = false;
       s.mainRemaining = 1;
+      delete s.ordinaryMainRemaining;
       s.extraOnly = false;
       s.roleBlocked = false;
       s.roleDualThisTurn = false;
