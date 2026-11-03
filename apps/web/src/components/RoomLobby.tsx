@@ -5,6 +5,11 @@ import {
 } from "../../../../packages/rules/src/data.ts";
 import type { RoomView } from "../network.ts";
 import { EntrepreneurPortrait } from "./EntrepreneurPortrait.tsx";
+import {
+  capacity,
+  type PlayerCount,
+} from "../../../../packages/shared/lobby.ts";
+import { RoomRecruitment } from "./RoomRecruitment.tsx";
 
 export function RoomLobby({
   room,
@@ -14,6 +19,8 @@ export function RoomLobby({
   onStart,
   onInvite,
   onResume,
+  onSettings,
+  onLeave,
 }: {
   room: RoomView;
   busy: boolean;
@@ -22,13 +29,19 @@ export function RoomLobby({
   onStart: () => void;
   onInvite: () => void;
   onResume?: () => void;
+  onSettings?: (isPublic: boolean, players: PlayerCount) => void;
+  onLeave?: () => Promise<void>;
 }) {
   const mine = room.seats.find((s) => s.id === room.me);
   const isHost = room.me === room.hostId;
   const readyCount = room.seats.filter(
     (s) => s.connected && (room.game || s.ready),
   ).length;
-  const allReady = room.seats.length >= 2 && readyCount === room.seats.length;
+  const seats = capacity(room);
+  const allReady =
+    room.seats.length >= 2 &&
+    (!room.targetPlayers || room.seats.length === room.targetPlayers) &&
+    readyCount === room.seats.length;
   const waiting = room.game
     ? `第 ${room.game.round} / 8 回合 · ${room.game.phase === "finished" ? "拓荒已结算" : "对局进行中，席位已保留"}`
     : status === "replaced"
@@ -37,13 +50,15 @@ export function RoomLobby({
         ? "正在恢复连接，请稍候"
         : room.seats.some((s) => !s.connected)
           ? "等待离线的企业家重新连接"
-          : room.seats.length < 2
-            ? "邀请朋友或添加人机，即可准备出发"
-            : !allReady
-              ? "等待所有企业家确认准备"
-              : isHost
-                ? "全员就绪，由你开启这场拓荒"
-                : "全员就绪，等待房主开始";
+          : room.targetPlayers && room.seats.length < room.targetPlayers
+            ? `本桌 ${room.targetPlayers} 人局，等待其余企业家入座`
+            : room.seats.length < 2
+              ? "邀请朋友或添加人机，即可准备出发"
+              : !allReady
+                ? "等待所有企业家确认准备"
+                : isHost
+                  ? "全员就绪，由你开启这场拓荒"
+                  : "全员就绪，等待房主开始";
   return (
     <main className="assembly-lobby">
       <section className="assembly-table" aria-labelledby="assembly-title">
@@ -64,14 +79,26 @@ export function RoomLobby({
           <div className="assembly-count">
             <strong>{String(room.seats.length).padStart(2, "0")}</strong>
             <span>
-              / 04
+              / {String(seats).padStart(2, "0")}
               <br />
               已入座
             </span>
           </div>
         </div>
-        <div className="assembly-seats" aria-label="企业家席位">
-          {Array.from({ length: 4 }, (_, i) => {
+        {!room.game && (onSettings || onLeave) && (
+          <RoomRecruitment
+            room={room}
+            busy={busy || status !== "online"}
+            onSettings={onSettings}
+            onLeave={onLeave}
+          />
+        )}
+        <div
+          className="assembly-seats"
+          data-capacity={seats}
+          aria-label="企业家席位"
+        >
+          {Array.from({ length: seats }, (_, i) => {
             const seat = room.seats[i];
             return (
               <article

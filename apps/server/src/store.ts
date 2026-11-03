@@ -2,6 +2,12 @@ import { DatabaseSync, backup } from "node:sqlite";
 import { mkdirSync, readdirSync, unlinkSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import type { GameState } from "../../../packages/rules/src/types.ts";
+import {
+  capacity,
+  modeFor,
+  type PlayerCount,
+  type PublicRoom,
+} from "../../../packages/shared/lobby.ts";
 export type Seat = {
   id: string;
   name: string;
@@ -15,6 +21,9 @@ export type Room = {
   expansion: boolean;
   oripathy?: boolean;
   expert?: boolean;
+  /** Missing fields in existing invitation rooms remain private/unrestricted. */
+  isPublic?: boolean;
+  targetPlayers?: PlayerCount;
   revision: number;
   seats: Seat[];
   game: GameState | null;
@@ -30,7 +39,10 @@ export class RoomStore {
       .exec(`PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL; PRAGMA foreign_keys=ON;
  CREATE TABLE IF NOT EXISTS rooms(id TEXT PRIMARY KEY, revision INTEGER NOT NULL, body TEXT NOT NULL, updated_at TEXT NOT NULL);
  CREATE TABLE IF NOT EXISTS commands(room_id TEXT NOT NULL REFERENCES rooms(id), player_id TEXT NOT NULL, command_id TEXT NOT NULL, response TEXT NOT NULL, PRIMARY KEY(room_id,player_id,command_id));
- CREATE TABLE IF NOT EXISTS metadata(key TEXT PRIMARY KEY,value TEXT NOT NULL); INSERT OR IGNORE INTO metadata VALUES('schema','1');`);
+ CREATE TABLE IF NOT EXISTS metadata(key TEXT PRIMARY KEY,value TEXT NOT NULL); INSERT OR IGNORE INTO metadata VALUES('schema','1');
+ CREATE TABLE IF NOT EXISTS public_rooms(id TEXT PRIMARY KEY REFERENCES rooms(id),body TEXT NOT NULL,created_at TEXT NOT NULL);
+ CREATE TABLE IF NOT EXISTS match_tickets(token_hash TEXT PRIMARY KEY,body TEXT NOT NULL,updated_at INTEGER NOT NULL,status TEXT NOT NULL);
+ CREATE INDEX IF NOT EXISTS match_tickets_updated ON match_tickets(status,updated_at);`);
   }
   get(id: string): Room | null {
     const row = this.db.prepare("SELECT body FROM rooms WHERE id=?").get(id) as
@@ -49,8 +61,7 @@ export class RoomStore {
     room: Room,
     command?: { playerId: string; id: string; response: unknown },
   ) {
-    this.db.exec("BEGIN IMMEDIATE");
-    try {
+    this.atomic(() => {
       this.db
         .prepare(
           "INSERT INTO rooms VALUES(?,?,?,?) ON CONFLICT(id) DO UPDATE SET revision=excluded.revision,body=excluded.body,updated_at=excluded.updated_at",
@@ -65,11 +76,48 @@ export class RoomStore {
             command.id,
             JSON.stringify(command.response),
           );
-      this.db.exec("COMMIT");
+      if (room.isPublic && !room.game && room.seats.length) {
+        const summary: PublicRoom & { hostId: string } = {
+          id: room.id,
+          hostId: room.hostId,
+          hostName:
+            room.seats.find((v) => v.id === room.hostId)?.name ?? "企业家",
+          seated: room.seats.length,
+          ready: room.seats.filter((v) => v.ready).length,
+          targetPlayers: room.targetPlayers ?? null,
+          capacity: capacity(room),
+          mode: modeFor(room),
+          createdAt: room.createdAt,
+        };
+        this.db
+          .prepare(
+            "INSERT INTO public_rooms VALUES(?,?,?) ON CONFLICT(id) DO UPDATE SET body=excluded.body",
+          )
+          .run(room.id, JSON.stringify(summary), room.createdAt);
+      } else
+        this.db.prepare("DELETE FROM public_rooms WHERE id=?").run(room.id);
+    });
+  }
+  atomic<T>(work: () => T): T {
+    const nested = this.db.isTransaction;
+    if (!nested) this.db.exec("BEGIN IMMEDIATE");
+    try {
+      const result = work();
+      if (!nested) this.db.exec("COMMIT");
+      return result;
     } catch (error) {
-      this.db.exec("ROLLBACK");
+      if (!nested) this.db.exec("ROLLBACK");
       throw error;
     }
+  }
+  openRooms(): (PublicRoom & { hostId: string })[] {
+    return (
+      this.db
+        .prepare(
+          "SELECT body FROM public_rooms ORDER BY created_at,id LIMIT 1000",
+        )
+        .all() as { body: string }[]
+    ).map((v) => JSON.parse(v.body));
   }
   count(): number {
     return Number(

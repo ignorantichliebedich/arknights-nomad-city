@@ -38,6 +38,7 @@ run(process.execPath, [
 for (const relative of [
   "apps/server/src",
   "packages/rules/src",
+  "packages/shared",
   "assets",
   "tools/backup.ts",
 ]) {

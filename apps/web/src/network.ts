@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { PlayerView } from "../../../packages/rules/src/types.ts";
+import type { PlayerCount } from "../../../packages/shared/lobby.ts";
 export type RoomView = {
   id: string;
   hostId: string;
@@ -7,6 +8,8 @@ export type RoomView = {
   expansion: boolean;
   oripathy?: boolean;
   expert?: boolean;
+  isPublic?: boolean;
+  targetPlayers?: PlayerCount;
   phase: string;
   me: string | null;
   rulesVersion: string;

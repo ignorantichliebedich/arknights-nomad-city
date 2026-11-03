@@ -1,4 +1,6 @@
 import { useRef } from "react";
+import { RecruitmentOptions } from "./RecruitmentOptions.tsx";
+import type { PlayerCount } from "../../../../packages/shared/lobby.ts";
 
 export function ExpeditionPermit({
   code,
@@ -16,6 +18,11 @@ export function ExpeditionPermit({
   onExpansion,
   onEnter,
   onHome,
+  isPublic,
+  targetPlayers,
+  onPublic,
+  onPlayers,
+  onDiscover,
 }: {
   code: string;
   name: string;
@@ -32,6 +39,11 @@ export function ExpeditionPermit({
   onExpansion: (value: boolean) => void;
   onEnter: (join: boolean) => Promise<void>;
   onHome: () => void;
+  isPublic: boolean;
+  targetPlayers: PlayerCount;
+  onPublic: (value: boolean) => void;
+  onPlayers: (value: PlayerCount) => void;
+  onDiscover: (tab: "match" | "rooms") => void;
 }) {
   const joinButton = useRef<HTMLButtonElement>(null);
   return (
@@ -160,6 +172,15 @@ export function ExpeditionPermit({
             </strong>
           </p>
         )}
+        {!code && (
+          <RecruitmentOptions
+            isPublic={isPublic}
+            players={targetPlayers}
+            disabled={loading}
+            onPublic={onPublic}
+            onPlayers={onPlayers}
+          />
+        )}
         <button
           className="primary-button permit-submit"
           type="submit"
@@ -171,6 +192,32 @@ export function ExpeditionPermit({
           </span>
           <span aria-hidden="true">↗</span>
         </button>
+        {!code && (
+          <div className="permit-discovery">
+            <button
+              className="secondary-button"
+              type="button"
+              onClick={() => onDiscover("match")}
+              disabled={loading}
+            >
+              <span>
+                <small>FIND FELLOW PIONEERS</small>匹配同行者
+              </span>
+              <b aria-hidden="true">⌖</b>
+            </button>
+            <button
+              className="secondary-button"
+              type="button"
+              onClick={() => onDiscover("rooms")}
+              disabled={loading}
+            >
+              <span>
+                <small>OPEN EXPEDITIONS</small>找房间
+              </span>
+              <b aria-hidden="true">↗</b>
+            </button>
+          </div>
+        )}
         {!code && (
           <div className="permit-join">
             <div className="join-ticket-heading">

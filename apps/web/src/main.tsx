@@ -29,6 +29,15 @@ import {
   ExpeditionEntry,
 } from "./components/ExpeditionEntry.tsx";
 import { RoomLobby } from "./components/RoomLobby.tsx";
+import { LobbyWindow } from "./components/LobbyWindow.tsx";
+import { useMatchmaking } from "./useMatchmaking.ts";
+import { lobbyRequest } from "./lobby-api.ts";
+import {
+  modeFor,
+  type LobbyFilters,
+  type PlayerCount,
+} from "../../../packages/shared/lobby.ts";
+import type { RoomView } from "./network.ts";
 import { Modal } from "./components/Modal.tsx";
 import { BatchChoices } from "./components/BatchChoices.tsx";
 import { HelpCenter, type GuideMode } from "./components/HelpCenter.tsx";
@@ -84,6 +93,7 @@ import "./oripathy.css";
 import "./frontier-stationery.css";
 import "./entrepreneur-dossier.css";
 import "./interaction-polish.css";
+import "./recruitment.css";
 import { EntrepreneurPortrait } from "./components/EntrepreneurPortrait.tsx";
 import {
   InfluencePreview,
@@ -122,6 +132,9 @@ function App() {
   const [expansion, setExpansion] = useState(false);
   const [oripathy, setOripathy] = useState(false);
   const [expert, setExpert] = useState(true);
+  const [isPublic, setPublic] = useState(false);
+  const [targetPlayers, setPlayers] = useState<PlayerCount>(null);
+  const [discovery, setDiscovery] = useState<"match" | "rooms" | null>(null);
   const [entryError, setEntryError] = useState("");
   const [loading, setLoading] = useState(false);
   const [help, setHelp] = useState(false);
@@ -137,6 +150,51 @@ function App() {
     if (entryError) void gameAudio.play("error");
   }, [entryError]);
   const net = useRoom(code, token);
+  function takeSeat(id: string, credential: string) {
+    saveCredential(id, credential);
+    localStorage.setItem("nomad:nickname", name.trim());
+    history.pushState({}, "", `/room/${id}`);
+    setDiscovery(null);
+    setCode(id);
+    setToken(credential);
+    setRoomOverview(false);
+  }
+  const matching = useMatchmaking(takeSeat, !code);
+  useEffect(() => {
+    if (matching.active && !code) setDiscovery("match");
+  }, [matching.active, code, token]);
+  async function joinPublic(id: string, filters: LobbyFilters) {
+    const saved = readCredential(id);
+    const result = await lobbyRequest<{ room: RoomView; token: string }>(
+      `/api/rooms/${id}/join`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(saved ? { Authorization: `Bearer ${saved}` } : {}),
+        },
+        body: JSON.stringify({ name, publicJoin: true, ...filters }),
+      },
+    );
+    takeSeat(result.room.id, result.token);
+  }
+  async function leaveSeat() {
+    await lobbyRequest(`/api/rooms/${code}/leave`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: "{}",
+    });
+    localStorage.removeItem(`nomad:seat:${code}`);
+    localStorage.removeItem(`nomad:pending:${code}`);
+    history.pushState({}, "", "/?view=lobby");
+    setCode("");
+    setToken("");
+    setEntryCode("");
+    setRoomOverview(false);
+  }
   const practice = usePractice();
   const activeRoom = net.room?.id === code ? net.room : null;
   const playing =
@@ -174,7 +232,14 @@ function App() {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, expansion, oripathy, expert }),
+          body: JSON.stringify({
+            name,
+            expansion,
+            oripathy,
+            expert,
+            isPublic,
+            targetPlayers,
+          }),
         },
       );
       const result = await response.json();
@@ -334,6 +399,11 @@ function App() {
           expansion={expansion}
           oripathy={oripathy}
           expert={expert}
+          isPublic={isPublic}
+          targetPlayers={targetPlayers}
+          onPublic={setPublic}
+          onPlayers={setPlayers}
+          onDiscover={setDiscovery}
           onOripathy={(enabled) => {
             setOripathy(enabled);
             if (enabled) setExpansion(true);
@@ -360,6 +430,7 @@ function App() {
           overview={roomOverview}
           onBack={roomBack}
           onResume={resumeGame}
+          onLeave={leaveSeat}
         />
       ) : (
         <main className="connection-screen">
@@ -370,6 +441,17 @@ function App() {
             ← 返回联机大厅
           </button>
         </main>
+      )}
+      {discovery && (
+        <LobbyWindow
+          initialTab={discovery}
+          mode={modeFor({ expansion, oripathy, expert })}
+          name={name}
+          onName={setName}
+          match={matching}
+          onJoin={joinPublic}
+          onClose={() => setDiscovery(null)}
+        />
       )}
       {help && (
         <Modal title="拓荒规则速览" onClose={() => setHelp(false)}>
@@ -460,6 +542,7 @@ function GameRoom({
   overview = false,
   onBack,
   onResume,
+  onLeave,
 }: {
   net: ReturnType<typeof useRoom>;
   training?: React.ReactNode;
@@ -467,6 +550,7 @@ function GameRoom({
   overview?: boolean;
   onBack: () => void;
   onResume?: () => void;
+  onLeave?: () => Promise<void>;
 }) {
   const room = net.room!;
   const game = room.game;
@@ -979,6 +1063,13 @@ function GameRoom({
           busy={net.busy}
           status={net.status}
           onResume={onResume}
+          onLeave={!training ? onLeave : undefined}
+          onSettings={
+            !training
+              ? (isPublic, targetPlayers) =>
+                  net.send("lobby-settings", { isPublic, targetPlayers })
+              : undefined
+          }
           onReady={() =>
             net.send("ready", {
               ready: !room.seats.find((s) => s.id === room.me)?.ready,

@@ -18,6 +18,8 @@ const app = createGameServer({
     maxConnections: integer("MAX_WS_CONNECTIONS", 128),
     maxPerIp: integer("MAX_WS_PER_IP", 16),
     maxRoomCommands: integer("MAX_ROOM_COMMANDS", 10000),
+    maxMatching: integer("MAX_MATCHING", 1000),
+    matchingPerIp: integer("MAX_MATCHING_PER_IP", 4),
   },
   backupRetention: integer("AUTO_BACKUPS_KEEP", 7),
 });

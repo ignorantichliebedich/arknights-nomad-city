@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import type { RoomView } from "../network.ts";
+import { capacity } from "../../../../packages/shared/lobby.ts";
 
 export function InvitationPass({
   room,
@@ -53,12 +54,12 @@ export function InvitationPass({
         <span>
           {room.game
             ? "已启程 · 原玩家可返回"
-            : room.seats.length === 4
-              ? "四席已满"
-              : `已入座 ${room.seats.length} / 4 · 余 ${4 - room.seats.length} 席`}
+            : room.seats.length === capacity(room)
+              ? "本桌已满"
+              : `已入座 ${room.seats.length} / ${capacity(room)} · 余 ${capacity(room) - room.seats.length} 席`}
         </span>
         <div aria-hidden="true">
-          {[0, 1, 2, 3].map((i) => (
+          {Array.from({ length: capacity(room) }, (_, i) => (
             <span key={i} className={room.seats[i] ? "occupied" : ""}>
               {room.seats[i] ? (
                 <img src={`/assets/avatar-${i}.webp?v=founders`} alt="" />
@@ -111,7 +112,7 @@ export function InvitationPass({
           </div>
           <button
             className="invitation-add-bot"
-            disabled={disabled || room.seats.length >= 4}
+            disabled={disabled || room.seats.length >= capacity(room)}
             onClick={onAddBot}
           >
             <img
@@ -120,12 +121,14 @@ export function InvitationPass({
             />
             <span>
               <strong>
-                {room.seats.length >= 4 ? "四席已满" : "＋ 添加人机"}
+                {room.seats.length >= capacity(room)
+                  ? "本桌已满"
+                  : "＋ 添加人机"}
               </strong>
               <small>
-                {room.seats.length >= 4
+                {room.seats.length >= capacity(room)
                   ? "移除一位人机后可重新安排"
-                  : `余 ${4 - room.seats.length} 席 · 自动操作自己的城市`}
+                  : `余 ${capacity(room) - room.seats.length} 席 · 自动操作自己的城市`}
               </small>
             </span>
           </button>

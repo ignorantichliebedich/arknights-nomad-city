@@ -6,17 +6,20 @@ export function Modal({
   children,
   onClose,
   className = "",
+  beforeClose,
 }: {
   title: string;
   children: ReactNode;
   onClose: () => void;
   className?: string;
+  beforeClose?: () => Promise<boolean>;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
   const headingId = useId();
   const [closing, setClosing] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const closeAction = useRef(onClose);
+  const checkingClose = useRef(false);
   closeAction.current = onClose;
   useEffect(() => {
     const dialog = ref.current;
@@ -37,8 +40,17 @@ export function Modal({
         parentDialog.scrollTo(position);
     };
   }, []);
-  function back() {
-    if (closeTimer.current) return;
+  async function back() {
+    if (closeTimer.current || checkingClose.current) return;
+    if (beforeClose) {
+      checkingClose.current = true;
+      try {
+        if (!(await beforeClose())) return;
+      } finally {
+        checkingClose.current = false;
+      }
+      if (!ref.current?.isConnected) return;
+    }
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       closeAction.current();
       return;

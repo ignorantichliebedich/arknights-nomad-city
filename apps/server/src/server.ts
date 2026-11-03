@@ -24,6 +24,8 @@ import { chooseBotCommand } from "../../../packages/rules/src/bot.ts";
 import type { Command } from "../../../packages/rules/src/types.ts";
 import { RoomStore } from "./store.ts";
 import type { Room, Seat } from "./store.ts";
+import { Matchmaker, lobbyFilters, playerCount } from "./matchmaking.ts";
+import { capacity, modeFor } from "../../../packages/shared/lobby.ts";
 import {
   SecurityGate,
   SecurityRejection,
@@ -166,6 +168,21 @@ export function createGameServer(options: ServerOptions = {}) {
         c.playerId === playerId,
     );
   }
+  const matching = new Matchmaker(store, {
+    online,
+    changed: (id) => broadcast(id),
+    maxRooms: gate.limits.maxRooms,
+    maxMatching: gate.limits.maxMatching,
+    matchingPerIp: gate.limits.matchingPerIp,
+  });
+  function matchToken(req: IncomingMessage) {
+    const token = /^Bearer ([a-f0-9]{64})$/.exec(
+      req.headers.authorization ?? "",
+    )?.[1];
+    if (!token)
+      throw new SecurityRejection(401, "匹配凭证无效，请重新开始匹配");
+    return token;
+  }
   function view(room: Room, playerId?: string) {
     return {
       id: room.id,
@@ -173,6 +190,8 @@ export function createGameServer(options: ServerOptions = {}) {
       expansion: room.expansion,
       oripathy: !!room.oripathy,
       expert: !!room.expert,
+      isPublic: !!room.isPublic,
+      targetPlayers: room.targetPlayers ?? null,
       revision: room.revision,
       phase: room.game?.phase ?? "lobby",
       rulesVersion:
@@ -347,9 +366,46 @@ export function createGameServer(options: ServerOptions = {}) {
           });
           return;
         }
+        if (req.method === "GET" && url.pathname === "/api/lobby") {
+          const raw = url.searchParams.get("players");
+          const filters = lobbyFilters({
+            mode: url.searchParams.get("mode") ?? "base",
+            players: raw === null ? null : Number(raw),
+          });
+          const offset = Number(url.searchParams.get("offset") ?? 0);
+          if (!Number.isSafeInteger(offset) || offset < 0 || offset > 1000)
+            throw new RuleError("分页位置无效");
+          const rooms = matching.rooms(filters);
+          json(res, 200, {
+            rooms: rooms.slice(offset, offset + 20),
+            total: rooms.length,
+            nextOffset: offset + 20 < rooms.length ? offset + 20 : null,
+          });
+          return;
+        }
+        if (
+          url.pathname === "/api/matchmaking" &&
+          (req.method === "GET" || req.method === "DELETE")
+        ) {
+          if (req.headers["sec-fetch-site"] === "cross-site")
+            throw new SecurityRejection(403, "请求来源不受信任");
+          rate("match-poll:" + clientAddress(req), 120);
+          const token = matchToken(req);
+          json(
+            res,
+            200,
+            req.method === "DELETE"
+              ? matching.cancel(token)
+              : matching.poll(token),
+          );
+          return;
+        }
         if (
           req.method === "POST" &&
-          /^\/api\/rooms(?:\/[A-Z0-9]{6}\/join)?$/.test(url.pathname)
+          (/^\/api\/rooms(?:\/[A-Z0-9]{6}\/(?:join|leave))?$/.test(
+            url.pathname,
+          ) ||
+            url.pathname === "/api/matchmaking")
         ) {
           rate(`http:${clientAddress(req)}`, 60);
           if (
@@ -387,7 +443,63 @@ export function createGameServer(options: ServerOptions = {}) {
             json(res, 400, { error: "请求需要有效 JSON" });
             return;
           }
+          if (/^\/api\/rooms\/[A-Z0-9]{6}\/leave$/.test(url.pathname)) {
+            const id = url.pathname.split("/")[3];
+            const token = /^Bearer (\S{16,256})$/.exec(
+              req.headers.authorization ?? "",
+            )?.[1];
+            if (!token) throw new SecurityRejection(401, "席位凭证无效");
+            const accepted = serial(id, () => {
+              try {
+                const room = store.get(id);
+                const seat = room?.seats.find(
+                  (s) => !s.bot && validToken(token, s.tokenHash),
+                );
+                if (!room || !seat) {
+                  json(res, 401, { error: "席位凭证无效" });
+                  return;
+                }
+                if (room.game) {
+                  json(res, 409, { error: "对局已开始，席位已锁定" });
+                  return;
+                }
+                matching.removeSeat(room, seat.id);
+                for (const [ws, client] of clients)
+                  if (client.roomId === id && client.playerId === seat.id) {
+                    clients.delete(ws);
+                    ws.close(4002, "Seat left");
+                  }
+                json(res, 200, { left: true });
+                broadcast(id);
+                matching.pump();
+              } catch (error) {
+                json(res, 400, {
+                  error: error instanceof Error ? error.message : "离座失败",
+                });
+              }
+            });
+            if (!accepted)
+              json(res, 429, { error: "房间操作较多，请稍后重试" });
+            return;
+          }
           const name = nickname(input.name);
+          if (url.pathname === "/api/matchmaking") {
+            rate(
+              "match-register:" + clientAddress(req),
+              gate.limits.roomsPerMinute,
+            );
+            json(
+              res,
+              200,
+              matching.register(
+                matchToken(req),
+                clientAddress(req),
+                name,
+                lobbyFilters(input),
+              ),
+            );
+            return;
+          }
           const { seat, token } = credential(name);
           if (url.pathname === "/api/rooms") {
             rate("create:" + clientAddress(req), gate.limits.roomsPerMinute);
@@ -407,6 +519,8 @@ export function createGameServer(options: ServerOptions = {}) {
               expansion: input.expansion === true || input.oripathy === true,
               oripathy: input.oripathy === true,
               expert: input.oripathy === true && input.expert === true,
+              isPublic: input.isPublic === true,
+              targetPlayers: playerCount(input.targetPlayers),
               revision: 0,
               seats: [seat],
               game: null,
@@ -425,11 +539,26 @@ export function createGameServer(options: ServerOptions = {}) {
                 json(res, 404, { error: "房间不存在" });
                 return;
               }
+              const savedToken = /^Bearer (\S{16,256})$/.exec(
+                req.headers.authorization ?? "",
+              )?.[1];
+              const savedSeat =
+                savedToken &&
+                room.seats.find(
+                  (s) => !s.bot && validToken(savedToken, s.tokenHash),
+                );
+              if (savedSeat) {
+                json(res, 200, {
+                  room: view(room, savedSeat.id),
+                  token: savedToken,
+                });
+                return;
+              }
               if (room.game) {
                 json(res, 409, { error: "对局已开始，席位已锁定" });
                 return;
               }
-              if (room.seats.length >= 4) {
+              if (room.seats.length >= capacity(room)) {
                 json(res, 409, { error: "房间已经满员" });
                 return;
               }
@@ -437,7 +566,28 @@ export function createGameServer(options: ServerOptions = {}) {
                 json(res, 409, { error: "房间内已有同名玩家" });
                 return;
               }
+              if (input.publicJoin === true) {
+                const filters = lobbyFilters(input);
+                if (
+                  !room.isPublic ||
+                  !online(room.id, room.hostId) ||
+                  modeFor(room) !== filters.mode ||
+                  (filters.players !== null &&
+                    ((room.targetPlayers != null &&
+                      room.targetPlayers !== filters.players) ||
+                      room.seats.length >= filters.players))
+                ) {
+                  json(res, 409, { error: "房间招募或筛选已改变，请刷新大厅" });
+                  return;
+                }
+                if (room.targetPlayers == null && filters.players !== null) {
+                  room.targetPlayers = filters.players;
+                  for (const s of room.seats) if (!s.bot) s.ready = false;
+                }
+              }
               room.seats.push(seat);
+              if (!room.seats.some((s) => s.id === room.hostId && !s.bot))
+                room.hostId = seat.id;
               room.revision++;
               room.updatedAt = new Date().toISOString();
               store.save(room);
@@ -690,6 +840,7 @@ export function createGameServer(options: ServerOptions = {}) {
               other.close(4001, "Seat opened in another tab");
             }
           clients.set(ws, { roomId: room.id, playerId: seat.id, alive: true });
+          matching.claim(message.token, room.id, seat.id);
           clearTimeout(authTimer);
           broadcast(room.id);
         } catch (error) {
@@ -722,6 +873,8 @@ export function createGameServer(options: ServerOptions = {}) {
             throw new RuleError("指令编号无效");
           const room = store.get(client.roomId);
           if (!room) throw new RuleError("房间不存在");
+          if (!room.seats.some((s) => s.id === client.playerId))
+            throw new RuleError("已离开此席位");
           revision = room.revision;
           const replay = store.replay(
             room.id,
@@ -765,6 +918,19 @@ export function createGameServer(options: ServerOptions = {}) {
               throw new RuleError("准备状态无效");
             room.seats.find((s) => s.id === client.playerId)!.ready =
               message.ready;
+          } else if (message.type === "lobby-settings") {
+            if (client.playerId !== room.hostId)
+              throw new RuleError("只有房主可以调整招募");
+            if (room.game) throw new RuleError("开局后不能调整招募");
+            if (typeof message.isPublic !== "boolean")
+              throw new RuleError("招募设置无效");
+            const target = playerCount(message.targetPlayers);
+            if (room.seats.length > (target ?? 4))
+              throw new RuleError("目标人数不能少于已入座人数");
+            if ((room.targetPlayers ?? null) !== target)
+              for (const seat of room.seats) if (!seat.bot) seat.ready = false;
+            room.isPublic = message.isPublic;
+            room.targetPlayers = target;
           } else if (
             message.type === "add-bot" ||
             message.type === "remove-bot"
@@ -773,7 +939,8 @@ export function createGameServer(options: ServerOptions = {}) {
               throw new RuleError("只有房主可以安排人机席位");
             if (room.game) throw new RuleError("开局后不能变更人机席位");
             if (message.type === "add-bot") {
-              if (room.seats.length >= 4) throw new RuleError("房间已经满员");
+              if (room.seats.length >= capacity(room))
+                throw new RuleError("房间已经满员");
               let number = 1;
               while (room.seats.some((s) => s.name === `人机企业家 ${number}`))
                 number++;
@@ -790,6 +957,10 @@ export function createGameServer(options: ServerOptions = {}) {
             if (client.playerId !== room.hostId)
               throw new RuleError("只有房主可以开始");
             if (room.game) throw new RuleError("对局已经开始");
+            if (room.targetPlayers && room.seats.length !== room.targetPlayers)
+              throw new RuleError(
+                `本桌约定 ${room.targetPlayers} 人，请等候所有席位入座`,
+              );
             if (
               room.seats.length < 2 ||
               !room.seats.every(
@@ -906,6 +1077,20 @@ export function createGameServer(options: ServerOptions = {}) {
     }
   }, 30000);
   heartbeat.unref();
+  const matchTimer = setInterval(() => {
+    if (closing) return;
+    try {
+      matching.pump();
+    } catch (error) {
+      console.error(
+        JSON.stringify({
+          event: "matchmaking-failed",
+          message: error instanceof Error ? error.message : String(error),
+        }),
+      );
+    }
+  }, 5000);
+  matchTimer.unref();
   let backupTask: Promise<void> | null = null;
   const backupTimer = options.backupDirectory
     ? setInterval(() => {
@@ -938,6 +1123,7 @@ export function createGameServer(options: ServerOptions = {}) {
       for (const timer of botTimers.values()) clearTimeout(timer);
       botTimers.clear();
       clearInterval(heartbeat);
+      clearInterval(matchTimer);
       if (backupTimer) clearInterval(backupTimer);
       for (const ws of wsServer.clients) ws.terminate();
       await new Promise<void>((resolve) => wsServer.close(() => resolve()));

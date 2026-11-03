@@ -26,6 +26,7 @@ const paths = [
   "apps/web/index.html",
   "apps/web/vite.config.ts",
   "packages/rules/src",
+  "packages/shared",
   "assets",
   "deploy",
   "tools/backup.ts",
