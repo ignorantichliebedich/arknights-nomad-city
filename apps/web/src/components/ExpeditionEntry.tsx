@@ -127,7 +127,11 @@ export function ExpeditionEntry({
           <span className="permit-folder-tab" aria-hidden="true">
             105 / 拓荒许可
           </span>
-          <PhonePages label="拓荒许可" pageKey={permit.code || "create"}>
+          <PhonePages
+            className="permit-pages"
+            label="拓荒许可"
+            pageKey={permit.code || "create"}
+          >
             <ExpeditionPermit {...permit} />
           </PhonePages>
         </div>

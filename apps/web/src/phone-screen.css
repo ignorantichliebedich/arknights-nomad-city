@@ -113,10 +113,13 @@ body:has(.app-shell.phone-layout),
 .phone-page-viewport {
   flex: 1 1 0;
   min-height: 0;
-  overflow: hidden;
-  touch-action: none;
-  overscroll-behavior: none;
-  scrollbar-width: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+  touch-action: pan-y;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #a18b61 #a18b611a;
+  -webkit-overflow-scrolling: touch;
   scroll-behavior: auto;
 }
 .phone-page-content {
@@ -390,8 +393,16 @@ body:has(.app-shell.phone-layout),
 .phone-layout .home-lobby {
   overflow: hidden;
   inset: 12px 16px 36px;
-  grid-template-columns: 140px minmax(0, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: minmax(0, 1fr);
+  gap: 16px;
+  padding: 0;
   align-items: stretch;
+}
+.phone-layout .lobby-story {
+  min-height: 0;
+  overflow: hidden;
+  padding-bottom: 2px;
 }
 .phone-layout .permit-folio {
   min-height: 0;
@@ -404,6 +415,12 @@ body:has(.app-shell.phone-layout),
 .phone-layout .permit-folio > .phone-pages {
   background: #e9ddbf;
   border: 1px solid #a18b61;
+}
+.phone-layout .permit-pages > .phone-page-controls {
+  display: none;
+}
+.phone-layout .permit-folder-tab {
+  pointer-events: none;
 }
 .phone-layout .departure-stage .departure-permit {
   padding: 12px 16px;
@@ -624,6 +641,18 @@ body:has(.app-shell.phone-layout),
 .phone-layout .match-footnote {
   display: none;
 }
+@media (orientation: landscape) and (max-height: 360px) {
+  .phone-layout .lobby-story h1 {
+    font-size: 20px;
+  }
+  .phone-layout .frontier-postcard {
+    width: min(160px, 90%);
+    margin-top: 8px;
+  }
+  .phone-layout .postcard-mount figcaption {
+    display: none;
+  }
+}
 @media (orientation: portrait) {
   .phone-layout .audio-settings {
     --phone-record-side: 90px;
@@ -642,8 +671,37 @@ body:has(.app-shell.phone-layout),
   .phone-layout .home-lobby {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: 32px minmax(0, 1fr);
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .phone-layout .lobby-story {
+    min-height: 0;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap: 8px;
+  }
+  .phone-layout .frontier-postcard {
+    display: block;
+    width: min(210px, 64vw);
+    margin: 0;
+    padding-bottom: 0;
+  }
+  .phone-layout .postcard-note,
+  .phone-layout .postcard-stamp,
+  .phone-layout .postcard-tape {
+    display: none;
+  }
+  .phone-layout .postcard-mount {
+    padding: 4px;
+  }
+  .phone-layout .postcard-mount figcaption {
+    display: none;
+  }
+  .phone-layout .lobby-return.subtle-button {
+    margin: 0;
   }
   .phone-layout .assembly-seats {
     grid-template-columns: repeat(2, minmax(0, 1fr));

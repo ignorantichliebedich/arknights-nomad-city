@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { useDisplayMode } from "../display-mode.ts";
 
-/** Keep small screens stationary; long sheets turn pages with a shared overlap. */
+/** Keep the screen stationary; long sheets allow native scrolling and page buttons. */
 export function PhonePages({
   children,
   label = "内容",

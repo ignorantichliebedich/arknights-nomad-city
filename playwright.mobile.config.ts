@@ -26,6 +26,7 @@ export default defineConfig({
     "entry-scenes.spec.ts",
     "practice-entry.spec.ts",
     "mobile.spec.ts",
+    "permit-scroll.spec.ts",
     "music.spec.ts",
     "quick-actions.spec.ts",
     "red-zone.spec.ts",
