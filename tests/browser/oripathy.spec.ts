@@ -4,6 +4,8 @@ import { fixture } from "./fixtures/table.ts";
 import { RoomStore } from "../../apps/server/src/store.ts";
 import { applyCommand, createGame } from "../../packages/rules/src/engine.ts";
 import { ENTREPRENEURS } from "../../packages/rules/src/oripathy-data.ts";
+import type { GameState } from "../../packages/rules/src/types.ts";
+import { paulHarvest } from "../fixtures/parallel.ts";
 
 test("五位企业家完整展示，第五号可确认，已选身份保留在名册中", async ({
   page,
@@ -228,6 +230,93 @@ async function infectionFixture(page: Page, dilemma = false) {
   await expect(page.locator(".room-toolbar")).toContainText("感染者");
   return result;
 }
+
+function setInfectionGame(id: string, update: (game: GameState) => GameState) {
+  const store = new RoomStore(process.env.E2E_DATABASE_PATH!);
+  try {
+    const room = store.get(id)!;
+    room.game = update(room.game!);
+    room.revision++;
+    store.save(room);
+  } finally {
+    store.close();
+  }
+}
+
+test("保罗的帮派免路费在棋桌显示，刷新后可以零金券确认采集", async ({
+  page,
+}) => {
+  const { id } = await infectionFixture(page);
+  setInfectionGame(id, (game) => paulHarvest(game, "B", 0));
+  await page.reload();
+  const route = page.getByRole("region", { name: "地图路线与支付" });
+  const gang = route.getByRole("button", { name: /A-02.*帮派免路费/ });
+  await expect(gang).toBeVisible();
+  await expect(route.getByRole("button", { name: /A-03/ })).toHaveCount(0);
+  await gang.click();
+  await expect(route.locator(".route-total")).toContainText(
+    "1 个资源点 · 0 金券",
+  );
+  await page.reload();
+  await expect(gang).toHaveClass("picked");
+  await expect(route.locator(".route-total")).toContainText(
+    "1 个资源点 · 0 金券",
+  );
+  await route.getByRole("button", { name: "核对路费与采集" }).click();
+  await route
+    .getByRole("button", { name: "确认采集方案 →", exact: true })
+    .click();
+  await expect(
+    page.getByText("采集方案已确认", { exact: true }).filter({ visible: true }),
+  ).toBeVisible();
+});
+
+test("保罗使用雷蛇策略连续两次从地图放置帮派标记", async ({ page }) => {
+  const { id } = await infectionFixture(page);
+  setInfectionGame(id, (game) => {
+    const p = game.players[0];
+    game.active = 0;
+    p.selected = "liskarm";
+    p.oripathy!.entrepreneur = "paul";
+    p.oripathy!.dilemmas = [
+      { round: 3, side: "B", used: false, marker: false },
+    ];
+    p.oripathy!.gangSlots = ["A-1:0", "D-1:0"];
+    for (const road of ["A-1", "D-1"]) game.sites[road].slots[0] = p.id;
+    for (const road of ["C-2", "A-2"]) game.sites[road].slots[0] = null;
+    return applyCommand(game, p.id, { type: "role", mode: "strategy" });
+  });
+  await page.reload();
+  for (const [remaining, slot] of [
+    [2, "C-2:0"],
+    [1, "A-2:0"],
+  ] as const) {
+    await page.locator(`[data-placement-slot="${slot}"]`).click();
+    const panel = page.getByRole("region", { name: "影响力放置确认" });
+    await expect(panel).toContainText(`剩 ${remaining} 次`);
+    await expect(panel).toContainText(
+      `帮派标记 · 储备 ${remaining} → ${remaining - 1}`,
+    );
+    await panel
+      .getByRole("button", { name: "确认放置 →", exact: true })
+      .click();
+    const modal = page.getByRole("dialog", { name: "行动安排", exact: true });
+    await modal
+      .getByRole("button", { name: "帮派影响力", exact: true })
+      .click();
+    await modal
+      .getByRole("button", { name: "确认选择 →", exact: true })
+      .click();
+    await expect(modal).toHaveCount(0);
+  }
+  const store = new RoomStore(process.env.E2E_DATABASE_PATH!);
+  try {
+    const p = store.get(id)!.game!.players[0];
+    expect(p.oripathy!.gangSlots).toEqual(["A-1:0", "D-1:0", "C-2:0", "A-2:0"]);
+  } finally {
+    store.close();
+  }
+});
 
 test("首页感染者选项包含企业扩展，专家开关随建房配置保存", async ({
   page,

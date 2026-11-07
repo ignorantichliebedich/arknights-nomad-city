@@ -188,6 +188,8 @@ export function RoutePanel({
                     <small>
                       {game.sites[o.target!].amount}{" "}
                       {RESOURCE_NAMES[game.sites[o.target!].resource!]}
+                      {d.map?.tollExemptNodes?.includes(o.target!) &&
+                        " · 帮派免路费"}
                     </small>
                   </button>
                 ))}

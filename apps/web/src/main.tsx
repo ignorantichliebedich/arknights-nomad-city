@@ -889,6 +889,12 @@ function GameRoom({
   const activeName = room.seats.find((p) => p.id === activeId)?.name;
   const decision = game?.decision;
   const parallelReady = !!game?.parallel?.ready.includes(room.me!);
+  const parallelStatus =
+    parallelReady && game?.parallel
+      ? game.parallel.kind === "select-role"
+        ? "角色已盖放"
+        : "采集方案已确认"
+      : null;
   const waitingNames = game?.parallel?.participants
     .filter((id) => !game.parallel!.ready.includes(id))
     .map((id) => room.seats.find((p) => p.id === id)?.name)
@@ -1115,7 +1121,10 @@ function GameRoom({
                 {activeId === game.players[game.first]?.id && (
                   <img src="/assets/president.webp" alt="大总统" />
                 )}
-                第 {game.round}/8 回合 · {phaseNames[game.phase]}
+                第 {game.round}/8 回合 ·
+                <span aria-live="polite">
+                  {parallelStatus ?? phaseNames[game.phase]}
+                </span>
               </span>
               <button popoverTarget="phone-score-reference">
                 回合与终局计分 ▾
@@ -1406,11 +1415,7 @@ function GameRoom({
                     <div>
                       <span>
                         {game.parallel
-                          ? parallelReady
-                            ? game.parallel.kind === "select-role"
-                              ? "角色已盖放"
-                              : "采集方案已确认"
-                            : "同时安排角色"
+                          ? (parallelStatus ?? "同时安排角色")
                           : waiting
                             ? "等待企业家"
                             : boardChoice

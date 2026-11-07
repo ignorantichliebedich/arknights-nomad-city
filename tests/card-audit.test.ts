@@ -3,6 +3,8 @@ import {
   applyCommand,
   createGame,
   getLegalActions,
+  patternMatches,
+  projectView,
 } from "../packages/rules/src/engine.ts";
 import {
   FACILITY_BY_ID,
@@ -10,6 +12,7 @@ import {
   ROLE_BY_ID,
 } from "../packages/rules/src/data.ts";
 import type { GameState, Step } from "../packages/rules/src/types.ts";
+import { chooseFor, paulHarvest } from "./fixtures/parallel.ts";
 
 // Expected outcomes are transcribed from the printed cards and official
 // clarifications, independently of their effect definitions. See docs/card-audit.md.
@@ -98,6 +101,24 @@ const countMarks = (s: GameState, id: string) =>
 const claim = (patternId: string) => ({ patternId, cooldown: 0, uses: -1 });
 
 describe("原牌复核：设施费用、唯一与入场", () => {
+  it("彩色工程营可以充当样式的红格，但不计工业区折扣和附属能源复制", () => {
+    const s = fixture();
+    const p = s.players[0];
+    p.built["0"] = { cardId: "industrial", used: false };
+    p.built["1"] = { cardId: "excavator", used: false };
+    p.built["2"] = { cardId: "camp", used: false };
+    expect(patternMatches(p, "mobilize")).toContainEqual(["0", "1", "2"]);
+    s.market = ["industrial@audit", "energy@audit"];
+    const built = choose(
+      applyCommand(s, "p0", { type: "main", action: "build" }),
+      "industrial@audit:3:resources",
+    );
+    expect(built.players[0].wallet.rock).toBe(97);
+    p.built["4"] = { cardId: "quarry-yellow", used: false };
+    const copy = build(s, "energy", "5");
+    expect(copy.decision?.kind).toBe("copy");
+    expect(copy.decision!.options.map((o) => o.id)).toEqual(["4"]);
+  });
   it("简陋工程营给予付费建设，不能凭空免费造下一张设施", () => {
     let s = fixture();
     s.market = ["camp@audit", "quarry-red@next"];
@@ -212,6 +233,55 @@ describe("原牌复核：设施费用、唯一与入场", () => {
 });
 
 describe("原牌复核：角色与选择数量", () => {
+  it.each([2, 1])(
+    "雷蛇先策略后计谋，剩 %i 枚帮派标记时按合法库存放置",
+    (available) => {
+      let s = fixture(true, 4);
+      s.round = 8;
+      s.first = 0;
+      const paul = s.players[0];
+      paul.selected = "liskarm";
+      paul.oripathy!.entrepreneur = "paul";
+      paul.oripathy!.dilemmas = [
+        { round: 3, side: "B", marker: false, used: false },
+      ];
+      paul.oripathy!.gangSlots = ["D-1:0", "D-1:1", "R-3:0"].slice(
+        0,
+        4 - available,
+      );
+      for (const [site, index] of paul.oripathy!.gangSlots.map((slot) =>
+        slot.split(":"),
+      ))
+        s.sites[site].slots[Number(index)] = "p0";
+      s.sites["E-02"].slots[0] = "p1";
+      const before = countMarks(s, "p0");
+      s = applyCommand(s, "p0", { type: "role", mode: "strategy-tactic" });
+      expect(s.decision?.title).toContain("剩 2 次");
+      s = choose(choose(s, "C-2:0"), "gang");
+      if (available === 2) {
+        s = JSON.parse(JSON.stringify(s)) as GameState;
+        expect(s.decision?.title).toContain("剩 1 次");
+        s = choose(choose(s, "A-2:0"), "gang");
+      }
+      expect(s.decision?.kind).toBe("optional");
+      expect(
+        s.log.some((entry) =>
+          entry.text.includes("跳过 1 次放置影响力（帮派标记已用完）"),
+        ),
+      ).toBe(available === 1);
+      expect(countMarks(s, "p0")).toBe(before + available);
+      s = choose(choose(s, "yes"), "E-02:0");
+      expect(s.players[0].wallet.cash).toBe(97);
+      expect(s.sites["E-02"].slots[0]).toBeNull();
+      expect(s.log.map((entry) => entry.text)).toContain(
+        "替换后未补放影响力（帮派标记已用完）",
+      );
+      expect(s.scheduled).toContainEqual({
+        at: "cleanup",
+        step: { kind: "remove", actor: "p0", data: { count: 1, who: "self" } },
+      });
+    },
+  );
   it("W替换两名不同对手各一枚，不能第二次选同一对手", () => {
     let s = fixture();
     s.players[0].selected = "w";
@@ -391,6 +461,128 @@ describe("原牌复核：角色与选择数量", () => {
     expect(s.players[0].enterprise.bank).toBe(2);
     expect(s.players[0].removed).toContain("o-flow-c");
     expect(s.players[0].discard).not.toContain("o-flow-c");
+  });
+});
+
+describe("原牌复核：保罗的帮派影响力", () => {
+  const plan = (s: GameState) => projectView(s, "p0").decision!;
+  const toll = (s: GameState) =>
+    plan(s)
+      .options.find((o) => o.id === "done")!
+      .preview!.tolls!.reduce((sum, { amount }) => sum + amount, 0);
+
+  it("隐蔽运输允许零金券采集帮派点；普通点与 A 面照常受路费预算限制", () => {
+    const a = paulHarvest(fixture(true, 4), "A", 0);
+    expect(plan(a).options.some((o) => o.id === "A-02")).toBe(false);
+    let b = paulHarvest(fixture(true, 4), "B", 0);
+    const before = b.players[0].wallet.rock;
+    expect(plan(b).options.some((o) => o.id === "A-03")).toBe(false);
+    b = chooseFor(b, "p0", "A-02");
+    expect(toll(b)).toBe(0);
+    expect(plan(b).map).toMatchObject({
+      selected: ["A-02"],
+      tollExemptNodes: ["A-02"],
+    });
+    for (const p of b.players) b = chooseFor(b, p.id, "done");
+    expect(b.players[0].wallet).toMatchObject({ cash: 0, rock: before + 2 });
+  });
+
+  it.each([
+    ["A-02", "A-03"],
+    ["A-03", "A-02"],
+  ])(
+    "混采 %s、%s 时只为普通点支付共用航道，撤回普通点后归零",
+    (first, second) => {
+      let s = paulHarvest(fixture(true, 4), "B", 2);
+      const before = s.players.map((p) => ({ ...p.wallet }));
+      for (const node of [first, second]) s = chooseFor(s, "p0", node);
+      expect(toll(s)).toBe(2);
+      expect(plan(s).map?.roads).toEqual(["A-2"]);
+      s = chooseFor(s, "p0", "unselect:A-03");
+      expect(toll(s)).toBe(0);
+      s = chooseFor(s, "p0", "A-03");
+      s = chooseFor(s, "p0", "done");
+      expect(plan(s).kind).toBe("toll");
+      s = chooseFor(s, "p0", "p1");
+      expect(s.players.map((p) => p.wallet)).toEqual(before);
+      for (const p of s.players.slice(1)) s = chooseFor(s, p.id, "done");
+      expect(s.players[0].wallet).toMatchObject({
+        cash: 0,
+        rock: before[0].rock + 2,
+        iron: before[0].iron + 1,
+      });
+      expect(s.players[1].wallet.cash).toBe(before[1].cash + 2);
+    },
+  );
+
+  it.each([true, false])(
+    "旧存档未确认采集会按隐蔽运输重算（有路线快照：%s）",
+    (hasMap) => {
+      let s = chooseFor(paulHarvest(fixture(true, 4), "A", 2), "p0", "A-02");
+      expect(toll(s)).toBe(2);
+      s.players[0].oripathy!.dilemmas[0].side = "B";
+      if (!hasMap) delete s.parallel!.players.p0.decision!.map;
+      s = JSON.parse(JSON.stringify(s)) as GameState;
+      const before = JSON.stringify(s);
+      expect(toll(s)).toBe(0);
+      expect(plan(s).map?.selected).toEqual(["A-02"]);
+      expect(JSON.stringify(s)).toBe(before);
+      s = chooseFor(s, "p0", "done");
+      expect(projectView(s, "p0").parallel?.ready).toContain("p0");
+      for (const p of s.players.slice(1)) s = chooseFor(s, p.id, "done");
+      expect(s.players[0].wallet.cash).toBe(2);
+    },
+  );
+
+  it.each(["A", "B"] as const)(
+    "保罗第五回合 %s 面的收获可用岩蹄安保凑足两枚影响力",
+    (side) => {
+      let s = fixture(true, 4);
+      s.oripathy!.expert = true;
+      const p = s.players[0];
+      p.city = "B-03";
+      p.oripathy!.entrepreneur = "paul";
+      p.oripathy!.dilemmas = [{ round: 5, side, used: false, marker: true }];
+      p.oripathy!.gangSlots = ["A-02:0", "A-02:1"];
+      s.sites["A-02"].slots = ["p0", "p0"];
+      s.sites["B-03"].slots[0] = "p1";
+      s.oripathy!.security = ["B-03:1"];
+      const action = { type: "ability", action: "dilemma:5:quick" } as const;
+      expect(getLegalActions(s, "p0").map((a) => a.command)).toContainEqual(
+        action,
+      );
+      s = applyCommand(s, "p0", action);
+      s = choose(choose(s, "B-03:1"), "B-03:0");
+      expect(s.oripathy!.security).toEqual([]);
+      expect(s.sites["B-03"].slots[0]).toBeNull();
+      expect(s.players[0].wallet.ore).toBe(101);
+      expect(getLegalActions(s, "p0").map((a) => a.command)).not.toContainEqual(
+        action,
+      );
+    },
+  );
+
+  it("民心所向的双标记资源点也禁止保罗自己移动进入", () => {
+    const s = fixture(true, 4);
+    const p = s.players[0];
+    p.city = "B-03";
+    s.players[1].city = "A-01";
+    s.players[2].city = "B-01";
+    s.players[3].city = "C-01";
+    p.oripathy!.entrepreneur = "paul";
+    p.oripathy!.dilemmas = [{ round: 5, side: "B", used: false, marker: true }];
+    p.oripathy!.gangSlots = ["A-02:0"];
+    s.sites["A-02"].slots = ["p0", "p0"];
+    const destinations = (state: GameState) =>
+      projectView(state, "p0").cityDestinations!.map((v) => v.target);
+    expect(destinations(s)).not.toContain("A-02");
+    expect(
+      effect(structuredClone(s), "o:gavial-city").decision!.options.map(
+        (o) => o.id,
+      ),
+    ).not.toContain("A-02");
+    s.sites["A-02"].slots[1] = null;
+    expect(destinations(s)).toContain("A-02");
   });
 });
 

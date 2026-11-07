@@ -1,4 +1,8 @@
-import { executeExpert, expertActions } from "./oripathy-experts.ts";
+import {
+  executeExpert,
+  expertActions,
+  paulBlocksCityMove,
+} from "./oripathy-experts.ts";
 import {
   BASIC,
   ENTERPRISE_IMAGES,
@@ -464,22 +468,7 @@ export function executeOripathy(
               n.id !== p.city &&
               s.sites[n.id].resource &&
               !s.players.some((v) => v.city === n.id) &&
-              !s.players.some(
-                (v) =>
-                  v.id !== id &&
-                  v.oripathy?.entrepreneur === "paul" &&
-                  v.oripathy.dilemmas.some(
-                    (d) => d.round === 5 && d.side === "B",
-                  ) &&
-                  v.oripathy.gangSlots.some((slot) =>
-                    slot.startsWith(`${n.id}:`),
-                  ) &&
-                  s.sites[n.id].slots.some(
-                    (owner, index) =>
-                      owner === v.id &&
-                      !v.oripathy!.gangSlots.includes(`${n.id}:${index}`),
-                  ),
-              ),
+              !paulBlocksCityMove(s, n.id),
           )
           .map((n) =>
             o(

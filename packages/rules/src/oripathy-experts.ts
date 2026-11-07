@@ -20,6 +20,22 @@ export const hasDilemma = (p: Player, round: number, side?: string) =>
   !!p.oripathy?.dilemmas.some(
     (v) => v.round === round && (!side || v.side === side),
   );
+export function paulBlocksCityMove(s: GameState, node: string): boolean {
+  const slots = s.sites[node].slots;
+  return s.players.some((p) => {
+    if (p.oripathy?.entrepreneur !== "paul" || !hasDilemma(p, 5, "B"))
+      return false;
+    const gangs = p.oripathy.gangSlots;
+    return (
+      slots.some(
+        (owner, index) => owner === p.id && gangs.includes(`${node}:${index}`),
+      ) &&
+      slots.some(
+        (owner, index) => owner === p.id && !gangs.includes(`${node}:${index}`),
+      )
+    );
+  });
+}
 export const allBuilt = (p: Player): Built[] =>
   Object.values(p.built).flatMap((v) => [v, ...(v.layers ?? [])]);
 export function discountCosts(
@@ -108,7 +124,10 @@ export function expertActions(s: GameState, p: Player): LegalAction[] {
       if (
         d.round === 5 &&
         p.city &&
-        s.sites[p.city].slots.filter(Boolean).length >= 2
+        s.sites[p.city].slots.filter(
+          (owner, index) =>
+            owner || s.oripathy?.security.includes(`${p.city}:${index}`),
+        ).length >= 2
       )
         add(`${key}:quick`, "帮派 · 移除城市驻军并收集资源");
     }
@@ -147,7 +166,7 @@ const description = (who: string, round: number, side: string) => {
     ],
     paul: [
       "帮派被移除时返还普通影响力，解锁调度",
-      "改用帮派部署，解锁资源收获",
+      `改用帮派部署，解锁资源收获${side === "B" ? "。采集有帮派影响力的资源点免路费" : ""}`,
       "取得资金，强化帮派区控／保护据点",
       "改变剩余资源计分／强化帮派区块得分",
     ],

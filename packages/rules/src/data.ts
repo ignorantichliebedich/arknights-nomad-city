@@ -115,7 +115,7 @@ export const FACILITIES: Facility[] = [
   facility(
     "camp",
     "简陋工程营",
-    "blue",
+    "wild",
     { rock: 2, ore: 1 },
     8,
     -1,
@@ -401,8 +401,10 @@ export const BASE_ROLES: Role[] = [
     id: "liskarm",
     name: "雷蛇",
     image: "/assets/role-1231.webp",
-    strategy: "放置两次影响力；收尾移除一个自己的影响力。",
-    tactic: "支付 3 金券，替换一个影响力。",
+    strategy:
+      "依次放置两次影响力。若缺少可用标记或合法位置，跳过相应次数。收尾移除一个自己的影响力。",
+    tactic:
+      "可支付 3 金券，移除一个影响力，再在原位放置一个自己的影响力（若能放置）。",
   },
   {
     id: "elysium",

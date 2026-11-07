@@ -5,6 +5,7 @@ import {
   discountCosts,
   expertActions,
   hasDilemma,
+  paulBlocksCityMove,
   takeMarket,
 } from "./oripathy-experts.ts";
 import {
@@ -264,25 +265,21 @@ function stock(s: GameState, id: string): number {
     (p.oripathy?.gangSlots.length ?? 0)
   );
 }
+function placementShortage(s: GameState, id: string, normal = false) {
+  const p = player(s, id);
+  if (!normal && p.oripathy?.entrepreneur === "paul") {
+    if (p.oripathy.gangSlots.length < 4) return null;
+    if (hasDilemma(p, 3)) return "帮派标记已用完";
+  }
+  return stock(s, id) > 0 ? null : "可用玩家标记不足";
+}
 function emptySlots(
   s: GameState,
   id: string,
   targets?: string[],
   mode: { normal?: boolean; moving?: boolean } = {},
 ): string[] {
-  const p = player(s, id),
-    paul = p.oripathy?.entrepreneur === "paul",
-    gangFree = 4 - (p.oripathy?.gangSlots.length ?? 0);
-  if (!mode.moving) {
-    if (
-      mode.normal
-        ? stock(s, id) <= 0
-        : paul && hasDilemma(p, 3)
-          ? gangFree <= 0
-          : stock(s, id) <= 0 && (!paul || gangFree <= 0)
-    )
-      return [];
-  }
+  if (!mode.moving && placementShortage(s, id, mode.normal)) return [];
   return Object.entries(s.sites).flatMap(([siteId, site]) => {
     if (targets && !targets.includes(siteId)) return [];
     const n = s.board.nodes.find((n) => n.id === siteId);
@@ -435,6 +432,155 @@ function pruneHarvestRoads(
     if (selected.every((node) => reachable.has(node))) kept = candidate;
   }
   return kept;
+}
+
+function paulTollExemptNodes(s: GameState, id: string): string[] | undefined {
+  const p = player(s, id);
+  if (p.oripathy?.entrepreneur !== "paul" || !hasDilemma(p, 3, "B")) return;
+  return [
+    ...new Set(
+      p.oripathy.gangSlots.flatMap((slot) => {
+        const [node, index] = slotParts(slot);
+        const site = s.sites[node];
+        return site?.resource && site.slots[index] === id ? [node] : [];
+      }),
+    ),
+  ];
+}
+
+function planHarvest(
+  s: GameState,
+  id: string,
+  {
+    selected = [],
+    roads = [],
+    free = false,
+  }: Partial<NonNullable<Decision["map"]>>,
+  tollExemptNodes = paulTollExemptNodes(s, id),
+): Decision {
+  const p = player(s, id);
+  const total = free ? 0 : roads.reduce((n, r) => n + roadCost(s, id, r), 0);
+  const options = [
+    option(
+      "done",
+      `${s.parallel?.kind === "harvest" ? "采集方案" : "完成采集"} · ${selected.length} 个资源点 · ${total} 金券`,
+      [
+        ...tollSteps(s, id, roads, free),
+        ...selected.map((n) =>
+          gain(id, { [s.sites[n].resource!]: s.sites[n].amount }),
+        ),
+      ],
+    ),
+  ];
+  for (const node of selected) {
+    const remaining = selected.filter((n) => n !== node);
+    options.push(
+      option(
+        `unselect:${node}`,
+        `撤回 ${node} 的采集选择`,
+        [
+          task("harvest", id, {
+            free,
+            selected: remaining,
+            roads: pruneHarvestRoads(
+              s,
+              id,
+              remaining.filter((n) => !tollExemptNodes?.includes(n)),
+              roads,
+            ),
+          }),
+        ],
+        node,
+      ),
+    );
+  }
+  if (selected.length) {
+    options.push(
+      option("reset", "清空本次采集选择", [task("harvest", id, { free })]),
+    );
+  }
+  for (const { id: node } of s.board.nodes) {
+    const site = s.sites[node];
+    if (!site.resource || selected.includes(node)) continue;
+    const byContract =
+      s.phase === "harvest" &&
+      s.oripathy?.contracts.includes(id) &&
+      s.oripathy.security.some((slot) => slotParts(slot)[0] === node);
+    if (!site.slots.includes(id) && p.city !== node && !byContract) continue;
+    // A free gang target does not pay for shared legs of another target's route.
+    const exempt = tollExemptNodes?.includes(node);
+    const nextRoads = exempt
+      ? roads
+      : [...new Set([...roads, ...routeTo(s, id, node, roads).roads])];
+    const cost = free
+      ? 0
+      : nextRoads.reduce((sum, r) => sum + roadCost(s, id, r), 0);
+    if (cost > p.wallet.cash) continue;
+    options.push(
+      option(
+        node,
+        `${node} · ${site.amount} ${RESOURCE_NAMES[site.resource]} · 总路费 ${cost}${exempt ? "（帮派免路费）" : ""}`,
+        [
+          task("harvest", id, {
+            free,
+            selected: [...selected, node],
+            roads: nextRoads,
+          }),
+        ],
+        node,
+      ),
+    );
+  }
+  return {
+    playerId: id,
+    kind: "harvest",
+    title: "选择采集资源点，共用航道只付一次路费",
+    options,
+    map: { roads, selected, free, tollExemptNodes },
+  };
+}
+
+function savedHarvestMap(s: GameState, decision: Decision) {
+  if (decision.map) return decision.map;
+  const selected = decision.options
+    .filter((o) => o.id.startsWith("unselect:"))
+    .map((o) => o.target!);
+  const done = decision.options.find((o) => o.id === "done");
+  const roads = [
+    ...new Set(
+      (done?.steps ?? [])
+        .filter((v) => v.kind === "toll")
+        .map((v) => String(v.data!.road)),
+    ),
+  ];
+  const free = decision.options.some((o) =>
+    o.steps.some((v) => v.kind === "harvest" && v.data?.free),
+  );
+  for (const node of selected)
+    for (const road of routeTo(s, decision.playerId, node, roads).roads)
+      if (!roads.includes(road)) roads.push(road);
+  return { selected, roads, free };
+}
+
+function currentDecision(s: GameState, decision: Decision | null) {
+  if (decision?.kind !== "harvest" || decision.map?.tollExemptNodes)
+    return decision;
+  const id = decision.playerId;
+  const exempt = paulTollExemptNodes(s, id);
+  if (!exempt) return decision;
+  // Reprice a legacy plan still being edited. Committed plans and toll choices
+  // continue through their saved effects.
+  const { selected, roads, free } = savedHarvestMap(s, decision);
+  const payable = selected.filter((n) => !exempt.includes(n));
+  return {
+    ...planHarvest(
+      s,
+      id,
+      { selected, roads: pruneHarvestRoads(s, id, payable, roads), free },
+      exempt,
+    ),
+    private: decision.private,
+  };
 }
 function refill(s: GameState) {
   while (s.market.length < 6 && s.facilityDeck.length)
@@ -1256,18 +1402,7 @@ function cityOptions(
           n !== p.city &&
           nodeOpen(s, n) &&
           !s.players.some((v) => v.id !== id && v.city === n) &&
-          !s.players.some(
-            (v) =>
-              v.id !== id &&
-              v.oripathy?.entrepreneur === "paul" &&
-              hasDilemma(v, 5, "B") &&
-              v.oripathy.gangSlots.some((slot) => slot.startsWith(`${n}:`)) &&
-              s.sites[n].slots.some(
-                (owner, index) =>
-                  owner === v.id &&
-                  !v.oripathy!.gangSlots.includes(`${n}:${index}`),
-              ),
-          ) &&
+          !paulBlocksCityMove(s, n) &&
           (!data.requiredOwn || s.sites[n].slots.includes(id)),
       )
       .map((n) =>
@@ -1788,6 +1923,14 @@ function execute(s: GameState, step: Step) {
     case "place": {
       if (count <= 0) return;
       const targets = emptySlots(s, id, data.targets);
+      if (!targets.length) {
+        log(
+          s,
+          id,
+          `跳过 ${count} 次放置影响力（${placementShortage(s, id) ?? "没有合法位置"}）`,
+        );
+        return;
+      }
       decide(
         s,
         id,
@@ -2020,6 +2163,12 @@ function execute(s: GameState, step: Step) {
     case "place-exact":
       if (emptySlots(s, id).includes(data.slot))
         prepend(s, [task("place-at", id, data)]);
+      else
+        log(
+          s,
+          id,
+          `替换后未补放影响力（${placementShortage(s, id) ?? "原位置不可放置"}）`,
+        );
       return;
     case "explore":
       decide(s, id, "选择探索目标", exploreOptions(s, id), "explore");
@@ -2939,86 +3088,9 @@ function execute(s: GameState, step: Step) {
       p.hand = [data.role];
       prepend(s, [gain(id, { cash: 10 })]);
       return;
-    case "harvest": {
-      const selected: string[] = data.selected ?? [];
-      const roads: string[] = data.roads ?? [];
-      const total = roads.reduce((n, r) => n + roadCost(s, id, r), 0);
-      const eligible = s.board.nodes.filter(
-        (n) =>
-          s.sites[n.id].resource &&
-          (s.sites[n.id].slots.includes(id) ||
-            p.city === n.id ||
-            (s.phase === "harvest" &&
-              s.oripathy?.contracts.includes(id) &&
-              s.oripathy.security.some((slot) =>
-                slot.startsWith(`${n.id}:`),
-              ))) &&
-          !selected.includes(n.id),
-      );
-      const options = [
-        option(
-          "done",
-          `${s.parallel?.kind === "harvest" ? "采集方案" : "完成采集"} · ${selected.length} 个资源点 · ${data.free ? 0 : total} 金券`,
-          [
-            ...tollSteps(s, id, roads, !!data.free),
-            ...selected.map((n) =>
-              gain(id, { [s.sites[n].resource!]: s.sites[n].amount }),
-            ),
-          ],
-        ),
-      ];
-      for (const node of selected) {
-        const remaining = selected.filter((n) => n !== node);
-        options.push(
-          option(
-            `unselect:${node}`,
-            `撤回 ${node} 的采集选择`,
-            [
-              task("harvest", id, {
-                ...data,
-                selected: remaining,
-                roads: pruneHarvestRoads(s, id, remaining, roads),
-              }),
-            ],
-            node,
-          ),
-        );
-      }
-      if (selected.length)
-        options.push(
-          option("reset", "清空本次采集选择", [
-            task("harvest", id, { ...data, selected: [], roads: [] }),
-          ]),
-        );
-      for (const n of eligible) {
-        const route = routeTo(s, id, n.id, roads);
-        const nextRoads = [...new Set([...roads, ...route.roads])];
-        const cost = nextRoads.reduce((sum, r) => sum + roadCost(s, id, r), 0);
-        if (data.free || cost <= p.wallet.cash)
-          options.push(
-            option(
-              n.id,
-              `${n.id} · ${s.sites[n.id].amount} ${RESOURCE_NAMES[s.sites[n.id].resource!]} · 总路费 ${data.free ? 0 : cost}`,
-              [
-                task("harvest", id, {
-                  ...data,
-                  selected: [...selected, n.id],
-                  roads: nextRoads,
-                }),
-              ],
-              n.id,
-            ),
-          );
-      }
-      decide(s, id, "选择采集资源点，共用航道只付一次路费", options, "harvest");
-      if (s.decision)
-        s.decision.map = {
-          roads: [...roads],
-          selected: [...selected],
-          free: !!data.free,
-        };
+    case "harvest":
+      s.decision = planHarvest(s, id, data);
       return;
-    }
     case "pattern-declare": {
       const pattern = PATTERN_BY_ID[data.pattern];
       if (stock(s, id) <= 0) return;
@@ -3535,7 +3607,10 @@ function mainOptions(s: GameState, id: string): Option[] {
 export function getLegalActions(s: GameState, id: string): LegalAction[] {
   s = withParallelPhase(s);
   const p = player(s, id);
-  const decision = s.parallel ? s.parallel.players[id].decision : s.decision;
+  const decision = currentDecision(
+    s,
+    s.parallel ? s.parallel.players[id].decision : s.decision,
+  );
   if (decision)
     return decision.playerId === id
       ? decision.options.map((o) => ({
@@ -3713,7 +3788,7 @@ export function applyCommand(
   const p = player(s, id);
   if (s.parallel) {
     const entry = s.parallel.players[id];
-    const decision = entry.decision!;
+    const decision = currentDecision(s, entry.decision)!;
     const selected = decision.options.find((o) => o.id === command.optionId)!;
     log(s, id, selected.label, [id]);
     entry.decision = null;
@@ -3722,7 +3797,7 @@ export function applyCommand(
     advanceParallelChoice(s, id);
     syncParallel(s);
   } else if (command.type === "choose") {
-    const decision = s.decision!;
+    const decision = currentDecision(s, s.decision)!;
     const selected = decision.options.find((o) => o.id === command.optionId)!;
     log(s, id, selected.label, decision.private ? [id] : undefined);
     s.decision = null;
@@ -3950,38 +4025,15 @@ export function projectView(s: GameState, id: string): PlayerView {
     players,
     ...publicState
   } = structuredClone(s);
-  const decision = parallel
-    ? parallel.players[id].decision
-    : representativeDecision;
+  const decision = currentDecision(
+    s,
+    parallel ? parallel.players[id].decision : representativeDecision,
+  );
   const actions = getLegalActions(s, id);
   let decisionMap = decision?.map;
-  // Earlier saves contain the same pending payment steps, but no map snapshot.
-  // Recover their paid roads and connect the selected nodes through free/paid
-  // links. This is a view projection only; it never rewrites the saved choice.
-  if (
-    decision?.playerId === id &&
-    !decisionMap &&
-    decision.kind === "harvest"
-  ) {
-    const selected = decision.options
-      .filter((o) => o.id.startsWith("unselect:"))
-      .map((o) => o.target!);
-    const done = decision.options.find((o) => o.id === "done");
-    const roads = [
-      ...new Set(
-        (done?.steps ?? [])
-          .filter((v) => v.kind === "toll")
-          .map((v) => String(v.data!.road)),
-      ),
-    ];
-    const free = decision.options.some((o) =>
-      o.steps.some((v) => v.kind === "harvest" && v.data?.free),
-    );
-    for (const node of selected)
-      for (const road of routeTo(s, id, node, roads).roads)
-        if (!roads.includes(road)) roads.push(road);
-    decisionMap = { selected, roads, free };
-  }
+  // Old saves contain pending payments without a map snapshot.
+  if (decision?.playerId === id && !decisionMap && decision.kind === "harvest")
+    decisionMap = savedHarvestMap(s, decision);
   if (decision?.playerId === id && !decisionMap && decision.kind === "toll") {
     const road = decision.title.split(" · ")[0];
     if (s.board.roads.some((r) => r.id === road))

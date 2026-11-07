@@ -21,7 +21,12 @@ export type Decision = {
   private?: boolean;
   kind: string;
   /** Public geometry of the acting player's unconfirmed collection plan. */
-  map?: { roads: string[]; selected: string[]; free: boolean };
+  map?: {
+    roads: string[];
+    selected: string[];
+    free: boolean;
+    tollExemptNodes?: string[];
+  };
 };
 /** Private, persisted choices. Only readiness and the viewer's decision are sent. */
 export type ParallelPhase = {
