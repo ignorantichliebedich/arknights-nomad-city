@@ -10,7 +10,6 @@ export function entryArtwork(invited: boolean, restoring: boolean): string[] {
   return [
     ...brand,
     "/assets/nomad-table-backdrop.webp",
-    "/assets/city-model-0.svg",
     ...(invited
       ? []
       : [

@@ -68,7 +68,12 @@ export function useInfluenceTravel(game: PlayerView) {
       >
         <TablePiece
           kind="influence"
-          seat={game.players.find((p) => p.id === flight.owner)!.seat}
+          seat={game.players.find((p) => p.id === flight.owner)?.seat ?? 4}
+          variant={
+            game.players.some((p) => p.oripathy?.gangSlots.includes(flight.to))
+              ? "gang"
+              : undefined
+          }
         />
       </g>
     ),

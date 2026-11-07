@@ -4,8 +4,14 @@ import { ENTRY_MOTION, motionDuration } from "./entry-motion.ts";
 
 type HomeScene = "hero" | "lobby";
 
-export function useHomeScene(code: string, loading: boolean) {
-  const [scene, setScene] = useState<HomeScene>(code ? "lobby" : "hero");
+export function useHomeScene(
+  code: string,
+  loading: boolean,
+  initialLobby = false,
+) {
+  const [scene, setScene] = useState<HomeScene>(
+    code || initialLobby ? "lobby" : "hero",
+  );
   const [moving, setMoving] = useState(false);
   const [arriving, setArriving] = useState(true);
   const [hidden, setHidden] = useState(document.hidden);

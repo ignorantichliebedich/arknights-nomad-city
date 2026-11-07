@@ -4,6 +4,14 @@ import {
   PLAYER_SYMBOLS,
 } from "../../../../packages/rules/src/data.ts";
 import type { RoomView } from "../network.ts";
+import { EntrepreneurPortrait } from "./EntrepreneurPortrait.tsx";
+import {
+  capacity,
+  type PlayerCount,
+} from "../../../../packages/shared/lobby.ts";
+import { RoomRecruitment } from "./RoomRecruitment.tsx";
+import { useDisplayMode } from "../display-mode.ts";
+import { PhonePages } from "./PhonePages.tsx";
 
 export function RoomLobby({
   room,
@@ -12,6 +20,9 @@ export function RoomLobby({
   onReady,
   onStart,
   onInvite,
+  onResume,
+  onSettings,
+  onLeave,
 }: {
   room: RoomView;
   busy: boolean;
@@ -19,47 +30,86 @@ export function RoomLobby({
   onReady: () => void;
   onStart: () => void;
   onInvite: () => void;
+  onResume?: () => void;
+  onSettings?: (isPublic: boolean, players: PlayerCount) => void;
+  onLeave?: () => Promise<void>;
 }) {
+  const { phone } = useDisplayMode();
   const mine = room.seats.find((s) => s.id === room.me);
   const isHost = room.me === room.hostId;
-  const readyCount = room.seats.filter((s) => s.ready && s.connected).length;
-  const allReady = room.seats.length >= 2 && readyCount === room.seats.length;
-  const waiting =
-    status === "replaced"
+  const readyCount = room.seats.filter(
+    (s) => s.connected && (room.game || s.ready),
+  ).length;
+  const seats = capacity(room);
+  const allReady =
+    room.seats.length >= 2 &&
+    (!room.targetPlayers || room.seats.length === room.targetPlayers) &&
+    readyCount === room.seats.length;
+  const waiting = room.game
+    ? `第 ${room.game.round} / 8 回合 · ${room.game.phase === "finished" ? "拓荒已结算" : "对局进行中，席位已保留"}`
+    : status === "replaced"
       ? "席位已在另一个页面打开"
       : status !== "online"
         ? "正在恢复连接，请稍候"
         : room.seats.some((s) => !s.connected)
           ? "等待离线的企业家重新连接"
-          : room.seats.length < 2
-            ? "邀请朋友或添加人机，即可准备出发"
-            : !allReady
-              ? "等待所有企业家确认准备"
-              : isHost
-                ? "全员就绪，由你开启这场拓荒"
-                : "全员就绪，等待房主开始";
+          : room.targetPlayers && room.seats.length < room.targetPlayers
+            ? `本桌 ${room.targetPlayers} 人局，等待其余企业家入座`
+            : room.seats.length < 2
+              ? "邀请朋友或添加人机，即可准备出发"
+              : !allReady
+                ? "等待所有企业家确认准备"
+                : isHost
+                  ? "全员就绪，由你开启这场拓荒"
+                  : "全员就绪，等待房主开始";
   return (
     <main className="assembly-lobby">
       <section className="assembly-table" aria-labelledby="assembly-title">
         <div className="assembly-heading">
+          {phone && (
+            <button
+              className="phone-room-details secondary-button"
+              popoverTarget="phone-room-dossier"
+            >
+              拓荒档案 ↗
+            </button>
+          )}
           <div>
             <span className="departure-kicker">
               <i /> PIONEER ASSEMBLY / 企业家集结
             </span>
-            <h1 id="assembly-title">企业家正在集结。</h1>
-            <p>一人一座移动城市。下一片荒野，等你们共同启程。</p>
+            <h1 id="assembly-title">
+              {room.game ? "你的城市，仍在这里。" : "企业家正在集结。"}
+            </h1>
+            <p>
+              {room.game
+                ? "查看同行席位，随时返回棋桌继续拓荒。"
+                : "一人一座移动城市。下一片荒野，等你们共同启程。"}
+            </p>
           </div>
           <div className="assembly-count">
             <strong>{String(room.seats.length).padStart(2, "0")}</strong>
             <span>
-              / 04
+              / {String(seats).padStart(2, "0")}
               <br />
               已入座
             </span>
           </div>
         </div>
-        <div className="assembly-seats" aria-label="企业家席位">
-          {Array.from({ length: 4 }, (_, i) => {
+        {!room.game && (onSettings || onLeave) && (
+          <RoomRecruitment
+            room={room}
+            busy={busy || status !== "online"}
+            onSettings={onSettings}
+            onLeave={onLeave}
+          />
+        )}
+        <div
+          className="assembly-seats"
+          data-capacity={seats}
+          aria-label="企业家席位"
+        >
+          {Array.from({ length: seats }, (_, i) => {
             const seat = room.seats[i];
             return (
               <article
@@ -92,10 +142,13 @@ export function RoomLobby({
                 {seat ? (
                   <>
                     <div className="assembly-portrait">
-                      <img
-                        src={`/assets/entrepreneur-${i}.webp`}
-                        alt={`第 ${i + 1} 席企业家立绘`}
-                        draggable={false}
+                      <EntrepreneurPortrait
+                        player={
+                          room.game?.players.find((p) => p.id === seat.id) ?? {
+                            seat: i,
+                          }
+                        }
+                        variant="portrait"
                       />
                       <div className="assembly-portrait-shade" />
                       <span
@@ -108,7 +161,7 @@ export function RoomLobby({
                             ? "在线"
                             : "离线 · 保留席位"}
                       </span>
-                      {seat.ready && (
+                      {seat.ready && !room.game && (
                         <span className="assembly-ready-stamp" key="ready">
                           {seat.bot ? "自动准备" : "已准备"}
                           <small>READY TO DEPART</small>
@@ -124,11 +177,13 @@ export function RoomLobby({
                       <div>
                         <strong title={seat.name}>{seat.name}</strong>
                         <small>
-                          {!seat.connected
-                            ? "等待重新连接"
-                            : seat.ready
-                              ? "行装就绪，等待启程"
-                              : "正在整备城市"}
+                          {room.game
+                            ? "拓荒席位已保留"
+                            : !seat.connected
+                              ? "等待重新连接"
+                              : seat.ready
+                                ? "行装就绪，等待启程"
+                                : "正在整备城市"}
                         </small>
                       </div>
                     </div>
@@ -166,7 +221,9 @@ export function RoomLobby({
               {room.seats.map((seat, i) => (
                 <i
                   key={seat.id}
-                  className={seat.ready && seat.connected ? "ready" : ""}
+                  className={
+                    seat.connected && (room.game || seat.ready) ? "ready" : ""
+                  }
                   style={{ "--seat-color": PLAYER_COLORS[i] } as CSSProperties}
                 />
               ))}
@@ -176,32 +233,44 @@ export function RoomLobby({
               <b>
                 {readyCount} / {room.seats.length}
               </b>{" "}
-              位企业家已准备
+              {room.game ? "位企业家在线" : "位企业家已准备"}
             </span>
           </div>
           <div className="assembly-actions">
-            <button
-              className={`secondary-button ${mine?.ready ? "is-ready" : ""}`}
-              disabled={busy || status !== "online"}
-              onClick={onReady}
-              aria-busy={busy}
-            >
-              {mine?.ready ? "取消准备" : "准备出发"}
-              <span
-                className={busy ? "button-activity" : ""}
-                aria-hidden="true"
-              >
-                {busy ? "◌" : mine?.ready ? "✓" : "◇"}
-              </span>
-            </button>
-            {isHost && (
+            {room.game ? (
               <button
                 className="primary-button"
-                disabled={busy || status !== "online" || !allReady}
-                onClick={onStart}
+                onClick={onResume}
+                disabled={status !== "online"}
               >
-                开始拓荒 <span aria-hidden="true">→</span>
+                返回棋桌 <span aria-hidden="true">→</span>
               </button>
+            ) : (
+              <>
+                <button
+                  className={`secondary-button ${mine?.ready ? "is-ready" : ""}`}
+                  disabled={busy || status !== "online"}
+                  onClick={onReady}
+                  aria-busy={busy}
+                >
+                  {mine?.ready ? "取消准备" : "准备出发"}
+                  <span
+                    className={busy ? "button-activity" : ""}
+                    aria-hidden="true"
+                  >
+                    {busy ? "◌" : mine?.ready ? "✓" : "◇"}
+                  </span>
+                </button>
+                {isHost && (
+                  <button
+                    className="primary-button"
+                    disabled={busy || status !== "online" || !allReady}
+                    onClick={onStart}
+                  >
+                    开始拓荒 <span aria-hidden="true">→</span>
+                  </button>
+                )}
+              </>
             )}
           </div>
         </div>
@@ -217,54 +286,77 @@ export function RoomLobby({
           </li>
         </ol>
       </section>
-      <aside className="assembly-dossier" aria-labelledby="dossier-title">
-        <div className="dossier-heading">
-          <span className="eyebrow">EXPEDITION FILE</span>
-          <h2 id="dossier-title">本次拓荒档案</h2>
-          <span aria-hidden="true">105</span>
-        </div>
-        <div className="dossier-map">
-          <img
-            src={
-              room.seats.length === 4
-                ? "/assets/board-4.webp"
-                : "/assets/board-3.webp"
-            }
-            alt="拓荒区棋盘预览"
-          />
-          <span>第 105 号拓荒区</span>
-          <i aria-hidden="true" />
-        </div>
-        <dl className="dossier-facts">
-          <div>
-            <dt>桌游版本</dt>
-            <dd>{room.expansion ? "铸基者 + 企业扩展" : "铸基者 · 基础版"}</dd>
-          </div>
-          <div>
-            <dt>拓荒周期</dt>
-            <dd>8 回合</dd>
-          </div>
-          <div>
-            <dt>同行席位</dt>
-            <dd>2–4 人 · 私人邀请</dd>
-          </div>
-        </dl>
-        <div className="dossier-invitation">
-          <span>邀请房间码</span>
-          <strong>{room.id}</strong>
-          <button className="secondary-button" onClick={onInvite}>
-            邀请朋友 <span aria-hidden="true">↗</span>
+      <aside
+        className="assembly-dossier"
+        aria-labelledby="dossier-title"
+        id="phone-room-dossier"
+        popover={phone ? "auto" : undefined}
+      >
+        {phone && (
+          <button
+            className="phone-sheet-close"
+            popoverTarget="phone-room-dossier"
+            popoverTargetAction="hide"
+            aria-label="关闭拓荒档案"
+          >
+            ×
           </button>
-          <small>分享地址或房间码，即可入座。</small>
-        </div>
-        <div className="dossier-note">
-          <img src="/assets/resource-score.webp" alt="" />
-          <p>
-            控制航道，经营城市。
-            <br />
-            让你的名字留在这片荒野。
-          </p>
-        </div>
+        )}
+        <PhonePages label="拓荒档案">
+          <div className="dossier-heading">
+            <span className="eyebrow">EXPEDITION FILE</span>
+            <h2 id="dossier-title">本次拓荒档案</h2>
+            <span aria-hidden="true">105</span>
+          </div>
+          <div className="dossier-map">
+            <img
+              src={
+                room.seats.length === 4
+                  ? "/assets/board-4.webp"
+                  : "/assets/board-3.webp"
+              }
+              alt="拓荒区棋盘预览"
+            />
+            <span>第 105 号拓荒区</span>
+            <i aria-hidden="true" />
+          </div>
+          <dl className="dossier-facts">
+            <div>
+              <dt>桌游版本</dt>
+              <dd>
+                {room.oripathy
+                  ? `感染者${room.expert ? " · 企业家抉择" : " · 常规玩法"}`
+                  : room.expansion
+                    ? "铸基者 + 企业扩展"
+                    : "铸基者 · 基础版"}
+              </dd>
+            </div>
+            <div>
+              <dt>拓荒周期</dt>
+              <dd>8 回合</dd>
+            </div>
+            <div>
+              <dt>同行席位</dt>
+              <dd>2–4 人 · 私人邀请</dd>
+            </div>
+          </dl>
+          <div className="dossier-invitation">
+            <span>邀请房间码</span>
+            <strong>{room.id}</strong>
+            <button className="secondary-button" onClick={onInvite}>
+              邀请朋友 <span aria-hidden="true">↗</span>
+            </button>
+            <small>分享地址或房间码，即可入座。</small>
+          </div>
+          <div className="dossier-note">
+            <img src="/assets/resource-score.webp" alt="" />
+            <p>
+              控制航道，经营城市。
+              <br />
+              让你的名字留在这片荒野。
+            </p>
+          </div>
+        </PhonePages>
       </aside>
     </main>
   );

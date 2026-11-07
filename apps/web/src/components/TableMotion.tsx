@@ -11,6 +11,8 @@ import {
   redZoneOpensAt,
 } from "../../../../packages/rules/src/data.ts";
 import type { PlayerView } from "../../../../packages/rules/src/types.ts";
+import { entrepreneurPresentation } from "../entrepreneur.ts";
+import { EntrepreneurPortrait } from "./EntrepreneurPortrait.tsx";
 
 export function FlipNumber({ value }: { value: number }) {
   const previous = useRef(value);
@@ -86,6 +88,7 @@ export function ActiveEntrepreneur({
 }) {
   const player = game.players.find((p) => p.id === activeId);
   if (!player) return null;
+  const expert = entrepreneurPresentation(player).identity;
   return (
     <div
       className="entrepreneur-station"
@@ -93,15 +96,19 @@ export function ActiveEntrepreneur({
     >
       {children}
       <div className="active-entrepreneur">
-        <img
+        <EntrepreneurPortrait
           className="entrepreneur-bust"
-          key={player.id}
-          src={`/assets/entrepreneur-bust-${player.seat}.webp`}
-          alt={`当班企业家：${player.name}`}
+          key={`${player.id}:${expert?.id ?? ""}`}
+          player={player}
+          variant="bust"
         />
         {game.players[game.first]?.id === player.id && <PresidentBadge />}
         <div className="active-entrepreneur-caption">
-          <small>{game.phase === "finished" ? "拓荒结束" : "当班企业家"}</small>
+          <small>
+            {game.phase === "finished"
+              ? "拓荒结束"
+              : (expert?.name ?? "当班企业家")}
+          </small>
           <strong>
             {PLAYER_SYMBOLS[player.seat]} {player.name}
           </strong>

@@ -1,0 +1,330 @@
+/* Paper lifts onto the table; the board stays still behind it. */
+.modal[open][data-window-motion="enter"] {
+  animation: table-sheet-enter 320ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+  transform-origin: center 65%;
+}
+.modal[open][data-window-motion="leave"] {
+  animation: table-sheet-leave 160ms ease-in both;
+  pointer-events: none;
+}
+.modal[open][data-window-motion="enter"]::backdrop {
+  animation: table-shade-enter 240ms ease-out both;
+}
+.modal[open][data-window-motion="leave"]::backdrop {
+  animation: table-shade-leave 160ms ease-in both;
+}
+.modal .modal-heading {
+  gap: 12px;
+}
+.modal .modal-heading h2 {
+  flex: 1;
+  min-width: 0;
+}
+.modal .modal-back,
+.room-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 36px;
+  padding: 4px 10px;
+  flex-shrink: 0;
+  color: inherit;
+  background: #a58a5412;
+  border: 1px solid #a58a5460;
+  border-radius: 2px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+.modal .modal-back:hover,
+.room-back:hover {
+  background: #a58a5430;
+}
+.room-toolbar .room-back {
+  min-height: 28px;
+  margin-right: 10px;
+}
+@media (orientation: landscape) and (max-width: 700px) {
+  .phone-layout .room-toolbar.in-game {
+    padding: 0 8px;
+  }
+  .phone-layout .room-toolbar.in-game .room-back {
+    min-height: 36px;
+    margin-right: 0;
+    white-space: nowrap;
+  }
+  .phone-layout .room-toolbar.in-game .room-code,
+  .phone-layout .room-toolbar.in-game .subtle-button {
+    display: none;
+  }
+}
+.assembly-portrait > .entrepreneur-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Multi-select keeps the fan's hit areas stable; each selected card lifts. */
+.fan-hand.is-multiselect .hand-slot {
+  --selection-lift: 0px;
+}
+.fan-hand.is-multiselect .hand-slot.is-picked {
+  --selection-lift: 18px;
+}
+.fan-hand.is-expanded.is-multiselect .hand-slot,
+.fan-hand.is-expanded.is-multiselect .hand-slot:hover,
+.fan-hand.is-expanded.is-multiselect .hand-slot:has(:focus-visible),
+.phone-layout .fan-hand.is-expanded.is-multiselect .hand-slot.is-picked {
+  transform: translate(var(--fan-x), calc(var(--fan-y) - var(--selection-lift)))
+    rotate(var(--fan-angle));
+  z-index: var(--fan-index);
+}
+@media (hover: hover) and (pointer: fine) {
+  .fan-hand.is-expanded.is-multiselect .hand-slot:hover {
+    filter: brightness(1.08);
+  }
+}
+.city-arrival .city-arrival-model {
+  animation: city-touchdown 900ms cubic-bezier(0.2, 0.7, 0.25, 1) both;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+.city-landing-dust {
+  fill: none;
+  stroke: #e7d1a5;
+  stroke-width: 2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: city-dust-settles 950ms ease-out both;
+}
+.city-landing-dust ellipse + ellipse {
+  stroke-dasharray: 4 7;
+}
+.batch-choices {
+  padding: 24px;
+  overflow: auto;
+}
+.batch-heading h3 {
+  margin: 7px 0;
+  font:
+    700 24px Georgia,
+    "Songti SC",
+    serif;
+}
+.batch-heading p {
+  margin: 8px 0 20px;
+  color: #756448;
+  font-size: 13px;
+}
+.batch-resource-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.batch-resource-grid article {
+  text-align: center;
+  padding: 18px 12px;
+  border: 1px solid #b3a281;
+  background: #e5dac2;
+}
+.batch-resource-grid article.is-picked {
+  border-color: #82622c;
+  background: #efe0b8;
+  box-shadow: inset 0 0 0 2px #a58a5440;
+}
+.batch-resource-grid img {
+  width: 76px;
+  height: 68px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 12px;
+}
+.batch-stepper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 16px 0 6px;
+  gap: 8px;
+}
+.batch-stepper button {
+  width: 44px;
+  height: 44px;
+  border: 1px solid #a58a54;
+  background: #f3e9d1;
+  font-size: 20px;
+}
+.batch-stepper output {
+  min-width: 28px;
+  font:
+    700 24px Georgia,
+    serif;
+}
+.batch-resource-grid small {
+  font-size: 11px;
+  color: #756448;
+}
+.batch-confirm {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #b3a281;
+}
+.batch-confirm > span {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 700;
+}
+@keyframes table-sheet-enter {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.965) rotate(-0.35deg);
+  }
+  75% {
+    opacity: 1;
+    transform: translateY(-1px) scale(1.002);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes table-sheet-leave {
+  to {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+}
+@keyframes table-shade-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes table-shade-leave {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes city-touchdown {
+  0% {
+    opacity: 0;
+    transform: translateY(-70px) scale(1.12) rotate(-3deg);
+  }
+  22% {
+    opacity: 1;
+  }
+  58% {
+    transform: translateY(3px) scale(1.04, 0.92) rotate(0.7deg);
+  }
+  77% {
+    transform: translateY(-4px) scale(0.99, 1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes city-dust-settles {
+  0%,
+  42% {
+    opacity: 0;
+    transform: scale(0.65);
+  }
+  60% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+@media (max-width: 600px) {
+  .modal .modal-heading {
+    gap: 8px;
+  }
+  .modal .modal-heading h2::before {
+    display: none;
+  }
+  .modal .modal-back {
+    padding: 4px 8px;
+    min-height: 40px;
+  }
+  .batch-choices {
+    padding: 16px;
+  }
+  .batch-resource-grid {
+    gap: 6px;
+  }
+  .batch-resource-grid article {
+    padding: 12px 4px;
+  }
+  .batch-resource-grid img {
+    width: 50px;
+    height: 46px;
+  }
+  .batch-stepper {
+    gap: 2px;
+  }
+  .batch-stepper button {
+    width: 32px;
+    min-height: 44px;
+  }
+  .batch-stepper output {
+    min-width: 20px;
+    font-size: 20px;
+  }
+  .batch-confirm {
+    flex-wrap: wrap;
+  }
+  .batch-confirm > span {
+    flex-basis: 100%;
+  }
+  .batch-confirm .primary-button {
+    flex: 1;
+  }
+}
+@media (max-height: 560px) {
+  .batch-choices {
+    padding: 12px 18px;
+  }
+  .batch-heading {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .batch-heading .eyebrow {
+    display: none;
+  }
+  .batch-heading p {
+    margin: 0;
+  }
+  .batch-resource-grid article {
+    padding: 8px;
+  }
+  .batch-resource-grid img {
+    width: 45px;
+    height: 38px;
+    margin-bottom: 4px;
+  }
+  .batch-stepper {
+    margin: 4px 0;
+  }
+  .batch-confirm {
+    margin-top: 12px;
+    padding-top: 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .modal[open][data-window-motion],
+  .modal[open][data-window-motion]::backdrop,
+  .city-arrival .city-arrival-model,
+  .city-landing-dust {
+    animation: none;
+  }
+  .city-landing-dust {
+    display: none;
+  }
+}

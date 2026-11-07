@@ -10,6 +10,8 @@ import type { PlayerView } from "../../../../packages/rules/src/types.ts";
 import { FlipNumber, PresidentBadge } from "./TableMotion.tsx";
 import { TablePiece } from "./TablePieces.tsx";
 import { PlayerResourceStrip, ResourceStock } from "./ResourceStock.tsx";
+import { EntrepreneurPortrait } from "./EntrepreneurPortrait.tsx";
+import { oripathyEnterpriseImage } from "../../../../packages/rules/src/oripathy-data.ts";
 
 export function TableDashboard({
   game,
@@ -65,7 +67,7 @@ export function TableDashboard({
             aria-label={`查看${p.name}的城市与资源`}
           >
             <div className="entrepreneur-portrait">
-              <img src={`/assets/avatar-${p.seat}.webp?v=founders`} alt="" />
+              <EntrepreneurPortrait player={p} />
               <span>{PLAYER_SYMBOLS[p.seat]}</span>
             </div>
             {game.players[game.first]?.id === p.id && (
@@ -171,7 +173,15 @@ export function TableDashboard({
           >
             <div className="mini-enterprise" aria-hidden="true">
               {game.activeEnterprises.slice(0, 2).map((id) => (
-                <img key={id} src={ENTERPRISE_IMAGES[id]} alt="" />
+                <img
+                  key={id}
+                  src={
+                    game.oripathy
+                      ? (oripathyEnterpriseImage(id) ?? ENTERPRISE_IMAGES[id])
+                      : ENTERPRISE_IMAGES[id]
+                  }
+                  alt=""
+                />
               ))}
             </div>
             <div>

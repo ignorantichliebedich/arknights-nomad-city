@@ -1,6 +1,7 @@
-import { ROLE_BY_ID } from "../../../packages/rules/src/data.ts";
+import { ROLE_BY_ID, ROLES } from "../../../packages/rules/src/data.ts";
 import type { PlayerView } from "../../../packages/rules/src/types.ts";
 import type { AudioPreferences, AudioCue } from "./audio-config.ts";
+import { readVoiceCatalog, type VoiceClip } from "./voice-catalog.ts";
 export type RoleVoice = {
   roleId: string;
   kind: "cover" | "strategy" | "tactic";
@@ -20,20 +21,27 @@ export function voicesForTransition(
   if (
     me?.selected &&
     me.selected !== old?.selected &&
-    old?.hand.includes(me.selected) &&
+    (old?.hand.includes(me.selected) ||
+      (before.decision?.kind === "o:hellagur-cover" &&
+        old?.discard.includes(me.selected))) &&
     !me.hand.includes(me.selected) &&
-    added.some((e) => e.actor === next.me && e.text === "盖放了一张角色牌")
+    !me.discard.includes(me.selected) &&
+    added.some(
+      (e) =>
+        e.actor === next.me &&
+        (e.text === "盖放了一张角色牌" ||
+          (before.decision?.playerId === next.me &&
+            before.decision.kind === "o:hellagur-cover" &&
+            e.text === ROLE_BY_ID[me.selected!]?.name)),
+    )
   )
     result.push({ roleId: me.selected, kind: "cover" });
   for (const event of added) {
-    const actor = next.players.find((p) => p.id === event.actor),
-      role = actor?.selected ? ROLE_BY_ID[actor.selected] : undefined;
-    if (
-      !role ||
-      !actor?.revealed ||
-      !event.text.startsWith(`使用 ${role.name} · `)
-    )
-      continue;
+    // A public use log is authoritative even if the effect transfers the card
+    // or leaves a different card covered (Ceobe, Hellagur, and Flow cards).
+    if (!next.players.some((p) => p.id === event.actor)) continue;
+    const role = ROLES.find((r) => event.text.startsWith(`使用 ${r.name} · `));
+    if (!role) continue;
     const mode = event.text.slice(`使用 ${role.name} · `.length);
     for (const kind of mode === "策略后计谋"
       ? ["strategy", "tactic"]
@@ -49,9 +57,8 @@ export function voicesForTransition(
   return result;
 }
 
-type Clip = { roleId: string; language: "zh" | "ja"; cue: string; src: string };
 export class RoleVoicePlayer {
-  private clips: Clip[] = [];
+  private clips: VoiceClip[] = [];
   private loading: Promise<void> | null = null;
   private audio: HTMLAudioElement | null = null;
   private generation = 0;
@@ -76,20 +83,8 @@ export class RoleVoicePlayer {
       .then(async (response) => {
         if (!response.ok) return;
         const text = await response.text();
-        if (text.length > 65536) return;
-        const rows = JSON.parse(text).voices;
-        if (Array.isArray(rows))
-          this.clips = rows
-            .slice(0, 200)
-            .filter(
-              (clip: Clip) =>
-                clip &&
-                Object.hasOwn(ROLE_BY_ID, clip.roleId) &&
-                ["zh", "ja"].includes(clip.language) &&
-                new RegExp(
-                  `^/audio/voices/${clip.language}/${clip.roleId}/(battle-[1-4]|select-[12])\\.mp3$`,
-                ).test(clip.src),
-            );
+        if (text.length > 131072) return;
+        this.clips = readVoiceCatalog(JSON.parse(text));
       })
       .catch(() => {});
     return this.loading;

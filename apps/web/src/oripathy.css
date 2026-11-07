@@ -1,0 +1,299 @@
+.permit-oripathy .permit-expansion {
+  border-color: #74845a;
+}
+.permit-expert {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.4rem 0.8rem 0.85rem;
+  color: #44503b;
+  font-size: 0.8rem;
+}
+.permit-expert input {
+  accent-color: #b8c88d;
+  width: 1rem;
+  height: 1rem;
+}
+.permit-expert > span {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+}
+.permit-expert small {
+  color: #766e57;
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+.oripathy-choices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  padding: 0.5rem 0 1rem;
+}
+.oripathy-choices.dilemma-choices {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 740px;
+  margin: auto;
+  gap: 1.75rem;
+}
+.dossier-window.interaction-window:has(.entrepreneur-choices) {
+  width: min(1160px, calc(100vw - 32px));
+}
+.identity-offer-summary {
+  display: grid;
+  gap: 6px;
+  color: #4d402d;
+  margin: 0 0 16px;
+  font-size: 14px;
+}
+.identity-offer-summary span {
+  font-size: 12px;
+  color: #76654a;
+}
+.oripathy-choices.entrepreneur-choices {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+.entrepreneur-choices .oripathy-choice-art img {
+  max-height: clamp(142px, 32dvh, 310px);
+}
+.oripathy-choices article.is-taken .oripathy-choice-art img {
+  filter: grayscale(1);
+  opacity: 0.55;
+}
+.oripathy-choices article.is-taken .oripathy-choice-art span {
+  background: #504c43;
+  color: #dbcfb5;
+}
+.entrepreneur-portrait .entrepreneur-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.phone-phase-bar .entrepreneur-image {
+  width: 22px;
+  height: 22px;
+  object-fit: cover;
+}
+@media (max-width: 600px) and (min-height: 561px) {
+  .oripathy-choices.entrepreneur-choices {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.oripathy-choices article {
+  min-width: 0;
+  border: 1px solid #a39367;
+  background: #262721;
+  box-shadow: 0 10px 22px #0003;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+.oripathy-choices article.is-picked {
+  transform: translateY(-5px);
+  box-shadow:
+    0 0 0 2px #b9c792,
+    0 12px 25px #0005;
+}
+.oripathy-choice-art {
+  padding: 0;
+  border: 0;
+  background: #20271d;
+  width: 100%;
+  position: relative;
+  cursor: pointer;
+}
+.oripathy-choice-art img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 12 / 17;
+  object-fit: contain;
+}
+.oripathy-choice-art span {
+  display: block;
+  padding: 0.7rem;
+  background: #465337;
+  color: #fff1ce;
+  font-weight: 700;
+}
+.is-picked .oripathy-choice-art span {
+  background: #b8ca8d;
+  color: #192015;
+}
+.oripathy-face-detail {
+  width: 100%;
+  padding: 0.45rem;
+  border: 0;
+  background: transparent;
+  color: #dac58a;
+  cursor: pointer;
+}
+.oripathy-choices article p {
+  color: #e8debc;
+  margin: 0.5rem 0.75rem 0.8rem;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+.oripathy-roster {
+  display: flex;
+}
+.oripathy-reference {
+  width: 150px;
+  flex: 0 0 150px;
+  padding: 0;
+  border: 1px solid #a8966b;
+  background: #353e30;
+  color: #fff2d3;
+  cursor: pointer;
+}
+.oripathy-reference img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 12 / 17;
+  object-fit: contain;
+}
+.oripathy-reference span {
+  display: block;
+  padding: 0.6rem 0.4rem;
+  font-size: 0.8rem;
+}
+.oripathy-dilemma-history {
+  display: grid;
+}
+.oripathy-public-status {
+  display: flex;
+  flex-wrap: wrap;
+}
+.oripathy-reference-list {
+  display: flex;
+  overflow-x: auto;
+  gap: 0.8rem;
+  padding: 0.25rem 0 1rem;
+}
+.covered-flows {
+  position: absolute;
+  left: 100%;
+  bottom: 0.5rem;
+  display: grid;
+  gap: 0.35rem;
+  width: 160px;
+  padding-left: 0.5rem;
+}
+.covered-flows button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #26352eed;
+  color: #e6d49e;
+  border: 1px solid #a79967;
+  font-size: 0.7rem;
+  padding: 0.3rem;
+  cursor: pointer;
+}
+.covered-flows img {
+  width: 25px;
+}
+.flow-skip {
+  position: absolute;
+  right: 1rem;
+  top: -2.5rem;
+}
+.city-layer-count {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.4rem;
+  padding: 0.2rem 0.35rem;
+  color: #ffedc2;
+  background: #343228e8;
+  font-size: 0.65rem;
+}
+.can-overbuild {
+  position: relative;
+}
+.overbuild-label {
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  padding: 2px 4px;
+  background: #394c30eb;
+  color: #fae7b4;
+  font-size: 0.65rem;
+}
+.buried-facilities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.8rem;
+}
+.buried-facilities button,
+.supply-stack button {
+  border: 1px solid #a59b79;
+  background: #e3dfc8;
+  color: #414735;
+  padding: 0.4rem;
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+.supply-stack {
+  display: grid;
+  gap: 0.3rem;
+  padding: 0.5rem;
+  background: #d4d5c0;
+}
+.oripathy-map-marker {
+  pointer-events: none;
+}
+.region-lock-frame {
+  fill: #60497718;
+  stroke: #ddc2ff;
+  stroke-width: 1.6;
+  stroke-dasharray: 5 4;
+  animation: lock-trace 5s linear infinite;
+}
+.region-lock-emblem {
+  fill: #2e2537;
+  stroke: #ecd4b0;
+  stroke-width: 1.2;
+}
+.gavial-marker {
+  fill: #1f6052;
+  stroke: #c5f1d3;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 3px 3px #0008);
+}
+.oripathy-marker-text {
+  fill: #fff2d2;
+  font-size: 10px;
+  text-anchor: middle;
+}
+@keyframes lock-trace {
+  to {
+    stroke-dashoffset: -90;
+  }
+}
+@media (max-width: 780px), (max-height: 560px) {
+  .oripathy-choices {
+    gap: 0.6rem;
+    grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+  }
+  .oripathy-choices.dilemma-choices {
+    gap: 0.8rem;
+  }
+  .covered-flows {
+    width: 130px;
+  }
+  .permit-expert {
+    font-size: 0.7rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .region-lock-frame {
+    animation: none;
+  }
+  .oripathy-choices article {
+    transition: none;
+  }
+}
+.oripathy-dossier {
+  padding: clamp(0.75rem, 2vw, 1.5rem);
+}

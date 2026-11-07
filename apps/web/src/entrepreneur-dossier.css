@@ -1,0 +1,669 @@
+.modal.entrepreneur-window {
+  --file-paper: #eee3ca;
+  --file-ink: #3f3829;
+  --file-muted: #75664e;
+  --file-rule: #b3a07b;
+  --file-red: #953f30;
+  width: min(1160px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  border: 1px solid #aa936c;
+  border-radius: 2px;
+  background: #433a2c;
+  color: var(--file-ink);
+  padding: 0;
+  box-shadow: 0 20px 70px #0008;
+  scrollbar-color: #b6a079 #433a2c;
+  scrollbar-width: thin;
+}
+.entrepreneur-window::backdrop {
+  background: #191710b3;
+}
+.entrepreneur-window .modal-heading {
+  background: #292720;
+  color: #ebddbb;
+  border-bottom: 1px solid #86704a;
+  padding: 10px 20px;
+}
+.entrepreneur-window .modal-heading h2 {
+  font:
+    700 16px/1.5 "Songti SC",
+    SimSun,
+    serif;
+  letter-spacing: 0.12em;
+}
+.entrepreneur-window .modal-heading .icon-button {
+  background: #4a4132;
+  color: #f5e8c6;
+}
+.entrepreneur-window .oripathy-dossier {
+  padding: 18px 22px 22px;
+}
+.entrepreneur-window .oripathy-roster {
+  border: 0;
+  padding: 0 8px;
+  gap: 4px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.entrepreneur-window .oripathy-roster button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  min-width: 100px;
+  max-width: 240px;
+  border: 0;
+  padding: 12px 22px 12px 16px;
+  background: #a18c65;
+  color: #27241d;
+  clip-path: polygon(0 8px, 8px 0, calc(100% - 16px) 0, 100% 100%, 0 100%);
+}
+.entrepreneur-window .oripathy-roster button[aria-pressed="true"] {
+  background: var(--file-paper);
+  color: var(--file-ink);
+}
+.oripathy-roster button i {
+  color: var(--tab-color);
+  font-style: normal;
+  text-shadow: 0 1px #403820;
+}
+.oripathy-roster button > span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+}
+.oripathy-roster button > small {
+  margin-left: auto;
+  font: 10px monospace;
+  opacity: 0.75;
+}
+.entrepreneur-window button:focus-visible {
+  outline: 3px solid #cb9d4d;
+  outline-offset: 3px;
+}
+.entrepreneur-window .oripathy-roster button:focus-visible {
+  outline: 0;
+  box-shadow: inset 0 0 0 3px #684b21;
+}
+.dossier-sheet {
+  position: relative;
+  padding: 22px 28px 12px;
+  background-color: var(--file-paper);
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0 3px,
+    #92734705 3px 4px
+  );
+  box-shadow: 4px 4px #9a855c;
+  animation: dossier-page-in 250ms ease-out both;
+}
+.dossier-registration {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--file-rule);
+  color: var(--file-muted);
+  font: 9px/1.5 monospace;
+  letter-spacing: 0.08em;
+}
+.entrepreneur-window .oripathy-dossier-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 18px 0 20px;
+  gap: 16px;
+}
+.oripathy-dossier-heading > div > small {
+  color: var(--file-muted);
+  letter-spacing: 0.12em;
+}
+.oripathy-dossier-heading > div {
+  min-width: 0;
+  flex: 1;
+}
+.entrepreneur-window .oripathy-dossier-heading h3 {
+  font:
+    700 clamp(22px, 2.4vw, 32px)/1.4 "Songti SC",
+    SimSun,
+    serif;
+  margin: 5px 0;
+  letter-spacing: 0.06em;
+}
+.oripathy-dossier-heading p {
+  font-size: 12px;
+  color: var(--file-muted);
+  margin: 4px 0 0;
+}
+.oripathy-dossier-heading p span {
+  margin: 0 12px;
+  color: var(--file-rule);
+}
+.entrepreneur-window .oripathy-dossier-heading .dossier-file-seal {
+  display: grid;
+  place-items: center;
+  border: 3px double var(--file-red);
+  color: var(--file-red);
+  background: transparent;
+  rotate: -10deg;
+  padding: 6px 14px;
+}
+.dossier-file-seal small {
+  color: inherit !important;
+  font: 8px monospace;
+}
+.dossier-file-seal b {
+  margin: 0 !important;
+  font:
+    700 26px Georgia,
+    serif;
+}
+.dossier-spread {
+  display: grid;
+  grid-template-columns: minmax(150px, 205px) minmax(0, 1fr);
+  gap: 28px;
+}
+.dossier-section-label {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--file-muted);
+  font: 10px/1.5 monospace;
+  letter-spacing: 0.1em;
+}
+.dossier-identity > .oripathy-reference {
+  width: 100%;
+  rotate: -1.5deg;
+  box-shadow: 3px 4px #827355;
+  background: #34382b;
+}
+.dossier-identity > .oripathy-reference img {
+  aspect-ratio: 12/17;
+}
+.dossier-counter-rack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+.dossier-counter {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  font-size: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--file-rule);
+}
+.dossier-counter b {
+  margin-left: auto;
+  min-width: 48px;
+  height: 48px;
+  border: 3px double #9e865b;
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  background: #d3c49a;
+  font:
+    700 23px Georgia,
+    serif;
+}
+.dossier-counter small {
+  font: 10px monospace;
+}
+.security-contract {
+  width: 100%;
+  color: #4e5b3d;
+  border: 2px double #79845f;
+  padding: 8px;
+  text-align: center;
+  rotate: -2deg;
+}
+.security-contract > span {
+  font-size: 22px;
+  margin-right: 7px;
+}
+.security-contract b {
+  font-size: 12px;
+}
+.security-contract small {
+  display: block;
+  margin-top: 5px;
+  font-size: 10px;
+}
+.dossier-decisions {
+  min-width: 0;
+  padding-left: 24px;
+  border-left: 1px solid #b3a07b66;
+}
+.dossier-section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.dossier-section-heading h4 {
+  margin: 0;
+  font:
+    700 20px/1.4 "Songti SC",
+    SimSun,
+    serif;
+}
+.dossier-section-heading > small {
+  font: 16px monospace;
+  white-space: nowrap;
+  color: var(--file-muted);
+}
+.dossier-decisions > p,
+.dossier-attachments > p {
+  color: var(--file-muted);
+  font-size: 12px;
+  line-height: 1.8;
+  margin: 10px 0;
+}
+.entrepreneur-window .oripathy-dilemma-history {
+  margin-top: 24px;
+  gap: 12px;
+  grid-template-columns: repeat(4, minmax(0, 150px));
+  justify-content: space-between;
+}
+.entrepreneur-window .oripathy-dilemma-history > .dossier-decision-slot {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+}
+.dossier-round {
+  display: block;
+  border-top: 1px solid var(--file-rule);
+  padding-top: 8px;
+  margin-bottom: 10px;
+  font-size: 10px;
+  color: var(--file-muted);
+}
+.entrepreneur-window .dossier-round b {
+  font:
+    20px Georgia,
+    serif;
+  color: var(--file-ink);
+}
+.dossier-decision-card {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 1px solid #82734e;
+  background: #3f4935;
+  color: #f0e5c9;
+  rotate: -1deg;
+  box-shadow: 2px 3px #b3a17b;
+  transition:
+    transform 180ms,
+    box-shadow 180ms;
+}
+.dossier-decision-slot:nth-child(even) .dossier-decision-card {
+  rotate: 1deg;
+}
+.dossier-decision-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 12/17;
+  object-fit: contain;
+}
+.dossier-decision-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 3px 7px #b3a17b88;
+}
+.dossier-decision-card.is-used {
+  opacity: 1;
+}
+.dossier-decision-card.is-used img {
+  filter: saturate(0.45);
+}
+.dossier-decision-status {
+  display: block;
+  min-height: 32px;
+  padding: 8px 3px;
+  text-align: center;
+  font-size: 10px;
+}
+.dossier-decision-card.is-used .dossier-decision-status {
+  background: #726e5e;
+}
+.dossier-choice-seal {
+  position: absolute;
+  top: 5px;
+  right: -5px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  background: #923e2f;
+  color: #fff2d4;
+  border: 2px solid #d8c49b;
+  border-radius: 50%;
+  font:
+    700 16px Georgia,
+    serif !important;
+}
+.dossier-empty-card {
+  aspect-ratio: 12/19.7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px dashed #b09c73;
+  color: #817151;
+  background: repeating-linear-gradient(
+    45deg,
+    #8c79500a 0 1px,
+    transparent 1px 7px
+  );
+}
+.dossier-empty-card > span {
+  font-size: 34px;
+  color: #a48b5d;
+}
+.entrepreneur-window .dossier-empty-card b {
+  font:
+    12px "Microsoft YaHei",
+    sans-serif;
+}
+.dossier-empty-card small {
+  font-size: 10px;
+}
+.entrepreneur-window .oripathy-public-status {
+  gap: 0;
+  background: #d3c39e55;
+  border-block: 1px solid #b3a07b80;
+  margin: 22px 0 0;
+  padding: 12px 0;
+}
+.oripathy-public-status > span {
+  flex: 1;
+  min-width: 100px;
+  padding: 0 12px;
+  font-size: 10px;
+  color: var(--file-muted);
+  border-right: 1px solid #b3a07b66;
+}
+.oripathy-public-status > span:last-child {
+  border: 0;
+}
+.oripathy-public-status b {
+  display: block;
+  font:
+    700 24px Georgia,
+    serif;
+  color: var(--file-ink);
+  margin-top: 6px;
+}
+.oripathy-public-status small {
+  font: 12px monospace;
+}
+.dossier-attachments {
+  border-top: 1px solid var(--file-rule);
+  margin-top: 26px;
+  padding-top: 16px;
+}
+.dossier-attachments h4 {
+  font:
+    700 16px/1.6 "Songti SC",
+    SimSun,
+    serif;
+  margin: 0 0 8px;
+}
+.dossier-attachments h4 > span {
+  padding: 4px 7px;
+  background: #4c5140;
+  color: #efe3c4;
+  font: 10px monospace;
+  margin-right: 8px;
+}
+.dossier-attachments h4 small {
+  float: right;
+  font: 11px monospace;
+  color: var(--file-muted);
+}
+.entrepreneur-window .oripathy-reference-list {
+  padding: 8px 4px 14px;
+  gap: 14px;
+}
+.entrepreneur-window .oripathy-reference-list .oripathy-reference {
+  flex-basis: 120px;
+  width: 120px;
+  background: #3f4935;
+  box-shadow: 2px 3px #b3a17b;
+}
+.entrepreneur-window .oripathy-reference-list .oripathy-reference span {
+  font-size: 10px;
+}
+.dossier-standard-portrait img {
+  width: 100%;
+  display: block;
+}
+.dossier-standard-portrait span {
+  display: block;
+  padding: 8px;
+  background: #494837;
+  color: #eee3ca;
+  font-size: 11px;
+}
+.dossier-footer {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px dashed var(--file-rule);
+  margin-top: 22px;
+  padding-top: 12px;
+  font: 9px monospace;
+  color: var(--file-muted);
+}
+.dossier-footer i {
+  height: 13px;
+  width: 72px;
+  background: repeating-linear-gradient(
+    90deg,
+    #91805b 0 1px,
+    transparent 1px 3px,
+    #91805b 3px 5px,
+    transparent 5px 7px
+  );
+}
+@keyframes dossier-page-in {
+  from {
+    opacity: 0.5;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (min-width: 901px) and (max-height: 820px) {
+  .entrepreneur-window .oripathy-dossier {
+    padding-top: 12px;
+  }
+  .dossier-sheet {
+    padding-top: 14px;
+  }
+  .entrepreneur-window .oripathy-dossier-heading {
+    margin: 10px 0 14px;
+  }
+  .entrepreneur-window .oripathy-dossier-heading h3 {
+    font-size: 26px;
+  }
+  .oripathy-dossier-heading > div > small {
+    display: none;
+  }
+  .entrepreneur-window .oripathy-dossier-heading .dossier-file-seal {
+    padding: 4px 12px;
+  }
+  .dossier-spread {
+    grid-template-columns: 180px minmax(0, 1fr);
+  }
+  .entrepreneur-window .oripathy-dilemma-history {
+    margin-top: 16px;
+  }
+}
+@media (max-width: 900px), (max-height: 560px) {
+  .entrepreneur-window .oripathy-dossier {
+    padding: 12px;
+  }
+  .dossier-sheet {
+    padding: 16px;
+  }
+  .dossier-spread {
+    grid-template-columns: 145px minmax(0, 1fr);
+    gap: 18px;
+  }
+  .dossier-decisions {
+    padding-left: 16px;
+  }
+  .entrepreneur-window .oripathy-dilemma-history {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 14px;
+  }
+  .dossier-section-heading h4 {
+    font-size: 17px;
+  }
+  .entrepreneur-window .oripathy-dossier-heading {
+    margin-block: 12px 16px;
+  }
+}
+@media (max-width: 600px) {
+  .dossier-registration {
+    font-size: 8px;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .dossier-spread {
+    grid-template-columns: 1fr;
+  }
+  .dossier-identity {
+    display: grid;
+    grid-template-columns: 125px minmax(0, 1fr);
+    gap: 12px;
+    align-items: center;
+  }
+  .dossier-identity > .dossier-section-label {
+    grid-column: 1 / -1;
+    margin: 0;
+  }
+  .dossier-counter-rack {
+    margin: 0;
+  }
+  .dossier-decisions {
+    padding: 16px 0 0;
+    border: 0;
+    border-top: 1px solid var(--file-rule);
+  }
+  .entrepreneur-window .oripathy-dilemma-history {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .dossier-decision-status {
+    font-size: 12px;
+  }
+  .oripathy-public-status > span {
+    min-width: 0;
+    padding: 0 8px;
+  }
+  .dossier-file-seal {
+    display: none !important;
+  }
+}
+@media (orientation: landscape) and (max-height: 560px) {
+  .entrepreneur-window .oripathy-dossier {
+    padding: 8px 10px 12px;
+  }
+  .dossier-sheet {
+    padding: 10px 14px;
+  }
+  .dossier-registration,
+  .dossier-file-seal,
+  .oripathy-dossier-heading > div > small {
+    display: none !important;
+  }
+  .entrepreneur-window .oripathy-dossier-heading {
+    margin: 0 0 12px;
+  }
+  .entrepreneur-window .oripathy-dossier-heading h3 {
+    font-size: 20px;
+    margin: 0;
+  }
+  .oripathy-dossier-heading p {
+    font-size: 10px;
+    margin-top: 3px;
+  }
+  .dossier-spread {
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 16px;
+  }
+  .dossier-identity {
+    display: block;
+  }
+  .dossier-section-label {
+    font-size: 9px;
+    margin-bottom: 6px;
+  }
+  .dossier-section-heading h4 {
+    font-size: 14px;
+  }
+  .dossier-decisions {
+    border-top: 0;
+    border-left: 1px solid #b3a07b66;
+    padding: 0 0 0 14px;
+  }
+  .dossier-decisions > p {
+    display: none;
+  }
+  .entrepreneur-window .oripathy-dilemma-history {
+    grid-template-columns: repeat(4, minmax(0, 105px));
+    margin-top: 8px;
+  }
+  .dossier-round {
+    padding-top: 4px;
+    margin-bottom: 6px;
+  }
+  .entrepreneur-window .dossier-round b {
+    font-size: 15px;
+  }
+  .dossier-decision-status {
+    min-height: 28px;
+    padding: 6px 2px;
+    font-size: 9px;
+  }
+  .dossier-choice-seal {
+    width: 23px;
+    height: 23px;
+    right: -3px;
+  }
+  .dossier-empty-card > span {
+    font-size: 22px;
+  }
+  .dossier-empty-card small {
+    font-size: 9px;
+  }
+  .dossier-counter-rack {
+    margin-top: 12px;
+  }
+}
+@media (orientation: landscape) and (max-height: 560px) and (max-width: 650px) {
+  .entrepreneur-window .oripathy-dilemma-history {
+    grid-template-columns: repeat(2, minmax(0, 120px));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dossier-sheet {
+    animation: none;
+  }
+  .dossier-decision-card {
+    transition: none;
+  }
+}

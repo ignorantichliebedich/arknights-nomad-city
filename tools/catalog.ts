@@ -1,16 +1,23 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import {
   FACILITIES,
-  BASE_ROLES,
-  OPERATIVES,
+  ROLES,
   EVENTS,
   PATTERNS,
   ENTERPRISE_NAMES,
   ENTERPRISE_TEXT,
+  ENTERPRISES,
+  ENTERPRISE_IMAGES,
   VERIFIED_ENTERPRISES,
   RULES_VERSION,
   facilityText,
 } from "../packages/rules/src/data.ts";
+import {
+  ORIPATHY_RULES_VERSION,
+  ORIPATHY_ENTERPRISE_TEXT,
+  oripathyEnterpriseImage,
+} from "../packages/rules/src/oripathy-data.ts";
+import oripathyEvidence from "../assets/oripathy-evidence.json" with { type: "json" };
 import originalLabs from "../assets/original-labs.json" with { type: "json" };
 const baseFacilities = FACILITIES.filter((f) => !f.expansion).reduce(
   (n, f) => n + f.copies,
@@ -18,6 +25,7 @@ const baseFacilities = FACILITIES.filter((f) => !f.expansion).reduce(
 );
 const catalog = {
   rulesVersion: RULES_VERSION,
+  oripathyRulesVersion: ORIPATHY_RULES_VERSION,
   sources: {
     official: "https://ak.hypergryph.com/boardgame_nomadcity/",
     wiki: "https://prts.wiki/w/游城拓荒：铸基者",
@@ -25,6 +33,7 @@ const catalog = {
       "https://steamcommunity.com/sharedfiles/filedetails/?id=3064722448",
     manual:
       "https://steamusercontent-a.akamaihd.net/ugc/2282825689394632887/8F1D80001580DF5B3F528E7B80302B646C2AF857/",
+    oripathyManual: oripathyEvidence.sources.officialManual,
   },
   components: {
     base: {
@@ -46,23 +55,39 @@ const catalog = {
       laboratoryBoards: 3,
       publicRoadTokens: 8,
     },
+    oripathy: {
+      total: oripathyEvidence.printedCardCount,
+      groups: oripathyEvidence.componentGroups,
+    },
   },
   facilities: FACILITIES.map((f) => ({
     ...f,
     text: facilityText(f.id),
     evidence: [
       { kind: "card-face", asset: f.image },
-      { kind: "printed-manual", pages: [7, 13] },
+      {
+        kind: "printed-manual",
+        source: f.oripathy ? "oripathyManual" : "manual",
+        pages: f.oripathy ? [1, 6] : [7, 13],
+      },
     ],
   })),
-  roles: [...BASE_ROLES, ...OPERATIVES].map((r) => ({
+  roles: ROLES.map((r) => ({
     ...r,
-    copies: r.operative ? 1 : 4,
+    copies: r.operative || r.id.startsWith("o-flow-") ? 1 : 4,
     evidence: [
       {
         kind: "printed-manual",
-        pages: r.operative ? [19, 20] : r.expansion ? [19] : [14],
+        source: r.oripathy ? "oripathyManual" : "manual",
+        pages: r.oripathy
+          ? [7, 8]
+          : r.operative
+            ? [19, 20]
+            : r.expansion
+              ? [19]
+              : [14],
       },
+      { kind: "card-face", asset: r.image },
     ],
   })),
   events: EVENTS.map((e) => ({
@@ -87,22 +112,40 @@ const catalog = {
     copies: 1,
     evidence: [
       { kind: "card-face", asset: p.image },
-      { kind: "printed-manual", pages: [8, 9, 11, 18] },
-    ],
-  })),
-  enterprises: Object.entries(ENTERPRISE_NAMES).map(([id, name]) => ({
-    id,
-    name,
-    text: ENTERPRISE_TEXT[id],
-    enabled: VERIFIED_ENTERPRISES.includes(id),
-    evidence: [
       {
-        kind: "card-face",
-        asset: `/assets/cards-625/${["rhodes", "heide", "rhine", "bank", "raythean", "mama", "blacksteel", "rim"].indexOf(id)}.webp`,
+        kind: "printed-manual",
+        source: p.oripathy ? "oripathyManual" : "manual",
+        pages: p.oripathy ? [1, 6] : [8, 9, 11, 18],
       },
-      { kind: "printed-manual", pages: [16, 21, 22] },
     ],
   })),
+  enterprises: [
+    ...ENTERPRISES.map((id) => ({
+      id,
+      name: ENTERPRISE_NAMES[id],
+      rulesVersion: RULES_VERSION,
+      text: ENTERPRISE_TEXT[id],
+      enabled: VERIFIED_ENTERPRISES.includes(id),
+      evidence: [
+        {
+          kind: "card-face",
+          asset: ENTERPRISE_IMAGES[id],
+        },
+        { kind: "printed-manual", pages: [16, 21, 22] },
+      ],
+    })),
+    ...Object.entries(ORIPATHY_ENTERPRISE_TEXT).map(([id, text]) => ({
+      id,
+      name: ENTERPRISE_NAMES[id],
+      rulesVersion: ORIPATHY_RULES_VERSION,
+      text,
+      enabled: true,
+      evidence: [
+        { kind: "card-face", asset: oripathyEnterpriseImage(id) },
+        { kind: "printed-manual", source: "oripathyManual", pages: [9] },
+      ],
+    })),
+  ],
   laboratory: originalLabs,
   evidenceIssues: [
     {
