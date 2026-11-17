@@ -364,7 +364,9 @@ export function RoleHand({
             </button>
           ))}
           {game.actions.some((a) => a.command.mode?.startsWith("flow|")) && (
-            <button onClick={onAction}>安排流形能力 →</button>
+            <button disabled={disabled} onClick={onAction}>
+              安排流形能力 →
+            </button>
           )}
         </div>
       )}
@@ -385,7 +387,11 @@ export function RoleHand({
             </span>
           </button>
           {game.actions.some((a) => a.command.type === "role") && (
-            <button className="role-ability-link" onClick={onAction}>
+            <button
+              className="role-ability-link"
+              disabled={disabled}
+              onClick={onAction}
+            >
               安排角色能力 →
             </button>
           )}

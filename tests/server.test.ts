@@ -19,6 +19,8 @@ import {
 } from "./fixtures/parallel.ts";
 import { RoomStore } from "../apps/server/src/store.ts";
 import { chooseBotCommand } from "../packages/rules/src/bot.ts";
+import { StateReceiver } from "../packages/shared/state-sync.ts";
+import { deflateRawSync } from "node:zlib";
 type App = ReturnType<typeof createGameServer>;
 const running: App[] = [];
 afterEach(async () => {
@@ -53,8 +55,11 @@ async function client(
   token: string,
   headers: Record<string, string> = {},
   perMessageDeflate = true,
+  stateSync = false,
 ) {
   const ws = new WebSocket(address, { headers, perMessageDeflate });
+  const states = new StateReceiver<any>();
+  const frames: any[] = [];
   const inbox: any[] = [];
   const waiters: {
     predicate: (m: any) => boolean;
@@ -63,7 +68,10 @@ async function client(
     timer: ReturnType<typeof setTimeout>;
   }[] = [];
   ws.on("message", (raw) => {
-    const item = JSON.parse(raw.toString());
+    const frame = JSON.parse(raw.toString());
+    frames.push(frame);
+    const room = states.receive(frame);
+    const item = room ? { type: "state", room } : frame;
     const index = waiters.findIndex((w) => w.predicate(item));
     if (index >= 0) {
       const w = waiters.splice(index, 1)[0];
@@ -72,7 +80,14 @@ async function client(
     } else inbox.push(item);
   });
   await new Promise((r) => ws.once("open", r));
-  ws.send(JSON.stringify({ type: "hello", roomId, token }));
+  ws.send(
+    JSON.stringify({
+      type: "hello",
+      roomId,
+      token,
+      ...(stateSync ? { stateSync: 1 } : {}),
+    }),
+  );
   function next(predicate: (m: any) => boolean) {
     const i = inbox.findIndex(predicate);
     if (i >= 0) return Promise.resolve(inbox.splice(i, 1)[0]);
@@ -90,7 +105,7 @@ async function client(
       waiters.push(w);
     });
   }
-  return { ws, next };
+  return { ws, next, frames };
 }
 describe("房间服务", () => {
   it("整组退回角色只保存一次，拒绝部分请求且重连恢复一致", async () => {
@@ -407,6 +422,8 @@ describe("房间服务", () => {
     server: Awaited<ReturnType<typeof start>>,
     count: number,
     kind = "select-role",
+    stateSync = false,
+    compression = true,
   ) {
     const host = await post(`${server.url}/api/rooms`, { name: "房主" });
     const id = host.body.room.id;
@@ -424,13 +441,116 @@ describe("房间服务", () => {
     room.revision++;
     server.app.store.save(room);
     const clients = await Promise.all(
-      credentials.map((c) => client(server.ws, id, c.token)),
+      credentials.map((c) =>
+        client(server.ws, id, c.token, {}, compression, stateSync),
+      ),
     );
     const initialStates = await Promise.all(
       clients.map((c) => c.next((m) => m.type === "state")),
     );
     return { id, clients, credentials, room, initialStates };
   }
+  it.each([true, false])(
+    "四席增量同步仅发送新增日志，压缩协商 %s，并在新连接重建完整基线",
+    async (compression) => {
+      const server = await start();
+      const { id, clients, room, initialStates, credentials } =
+        await parallelRoom(server, 4, "select-role", true, compression);
+      await Promise.all(
+        clients.map((c, i) =>
+          initialStates[i].room.seats.every((s: any) => s.connected)
+            ? Promise.resolve()
+            : c.next(
+                (m) =>
+                  m.type === "state" &&
+                  m.room.seats.every((s: any) => s.connected),
+              ),
+        ),
+      );
+      for (let i = 0; i < 1300; i++)
+        room.game!.log.push({
+          seq: room.game!.log.length + 1,
+          round: 7,
+          actor: null,
+          text: `第 ${i} 次采集与建设，支付路费并获得资源。这是完整保留的历史记录。`,
+        });
+      server.app.store.save(room);
+      async function choose(seat: number) {
+        const current = server.app.store.get(id)!;
+        const playerId = current.seats[seat].id;
+        const requestId = randomUUID();
+        clients[seat].ws.send(
+          JSON.stringify({
+            type: "command",
+            requestId,
+            revision: current.revision,
+            choiceToken: getParallelChoiceToken(current.game!, playerId),
+            command: projectView(current.game!, playerId).actions[0].command,
+          }),
+        );
+        expect(
+          (await clients[seat].next((m) => m.requestId === requestId)).type,
+        ).toBe("ack");
+        return Promise.all(
+          clients.map((c) =>
+            c.next(
+              (m) =>
+                m.type === "state" && m.room.revision === current.revision + 1,
+            ),
+          ),
+        );
+      }
+      await choose(0);
+      const bytes = (ws: WebSocket) =>
+        (ws as unknown as { _socket: { bytesRead: number } })._socket.bytesRead;
+      const before = clients.map((c) => bytes(c.ws));
+      const offsets = clients.map((c) => c.frames.length);
+      const received = await choose(1);
+      const wireBytes = clients.reduce(
+        (sum, c, i) => sum + bytes(c.ws) - before[i],
+        0,
+      );
+      const legacyBytes = received.reduce(
+        (sum, state) =>
+          sum +
+          (compression
+            ? deflateRawSync(JSON.stringify(state), { level: 3, memLevel: 7 })
+                .length
+            : Buffer.byteLength(JSON.stringify(state))),
+        0,
+      );
+      expect(wireBytes).toBeLessThan(legacyBytes * 0.2);
+      const saved = server.app.store.get(id)!;
+      received.forEach((message, i) => {
+        expect(message.room.game).toEqual(
+          projectView(saved.game!, saved.seats[i].id),
+        );
+        expect(message.room.game.log.length).toBeGreaterThanOrEqual(1300);
+        const updates = clients[i].frames
+          .slice(offsets[i])
+          .filter((m) => m.type.startsWith("state"));
+        expect(updates).toHaveLength(1);
+        expect(updates[0].type).toBe("state-delta");
+        expect(JSON.stringify(updates)).not.toContain("第 500 次采集");
+        expect(JSON.stringify(clients[i].frames)).not.toContain("tokenHash");
+        expect(JSON.stringify(clients[i].frames)).not.toContain("randomState");
+      });
+      const reconnected = await client(
+        server.ws,
+        id,
+        credentials[0].token,
+        {},
+        compression,
+        true,
+      );
+      const restored = await reconnected.next((m) => m.type === "state");
+      expect(reconnected.frames[0]).toMatchObject({
+        type: "state",
+        sync: { version: 1, sequence: 1 },
+      });
+      expect(restored.room.game).toEqual(projectView(saved.game!, room.hostId));
+    },
+  );
   it("四席协商压缩同步后期完整日志，保持私牌隔离和原请求回执", async () => {
     const server = await start();
     const { id, clients, room, initialStates } = await parallelRoom(server, 4);

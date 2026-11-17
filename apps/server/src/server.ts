@@ -27,6 +27,10 @@ import type { Room, Seat } from "./store.ts";
 import { Matchmaker, lobbyFilters, playerCount } from "./matchmaking.ts";
 import { capacity, modeFor } from "../../../packages/shared/lobby.ts";
 import {
+  STATE_SYNC_VERSION,
+  StateSender,
+} from "../../../packages/shared/state-sync.ts";
+import {
   SecurityGate,
   SecurityRejection,
   SECURITY_HEADERS,
@@ -59,7 +63,12 @@ function credential(name: string): { seat: Seat; token: string } {
     token,
   };
 }
-type Client = { roomId: string; playerId: string; alive: boolean };
+type Client = {
+  roomId: string;
+  playerId: string;
+  alive: boolean;
+  state?: StateSender;
+};
 export type ServerOptions = {
   database?: string;
   webRoot?: string;
@@ -208,7 +217,11 @@ export function createGameServer(options: ServerOptions = {}) {
   function send(
     ws: WebSocket,
     value: unknown,
-    state?: { room: string; revision: number },
+    state?: {
+      room: string;
+      revision: number;
+      stateType?: "state" | "state-delta";
+    },
   ) {
     if (ws.bufferedAmount > gate.limits.maxBufferedBytes) {
       ws.terminate();
@@ -236,20 +249,30 @@ export function createGameServer(options: ServerOptions = {}) {
         );
     });
   }
+  function sendState(ws: WebSocket, room: Room, client: Client) {
+    if (ws.readyState !== WebSocket.OPEN) return;
+    if (ws.bufferedAmount > gate.limits.maxBufferedBytes) {
+      ws.terminate();
+      return;
+    }
+    // Always project for this seat before computing a connection-local delta.
+    const projected = view(room, client.playerId);
+    const frame = client.state
+      ? client.state.encode(projected)
+      : { type: "state" as const, room: projected };
+    if (frame)
+      send(ws, frame, {
+        room: room.id,
+        revision: room.revision,
+        stateType: frame.type,
+      });
+  }
   function broadcast(roomId: string) {
     const started = performance.now();
     const room = store.get(roomId);
     if (room)
       for (const [ws, c] of clients)
-        if (c.roomId === roomId)
-          send(
-            ws,
-            { type: "state", room: view(room, c.playerId) },
-            {
-              room: roomId,
-              revision: room.revision,
-            },
-          );
+        if (c.roomId === roomId) sendState(ws, room, c);
     scheduleBot(roomId);
     const durationMs = Math.round(performance.now() - started);
     if (durationMs >= 100)
@@ -839,7 +862,14 @@ export function createGameServer(options: ServerOptions = {}) {
               clients.delete(other);
               other.close(4001, "Seat opened in another tab");
             }
-          clients.set(ws, { roomId: room.id, playerId: seat.id, alive: true });
+          clients.set(ws, {
+            roomId: room.id,
+            playerId: seat.id,
+            alive: true,
+            ...(message.stateSync === STATE_SYNC_VERSION
+              ? { state: new StateSender() }
+              : {}),
+          });
           matching.claim(message.token, room.id, seat.id);
           clearTimeout(authTimer);
           broadcast(room.id);
@@ -884,7 +914,7 @@ export function createGameServer(options: ServerOptions = {}) {
           if (replay) {
             outcome = "replayed";
             send(ws, replay);
-            send(ws, { type: "state", room: view(room, client.playerId) });
+            sendState(ws, room, client);
             return;
           }
           if (store.countCommands(room.id) >= gate.limits.maxRoomCommands)
@@ -1017,8 +1047,7 @@ export function createGameServer(options: ServerOptions = {}) {
             message: error instanceof Error ? error.message : "行动处理失败",
           });
           const room = store.get(client.roomId);
-          if (room)
-            send(ws, { type: "state", room: view(room, client.playerId) });
+          if (room) sendState(ws, room, client);
           if (error instanceof SecurityRejection)
             audit(req, error.message, error.status);
           else if (!(error instanceof RuleError))

@@ -1,6 +1,7 @@
 import { test, expect, type Page, type Locator } from "./test.ts";
 import { roomRequest } from "./rooms.ts";
-import { RoomStore } from "../../../apps/server/src/store.ts";
+import { DatabaseSync } from "node:sqlite";
+import type { Room } from "../../../apps/server/src/store.ts";
 import {
   applyCommand,
   createGame,
@@ -99,9 +100,14 @@ export async function fixture(
     if (i === 1) friendToken = result.token;
     seatTokens.push(result.token);
   }
-  const store = new RoomStore(process.env.E2E_DATABASE_PATH!);
+  // The server already initialized this isolated database. Do not repeat schema
+  // writes while its matchmaking timer is active; seed only this private room.
+  const db = new DatabaseSync(process.env.E2E_DATABASE_PATH!, {
+    timeout: 5000,
+  });
   try {
-    const room = store.get(id)!;
+    const row = db.prepare("SELECT body FROM rooms WHERE id = ?").get(id)!;
+    const room = JSON.parse(row.body as string) as Room;
     let game = createGame(room.seats, { expansion: false, seed: 52 });
     while (
       phase === "actions"
@@ -122,9 +128,13 @@ export async function fixture(
     };
     room.game = game;
     room.revision++;
-    store.save(room);
+    db.prepare("UPDATE rooms SET revision = ?, body = ? WHERE id = ?").run(
+      room.revision,
+      JSON.stringify(room),
+      id,
+    );
   } finally {
-    store.close();
+    db.close();
   }
   await page.goto(`/room/${id}`);
   await expect(page.locator(".connection")).toContainText("已连接");

@@ -8,6 +8,7 @@ import {
 } from "../../packages/rules/src/engine.ts";
 import type { RoomView } from "../../apps/web/src/network.ts";
 import { ROLE_BY_ID } from "../../packages/rules/src/data.ts";
+import { observeSocket } from "./fixtures/state-observer.ts";
 test.beforeEach(() => test.setTimeout(90000));
 
 import { clickRoomButton, roomRequest } from "./fixtures/rooms.ts";
@@ -361,21 +362,6 @@ test("两个独立浏览器完成八回合，所有席位都能查看最终得�
   page,
 }) => {
   test.setTimeout(90000);
-  function observeSocket() {
-    const NativeSocket = window.WebSocket;
-    class ObservedSocket extends NativeSocket {
-      constructor(url: string | URL, protocols?: string | string[]) {
-        super(url, protocols);
-        (window as any).__gameSocket = this;
-        this.addEventListener("message", (event) => {
-          const message = JSON.parse(event.data);
-          if (message.type === "state")
-            (window as any).__gameRoom = message.room;
-        });
-      }
-    }
-    window.WebSocket = ObservedSocket;
-  }
   await page.addInitScript(observeSocket);
   await page.goto("/");
   await openHomeLobby(page);
@@ -440,10 +426,13 @@ test("两个独立浏览器完成八回合，所有席位都能查看最终得�
               ws.removeEventListener("message", receive);
               reject(new Error(message.message));
             }
-            if (message.type === "state" && message.room.revision > revision) {
+            if (
+              (message.type === "state" || message.type === "state-delta") &&
+              (window as any).__gameRoom.revision > revision
+            ) {
               clearTimeout(timer);
               ws.removeEventListener("message", receive);
-              resolve(message.room);
+              resolve((window as any).__gameRoom);
             }
           }
           ws.addEventListener("message", receive);

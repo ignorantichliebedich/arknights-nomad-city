@@ -1441,6 +1441,7 @@ function GameRoom({
                     </div>
                     {!waiting && (
                       <button
+                        disabled={net.busy || net.status !== "online"}
                         onClick={() => {
                           if (decision?.kind === "initial-node" && confirm) {
                             commit();
@@ -1537,7 +1538,12 @@ function GameRoom({
                     ? "attention"
                     : ""
                 }
-                disabled={waiting || game.phase === "finished"}
+                disabled={
+                  waiting ||
+                  game.phase === "finished" ||
+                  net.busy ||
+                  net.status !== "online"
+                }
                 onClick={openAction}
                 aria-label={
                   decision?.kind === "event" ? "处理事件" : "进行行动"

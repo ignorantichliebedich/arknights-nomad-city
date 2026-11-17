@@ -1,6 +1,6 @@
 {
   "name": "nomad-city-friends",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "private": true,
   "type": "module",
   "engines": {
@@ -17,6 +17,7 @@
     "audit:oripathy": "node tools/audit-oripathy.ts",
     "check": "tsc --noEmit",
     "load:test": "node tools/load-test.ts run",
+    "network:measure": "node tools/measure-state-sync.ts",
     "music:import": "node tools/import-music.ts",
     "music:check": "node tools/import-music.ts --check",
     "voices:acquire": "node tools/acquire-role-voices.mjs",
