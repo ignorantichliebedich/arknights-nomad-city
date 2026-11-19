@@ -111,13 +111,19 @@ test("城市缩略盘保持三列四行，悬停和键盘查看建筑，切换�
           .getBoundingClientRect();
         const icon = cell.querySelector("img")!.getBoundingClientRect();
         return (
-          number.left >= icon.right &&
+          (number.left >= icon.right || number.top >= icon.bottom) &&
           number.right <= bounds.right &&
-          number.left >= bounds.left
+          number.left >= bounds.left &&
+          number.bottom <= bounds.bottom
         );
       }),
     );
   expect(walletFits).toBe(true);
+  const bank = page.locator(".resource-tray .mineral-bank");
+  await expect(bank.locator(".counter-wheel")).toHaveCount(6);
+  await expect(bank.locator(".stock-rock strong i")).toHaveText(["2", "0"]);
+  await expect(bank.locator(".stock-iron strong i")).toHaveText(["", "8"]);
+  await expect(bank.getByRole("button")).toHaveCount(0);
   await page.getByRole("button", { name: "我的城市", exact: true }).click();
   const modal = page.locator(".city-window");
   const slots = modal.locator(".city-grid .city-cell");

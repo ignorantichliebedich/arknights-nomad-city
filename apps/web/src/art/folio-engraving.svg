@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 370 84" fill="none" stroke="#d3bc8c" stroke-linejoin="round">
+  <!-- Original line engraving of a crawler city. Plate marks and distant hills share the same ink. -->
+  <g opacity=".33" stroke-width=".8">
+    <path d="M0 68 32 59 52 60 81 48 98 49 125 30 135 34 151 22 182 44 201 39 226 48 247 40 264 46 291 30 305 33 325 20 370 44M0 74l47-9 26 2 33-13 34 1 17-9 32 8 32-6 27 10 36-5 33-13 53 13M4 80h362M28 78h45m91-3h112m24-2h40"/>
+    <circle cx="76" cy="28" r="17"/><path d="M76 4v7m0 34v7M51 28h8m33 0h10M306 5v12m-6-6h12"/>
+  </g>
+  <g stroke-width="1.35">
+    <path fill="#3b3830" d="M86 54h23l6-8h18V33h13v-8h10v12h9v-5h11V18h7v14h14V8h5v25h10v-8h16v13h13v-5h11v9h18l4 9h16l-9 12-17 6H111l-17-5Z"/>
+    <path d="M94 57h186m-174 6h160m-151-12h148m-129-14h11v9h-11m23-6h15m14-5h21m9-5h10m-74 15v-6m29 5v-6m43 9h18m-51-29h10m-8-12h9m-26 6h10m44 26h20M131 32l17-15 10 1m-11-1v15m-3-13 12 10M195 27l9-4m-9-3 9-4"/>
+    <path fill="#302e28" d="M109 65h54l-6 8h-35Zm67 0h59l-7 8h-43Zm66-1h27l-13 8h-12Z"/>
+    <path d="M112 68h45m28 0h43m20-1h13m-126-27h5m20 1h8m20-2h4m16 2h9m14 0h6"/>
+  </g>
+  <g opacity=".58" stroke-width=".8"><path d="m114 55 8-5m0 5 8-5m0 5 8-5m0 5 8-5m0 5 8-5m0 5 8-5m0 5 8-5m0 5 8-5m0 5 8-5m0 5 8-5m0 5 8-5m0 5 8-5m0 5 8-5m0 5 8-5m0 5 8-5m0 5 8-5m0 5 8-5m0 5 8-5"/><path d="M191 6c-4-2-13 0-20-3m9 12c-8 1-13 0-21-1"/></g>
+</svg>

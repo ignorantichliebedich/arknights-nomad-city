@@ -86,12 +86,15 @@ export function EnterpriseChoices({
             );
             const current = me.enterprise[id] ?? 0;
             // Upgrades and individual triggers must keep their exact level visible.
-            const targetLevel = /(?:→\s*| · )([1-5])(?: 级)?$/.exec(
-              option!.label,
-            )?.[1];
+            const targetLevel =
+              game.decision?.kind === "company-draft"
+                ? 1
+                : Number(
+                    /(?:→\s*| · )([1-5])(?: 级)?$/.exec(option!.label)?.[1],
+                  );
             const feature =
               (targetLevel
-                ? levels.find((level) => level.level === Number(targetLevel))
+                ? levels.find((level) => level.level === targetLevel)
                 : undefined) ??
               [...levels]
                 .reverse()
@@ -128,7 +131,7 @@ export function EnterpriseChoices({
                         className="enterprise-offer-check"
                         aria-hidden="true"
                       >
-                        {picked ? "✓" : "+"}
+                        {picked ? "已选" : ""}
                       </span>
                     </span>
                     <span className="enterprise-offer-profile">

@@ -38,7 +38,7 @@ export function TableDashboard({
             可用标记 <b>{me.availableMarkers}</b>
           </span>
         </div>
-        <ResourceStock wallet={me.wallet} />
+        <ResourceStock wallet={me.wallet} counter />
       </section>
       <section className="player-panel">
         <div className="section-label">

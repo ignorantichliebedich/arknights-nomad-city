@@ -39,6 +39,10 @@ test("秘密企业选择可以先查看完整效果，预览不提交行动", as
     .locator(".room-toolbar")
     .getAttribute("data-revision");
   await expect(page.locator(".enterprise-offer")).toHaveCount(4);
+  for (const level of await page
+    .locator(".enterprise-offer-level")
+    .allTextContents())
+    expect(level).toMatch(/^1 级/);
   const brand = page.locator(".enterprise-offer-art").first();
   await expect(brand.locator("img")).toHaveJSProperty("naturalWidth", 650);
   expect(

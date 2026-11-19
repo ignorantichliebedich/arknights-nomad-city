@@ -88,6 +88,7 @@ test("城市拖起显示虚线、无效落点不提交，合法落点松手立�
     page.locator(`.city-position[data-player="${me.id}"]`),
   ).toHaveAttribute("data-city", move.target);
   await expect(page.locator(".stock-ore strong")).toHaveText("17");
+  await expect(page.locator(".stock-ore strong i")).toHaveText(["1", "7"]);
   expect(await revision(page)).toBe(before + 2);
   if (readGame(id).decision?.kind === "event") {
     await expect(page.locator(".interaction-window")).toHaveCount(0);
@@ -103,6 +104,7 @@ test("采集在地图勾选、撤回、刷新保留路线，确认后按共用�
     for (const s of Object.values(g.sites)) s.slots.fill(null);
     const me = g.players[0];
     me.city = "A-01";
+    me.wallet.rock = 9;
     for (const n of ["A-02", "A-03"]) {
       g.sites[n].resource = "rock";
       g.sites[n].amount = 2;
@@ -183,6 +185,7 @@ test("采集在地图勾选、撤回、刷新保留路线，确认后按共用�
   await expect(page.locator(".stock-rock .flip-number")).toHaveClass(
     /number-up/,
   );
+  await expect(page.locator(".stock-rock strong i")).toHaveText(["1", "3"]);
   expect(readGame(id).players[1].wallet.cash).toBeGreaterThan(
     initial.players[1].wallet.cash,
   );

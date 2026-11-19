@@ -15,7 +15,23 @@ import type { PlayerView } from "../../../../packages/rules/src/types.ts";
 import { entrepreneurPresentation } from "../entrepreneur.ts";
 import { EntrepreneurPortrait } from "./EntrepreneurPortrait.tsx";
 
-export function FlipNumber({ value }: { value: number }) {
+function counterDigits(value: number) {
+  const digits = String(value);
+  return (
+    <>
+      <i>{digits.slice(0, -1)}</i>
+      <i>{digits.slice(-1)}</i>
+    </>
+  );
+}
+
+export function FlipNumber({
+  value,
+  splitDial = false,
+}: {
+  value: number;
+  splitDial?: boolean;
+}) {
   const previous = useRef(value);
   const [change, setChange] = useState<{ from: number; delta: number } | null>(
     null,
@@ -38,10 +54,10 @@ export function FlipNumber({ value }: { value: number }) {
     >
       {change && (
         <span className="flip-before" aria-hidden="true" key={`old:${value}`}>
-          {change.from}
+          {splitDial ? counterDigits(change.from) : change.from}
         </span>
       )}
-      <strong key={value}>{value}</strong>
+      <strong key={value}>{splitDial ? counterDigits(value) : value}</strong>
       {change && (
         <em className="number-delta" aria-hidden="true" key={`delta:${value}`}>
           {change.delta > 0 ? "+" : ""}
