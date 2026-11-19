@@ -249,13 +249,14 @@ test("原版企业家、大总统、边缘说明和新回合动画随公共状�
   ).toBeVisible();
   expect(
     await page
-      .locator(".stock-token")
+      .locator(".stock-token:not(.wallet-piece)")
       .evaluateAll((imgs) =>
         imgs.every((img) =>
           (img as HTMLImageElement).src.includes("/assets/resource-"),
         ),
       ),
   ).toBe(true);
+  await expect(page.locator(".resource-tray .wallet-piece")).toHaveCount(3);
   await expect(page.locator(".edge-hint-sheet")).toBeHidden();
   const tab = page.getByRole("button", { name: "回合与终局计分" });
   await tab.hover();

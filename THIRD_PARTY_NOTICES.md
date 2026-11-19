@@ -14,6 +14,11 @@
 
 界面补绘记录见 `assets/fan-table-art.md`，原始素材与生成处理分别标注。依赖库使用各自发布的许可证，版本锁定于 `pnpm-lock.yaml`。
 首页八字矢量标题由 Adobe Source Han Sans SC Heavy 字形导出，适用 SIL Open Font License 1.1，许可全文保存在 `assets/licenses/source-han-sans-OFL.txt`。字体原件与运行 SVG 位于忽略目录；重建脚本、来源与摘要见 `assets/entry-art-direction.md`。
+
+资源名使用 Ma Shan Zheng 手写体。随游戏分发的 WOFF2 只含六个名称用到的 11 个汉字，保留原作者声明和 SIL Open Font License 1.1。[字体来源](https://github.com/google/fonts/tree/406197b91ff39a93061c2c2eeaee67ddf2ae1f0d/ofl/mashanzheng) · [随附许可](apps/web/public/licenses/ma-shan-zheng-OFL.txt)
+
+资源盘的至纯源石网格、金券票面和六角分牌为本项目绘制。源石以《铸基者》说明书配件页和豪华版实物的轮廓为造型参考，构建时从 OBJ 网格及材质渲染。[官方配件照片](https://web.hycdn.cn/arknights/boardgame_nomadcity/_next/static/media/07.92ec29c8.png)
+
 角色语音来源于 PRTS 公开语音索引与 torappu 音频资源，权利归鹰角网络及各自权利人；公开仓库仅保留出处、摘要、清单和播放代码。逐段来源见 `assets/voice-manifest.json`。唱片封面来自用户提供的音乐原件内嵌图像，运行封面与 MP3 一并忽略。
 
 《感染者》规则书来自鹰角官方静态文件，运行牌面取自与其对应的公开原版扫描；来源与摘要见 `assets/oripathy-evidence.json`。规则书、研究图像及归一化牌面保存在忽略目录，原件及水印保留；公开 Git 只保留规则数据、处理工具和来源登记。

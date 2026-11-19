@@ -88,10 +88,17 @@ async function expectWallet(page: Page, name: string, wallet: Wallet) {
     await expect(cell.locator(".flip-number > strong")).toHaveText(
       String(wallet[r]),
     );
-    await expect(cell.locator("img")).toHaveAttribute(
-      "src",
-      `/assets/resource-${r}.webp`,
-    );
+    const art = cell.locator("img");
+    if (r === "prime" || r === "cash" || r === "score") {
+      await expect(art).toHaveClass(/wallet-piece/);
+      await expect(art).toHaveJSProperty(
+        "naturalWidth",
+        { prime: 144, cash: 120, score: 96 }[r],
+      );
+      await expect(art).toHaveCSS("clip-path", "none");
+    } else {
+      await expect(art).toHaveAttribute("src", `/assets/resource-${r}.webp`);
+    }
   }
 }
 
@@ -101,6 +108,16 @@ test("城市缩略盘保持三列四行，悬停和键盘查看建筑，切换�
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
   const state = await cityFixture(page);
+  await page.evaluate(() => document.fonts.ready);
+  expect(
+    await page.evaluate(() =>
+      Array.from(document.fonts).some(
+        (face) =>
+          face.family.includes("Nomad Resource Hand") &&
+          face.status === "loaded",
+      ),
+    ),
+  ).toBe(true);
   const walletFits = await page
     .locator(".resource-tray .stock-cell")
     .evaluateAll((cells) =>
@@ -110,8 +127,14 @@ test("城市缩略盘保持三列四行，悬停和键盘查看建筑，切换�
           .querySelector(".flip-number > strong")!
           .getBoundingClientRect();
         const icon = cell.querySelector("img")!.getBoundingClientRect();
+        const caption = cell
+          .querySelector(".stock-hand-label")!
+          .getBoundingClientRect();
         return (
           (number.left >= icon.right || number.top >= icon.bottom) &&
+          (number.top >= caption.bottom || caption.top >= number.bottom) &&
+          caption.left >= bounds.left &&
+          caption.right <= bounds.right &&
           number.right <= bounds.right &&
           number.left >= bounds.left &&
           number.bottom <= bounds.bottom
@@ -119,6 +142,9 @@ test("城市缩略盘保持三列四行，悬停和键盘查看建筑，切换�
       }),
     );
   expect(walletFits).toBe(true);
+  await expect(page.locator(".resource-tray .stock-hand-label")).toHaveText(
+    RESOURCES.map((type) => RESOURCE_NAMES[type]),
+  );
   const bank = page.locator(".resource-tray .mineral-bank");
   await expect(bank.locator(".counter-wheel")).toHaveCount(6);
   await expect(bank.locator(".stock-rock strong i")).toHaveText(["2", "0"]);

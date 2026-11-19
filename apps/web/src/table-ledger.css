@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "Nomad Resource Hand";
+  src: url("./art/resource-labels.woff2?no-inline") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
 /* 公共账册使用纸面和栏线，阴影留给实体配件。 */
 .game-layout::before {
   animation: none;
@@ -113,9 +119,12 @@
   gap: 3px;
   grid-row: 1;
 }
-.game-sidebar .counter-legend b {
-  color: #473727;
-  font: 700 12px/1.1 var(--print-serif);
+.stock-token.wallet-piece {
+  object-fit: contain;
+  border-radius: 0;
+  clip-path: none;
+  transform: none;
+  filter: none;
 }
 .game-sidebar .counter-legend .stock-token {
   width: 30px;
@@ -206,15 +215,18 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0;
   padding: 0;
-  margin: 5px 0 0;
+  margin: 6px 0 0;
   background: url("./art/paper-fibre.svg"), #dcd0b6;
 }
 .game-sidebar .counter-purse .stock-cell {
   display: grid;
   grid-template-columns: minmax(0, 1fr) max-content;
-  gap: 2px;
-  min-height: 43px;
-  padding: 4px;
+  grid-template-rows: minmax(31px, auto) auto;
+  align-content: center;
+  align-items: center;
+  gap: 1px 3px;
+  min-height: 55px;
+  padding: 3px 6px 4px;
   border: 0;
   border-right: 1px dashed #ab9879;
   border-radius: 0;
@@ -225,14 +237,64 @@
   border-right: 0;
 }
 .game-sidebar .counter-purse .stock-token {
-  width: min(30px, 100%);
-  height: 28px;
+  grid-area: 1 / 1;
+  justify-self: end;
+  width: min(100%, 44px);
+  max-width: none;
+  height: 33px;
   object-fit: contain;
   filter: none;
 }
-.game-sidebar .counter-purse .stock-cell > div > span:last-child {
-  color: #594b3a;
-  font-size: 10px;
+.game-sidebar .counter-purse .stock-cell > div {
+  display: contents;
+}
+.game-sidebar .counter-purse .flip-number {
+  grid-area: 1 / 2;
+}
+.game-sidebar .counter-purse .number-delta {
+  left: auto;
+  right: calc(100% + 2px);
+  top: -6px;
+  margin: 0;
+  padding: 1px 2px;
+  background: #f3e5c8;
+  font-size: 11px;
+  z-index: 1;
+}
+.game-sidebar .counter-purse .stock-hand-label {
+  grid-area: 2 / 1 / 3 / -1;
+  justify-self: center;
+}
+/* Only the handwritten names drift off the baseline. The balances retain tabular numerals. */
+:is(.game-sidebar .stock-counter, .city-resource-tray)
+  .stock-cell
+  .stock-hand-label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.035em;
+  white-space: nowrap;
+  color: #49382a;
+  font:
+    400 15px/1.12 "Nomad Resource Hand",
+    "Kaiti SC",
+    KaiTi,
+    var(--print-serif);
+  font-synthesis: none;
+}
+.game-sidebar .mineral-counter .counter-legend .stock-hand-label {
+  font-size: 14px;
+}
+.stock-hand-label i {
+  font: inherit;
+}
+.stock-hand-label i:nth-child(4n + 1) {
+  transform: translateY(0.025em) rotate(-3deg);
+}
+.stock-hand-label i:nth-child(4n + 2) {
+  transform: translateY(-0.035em) rotate(2deg);
+}
+.stock-hand-label i:nth-child(4n + 3) {
+  transform: rotate(-1.5deg);
 }
 .game-sidebar .player-panel {
   overflow: visible;

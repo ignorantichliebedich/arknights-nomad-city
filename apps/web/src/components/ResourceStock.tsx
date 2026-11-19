@@ -8,6 +8,7 @@ import type { Resource, Wallet } from "../../../../packages/rules/src/types.ts";
 import { FlipNumber } from "./TableMotion.tsx";
 import { ResourceToken } from "./TablePieces.tsx";
 import { MineralCounter } from "./MineralCounter.tsx";
+import { ResourceCaption } from "./ResourceCaption.tsx";
 
 /** The same public balances are used on the table and in a player's city. */
 export function ResourceStock({
@@ -29,10 +30,10 @@ export function ResourceStock({
         }
         aria-label={`${RESOURCE_NAMES[type]} ${wallet[type]}`}
       >
-        <ResourceToken type={type} />
+        <ResourceToken type={type} variant="piece" />
         <div>
           <FlipNumber value={wallet[type]} />
-          <span>{RESOURCE_NAMES[type]}</span>
+          <ResourceCaption type={type} />
         </div>
       </div>
     );
@@ -64,7 +65,7 @@ export function PlayerResourceStrip({ wallet }: { wallet: Wallet }) {
           aria-label={`${RESOURCE_NAMES[type]} ${wallet[type]}`}
           title={`${RESOURCE_NAMES[type]}：${wallet[type]}`}
         >
-          <ResourceToken type={type} />
+          <ResourceToken type={type} variant="piece" />
           <FlipNumber value={wallet[type]} />
         </span>
       ))}

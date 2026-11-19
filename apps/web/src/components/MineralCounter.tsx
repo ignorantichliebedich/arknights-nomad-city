@@ -3,6 +3,7 @@ import { RESOURCE_NAMES } from "../../../../packages/rules/src/data.ts";
 import type { Resource } from "../../../../packages/rules/src/types.ts";
 import { ResourceToken } from "./TablePieces.tsx";
 import { FlipNumber } from "./TableMotion.tsx";
+import { ResourceCaption } from "./ResourceCaption.tsx";
 
 /** The edge and its printed scale turn together beneath the cardboard cover. */
 function CounterWheel({ value }: { value: number }) {
@@ -58,7 +59,7 @@ export function MineralCounter({
       <span className="counter-face" aria-hidden="true" />
       <span className="counter-legend">
         <ResourceToken type={type} />
-        <b>{RESOURCE_NAMES[type]}</b>
+        <ResourceCaption type={type} />
       </span>
       <FlipNumber value={value} splitDial />
       <span className="counter-axles" aria-hidden="true" />

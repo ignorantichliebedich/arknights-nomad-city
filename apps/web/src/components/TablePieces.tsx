@@ -3,6 +3,9 @@ import {
   PLAYER_SYMBOLS,
 } from "../../../../packages/rules/src/data.ts";
 import type { Resource } from "../../../../packages/rules/src/types.ts";
+import primePiece from "../art/originium-prime.obj?piece";
+import printedNotes from "../art/columbian-notes.svg?no-inline";
+import scoreCounter from "../art/score-counter.svg?no-inline";
 
 type Point = readonly [number, number, number];
 type Face = { vertices: Point[]; light: number };
@@ -169,11 +172,24 @@ export function TablePiece({
   );
 }
 
-export function ResourceToken({ type }: { type: Resource }) {
+const walletPieces: Partial<Record<Resource, string>> = {
+  prime: primePiece,
+  cash: printedNotes,
+  score: scoreCounter,
+};
+
+export function ResourceToken({
+  type,
+  variant = "printed",
+}: {
+  type: Resource;
+  variant?: "printed" | "piece";
+}) {
+  const piece = variant === "piece" ? walletPieces[type] : undefined;
   return (
     <img
-      className={`stock-token token-${type}`}
-      src={`/assets/resource-${type}.webp`}
+      className={`stock-token token-${type}${piece ? " wallet-piece" : ""}`}
+      src={piece ?? `/assets/resource-${type}.webp`}
       alt=""
       aria-hidden="true"
       draggable={false}

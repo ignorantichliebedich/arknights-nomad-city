@@ -2,13 +2,14 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { fileURLToPath } from "node:url";
 import { readFileSync } from "node:fs";
+import { primePieceAsset } from "../../tools/render-prime-piece.ts";
 const { version } = JSON.parse(
   readFileSync(new URL("../../package.json", import.meta.url), "utf8"),
 );
 export default defineConfig({
   define: { "import.meta.env.VITE_APP_VERSION": JSON.stringify(version) },
   root: fileURLToPath(new URL(".", import.meta.url)),
-  plugins: [react()],
+  plugins: [react(), primePieceAsset()],
   server: {
     host: "0.0.0.0",
     port: 5173,
