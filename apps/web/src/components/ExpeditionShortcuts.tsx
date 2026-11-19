@@ -19,7 +19,6 @@ export function ExpeditionShortcuts({
           </svg>
         </span>
         <span className="shortcut-copy">
-          <small aria-hidden="true">FIELD TRAINING / 01</small>
           <strong>实操演习</strong>
         </span>
         <span className="shortcut-arrow" aria-hidden="true">
@@ -38,7 +37,6 @@ export function ExpeditionShortcuts({
           </svg>
         </span>
         <span className="shortcut-copy">
-          <small aria-hidden="true">FRONTIER ARCHIVE / 02</small>
           <strong>拓荒指南</strong>
         </span>
         <span className="shortcut-arrow" aria-hidden="true">

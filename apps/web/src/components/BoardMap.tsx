@@ -71,26 +71,35 @@ export function BoardMap({
   const previousCities = useRef(
     Object.fromEntries(game.players.map((p) => [p.id, p.city])),
   );
-  const [arrivals, setArrivals] = useState<string[]>([]);
+  const [landings, setLandings] = useState<
+    Record<string, "city-arrival" | "city-travel">
+  >({});
   const cityLocations = game.players.map((p) => `${p.id}:${p.city}`).join("|");
   useLayoutEffect(() => {
-    const landed = game.players
-      .filter((p) => p.city && previousCities.current[p.id] === null)
-      .map((p) => p.id);
+    const previous = previousCities.current;
     previousCities.current = Object.fromEntries(
       game.players.map((p) => [p.id, p.city]),
     );
-    if (
-      !landed.length ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      setArrivals([]);
-      return;
-    }
-    setArrivals(landed);
-    const timer = setTimeout(() => setArrivals([]), 1000);
-    return () => clearTimeout(timer);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const changes = Object.fromEntries(
+      game.players
+        .filter((p) => p.city && p.city !== previous[p.id])
+        .map((p) => [
+          p.id,
+          previous[p.id] ? ("city-travel" as const) : ("city-arrival" as const),
+        ]),
+    );
+    if (Object.keys(changes).length)
+      setLandings((existing) => ({ ...existing, ...changes }));
   }, [cityLocations]);
+  function clearLanding(playerId: string) {
+    setLandings((existing) => {
+      if (!(playerId in existing)) return existing;
+      const remaining = { ...existing };
+      delete remaining[playerId];
+      return remaining;
+    });
+  }
   const svgRef = useRef<SVGSVGElement>(null);
   const influence = useInfluenceDrag(
     game,
@@ -423,8 +432,18 @@ export function BoardMap({
                   if (!canDrag) chooseSite(p.city!);
                 }}
               >
-                <g className={arrivals.includes(p.id) ? "city-arrival" : ""}>
-                  {arrivals.includes(p.id) && (
+                <g
+                  key={p.city}
+                  className={landings[p.id]}
+                  onAnimationEnd={(e) => {
+                    if (
+                      e.animationName === "city-touchdown" ||
+                      e.animationName === "city-travel-settle"
+                    )
+                      clearLanding(p.id);
+                  }}
+                >
+                  {landings[p.id] === "city-arrival" && (
                     <g
                       className="city-landing-dust"
                       aria-hidden="true"
@@ -435,9 +454,7 @@ export function BoardMap({
                       <path d="M-44 8l-12 4m96-2 14 5m-65 6-5 9m37-8 5 9" />
                     </g>
                   )}
-                  <g className="city-arrival-model">
-                    <TablePiece kind="city" seat={p.seat} />
-                  </g>
+                  <TablePiece kind="city" seat={p.seat} />
                 </g>
                 {canDrag && (
                   <rect

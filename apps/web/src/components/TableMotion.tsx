@@ -1,5 +1,6 @@
 import {
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
   type CSSProperties,
@@ -19,11 +20,16 @@ export function FlipNumber({ value }: { value: number }) {
   const [change, setChange] = useState<{ from: number; delta: number } | null>(
     null,
   );
-  useEffect(() => {
-    if (previous.current === value) return;
-    setChange({ from: previous.current, delta: value - previous.current });
+  useLayoutEffect(() => {
+    const from = previous.current;
+    if (from === value) return;
     previous.current = value;
-    const timer = setTimeout(() => setChange(null), 900);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setChange(null);
+      return;
+    }
+    setChange({ from, delta: value - from });
+    const timer = setTimeout(() => setChange(null), 600);
     return () => clearTimeout(timer);
   }, [value]);
   return (

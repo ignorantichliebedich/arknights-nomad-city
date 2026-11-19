@@ -74,9 +74,7 @@ export function ExpeditionEntry({
               aria-label="开始拓荒"
               onClick={() => change("lobby")}
             >
-              <span>
-                <small>BEGIN YOUR EXPEDITION</small>开始拓荒
-              </span>
+              <span>开始拓荒</span>
               <b aria-hidden="true">↗</b>
             </button>
           </div>
@@ -91,8 +89,6 @@ export function ExpeditionEntry({
           <span>
             <b>08</b> 回合拓荒
           </span>
-          <i />
-          <span>一片共同的荒野</span>
         </div>
       </section>
       <section

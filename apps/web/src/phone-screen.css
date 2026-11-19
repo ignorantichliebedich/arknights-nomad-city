@@ -54,7 +54,8 @@ body:has(.app-shell.phone-layout),
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   flex: 1;
-  gap: 4px;
+  gap: 0;
+  align-items: center;
 }
 .phone-resource-hud .stock-token {
   width: 18px;
@@ -64,6 +65,7 @@ body:has(.app-shell.phone-layout),
   flex-direction: column;
   justify-content: center;
   gap: 0;
+  min-height: 0;
 }
 .phone-resource-hud .flip-number,
 .phone-resource-hud .flip-number strong {

@@ -41,7 +41,6 @@ export function EnterpriseTrack({
             className={`enterprise-step ${level <= current ? "is-reached" : ""} ${level === current ? "is-current" : ""} ${level === current + 1 ? "is-next" : ""}`}
           >
             <span className="enterprise-level-flag" aria-label={`${level} 级`}>
-              <small>LEVEL</small>
               <b>{level}</b>
             </span>
             <div className="enterprise-step-copy">

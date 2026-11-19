@@ -61,7 +61,10 @@ test("城市拖起显示虚线、无效落点不提交，合法落点松手立�
   await page.mouse.down();
   await page.mouse.move(origin.x - 15, origin.y + 18, { steps: 3 });
   await expect(page.locator(".drag-city")).toBeVisible();
-  await expect(page.locator(".route-line").first()).toBeVisible();
+  await expect(page.locator(".dragging-routes .route-line").first()).toHaveCSS(
+    "animation-name",
+    "route-flow",
+  );
   expect(await page.locator(".board-hit.legal").count()).toBeGreaterThan(0);
   const bounds = (await page.locator(".board-viewport").boundingBox())!;
   await page.mouse.move(bounds.x + 120, bounds.y + 30, { steps: 4 });
@@ -144,6 +147,10 @@ test("采集在地图勾选、撤回、刷新保留路线，确认后按共用�
   await expect(page.locator(".harvest-check")).toHaveCount(1);
   await page.locator('.board-hit[data-site-id="A-03"]').click();
   await expect(page.locator(".harvest-check")).toHaveCount(2);
+  await expect(page.locator(".route-selected .route-line").first()).toHaveCSS(
+    "animation-name",
+    "none",
+  );
   const selected = readGame(id);
   const view = projectView(selected, selected.players[0].id);
   const done = view.decision!.options.find((o) => o.id === "done")!;

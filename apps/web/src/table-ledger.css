@@ -1,0 +1,333 @@
+/* 公共账册使用纸面和栏线，阴影留给实体配件。 */
+.game-layout::before {
+  animation: none;
+  opacity: 0.22;
+  filter: brightness(0.78) saturate(0.48);
+}
+.game-sidebar {
+  gap: 0;
+  padding: 0 12px;
+  background: var(--print-stock);
+  color: var(--print-ink);
+  border-left: 1px solid #665a49;
+}
+.game-sidebar .resource-tray,
+.game-sidebar .player-panel,
+.game-sidebar .table-overviews {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+.game-sidebar .section-label,
+.game-sidebar .player-panel > .section-label {
+  padding: 11px 0 8px;
+  align-items: baseline;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #514a40;
+}
+.game-sidebar .section-label h2 {
+  letter-spacing: 0.05em;
+  font: 700 17px/1.22 var(--print-serif);
+  color: var(--print-ink);
+}
+.game-sidebar .section-label span {
+  color: #585043;
+  font-size: 11px;
+}
+.game-sidebar .stock-grid {
+  gap: 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 4px 0 8px;
+}
+.game-sidebar .stock-cell {
+  min-height: 48px;
+  padding: 4px 2px;
+  border: 0;
+  box-shadow: none;
+  border-radius: 0;
+  background: transparent;
+  grid-template-columns: minmax(0, 1fr) max-content;
+  gap: 6px;
+}
+.game-sidebar .stock-cell:nth-child(n + 4) {
+  border-top: 1px solid var(--print-rule);
+}
+.game-sidebar .stock-cell .stock-token {
+  height: 34px;
+  filter: none;
+  width: min(31px, 100%);
+}
+.game-sidebar .stock-cell .token-score {
+  height: 25px;
+}
+.game-sidebar .stock-cell > div > span:last-child {
+  font-size: 11px;
+  color: var(--print-muted);
+}
+.game-sidebar .player-row,
+.game-sidebar .player-row.active {
+  border: 0;
+  border-bottom: 1px solid var(--print-rule);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 7px 2px;
+  gap: 3px 9px;
+}
+.game-sidebar .player-row.active {
+  background: #f4ede1;
+}
+.game-sidebar .player-row:hover {
+  background: #f5eee2;
+}
+.game-sidebar .entrepreneur-portrait {
+  width: 35px;
+  height: 36px;
+  border-radius: 0;
+  border: 0;
+  border-left: 3px solid var(--seat-color);
+}
+.game-sidebar .entrepreneur-info strong {
+  font-size: 14px;
+  color: #302b25;
+}
+.game-sidebar .entrepreneur-info small {
+  font-size: 11px;
+  color: #60584e;
+}
+.game-sidebar .entrepreneur-score {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  grid-column: 4;
+  grid-row: 1;
+  white-space: nowrap;
+}
+.game-sidebar .player-stock-strip {
+  border: 0;
+  padding: 1px 0 0;
+  margin: 0;
+  gap: 3px;
+  grid-column: 1/-1;
+}
+.game-sidebar .player-stock {
+  justify-content: start;
+  color: #413a31;
+  opacity: 1;
+}
+.game-sidebar .player-stock.is-empty {
+  opacity: 0.75;
+}
+.game-sidebar .player-stock .stock-token {
+  filter: none;
+  width: 18px;
+  height: 20px;
+}
+.game-sidebar .player-stock strong {
+  font-size: 12px;
+}
+.game-sidebar .table-overviews {
+  gap: 0;
+  padding-top: 6px;
+}
+.game-sidebar .table-thumbnail {
+  min-height: 56px;
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid var(--print-rule);
+  background: transparent;
+  padding: 5px 1px;
+  gap: 10px;
+  box-shadow: none;
+}
+.game-sidebar .table-thumbnail > div:last-of-type {
+  gap: 2px;
+}
+.game-sidebar .table-thumbnail strong {
+  font-size: 14px;
+  color: #312d26;
+}
+.game-sidebar .table-thumbnail small,
+.game-sidebar .table-thumbnail > div:last-of-type > span {
+  color: #5e5547;
+  font-size: 11px;
+}
+.game-sidebar .mini-city,
+.game-sidebar .mini-card-stack,
+.game-sidebar .mini-enterprise {
+  scale: 0.8;
+  transform-origin: center;
+}
+.game-sidebar .table-thumbnail:hover {
+  background: #f4ede0;
+}
+.map-dock {
+  gap: 0;
+}
+.map-dock button,
+.map-dock button.attention {
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid #92836c8a;
+  box-shadow: none;
+  background: #25221ff5;
+  min-height: 52px;
+  padding: 9px 10px;
+  grid-template-columns: 20px 1fr;
+  justify-items: start;
+  align-items: center;
+  gap: 3px 8px;
+  text-align: left;
+  color: #f4e8d1;
+}
+.map-dock button .dock-icon {
+  font-size: 18px;
+  grid-row: 1/3;
+}
+.map-dock button strong {
+  font-size: 15px;
+}
+.map-dock button small {
+  grid-column: 2;
+  color: #c6b9a4;
+}
+.map-dock button.attention:enabled {
+  border-left: 3px solid #b35440;
+}
+.entrepreneur-station .map-prompt,
+.fan-hand .fan-confirm {
+  color: #f3e8d2;
+  background: #292622f7;
+  border: 0;
+  border-radius: 0;
+  border-left: 3px solid #b45440;
+  box-shadow: 0 2px 5px #110e0b38;
+}
+.entrepreneur-station .map-prompt button {
+  border-color: #756a5a;
+}
+.fan-hand .fan-confirm p,
+.fan-hand .fan-confirm h3,
+.fan-hand .fan-confirm strong {
+  color: inherit;
+}
+.fan-hand .fan-confirm .secondary-button {
+  color: #d5cab4;
+  box-shadow: none;
+  background: transparent;
+  border: 1px solid #8f806a;
+}
+.fan-hand .fan-confirm .primary-button {
+  color: #fff4e0;
+  box-shadow: none;
+  background: #9f4437;
+  border: 0;
+}
+.fan-hand .fan-toggle,
+.fan-hand.is-picking .fan-toggle {
+  box-shadow: none;
+  border-radius: 0;
+  background: #24221f;
+  border: 0;
+  border-bottom: 1px solid #a38c69;
+}
+.game-sidebar .player-row .president-badge.compact {
+  position: static;
+  grid-column: 3;
+  grid-row: 1;
+  align-self: center;
+  justify-self: center;
+}
+.game-sidebar .president-badge.compact .president-model,
+.game-sidebar .president-badge.compact .president-face {
+  height: 32px;
+  width: 22px;
+}
+.fan-hand .hand-card {
+  border: 1px solid #8f7d61;
+  border-radius: 3px;
+  box-shadow:
+    0 2px 3px #1b150d57,
+    2px 6px 9px #1b150d42;
+}
+.game-sidebar .stock-cell strong,
+.game-sidebar .stock-cell .flip-before {
+  font-family: inherit;
+  font-size: clamp(14px, calc(60px / var(--value-length)), 24px);
+  font-weight: 650;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  color: var(--print-ink);
+}
+.game-sidebar .entrepreneur-score strong,
+.game-sidebar .entrepreneur-score .flip-before {
+  font-family: inherit;
+  font-weight: 650;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--print-ink);
+  font-variant-numeric: tabular-nums;
+}
+.game-sidebar .player-row {
+  grid-template-columns: auto minmax(0, 1fr) auto max-content;
+}
+.game-sidebar .entrepreneur-info {
+  grid-row: 1;
+  grid-column: 2;
+  min-width: 0;
+}
+.game-sidebar .entrepreneur-info > strong {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.game-sidebar .player-row:focus-visible,
+.game-sidebar .table-thumbnail:focus-visible {
+  outline: 2px solid var(--print-red);
+  outline-offset: -2px;
+}
+.game-sidebar .stock-cell .number-delta {
+  color: #325d3c;
+}
+.game-sidebar .stock-cell .number-down .number-delta {
+  color: var(--print-red);
+}
+.phone-resource-hud .stock-cell + .stock-cell {
+  border-inline-start: 1px solid #9b8c734a;
+}
+.map-dock button:hover:enabled,
+.map-dock button:focus-visible {
+  transform: none;
+  background: #3b352c;
+}
+.game-sidebar .table-thumbnail:focus-visible {
+  background: #f4ede0;
+}
+.game-sidebar .player-stock .flip-before {
+  font-size: 12px;
+}
+.game-layout {
+  background: #211f1c;
+}
+.game-sidebar .stock-cell .token-cash {
+  transform: none;
+}
+.game-sidebar .stock-cell > div {
+  min-width: 2.5ch;
+  text-align: center;
+}
+@media (pointer: coarse) {
+  .phone-layout .map-dock button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 4px;
+  }
+  .phone-layout .map-dock button.attention:enabled {
+    border-left: 2px solid #b35440;
+  }
+}

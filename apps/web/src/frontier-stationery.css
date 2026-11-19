@@ -2,6 +2,7 @@
 .poster-founders {
   pointer-events: auto;
   perspective: 1000px;
+  isolation: isolate;
 }
 .poster-founders .founder-card {
   padding: 0;
@@ -11,41 +12,19 @@
   overflow: visible;
   cursor: pointer;
   outline-offset: 8px;
-  transition: transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  width: 39%;
+  aspect-ratio: auto;
+  transition: transform 160ms ease-out;
 }
 .founder-print {
   position: relative;
   display: block;
   overflow: hidden;
-  border: 1px solid #c5a776;
-  background: #cfc0a2;
+  border: 1px solid #50423478;
+  background: #c7b9a3;
   box-shadow:
-    -7px 14px 20px #100e0d70,
-    2px 2px 0 #8f7956;
-  animation: founder-breathe 7s ease-in-out infinite;
-}
-.founder-card-1 .founder-print {
-  animation-delay: -1.8s;
-}
-.founder-card-2 .founder-print {
-  animation-delay: -3.6s;
-}
-.founder-card-3 .founder-print {
-  animation-delay: -5.4s;
-}
-.founder-print:after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    115deg,
-    transparent 32%,
-    #fff8d333 49%,
-    transparent 65%
-  );
-  opacity: 0;
-  transition: opacity 260ms;
+    1px 2px 2px #271e1836,
+    3px 7px 10px #392e2229;
 }
 .poster-founders .founder-card img {
   display: block;
@@ -54,11 +33,8 @@
 }
 .poster-founders .founder-card.is-lifted,
 .poster-founders .founder-card:focus-visible {
-  transform: translateY(-18px) scale(1.055);
   z-index: 6;
-}
-.founder-card.is-lifted .founder-print:after {
-  opacity: 1;
+  transform: translateY(-8px) scale(1.018);
 }
 .founder-card-label {
   position: absolute;
@@ -69,6 +45,8 @@
   text-align: left;
   background: linear-gradient(transparent, #252019ed 40%);
   color: #f3e4c4;
+  opacity: 0;
+  transition: opacity 160ms ease-out;
 }
 .founder-card-label small {
   font: 8px monospace;
@@ -81,6 +59,12 @@
 .poster-founders .founder-caption {
   pointer-events: none;
   min-height: 40px;
+  bottom: 4.2%;
+  left: 12%;
+  right: 0;
+  align-items: flex-start;
+  text-align: left;
+  color: #39332c;
 }
 .home-lobby {
   grid-template-columns: minmax(0, 1fr) minmax(380px, 540px);
@@ -352,14 +336,48 @@
 .departure-stage .permit-tear {
   margin-inline: -28px;
 }
-@keyframes founder-breathe {
-  0%,
-  100% {
-    transform: translateY(0) rotate(-0.25deg);
-  }
-  50% {
-    transform: translateY(-9px) rotate(0.45deg);
-  }
+.poster-founders::before {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  inset: -10px -6vw 4px -5%;
+  clip-path: polygon(9% 0, 100% 0, 100% 100%, 0% 100%);
+  background: #dbcfb9;
+}
+.poster-founders .founder-card-0 {
+  top: 25%;
+  left: -2.4%;
+  rotate: -9deg;
+}
+.poster-founders .founder-card-1 {
+  top: 18.5%;
+  left: 16.9%;
+  rotate: -4deg;
+}
+.poster-founders .founder-card-2 {
+  top: 19%;
+  left: 36.5%;
+  rotate: 3deg;
+}
+.poster-founders .founder-card-3 {
+  top: 26%;
+  left: 58.4%;
+  rotate: 8deg;
+}
+.founder-card:is(.is-lifted, :focus-visible) .founder-card-label {
+  opacity: 1;
+}
+.poster-founders .founder-caption b {
+  font-family: SimSun, "Songti SC", serif;
+  font-weight: 700;
+  font-size: 21px;
+  color: #39332c;
+  letter-spacing: 0.08em;
+}
+.poster-founders .founder-caption span {
+  color: #615644;
+  font-size: 10px;
+  letter-spacing: 0.12em;
 }
 @media (max-height: 820px) and (min-width: 1000px) {
   .home-lobby {
@@ -391,10 +409,6 @@
   }
 }
 @media (pointer: coarse) {
-  .founder-print {
-    animation-duration: 9s;
-    box-shadow: 3px 5px 0 #100e0d80;
-  }
   .founder-card-label {
     padding: 20px 7px 7px;
   }
@@ -408,11 +422,16 @@
     rotate: 0deg;
     filter: none;
   }
-  .poster-founders .founder-card.is-lifted {
-    transform: translateY(-9px) scale(1.035);
-  }
 }
 @media (orientation: portrait) and (max-width: 760px) {
+  .phone-layout .poster-founders::before {
+    inset: 0 -2% 8% -3%;
+  }
+  .phone-layout .founder-large-number {
+    font-size: clamp(64px, 21vw, 92px);
+    top: 0;
+    right: 0;
+  }
   .phone-layout .home-lobby {
     padding: 0 3px 8px;
     gap: 28px;
@@ -480,12 +499,15 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .founder-print {
-    animation: none;
-  }
   .poster-founders .founder-card,
-  .founder-print:after,
   .departure-stage .permit-expansion {
+    transition: none;
+  }
+  .poster-founders .founder-card.is-lifted,
+  .poster-founders .founder-card:focus-visible {
+    transform: none;
+  }
+  .founder-card-label {
     transition: none;
   }
 }

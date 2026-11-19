@@ -1,6 +1,6 @@
 /* Paper lifts onto the table; the board stays still behind it. */
 .modal[open][data-window-motion="enter"] {
-  animation: table-sheet-enter 320ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+  animation: table-sheet-enter 210ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
   transform-origin: center 65%;
 }
 .modal[open][data-window-motion="leave"] {
@@ -8,7 +8,7 @@
   pointer-events: none;
 }
 .modal[open][data-window-motion="enter"]::backdrop {
-  animation: table-shade-enter 240ms ease-out both;
+  animation: table-shade-enter 180ms ease-out both;
 }
 .modal[open][data-window-motion="leave"]::backdrop {
   animation: table-shade-leave 160ms ease-in both;
@@ -83,7 +83,7 @@
     filter: brightness(1.08);
   }
 }
-.city-arrival .city-arrival-model {
+.city-arrival .piece-model {
   animation: city-touchdown 900ms cubic-bezier(0.2, 0.7, 0.25, 1) both;
   transform-box: fill-box;
   transform-origin: center bottom;
@@ -178,11 +178,7 @@
 @keyframes table-sheet-enter {
   from {
     opacity: 0;
-    transform: translateY(18px) scale(0.965) rotate(-0.35deg);
-  }
-  75% {
-    opacity: 1;
-    transform: translateY(-1px) scale(1.002);
+    transform: translateY(8px) scale(0.993);
   }
   to {
     opacity: 1;
@@ -211,19 +207,15 @@
 @keyframes city-touchdown {
   0% {
     opacity: 0;
-    transform: translateY(-70px) scale(1.12) rotate(-3deg);
+    transform: translateY(-42px);
   }
   22% {
     opacity: 1;
   }
-  58% {
-    transform: translateY(3px) scale(1.04, 0.92) rotate(0.7deg);
-  }
-  77% {
-    transform: translateY(-4px) scale(0.99, 1.02);
+  62% {
+    transform: translateY(1px) scale(1.015, 0.975);
   }
   100% {
-    opacity: 1;
     transform: none;
   }
 }
@@ -320,11 +312,45 @@
 @media (prefers-reduced-motion: reduce) {
   .modal[open][data-window-motion],
   .modal[open][data-window-motion]::backdrop,
-  .city-arrival .city-arrival-model,
+  .city-arrival .piece-model,
   .city-landing-dust {
     animation: none;
   }
   .city-landing-dust {
     display: none;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .city-travel .piece-model {
+    transform-box: fill-box;
+    transform-origin: center bottom;
+    animation: city-travel-settle 480ms ease-out both;
+  }
+  .city-arrival .piece-city > ellipse {
+    animation: city-contact 900ms ease-out both;
+  }
+  .city-travel .piece-city > ellipse {
+    animation: city-contact 480ms ease-out both;
+  }
+}
+@keyframes city-travel-settle {
+  0% {
+    transform: translateY(-7px);
+  }
+  75% {
+    transform: translateY(-3px);
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes city-contact {
+  from {
+    opacity: 0.14;
+    scale: 1.2;
+  }
+  to {
+    opacity: 0.4;
+    scale: 1;
   }
 }

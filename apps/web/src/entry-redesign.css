@@ -284,6 +284,7 @@
   font: 10px monospace;
   letter-spacing: 0.14em;
   color: var(--entry-muted);
+  border-color: #f4e7c536;
 }
 .home-scene {
   position: absolute;
@@ -308,10 +309,11 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  color: var(--entry-muted);
   font-size: 11px;
-  letter-spacing: 0.18em;
   margin: 0 0 24px 8px;
+  letter-spacing: 0.16em;
+  color: #d3c3a7;
+  margin-bottom: 25px;
 }
 .hero-kicker > span {
   width: 6px;
@@ -325,12 +327,12 @@
   background: var(--entry-line);
 }
 .poster-title {
-  font-size: clamp(76px, 8.3vw, 156px);
   margin: 0;
   line-height: 1;
   width: max-content;
   max-width: 100%;
   padding: 0.12em 0.12em 0.2em;
+  font-size: clamp(88px, 9.4vw, 150px);
 }
 .poster-line {
   display: flex;
@@ -338,8 +340,8 @@
   width: max-content;
 }
 .poster-line-0 {
-  font-size: 0.6em;
   margin: 0 0 0.15em 0.04em;
+  font-size: 0.59em;
 }
 .poster-line-1 {
   margin-left: -0.06em;
@@ -405,14 +407,14 @@
 }
 .poster-line-0 .poster-paper {
   inset: 12% 2% 6%;
-  background: #493e30;
+  background: #423a31;
 }
 .poster-jitter img {
   position: relative;
   width: 100%;
   height: 100%;
   display: block;
-  filter: drop-shadow(2px 2px 0 #08080780);
+  filter: none;
 }
 .poster-jitter img[hidden] {
   display: none;
@@ -434,138 +436,118 @@
   align-items: center;
   gap: 24px;
   padding-left: 8px;
-  margin-top: 24px;
+  margin-top: 32px;
 }
 .launch-button.primary-button {
   display: flex;
   justify-content: space-between;
   align-items: center;
   min-width: 248px;
-  min-height: 68px;
-  padding: 12px 24px;
-  background: var(--entry-red);
-  color: var(--entry-paper);
-  border: 1px solid #bb6550;
-  box-shadow: 5px 5px 0 #181511;
   text-align: left;
-}
-.launch-button small {
-  display: block;
-  font: 8px monospace;
-  opacity: 0.7;
-  letter-spacing: 0.16em;
-  margin-bottom: 6px;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: #a23e31;
+  color: #fff6e4;
+  width: 272px;
+  min-height: 62px;
+  padding: 12px 19px;
 }
 .launch-button span {
-  font-size: 22px;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  font-size: 24px;
+  letter-spacing: 0.08em;
 }
 .launch-button b {
-  font-size: 30px;
   font-weight: 300;
+  font-size: 23px;
 }
 .hero-shortcuts {
   display: flex;
-  gap: 16px;
-  margin: 24px 0 0 8px;
-  max-width: 488px;
+  gap: 20px;
+  max-width: 410px;
+  margin: 18px 0 0 8px;
 }
 .expedition-shortcut.subtle-button {
-  --ticket-ink: var(--entry-paper);
   --ticket-accent: #d6b780;
   position: relative;
   display: flex;
   align-items: center;
   flex: 1;
   min-width: 0;
-  min-height: 76px;
-  gap: 12px;
-  padding: 12px 16px 12px 12px;
-  border: 1px solid #bba06b80;
   border-radius: 0;
-  color: var(--ticket-ink);
-  background: #2e2922;
-  box-shadow:
-    4px 4px 0 #100f0c70,
-    inset 0 0 0 3px #2e2922,
-    inset 0 0 0 4px #bba06b30;
   text-align: left;
   isolation: isolate;
   transition:
     transform 200ms ease,
     border-color 200ms,
     background-color 200ms;
-}
-.expedition-shortcut::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 4px;
-  background: var(--entry-red);
-}
-.expedition-shortcut::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 12px;
-  height: 12px;
-  background: var(--ticket-accent);
-  clip-path: polygon(0 0, 100% 0, 100% 100%);
-}
-.shortcut-guide.subtle-button {
-  --ticket-ink: #e8d8b4;
-  background: #393126;
-}
-.shortcut-guide::before {
-  background: var(--entry-gold);
+  min-height: 51px;
+  padding: 6px 1px;
+  gap: 10px;
+  box-shadow: none;
+  border: 0;
+  border-bottom: 1px solid #b6a48675;
+  background: transparent;
+  color: #e8ddca;
 }
 .shortcut-emblem {
   display: grid;
   place-items: center;
-  flex: 0 0 40px;
   color: var(--ticket-accent);
+  flex: 0 0 30px;
 }
 .shortcut-emblem svg {
-  width: 40px;
-  height: 40px;
   stroke: currentColor;
   stroke-width: 1.2;
   transition: transform 240ms ease;
+  width: 30px;
+  height: 30px;
+  color: #c5aa78;
 }
 .shortcut-copy {
   min-width: 0;
 }
-.shortcut-copy small {
-  display: block;
-  color: var(--ticket-accent);
-  font: 7px/1.5 monospace;
-  letter-spacing: 0.08em;
-  white-space: nowrap;
-}
 .shortcut-copy strong {
   display: block;
-  font-size: 16px;
   letter-spacing: 0.12em;
   line-height: 1.5;
   margin-top: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
 }
 .shortcut-arrow {
   margin-left: auto;
-  align-self: flex-end;
-  font-size: 18px;
   color: var(--ticket-accent);
   transition: transform 200ms ease;
+  font-size: 15px;
+  align-self: center;
+}
+.expedition-shell:has(.home-scene-hero) .expedition-atmosphere {
+  background: #221f1c;
+}
+.expedition-shell:has(.home-scene-hero) .expedition-landscape {
+  animation: none;
+  opacity: 0.22;
+  background-position: center 62%;
+}
+.expedition-shell:has(.home-scene-hero) .expedition-grain {
+  background: linear-gradient(100deg, #1d1c1a45, transparent 65%);
+}
+.expedition-shell:has(.home-scene-hero) .expedition-dust {
+  display: none;
+}
+.launch-button.primary-button:hover:enabled {
+  background: var(--print-red-hover);
+}
+.launch-button.primary-button:active:enabled {
+  transform: translateY(1px);
 }
 @media (hover: hover) {
   .expedition-shortcut.subtle-button:hover {
-    transform: translateY(-4px) rotate(-0.7deg);
     border-color: var(--ticket-accent);
-    background-color: #493829;
-  }
-  .shortcut-guide.subtle-button:hover {
-    transform: translateY(-4px) rotate(0.7deg);
+    background-color: #ffffff0b;
   }
   .expedition-shortcut:hover .shortcut-emblem svg {
     transform: rotate(-7deg);
@@ -575,8 +557,8 @@
   }
 }
 .expedition-shortcut.subtle-button:focus-visible {
-  outline: 2px solid var(--entry-paper);
-  outline-offset: 4px;
+  outline: 2px solid #d6b780;
+  outline-offset: 3px;
 }
 @media (prefers-reduced-motion: reduce) {
   .expedition-shortcut.subtle-button,
@@ -595,28 +577,14 @@
 }
 .founder-large-number {
   position: absolute;
-  top: -6%;
-  right: 1%;
-  color: #bba06b17;
-  font: 900 clamp(160px, 18vw, 360px)/1 monospace;
-  letter-spacing: -0.09em;
-}
-.founder-orbit {
-  position: absolute;
-  width: 110%;
-  height: 36%;
-  bottom: 8%;
-  left: -10%;
-  border: 1px solid var(--entry-line);
-  border-radius: 50%;
-  transform: rotate(-16deg);
-}
-.founder-orbit:before {
-  content: "";
-  position: absolute;
-  inset: 15px;
-  border: 1px dashed var(--entry-line);
-  border-radius: inherit;
+  top: 0.2%;
+  right: 0.5%;
+  font:
+    italic 800 clamp(75px, 9vw, 140px)/1 Georgia,
+    serif;
+  color: #57493835;
+  letter-spacing: -0.08em;
+  z-index: -1;
 }
 .poster-founders .founder-card {
   width: 43%;
@@ -661,18 +629,20 @@
 }
 .hero-spec {
   position: absolute;
-  bottom: -24px;
   left: 8px;
   display: flex;
   align-items: center;
   gap: 24px;
   color: var(--entry-muted);
   font-size: 11px;
+  bottom: -24px;
 }
 .hero-spec b {
-  font: 20px monospace;
-  color: var(--entry-paper);
   margin-right: 6px;
+  font:
+    600 19px/1 Georgia,
+    serif;
+  color: #eadcc3;
 }
 .hero-spec i {
   width: 1px;
@@ -1062,9 +1032,6 @@
   .phone-layout .launch-button span {
     font-size: 20px;
   }
-  .phone-layout .launch-button small {
-    font-size: 7px;
-  }
   .phone-layout .hero-shortcuts {
     position: relative;
     z-index: 5;
@@ -1087,10 +1054,6 @@
   .phone-layout .shortcut-copy strong {
     font-size: 13px;
     letter-spacing: 0.05em;
-  }
-  .phone-layout .shortcut-copy small {
-    font-size: 6px;
-    letter-spacing: 0;
   }
   .phone-layout .shortcut-arrow {
     display: none;
@@ -1207,10 +1170,6 @@
   }
   .phone-layout .launch-button span {
     font-size: 18px;
-  }
-  .phone-layout .launch-button small {
-    font-size: 6px;
-    margin-bottom: 3px;
   }
   .phone-layout .launch-button b {
     font-size: 24px;

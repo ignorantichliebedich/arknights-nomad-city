@@ -100,69 +100,71 @@ export function TablePiece({
         fill="#111c1b"
         opacity=".4"
       />
-      {city && (
-        <image
-          href={`/assets/city-model-${seat}.svg`}
-          x="-40"
-          y="-48"
-          width="80"
-          height="55"
-        />
-      )}
-      {(!city ? markerFaces : []).map((face, i) => (
-        <polygon
-          key={i}
-          points={points(face.vertices)}
-          fill={tint(color, face.light)}
-          stroke={tint(color, -0.6)}
-          strokeWidth=".7"
-          strokeLinejoin="round"
-        />
-      ))}
-      {!city && (
-        <>
-          {variant === "gang" && (
+      <g className="piece-model">
+        {city && (
+          <image
+            href={`/assets/city-model-${seat}.svg`}
+            x="-40"
+            y="-48"
+            width="80"
+            height="55"
+          />
+        )}
+        {(!city ? markerFaces : []).map((face, i) => (
+          <polygon
+            key={i}
+            points={points(face.vertices)}
+            fill={tint(color, face.light)}
+            stroke={tint(color, -0.6)}
+            strokeWidth=".7"
+            strokeLinejoin="round"
+          />
+        ))}
+        {!city && (
+          <>
+            {variant === "gang" && (
+              <path
+                d="M-12 -3 L-12 -20 L-4 -24 L-4 -7 Z"
+                fill={PLAYER_COLORS[seat]}
+                stroke="#fce8b9"
+                strokeWidth="1"
+              />
+            )}
             <path
-              d="M-12 -3 L-12 -20 L-4 -24 L-4 -7 Z"
-              fill={PLAYER_COLORS[seat]}
-              stroke="#fce8b9"
-              strokeWidth="1"
+              d="M-8.6 -14 L0 -18.3 L8.6 -14 L0 -9.7 Z"
+              fill={tint(color, 0.65)}
+              stroke="#fff3cd"
+              strokeWidth=".65"
             />
-          )}
-          <path
-            d="M-8.6 -14 L0 -18.3 L8.6 -14 L0 -9.7 Z"
-            fill={tint(color, 0.65)}
-            stroke="#fff3cd"
-            strokeWidth=".65"
-          />
-          <path
-            d="M0 -9.7 V-2.5 M-8.6 -14 V-7 M8.6 -14 V-7"
-            fill="none"
-            stroke={tint(color, 0.6)}
-            strokeWidth=".8"
-          />
-          <path
-            d="M-10.3 0 L0 5.2 L10.3 0"
-            fill="none"
-            stroke="#d8bf84"
-            strokeWidth="1.2"
-          />
-        </>
-      )}
-      <text
-        x="0"
-        y={city ? 1 : -10.5}
-        className="piece-symbol"
-        textAnchor="middle"
-        fill="#fff8df"
-        fontSize={city ? 12 : 9}
-        fontWeight="800"
-        stroke="#1a2425"
-        strokeWidth="2"
-        paintOrder="stroke"
-      >
-        {PLAYER_SYMBOLS[seat]}
-      </text>
+            <path
+              d="M0 -9.7 V-2.5 M-8.6 -14 V-7 M8.6 -14 V-7"
+              fill="none"
+              stroke={tint(color, 0.6)}
+              strokeWidth=".8"
+            />
+            <path
+              d="M-10.3 0 L0 5.2 L10.3 0"
+              fill="none"
+              stroke="#d8bf84"
+              strokeWidth="1.2"
+            />
+          </>
+        )}
+        <text
+          x="0"
+          y={city ? 1 : -10.5}
+          className="piece-symbol"
+          textAnchor="middle"
+          fill="#fff8df"
+          fontSize={city ? 12 : 9}
+          fontWeight="800"
+          stroke="#1a2425"
+          strokeWidth="2"
+          paintOrder="stroke"
+        >
+          {PLAYER_SYMBOLS[seat]}
+        </text>
+      </g>
     </g>
   );
 }

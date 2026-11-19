@@ -14,7 +14,6 @@ export function FoundersDisplay() {
   const active = hovered ?? picked;
   return (
     <div className="poster-founders" onPointerLeave={() => setHovered(null)}>
-      <div className="founder-orbit" aria-hidden="true" />
       <span className="founder-large-number" aria-hidden="true">
         105
       </span>
@@ -28,7 +27,10 @@ export function FoundersDisplay() {
           onPointerEnter={(e) => {
             if (e.pointerType === "mouse") setHovered(i);
           }}
-          onFocus={() => setHovered(i)}
+          onFocus={(e) => {
+            if (e.currentTarget.matches(":focus-visible")) setHovered(i);
+          }}
+          onPointerLeave={() => setHovered(null)}
           onBlur={() => setHovered(null)}
           onClick={() => setPicked(picked === i ? null : i)}
         >

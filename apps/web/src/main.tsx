@@ -94,6 +94,7 @@ import "./frontier-stationery.css";
 import "./entrepreneur-dossier.css";
 import "./interaction-polish.css";
 import "./recruitment.css";
+import "./table-ledger.css";
 import "./phone-screen.css";
 import { PhonePages } from "./components/PhonePages.tsx";
 import { EntrepreneurPortrait } from "./components/EntrepreneurPortrait.tsx";

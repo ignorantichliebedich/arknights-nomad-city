@@ -231,7 +231,7 @@ body:has(.game-layout) {
   width: 78px;
   height: 132px;
   transform-style: preserve-3d;
-  animation: president-turn 8s ease-in-out infinite alternate;
+  transform: rotateY(-12deg) rotateX(4deg);
 }
 .president-model > .president-face,
 .president-depth img {
@@ -652,14 +652,6 @@ body:has(.game-layout) {
   }
   to {
     transform: scale(1.06) translateX(0.5%);
-  }
-}
-@keyframes president-turn {
-  from {
-    transform: rotateY(-12deg) rotateX(4deg);
-  }
-  to {
-    transform: rotateY(13deg) rotateX(4deg);
   }
 }
 @keyframes fan-confirm-arrives {
