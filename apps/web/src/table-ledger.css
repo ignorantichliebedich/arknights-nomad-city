@@ -3,6 +3,7 @@
   src: url("./art/resource-labels.woff2?no-inline") format("woff2");
   font-weight: 400;
   font-display: swap;
+  unicode-range: U+3400-9FFF;
 }
 /* 公共账册使用纸面和栏线，阴影留给实体配件。 */
 .game-layout::before {

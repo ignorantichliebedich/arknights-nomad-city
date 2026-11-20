@@ -97,6 +97,7 @@ import "./recruitment.css";
 import "./table-ledger.css";
 import "./table-folio.css";
 import "./phone-screen.css";
+import "./table-copy.css";
 import { PhonePages } from "./components/PhonePages.tsx";
 import { EntrepreneurPortrait } from "./components/EntrepreneurPortrait.tsx";
 import {
@@ -286,7 +287,7 @@ function App() {
   }
   return (
     <div
-      className={`app-shell ${playing ? "" : "expedition-shell"} ${display.phone ? "phone-layout" : ""}`}
+      className={`app-shell ${playing ? "playing-table" : "expedition-shell"} ${display.phone ? "phone-layout" : ""}`}
       style={
         display.phone
           ? ({ "--app-height": `${display.height}px` } as React.CSSProperties)

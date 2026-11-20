@@ -118,6 +118,11 @@ test("城市缩略盘保持三列四行，悬停和键盘查看建筑，切换�
       ),
     ),
   ).toBe(true);
+  const seatNote = page.locator(".entrepreneur-info > small").first();
+  await expect(seatNote).toHaveCSS("font-family", /Nomad Resource Hand/);
+  expect(
+    await seatNote.evaluate((el) => parseFloat(getComputedStyle(el).fontSize)),
+  ).toBeGreaterThanOrEqual(13);
   const walletFits = await page
     .locator(".resource-tray .stock-cell")
     .evaluateAll((cells) =>
@@ -152,6 +157,10 @@ test("城市缩略盘保持三列四行，悬停和键盘查看建筑，切换�
   await expect(bank.getByRole("button")).toHaveCount(0);
   await page.getByRole("button", { name: "我的城市", exact: true }).click();
   const modal = page.locator(".city-window");
+  await expect(modal.locator(".city-board-hint")).toHaveCSS(
+    "font-family",
+    /system-ui/,
+  );
   const slots = modal.locator(".city-grid .city-cell");
   await expect(slots).toHaveCount(12);
   await expectWallet(page, state.own.name, state.own.wallet);
