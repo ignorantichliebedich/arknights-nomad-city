@@ -9,6 +9,8 @@ export const DEFAULT_LIMITS = {
   maxRoomCommands: 10000,
   maxQueuedPerRoom: 32,
   maxBufferedBytes: 1024 * 1024,
+  maxMatching: 1000,
+  matchingPerIp: 4,
 } as const;
 export type SecurityLimits = { [Key in keyof typeof DEFAULT_LIMITS]: number };
 export class SecurityRejection extends Error {

@@ -1,6 +1,6 @@
 {
   "name": "nomad-city-friends",
-  "version": "0.6.2",
+  "version": "0.11.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -14,8 +14,10 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:mobile": "playwright test --config playwright.mobile.config.ts",
+    "audit:oripathy": "node tools/audit-oripathy.ts",
     "check": "tsc --noEmit",
     "load:test": "node tools/load-test.ts run",
+    "network:measure": "node tools/measure-state-sync.ts",
     "music:import": "node tools/import-music.ts",
     "music:check": "node tools/import-music.ts --check",
     "voices:acquire": "node tools/acquire-role-voices.mjs",

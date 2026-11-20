@@ -365,7 +365,7 @@
   max-width: calc(100% - 32px);
 }
 .phone-layout .fan-hand {
-  --hand-width: clamp(76px, 15vw, 124px);
+  --hand-width: clamp(94px, min(22vw, 38dvh), 155px);
   --hand-height: calc(var(--hand-width) * 1.4);
   --fan-max-span: min(52vw, 340px);
   --fan-center: 50%;
@@ -375,6 +375,9 @@
 .phone-layout .fan-hand .hand-cards {
   left: 50%;
   transform: none;
+}
+.phone-layout .fan-hand.is-expanded.is-picking {
+  --fan-center: 50%;
 }
 .phone-layout .fan-hand.is-expanded .hand-cards {
   bottom: 92px;
@@ -455,27 +458,28 @@
   max-height: none;
   padding: 8px;
   overflow: auto;
-  border: 1px solid var(--phone-brass);
-  background: #332a20;
-  color: var(--phone-ink);
-  box-shadow: 0 12px 48px #0009;
-  border-radius: 2px;
+  background: var(--print-stock);
+  color: var(--print-ink);
+  border: 1px solid var(--print-rule);
+  border-radius: 0;
+  box-shadow: 0 5px 18px #17141055;
 }
 .phone-layout .game-sidebar[popover]::backdrop {
   background: #16130e88;
-  backdrop-filter: blur(3px);
+  backdrop-filter: none;
 }
 .phone-layout .phone-dashboard-heading {
   position: sticky;
   top: -8px;
-  background: #332a20;
   z-index: 2;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  color: #ecd6aa;
   padding-left: 4px;
+  background: var(--print-stock);
+  color: var(--print-ink);
+  border-bottom: 2px solid var(--print-muted);
 }
 .phone-dashboard-heading h2 {
   font-size: 15px;
@@ -483,9 +487,9 @@
 .phone-dashboard-heading button {
   min-width: 44px;
   min-height: 44px;
-  background: #67543a;
-  color: #f6e3b9;
   font-size: 24px;
+  background: transparent;
+  color: var(--print-ink);
 }
 .phone-layout .game-sidebar .resource-tray,
 .phone-layout .game-sidebar .player-panel,

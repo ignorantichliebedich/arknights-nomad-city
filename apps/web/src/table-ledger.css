@@ -1,0 +1,654 @@
+@font-face {
+  font-family: "Nomad Resource Hand";
+  src: url("./art/resource-labels.woff2?no-inline") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+3400-9FFF;
+}
+/* 公共账册使用纸面和栏线，阴影留给实体配件。 */
+.game-layout::before {
+  animation: none;
+  opacity: 0.22;
+  filter: brightness(0.78) saturate(0.48);
+}
+/* The mineral block, player slips and loose components sit on the same dark backing. */
+.game-sidebar,
+.phone-layout .game-sidebar[popover]:popover-open {
+  --rack-ink: #282722;
+  --rack-backing: #39362e;
+  --rack-paper: #e5d9bf;
+  --rack-line: #b6a486;
+  gap: 9px;
+  padding: 8px 9px 10px;
+  color: var(--rack-ink);
+  background: url("./art/paper-fibre.svg"), var(--rack-backing);
+  border: 0;
+  border-left: 3px solid #211f1b;
+  scrollbar-color: #928066 #39362e;
+}
+.game-sidebar .resource-tray,
+.game-sidebar .player-panel,
+.game-sidebar .table-overviews {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+.game-sidebar .section-label,
+.game-sidebar .player-panel > .section-label {
+  min-height: 29px;
+  padding: 4px 4px 6px;
+  align-items: baseline;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #928167;
+  color: #efe2c8;
+}
+.game-sidebar .section-label h2 {
+  color: inherit;
+  font: 700 17px/1.2 var(--print-serif);
+  letter-spacing: 0.09em;
+}
+.game-sidebar .section-label span {
+  color: #e0ceb0;
+  font-size: 11px;
+}
+.game-sidebar .section-label b {
+  font-variant-numeric: tabular-nums;
+}
+.game-sidebar .resource-tray > .section-label {
+  align-items: center;
+  padding-block: 0 3px;
+}
+.marker-box {
+  display: inline-flex;
+  gap: 3px;
+  align-items: center;
+  white-space: nowrap;
+}
+.marker-box svg {
+  width: 60px;
+  height: 43px;
+  overflow: visible;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .marker-withdraw {
+    animation: take-marker 570ms both;
+  }
+}
+@keyframes take-marker {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  38% {
+    opacity: 1;
+    transform: translate(-2px, -12px) rotate(-6deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-23px, -21px) rotate(-13deg);
+  }
+}
+.stock-counter {
+  margin-top: 6px;
+}
+.mineral-bank {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  position: relative;
+  isolation: isolate;
+  padding: 0 2px;
+}
+.mineral-bank::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 13px;
+  background: #795c43;
+  clip-path: polygon(
+    6px 0,
+    calc(100% - 6px) 0,
+    100% 6px,
+    100% 100%,
+    0 100%,
+    0 6px
+  );
+}
+.game-sidebar .stock-cell.mineral-counter {
+  position: relative;
+  display: grid;
+  grid-template: 35px 23px 24px / minmax(0, 1fr);
+  justify-items: center;
+  align-items: center;
+  isolation: isolate;
+  padding: 3px 3px 0;
+  gap: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  color: #362b22;
+}
+.counter-face {
+  position: absolute;
+  z-index: -1;
+  inset: 2px 0 16px;
+  background:
+    url("./art/paper-fibre.svg"),
+    linear-gradient(178deg, #e4d5b6 0 57%, #b69d7a 58% 100%);
+  border-inline-end: 1px solid #806e55;
+  border-bottom: 2px solid #72573f;
+}
+.mineral-counter:first-child .counter-face {
+  border-start-start-radius: 6px;
+}
+.mineral-counter:last-child .counter-face {
+  border-start-end-radius: 6px;
+  border-inline-end: 0;
+}
+.stock-cell .counter-legend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  grid-row: 1;
+}
+.stock-token.wallet-piece {
+  object-fit: contain;
+  border-radius: 0;
+  clip-path: none;
+  transform: none;
+  filter: none;
+}
+.game-sidebar .counter-legend .stock-token {
+  width: 30px;
+  height: 28px;
+  object-fit: contain;
+  filter: none;
+}
+.counter-wheels,
+.counter-axles {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 84%;
+  max-width: 83px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  justify-items: center;
+  pointer-events: none;
+}
+.counter-wheels {
+  z-index: -2;
+  bottom: 0;
+}
+.counter-wheel {
+  width: min(100%, 38px);
+  aspect-ratio: 1;
+  background: url("./art/counter-wheel.svg") center / contain no-repeat;
+}
+.counter-axles {
+  bottom: 16px;
+}
+.counter-axles::before,
+.counter-axles::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #494237;
+  border: 1px solid #5e503c;
+  box-shadow:
+    inset 0 1px #b8a888,
+    0 1px #d7c3a4;
+}
+.game-sidebar .mineral-counter > .flip-number {
+  width: 84%;
+  max-width: 83px;
+  grid-row: 2;
+  min-width: 0;
+}
+.game-sidebar .mineral-counter .flip-number :is(strong, .flip-before) {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  justify-items: center;
+  gap: 1px;
+  font:
+    700 clamp(13px, calc(56px / var(--value-length)), 21px)/1.05 Georgia,
+    "Times New Roman",
+    serif;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: #762e1f;
+}
+.mineral-counter .flip-number i {
+  display: grid;
+  place-items: center;
+  min-width: 1.16em;
+  padding-inline: 0.12em;
+  height: 1.06em;
+  background: #f4e6c9;
+  border-radius: 3px 3px 1px 1px;
+  box-shadow:
+    inset 0 1px 2px #48352288,
+    0 1px #d9c7a9;
+  font-style: normal;
+}
+.mineral-counter .flip-number i:empty::before {
+  content: "0";
+  color: #8d5b44;
+}
+.game-sidebar .mineral-counter .number-delta {
+  z-index: 1;
+  top: -27px;
+  right: 0;
+  left: auto;
+  background: #f8edcf;
+  padding: 0 2px;
+}
+.game-sidebar .counter-purse {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  padding: 0;
+  margin: 6px 0 0;
+  background: url("./art/paper-fibre.svg"), #dcd0b6;
+}
+.game-sidebar .counter-purse .stock-cell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content;
+  grid-template-rows: minmax(31px, auto) auto;
+  align-content: center;
+  align-items: center;
+  gap: 1px 3px;
+  min-height: 55px;
+  padding: 3px 6px 4px;
+  border: 0;
+  border-right: 1px dashed #ab9879;
+  border-radius: 0;
+  box-shadow: none;
+  background: none;
+}
+.game-sidebar .counter-purse .stock-cell:last-child {
+  border-right: 0;
+}
+.game-sidebar .counter-purse .stock-token {
+  grid-area: 1 / 1;
+  justify-self: end;
+  width: min(100%, 44px);
+  max-width: none;
+  height: 33px;
+  object-fit: contain;
+  filter: none;
+}
+.game-sidebar .counter-purse .stock-cell > div {
+  display: contents;
+}
+.game-sidebar .counter-purse .flip-number {
+  grid-area: 1 / 2;
+}
+.game-sidebar .counter-purse .number-delta {
+  left: auto;
+  right: calc(100% + 2px);
+  top: -6px;
+  margin: 0;
+  padding: 1px 2px;
+  background: #f3e5c8;
+  font-size: 11px;
+  z-index: 1;
+}
+.game-sidebar .counter-purse .stock-hand-label {
+  grid-area: 2 / 1 / 3 / -1;
+  justify-self: center;
+}
+/* Only the handwritten names drift off the baseline. The balances retain tabular numerals. */
+:is(.game-sidebar .stock-counter, .city-resource-tray)
+  .stock-cell
+  .stock-hand-label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.035em;
+  white-space: nowrap;
+  color: #49382a;
+  font:
+    400 15px/1.12 "Nomad Resource Hand",
+    "Kaiti SC",
+    KaiTi,
+    var(--print-serif);
+  font-synthesis: none;
+}
+.game-sidebar .mineral-counter .counter-legend .stock-hand-label {
+  font-size: 14px;
+}
+.stock-hand-label i {
+  font: inherit;
+}
+.stock-hand-label i:nth-child(4n + 1) {
+  transform: translateY(0.025em) rotate(-3deg);
+}
+.stock-hand-label i:nth-child(4n + 2) {
+  transform: translateY(-0.035em) rotate(2deg);
+}
+.stock-hand-label i:nth-child(4n + 3) {
+  transform: rotate(-1.5deg);
+}
+.game-sidebar .player-panel {
+  overflow: visible;
+}
+.game-sidebar .player-row,
+.game-sidebar .player-row.active {
+  grid-template-columns: auto minmax(0, 1fr) auto max-content;
+  gap: 0 7px;
+  padding: 5px 7px 5px 5px;
+  margin-top: 4px;
+  border: 0;
+  border-left: 3px solid var(--seat-color);
+  border-radius: 0;
+  background: url("./art/paper-fibre.svg"), #d9ceb7;
+  box-shadow: 0 1px 0 #1d1c18;
+}
+.game-sidebar .player-row.active {
+  background-color: #f1e6cb;
+}
+.game-sidebar .player-row:hover,
+.game-sidebar .player-row:focus-visible {
+  background-color: #f9eed4;
+}
+.game-sidebar .entrepreneur-portrait {
+  position: relative;
+  grid-column: 1;
+  grid-row: 1 / 3;
+  width: 37px;
+  height: 48px;
+  align-self: stretch;
+  border: 1px solid #948164;
+  border-radius: 0;
+  background: #51473a;
+}
+.game-sidebar .entrepreneur-portrait img {
+  object-fit: cover;
+}
+.game-sidebar .entrepreneur-info strong {
+  font-size: 14px;
+  color: #312b23;
+}
+.game-sidebar .entrepreneur-info small {
+  font-size: 10px;
+  color: #5e5142;
+}
+.game-sidebar .entrepreneur-score {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  grid-column: 4;
+  grid-row: 1;
+  white-space: nowrap;
+  color: #594532;
+}
+.game-sidebar .player-stock-strip {
+  grid-column: 2 / -1;
+  grid-row: 2;
+  border: 0;
+  border-top: 1px solid #b9a98e;
+  padding: 2px 0 0;
+  margin: 2px 0 0;
+  gap: 1px;
+}
+.game-sidebar .player-stock {
+  justify-content: start;
+  color: #453929;
+  opacity: 1;
+  gap: 2px;
+}
+.game-sidebar .player-stock.is-empty {
+  opacity: 0.78;
+}
+.game-sidebar .player-stock .stock-token {
+  filter: none;
+  width: 15px;
+  height: 16px;
+}
+.game-sidebar .player-stock strong {
+  font-size: 12px;
+}
+.game-sidebar .table-overviews {
+  gap: 0;
+  padding: 0;
+  border-top: 1px solid #a48a64;
+}
+.game-sidebar .table-thumbnail {
+  display: grid;
+  grid-template-columns: 53px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  min-height: 56px;
+  padding: 4px 8px 4px 3px;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #716755;
+  border-radius: 0;
+  box-shadow: none;
+  color: #eadcc2;
+}
+.game-sidebar .table-thumbnail > div:last-of-type {
+  gap: 1px;
+  z-index: 1;
+}
+.game-sidebar .table-thumbnail strong {
+  color: #f2e6d0;
+  font: 700 15px/1.25 var(--print-serif);
+}
+.game-sidebar .table-thumbnail small {
+  color: #d2c5af;
+  font-size: 11px;
+}
+.game-sidebar .table-thumbnail > div:last-of-type > span {
+  color: #debd85;
+  font-size: 10px;
+}
+.game-sidebar .mini-city,
+.game-sidebar .mini-card-stack,
+.game-sidebar .mini-enterprise {
+  scale: 0.84;
+  transform-origin: center;
+}
+.game-sidebar .table-thumbnail:hover,
+.game-sidebar .table-thumbnail:focus-visible {
+  background-color: #474238;
+}
+.game-sidebar .table-thumbnail .city-thumbnail-model {
+  opacity: 0.27;
+}
+.phone-layout .game-sidebar .phone-dashboard-heading {
+  background: var(--rack-backing);
+  border-color: #958062;
+  color: #f0e3c7;
+}
+.phone-layout .game-sidebar .phone-dashboard-heading button {
+  color: inherit;
+}
+.game-sidebar .phone-page-controls {
+  background: var(--rack-backing);
+  color: #f1e2c3;
+}
+.game-sidebar .table-feedback,
+.game-sidebar .final-summary {
+  color: var(--rack-ink);
+  border: 0;
+  border-radius: 0;
+  border-block: 1px dashed #a18d6f;
+  background: url("./art/paper-fibre.svg"), var(--rack-paper);
+}
+.game-sidebar .table-feedback :is(span, button),
+.game-sidebar .final-summary small {
+  color: #60513d;
+}
+.game-sidebar .table-feedback strong,
+.game-sidebar .final-summary h3 {
+  color: #793d2b;
+}
+.map-dock {
+  gap: 0;
+}
+.map-dock button,
+.map-dock button.attention {
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid #92836c8a;
+  box-shadow: none;
+  background: #25221ff5;
+  min-height: 52px;
+  padding: 9px 10px;
+  grid-template-columns: 20px 1fr;
+  justify-items: start;
+  align-items: center;
+  gap: 3px 8px;
+  text-align: left;
+  color: #f4e8d1;
+}
+.map-dock button .dock-icon {
+  font-size: 18px;
+  grid-row: 1/3;
+}
+.map-dock button strong {
+  font-size: 15px;
+}
+.map-dock button small {
+  grid-column: 2;
+  color: #c6b9a4;
+}
+.map-dock button.attention:enabled {
+  border-left: 3px solid #b35440;
+}
+.entrepreneur-station .map-prompt,
+.fan-hand .fan-confirm {
+  color: #f3e8d2;
+  background: #292622f7;
+  border: 0;
+  border-radius: 0;
+  border-left: 3px solid #b45440;
+  box-shadow: 0 2px 5px #110e0b38;
+}
+.entrepreneur-station .map-prompt button {
+  border-color: #756a5a;
+}
+.fan-hand .fan-confirm p,
+.fan-hand .fan-confirm h3,
+.fan-hand .fan-confirm strong {
+  color: inherit;
+}
+.fan-hand .fan-confirm .secondary-button {
+  color: #d5cab4;
+  box-shadow: none;
+  background: transparent;
+  border: 1px solid #8f806a;
+}
+.fan-hand .fan-confirm .primary-button {
+  color: #fff4e0;
+  box-shadow: none;
+  background: #9f4437;
+  border: 0;
+}
+.fan-hand .fan-toggle,
+.fan-hand.is-picking .fan-toggle {
+  box-shadow: none;
+  border-radius: 0;
+  background: #24221f;
+  border: 0;
+  border-bottom: 1px solid #a38c69;
+}
+.game-sidebar .player-row .president-badge.compact {
+  position: static;
+  grid-column: 3;
+  grid-row: 1;
+  align-self: center;
+  justify-self: center;
+}
+.game-sidebar .president-badge.compact .president-model,
+.game-sidebar .president-badge.compact .president-face {
+  height: 32px;
+  width: 22px;
+}
+.fan-hand .hand-card {
+  border: 1px solid #8f7d61;
+  border-radius: 3px;
+  box-shadow:
+    0 2px 3px #1b150d57,
+    2px 6px 9px #1b150d42;
+}
+.game-sidebar .stock-cell strong,
+.game-sidebar .stock-cell .flip-before {
+  font-family: inherit;
+  font-size: clamp(14px, calc(60px / var(--value-length)), 24px);
+  font-weight: 650;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  color: var(--print-ink);
+}
+.game-sidebar .entrepreneur-score strong,
+.game-sidebar .entrepreneur-score .flip-before {
+  font-family: inherit;
+  font-weight: 650;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--print-ink);
+  font-variant-numeric: tabular-nums;
+}
+.game-sidebar .player-row {
+  grid-template-columns: auto minmax(0, 1fr) auto max-content;
+}
+.game-sidebar .entrepreneur-info {
+  grid-row: 1;
+  grid-column: 2;
+  min-width: 0;
+}
+.game-sidebar .entrepreneur-info > strong {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.game-sidebar .player-row:focus-visible,
+.game-sidebar .table-thumbnail:focus-visible {
+  outline: 2px solid var(--print-red);
+  outline-offset: -2px;
+}
+.game-sidebar .stock-cell .number-delta {
+  color: #325d3c;
+}
+.game-sidebar .stock-cell .number-down .number-delta {
+  color: var(--print-red);
+}
+.phone-resource-hud .stock-cell + .stock-cell {
+  border-inline-start: 1px solid #9b8c734a;
+}
+.map-dock button:hover:enabled,
+.map-dock button:focus-visible {
+  transform: none;
+  background: #3b352c;
+}
+
+.game-sidebar .player-stock .flip-before {
+  font-size: 12px;
+}
+.game-layout {
+  background: #211f1c;
+}
+.game-sidebar .stock-cell .token-cash {
+  transform: none;
+}
+.game-sidebar .stock-cell > div {
+  min-width: 2.5ch;
+  text-align: center;
+}
+@media (pointer: coarse) {
+  .phone-layout .map-dock button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 4px;
+  }
+  .phone-layout .map-dock button.attention:enabled {
+    border-left: 2px solid #b35440;
+  }
+}

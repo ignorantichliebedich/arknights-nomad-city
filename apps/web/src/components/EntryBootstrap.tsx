@@ -48,7 +48,9 @@ export function EntryBootstrap({ children }: { children: ReactNode }) {
           }
         >
           <div className="boot-frame" aria-hidden="true" />
-          <div className="boot-scan" aria-hidden="true" />
+          <div className="boot-scan-clip" aria-hidden="true">
+            <div className="boot-scan" />
+          </div>
           <div className="boot-registration">
             <span>NOMAD CITY / THE FOUNDERS</span>
             <span>105 · 拓荒准备</span>

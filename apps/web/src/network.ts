@@ -1,10 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import type { PlayerView } from "../../../packages/rules/src/types.ts";
+import type { PlayerCount } from "../../../packages/shared/lobby.ts";
+import {
+  STATE_SYNC_VERSION,
+  StateReceiver,
+} from "../../../packages/shared/state-sync.ts";
 export type RoomView = {
   id: string;
   hostId: string;
   revision: number;
   expansion: boolean;
+  oripathy?: boolean;
+  expert?: boolean;
+  isPublic?: boolean;
+  targetPlayers?: PlayerCount;
   phase: string;
   me: string | null;
   rulesVersion: string;
@@ -37,6 +46,7 @@ export function useRoom(roomId: string, token: string) {
   const socket = useRef<WebSocket | null>(null);
   const roomRef = useRef<RoomView | null>(null);
   const pending = useRef<Record<string, unknown> | null>(null);
+  const receiptRevision = useRef<number | null>(null);
   const awaitReceipt = useRef<(() => void) | null>(null);
   useEffect(() => {
     if (!roomId || !token) return;
@@ -49,6 +59,7 @@ export function useRoom(roomId: string, token: string) {
     setError("");
     roomRef.current = null;
     pending.current = null;
+    receiptRevision.current = null;
     try {
       pending.current = JSON.parse(
         localStorage.getItem(`nomad:pending:${roomId}`) ?? "null",
@@ -58,6 +69,14 @@ export function useRoom(roomId: string, token: string) {
     }
     setBusy(!!pending.current);
     const isCurrent = (ws: WebSocket) => !disposed && socket.current === ws;
+    const finishPending = () => {
+      pending.current = null;
+      receiptRevision.current = null;
+      clearTimeout(deadline);
+      attempts = 0;
+      localStorage.removeItem(`nomad:pending:${roomId}`);
+      setBusy(false);
+    };
     const recover = (ws: WebSocket) => {
       if (!isCurrent(ws)) return;
       clearTimeout(deadline);
@@ -86,16 +105,46 @@ export function useRoom(roomId: string, token: string) {
       awaitReceipt.current = armDeadline;
       armDeadline();
       let initialState = true;
+      const states = new StateReceiver<RoomView>();
       ws.onopen = () => {
         if (isCurrent(ws))
-          ws.send(JSON.stringify({ type: "hello", roomId, token }));
+          ws.send(
+            JSON.stringify({
+              type: "hello",
+              roomId,
+              token,
+              stateSync: STATE_SYNC_VERSION,
+            }),
+          );
       };
       ws.onmessage = (event) => {
         if (!isCurrent(ws)) return;
-        const message = JSON.parse(event.data);
-        if (message.type === "state") {
-          setRoom(message.room);
-          roomRef.current = message.room;
+        let message;
+        let nextRoom: RoomView | null;
+        try {
+          message = JSON.parse(event.data);
+          if (!message || typeof message.type !== "string")
+            throw new Error("Invalid message");
+          nextRoom = states.receive(message);
+          if (nextRoom && nextRoom.id !== roomId)
+            throw new Error("Unexpected room");
+        } catch {
+          setError(
+            "同步数据需要重新核对，正在恢复连接；已提交的操作会自动核对。",
+          );
+          recover(ws);
+          return;
+        }
+        if (nextRoom) {
+          setRoom(nextRoom);
+          roomRef.current = nextRoom;
+          // A small ACK can arrive before its state on a congested connection.
+          // Keep the command pending until the UI actually has that revision.
+          if (
+            receiptRevision.current !== null &&
+            nextRoom.revision >= receiptRevision.current
+          )
+            finishPending();
           setStatus("online");
           if (initialState) {
             initialState = false;
@@ -114,11 +163,15 @@ export function useRoom(roomId: string, token: string) {
             message.requestId &&
             message.requestId === pending.current?.requestId
           ) {
-            pending.current = null;
-            clearTimeout(deadline);
-            attempts = 0;
-            localStorage.removeItem(`nomad:pending:${roomId}`);
-            setBusy(false);
+            if (message.type === "error") finishPending();
+            else {
+              receiptRevision.current = message.revision;
+              if (
+                roomRef.current &&
+                roomRef.current.revision >= message.revision
+              )
+                finishPending();
+            }
           }
           if (message.type === "error") setError(message.message);
           else setError("");

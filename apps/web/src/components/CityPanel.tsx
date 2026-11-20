@@ -190,6 +190,11 @@ function CityContents({
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <strong>{data?.name ?? "空闲"}</strong>
+                  {!!facility?.layers?.length && (
+                    <span className="city-layer-count">
+                      {facility.layers.length + 1} 层
+                    </span>
+                  )}
                   {facility?.used && (
                     <span className="city-cell-used" aria-hidden="true">
                       已宣告
@@ -247,6 +252,19 @@ function CityContents({
                   .map((line, i) => (
                     <p key={i}>{line}</p>
                   ))}
+                {!!built.layers?.length && (
+                  <div className="buried-facilities" aria-label="下层设施">
+                    <p>下层设施保留颜色与唯一性，不参与样式和相邻入场效果。</p>
+                    {built.layers.map((layer, index) => (
+                      <button
+                        key={index}
+                        onClick={() => showCard(layer.cardId)}
+                      >
+                        下层 {index + 1} · {FACILITY_BY_ID[layer.cardId].name} ↗
+                      </button>
+                    ))}
+                  </div>
+                )}
                 <p className="building-preview-note">
                   移到其他格位即可查看下一座建筑。
                 </p>
@@ -346,9 +364,19 @@ function PersistentEffects({
                   <small>
                     {effect.roleId === "closure"
                       ? `待建设施 ${effect.stash.length} 张`
-                      : ["dorothy", "passenger"].includes(effect.roleId)
-                        ? `标记 ${effect.markers} / ${effect.roleId === "dorothy" ? 4 : 5}`
-                        : "每次收尾可发动一次"}
+                      : effect.roleId === "o-swire"
+                        ? `合作标记 ${effect.owners?.length ?? 0}`
+                        : effect.roleId === "o-amiya"
+                          ? "下次角色生效时履行合作协议"
+                          : effect.roleId === "o-muelsyse"
+                            ? "每回合可额外盖放一张流形"
+                            : effect.roleId === "o-jessica"
+                              ? `抵押于城市 ${Number(effect.cell) + 1}`
+                              : ["dorothy", "passenger", "o-lin"].includes(
+                                    effect.roleId,
+                                  )
+                                ? `标记 ${effect.markers} / ${effect.roleId === "dorothy" ? 4 : effect.roleId === "o-lin" ? 2 : 5}`
+                                : "每次收尾可发动一次"}
                   </small>
                 </span>
               </button>

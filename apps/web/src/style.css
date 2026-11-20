@@ -11,6 +11,15 @@
   --accent: #a84b36;
   --gold: #c5a969;
   --surface: #ebe8df;
+  --print-stock: #e7dfcf;
+  --print-sheet: #f1ebdf;
+  --print-ink: #302c26;
+  --print-muted: #5b5348;
+  --print-rule: #c2b7a3;
+  --print-tint: #e5dccb;
+  --print-red: #933e30;
+  --print-red-hover: #7b3126;
+  --print-serif: "Songti SC", SimSun, serif;
 }
 * {
   box-sizing: border-box;

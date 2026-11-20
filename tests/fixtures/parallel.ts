@@ -63,3 +63,31 @@ export function harvestPlanning(
   game.mainRemaining = 0;
   return applyCommand(game, game.players[game.active].id, { type: "end" });
 }
+
+/** Paul and a normal target share A-2, which is controlled by another player. */
+export function paulHarvest(game: GameState, side: "A" | "B", cash: number) {
+  for (const site of Object.values(game.sites)) site.slots.fill(null);
+  for (const p of game.players) p.oripathy!.gangSlots = [];
+  game.oripathy!.security = [];
+  const [paul, other] = game.players;
+  [paul.city, other.city] = ["B-03", "A-01"];
+  paul.oripathy!.entrepreneur = "paul";
+  paul.oripathy!.dilemmas = [
+    { round: 3, side, used: false, marker: side === "A" },
+  ];
+  paul.oripathy!.gangSlots = ["A-02:0"];
+  paul.wallet.cash = cash;
+  game.sites["A-02"].resource = "rock";
+  game.sites["A-02"].amount = 2;
+  game.sites["A-02"].slots[0] = paul.id;
+  game.sites["A-03"].resource = "iron";
+  game.sites["A-03"].amount = 1;
+  game.sites["A-03"].slots[0] = paul.id;
+  game.sites["A-2"].slots[0] = other.id;
+  game.round = 4;
+  game.lap = 2;
+  game.active = (game.first + game.players.length - 1) % game.players.length;
+  game.mainDone = true;
+  game.mainRemaining = 0;
+  return applyCommand(game, game.players[game.active].id, { type: "end" });
+}

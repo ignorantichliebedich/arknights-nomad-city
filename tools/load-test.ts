@@ -8,6 +8,10 @@ import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { EventEmitter } from "node:events";
 import { WebSocket } from "ws";
+import {
+  STATE_SYNC_VERSION,
+  StateReceiver,
+} from "../packages/shared/state-sync.ts";
 import { createGameServer } from "../apps/server/src/server.ts";
 import {
   createGame,
@@ -25,6 +29,7 @@ pnpm load:test --tables 1,4,8,16,32 --seconds 30 --interval-ms 2000
   --phase actions|select        后期行动／并行盖牌
   --schedule staggered|burst    各桌错峰／同时提交
   --compression native|on|off   原配置／开启／关闭压缩
+  --state-sync delta|legacy     增量同步（默认）／旧版完整状态
   --output .data/load-tests/report.json  汇总路径，- 为标准输出
   --stop-p95-ms 2000            超过此延迟后停止升档
 server/client 模式仅供独立隔离环境使用，游戏端和控制端必须同属测试实例。`);
@@ -46,6 +51,9 @@ const version = JSON.parse(
   readFileSync(resolve(root, "package.json"), "utf8"),
 ).version;
 const compression = option("compression", "native");
+const stateSync = option("state-sync", "delta");
+if (!["delta", "legacy"].includes(stateSync))
+  throw new Error("Invalid state sync mode");
 if (!["native", "on", "off"].includes(compression))
   throw new Error("Invalid compression mode");
 const compressionOptions = {
@@ -294,11 +302,13 @@ class Table extends EventEmitter {
           headers: { "x-forwarded-for": `198.18.${index}.${i + 1}` },
         });
         const client = { ws, state: null as any };
+        const receiver = new StateReceiver<any>();
         this.clients[i] = client;
         ws.on("message", (raw) => {
           const m = JSON.parse(raw.toString());
-          if (m.type === "state") {
-            client.state = m.room;
+          const room = receiver.receive(m);
+          if (room) {
+            client.state = room;
             this.emit("state");
           } else if (m.requestId && this.pending.has(m.requestId)) {
             const pending = this.pending.get(m.requestId)!;
@@ -323,7 +333,12 @@ class Table extends EventEmitter {
         });
         ws.on("error", () => {});
         ws.send(
-          JSON.stringify({ type: "hello", roomId: fixture.id, token: p.token }),
+          JSON.stringify({
+            type: "hello",
+            roomId: fixture.id,
+            token: p.token,
+            ...(stateSync === "delta" ? { stateSync: STATE_SYNC_VERSION } : {}),
+          }),
         );
       }),
     );
@@ -611,6 +626,7 @@ async function drive(target: string, control: string) {
     intervalMs,
     fixture: `four-player expansion / round 6 / seed 52 / ${phase}`,
     compression,
+    stateSync,
     schedule,
     setupFailures,
     guardAborted,

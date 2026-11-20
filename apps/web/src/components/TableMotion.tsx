@@ -1,5 +1,6 @@
 import {
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
   type CSSProperties,
@@ -11,17 +12,40 @@ import {
   redZoneOpensAt,
 } from "../../../../packages/rules/src/data.ts";
 import type { PlayerView } from "../../../../packages/rules/src/types.ts";
+import { entrepreneurPresentation } from "../entrepreneur.ts";
+import { EntrepreneurPortrait } from "./EntrepreneurPortrait.tsx";
 
-export function FlipNumber({ value }: { value: number }) {
+function counterDigits(value: number) {
+  const digits = String(value);
+  return (
+    <>
+      <i>{digits.slice(0, -1)}</i>
+      <i>{digits.slice(-1)}</i>
+    </>
+  );
+}
+
+export function FlipNumber({
+  value,
+  splitDial = false,
+}: {
+  value: number;
+  splitDial?: boolean;
+}) {
   const previous = useRef(value);
   const [change, setChange] = useState<{ from: number; delta: number } | null>(
     null,
   );
-  useEffect(() => {
-    if (previous.current === value) return;
-    setChange({ from: previous.current, delta: value - previous.current });
+  useLayoutEffect(() => {
+    const from = previous.current;
+    if (from === value) return;
     previous.current = value;
-    const timer = setTimeout(() => setChange(null), 900);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setChange(null);
+      return;
+    }
+    setChange({ from, delta: value - from });
+    const timer = setTimeout(() => setChange(null), 600);
     return () => clearTimeout(timer);
   }, [value]);
   return (
@@ -30,10 +54,10 @@ export function FlipNumber({ value }: { value: number }) {
     >
       {change && (
         <span className="flip-before" aria-hidden="true" key={`old:${value}`}>
-          {change.from}
+          {splitDial ? counterDigits(change.from) : change.from}
         </span>
       )}
-      <strong key={value}>{value}</strong>
+      <strong key={value}>{splitDial ? counterDigits(value) : value}</strong>
       {change && (
         <em className="number-delta" aria-hidden="true" key={`delta:${value}`}>
           {change.delta > 0 ? "+" : ""}
@@ -86,6 +110,7 @@ export function ActiveEntrepreneur({
 }) {
   const player = game.players.find((p) => p.id === activeId);
   if (!player) return null;
+  const expert = entrepreneurPresentation(player).identity;
   return (
     <div
       className="entrepreneur-station"
@@ -93,15 +118,19 @@ export function ActiveEntrepreneur({
     >
       {children}
       <div className="active-entrepreneur">
-        <img
+        <EntrepreneurPortrait
           className="entrepreneur-bust"
-          key={player.id}
-          src={`/assets/entrepreneur-bust-${player.seat}.webp`}
-          alt={`当班企业家：${player.name}`}
+          key={`${player.id}:${expert?.id ?? ""}`}
+          player={player}
+          variant="bust"
         />
         {game.players[game.first]?.id === player.id && <PresidentBadge />}
         <div className="active-entrepreneur-caption">
-          <small>{game.phase === "finished" ? "拓荒结束" : "当班企业家"}</small>
+          <small>
+            {game.phase === "finished"
+              ? "拓荒结束"
+              : (expert?.name ?? "当班企业家")}
+          </small>
           <strong>
             {PLAYER_SYMBOLS[player.seat]} {player.name}
           </strong>

@@ -1,3 +1,4 @@
+import { ORIPATHY_ENTERPRISE_TEXT } from "../../../../packages/rules/src/oripathy-data.ts";
 import {
   ENTERPRISE_TEXT,
   RESOURCES,
@@ -19,6 +20,8 @@ export const ENTERPRISE_COLORS: Record<string, string> = {
   mama: "#a88c09",
   blacksteel: "#984a40",
   rim: "#85508f",
+  stonehoove: "#ad8546",
+  maylander: "#17749c",
 };
 export type EnterpriseLevel = {
   level: number;
@@ -30,6 +33,7 @@ export type EnterpriseLevel = {
 export function enterpriseLevels(
   company: string,
   lab: number | null,
+  oripathy = false,
 ): EnterpriseLevel[] {
   const levels: EnterpriseLevel[] = [5, 4, 3, 2, 1, 0].map((level) => ({
     level,
@@ -51,7 +55,10 @@ export function enterpriseLevels(
     }
     return levels;
   }
-  for (const line of ENTERPRISE_TEXT[company].split("\n")) {
+  for (const line of (oripathy
+    ? (ORIPATHY_ENTERPRISE_TEXT[company] ?? ENTERPRISE_TEXT[company])
+    : ENTERPRISE_TEXT[company]
+  ).split("\n")) {
     const match = /^([1-5](?:、[1-5])*) 级(升级奖励)?：(.+)$/.exec(line);
     if (!match) continue;
     for (const number of match[1].split("、")) {

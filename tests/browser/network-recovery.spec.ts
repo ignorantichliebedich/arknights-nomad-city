@@ -138,3 +138,74 @@ for (const recovery of ["timeout", "reload"] as const) {
     });
   });
 }
+
+test("回执先到时继续等待状态，增量漏包后重新连接且不重复结算", async ({
+  page,
+  browser,
+}) => {
+  let connections = 0;
+  let submitted = false;
+  let dropped = false;
+  let acknowledged = false;
+  const commands: string[] = [];
+  const frames: string[] = [];
+  await page.routeWebSocket("**/ws", (route) => {
+    connections++;
+    const server = route.connectToServer();
+    route.onMessage((raw) => {
+      const message = JSON.parse(String(raw));
+      if (message.type === "command") {
+        submitted = true;
+        commands.push(message.requestId);
+      }
+      server.send(raw);
+    });
+    server.onMessage((raw) => {
+      const message = JSON.parse(String(raw));
+      if (message.type === "ack" && submitted) acknowledged = true;
+      if (submitted && !dropped && message.type === "state-delta") {
+        dropped = true;
+        return;
+      }
+      frames.push(message.type);
+      route.send(raw);
+    });
+  });
+  const { id, friendToken } = await fixture(page, "select");
+  const before = snapshot(id);
+  await pick(page);
+  await expect.poll(() => acknowledged && dropped).toBe(true);
+  await expect(
+    page.getByRole("button", { name: "进行行动", exact: true }),
+  ).toBeDisabled();
+  expect(
+    await page.evaluate(
+      (id) => !!localStorage.getItem(`nomad:pending:${id}`),
+      id,
+    ),
+  ).toBe(true);
+  const friend = await browser.newContext();
+  try {
+    await friend.addInitScript(
+      ({ id, token }) => localStorage.setItem(`nomad:seat:${id}`, token),
+      { id, token: friendToken },
+    );
+    await (await friend.newPage()).goto(`/room/${id}`);
+    await expect.poll(() => connections).toBe(2);
+    await expect(page.locator(".connection")).toContainText("已连接");
+    await expect(page.locator(".parallel-progress")).toHaveText("1 / 4 已确认");
+    await expect
+      .poll(() =>
+        page.evaluate((id) => localStorage.getItem(`nomad:pending:${id}`), id),
+      )
+      .toBeNull();
+    expect(commands).toHaveLength(1);
+    expect(frames.filter((type) => type === "state")).toHaveLength(2);
+    expect(snapshot(id)).toEqual({
+      revision: before.revision + 1,
+      receipts: Number(before.receipts) + 1,
+    });
+  } finally {
+    await friend.close();
+  }
+});

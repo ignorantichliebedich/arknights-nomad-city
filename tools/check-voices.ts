@@ -1,7 +1,11 @@
 import { readFileSync } from "node:fs";
 import { resolve, sep } from "node:path";
 import { createHash } from "node:crypto";
-import { ROLES } from "../packages/rules/src/data.ts";
+import {
+  VOICED_ROLES,
+  VOICE_LANGUAGES,
+  VOICE_CUES,
+} from "../apps/web/src/voice-catalog.ts";
 const entries = JSON.parse(
   readFileSync("assets/voice-manifest.json", "utf8"),
 ) as {
@@ -18,16 +22,9 @@ const entries = JSON.parse(
 }[];
 const root = resolve("apps/web/public/audio/voices");
 const expected = new Set(
-  ROLES.filter((r) => r.id !== "cannott").flatMap((r) =>
-    ["zh", "ja"].flatMap((language) =>
-      [
-        "battle-1",
-        "battle-2",
-        "battle-3",
-        "battle-4",
-        "select-1",
-        "select-2",
-      ].map((cue) => `${r.id}/${language}/${cue}`),
+  VOICED_ROLES.flatMap((r) =>
+    VOICE_LANGUAGES.flatMap((language) =>
+      VOICE_CUES.map((cue) => `${r.id}/${language}/${cue}`),
     ),
   ),
 );
@@ -68,5 +65,5 @@ if (
 )
   throw new Error("Voice catalog differs from provenance");
 console.info(
-  `Verified ${entries.length} Chinese/Japanese clips, all 14 voiced roles; Cannott uses table sounds.`,
+  `Verified ${entries.length} Chinese/Japanese clips, all ${VOICED_ROLES.length} voiced roles; Cannott and Flow cards use table sounds.`,
 );

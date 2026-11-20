@@ -1,7 +1,5 @@
 # 本地运行与开发
 
-> 版本说明：本页包括开发版操作。默认分支保留本体和企业扩展；感染者及新版返回交互见 [开发分支](https://github.com/ignorantichliebedich/arknights-nomad-city/tree/codex/oripathy-evidence)。
-
 [返回项目首页](../README.md) · [棋桌操作](how-to-play.md) · [发布流程](release.md)
 
 以下命令均在项目根目录运行。运行图像与音频按清单单独获取，Git 仓库中的展示截图不代替这些素材。
@@ -22,7 +20,7 @@ pnpm start
 
 开发版新增素材可直接从原始公开来源重建：先安装 `tools/requirements.txt` 并运行 `python tools/prepare-table-experience.py`，再使用 `pnpm voices:acquire` 获取中日语音，最后执行 `assets:restore` 校验其余已发布素材。当素材源还不包含新增文件时，可以使用这条重建路径。语音采集通过 HTTP 读取公开索引，需要 Node.js 与 FFmpeg，音乐封面提取也使用 FFmpeg；可通过 `FFMPEG_PATH` 指定程序路径。测量参数和出处见 [棋桌素材记录](../assets/table-experience-art.md)。
 
-以下为开发分支的标题与感染者素材重建命令，执行前先切换到 `codex/oripathy-evidence`；默认分支不需要这些新增素材，正常恢复成功时也无需重复执行。各步骤的来源与校验方式见 [首页视觉记录](../assets/entry-art-direction.md)和[感染者配件](https://github.com/ignorantichliebedich/arknights-nomad-city/blob/codex/oripathy-evidence/docs/oripathy.md#配件与素材)。
+首页标题和感染者素材的来源重建命令如下；正常恢复素材成功时无需重复执行。各步骤的来源与校验方式见 [首页视觉记录](../assets/entry-art-direction.md)和[感染者配件](oripathy.md#配件与素材)。
 
 ```powershell
 python -m pip install -r tools/requirements.txt

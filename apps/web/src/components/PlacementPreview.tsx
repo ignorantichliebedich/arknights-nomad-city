@@ -39,6 +39,17 @@ export function PlacementPreview({
     (choice) => choice.target === selected.target,
   );
   const me = game.players.find((p) => p.id === game.me)!;
+  const paul = me.oripathy?.entrepreneur === "paul" ? me.oripathy : null;
+  const gang = paul ? 4 - paul.gangSlots.length : 0;
+  const ordinary = paul?.dilemmas.some((d) => d.round === 3)
+    ? 0
+    : me.availableMarkers;
+  const markerCost =
+    gang > 0
+      ? ordinary > 0
+        ? `使用 1 枚标记 · 普通 ${ordinary} / 帮派 ${gang}，落子时选择`
+        : `使用 1 枚帮派标记 · 储备 ${gang} → ${gang - 1}`
+      : `使用 1 枚影响力标记 · 储备 ${ordinary} → ${ordinary - 1}`;
   return (
     <section className="placement-panel" aria-label="影响力放置确认">
       <header>
@@ -51,10 +62,7 @@ export function PlacementPreview({
           放置影响力 <span>{selected.target}</span>
         </h3>
       </header>
-      <p>
-        使用 1 枚影响力标记 · 储备 {me.availableMarkers} →{" "}
-        {me.availableMarkers - 1}
-      </p>
+      <p>{markerCost}</p>
       {slots.length > 1 && (
         <div className="placement-slots" role="group" aria-label="选择空位">
           {slots.map((choice) => (

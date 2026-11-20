@@ -1,7 +1,7 @@
 import { test, expect } from "./fixtures/test.ts";
 import { RoomStore } from "../../apps/server/src/store.ts";
 import { applyCommand } from "../../packages/rules/src/engine.ts";
-import { ENTERPRISE_NAMES } from "../../packages/rules/src/data.ts";
+import { ENTERPRISES } from "../../packages/rules/src/data.ts";
 import { fixture } from "./fixtures/table.ts";
 
 test("企业档案保留同企业不同等级的选择，键盘确认只执行所选能力", async ({
@@ -31,7 +31,7 @@ test("企业档案保留同企业不同等级的选择，键盘确认只执行�
     const room = store.get(id)!;
     const game = room.game!;
     game.expansion = room.expansion = true;
-    game.activeEnterprises = Object.keys(ENTERPRISE_NAMES);
+    game.activeEnterprises = [...ENTERPRISES];
     game.activeLab = 0;
     for (const player of game.players)
       player.enterprise = Object.fromEntries(

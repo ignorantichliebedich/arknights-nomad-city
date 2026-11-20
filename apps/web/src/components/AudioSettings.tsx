@@ -2,7 +2,10 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 import { gameAudio } from "../audio.ts";
 import type { MusicTrack } from "../audio-config.ts";
 import { MusicDeck } from "./MusicDeck.tsx";
+import { useDisplayMode } from "../display-mode.ts";
 export function AudioSettings() {
+  const { phone } = useDisplayMode();
+  const [panel, setPanel] = useState("music");
   const prefs = useSyncExternalStore(gameAudio.subscribe, gameAudio.snapshot);
   const playback = useSyncExternalStore(
     gameAudio.subscribe,
@@ -19,7 +22,24 @@ export function AudioSettings() {
     };
   }, []);
   return (
-    <div className="audio-settings">
+    <div className="audio-settings" data-phone-panel={panel}>
+      {phone && (
+        <nav className="phone-audio-tabs" aria-label="声音面板">
+          {[
+            ["music", "唱片机"],
+            ["levels", "音量与音效"],
+            ["voice", "角色语音"],
+          ].map(([id, label]) => (
+            <button
+              key={id}
+              aria-pressed={panel === id}
+              onClick={() => setPanel(id)}
+            >
+              {label}
+            </button>
+          ))}
+        </nav>
+      )}
       <div className="audio-heading">
         <span className="eyebrow">SOUND / PREFERENCES</span>
         <h3>为你的拓荒调音</h3>
@@ -210,7 +230,7 @@ export function AudioSettings() {
           />
         </label>
         <p>
-          盖牌语音仅自己可听。公开使用策略与计谋时，全员可听对应作战语音。坎诺特使用交易音效。
+          盖牌语音仅自己可听。公开使用策略与计谋时，全员可听对应作战语音。坎诺特与流形使用操作音效。
         </p>
       </section>
       <p className="audio-footnote">

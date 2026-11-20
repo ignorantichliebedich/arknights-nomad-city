@@ -1,8 +1,6 @@
 # 棋桌操作与对局恢复
 
-> 版本说明：本页包括开发版操作。默认分支保留本体和企业扩展；感染者及新版返回交互见 [开发分支](https://github.com/ignorantichliebedich/arknights-nomad-city/tree/codex/oripathy-evidence)。
-
-[返回项目首页](../README.md) · [本地运行](quickstart.md) · [感染者扩展](https://github.com/ignorantichliebedich/arknights-nomad-city/blob/codex/oripathy-evidence/docs/oripathy.md)
+[返回项目首页](../README.md) · [本地运行](quickstart.md) · [感染者扩展](oripathy.md)
 
 - 首页以纸质拓荒许可、四张原版企业家卡牌和暖褐荒野组成；可直接建房、填写房间码后回车加入，邀请链接会显示对应拓荒区。背景缓慢漂移，卡牌依次入场，系统减少动态效果设置会停用装饰动画。
 - 房间大厅以四张企业家席位板展示立绘、城市棋子、本人／房主、在线与准备状态。点击空席或档案中的邀请按钮可分享房间；全员准备后由房主确认开始，离线玩家保留席位。页面显示准备进度、本局配置及棋盘缩略图。设计与素材复用见 [入口与集结桌](../assets/entry-lobby-art.md)。
