@@ -365,7 +365,7 @@
   max-width: calc(100% - 32px);
 }
 .phone-layout .fan-hand {
-  --hand-width: clamp(76px, 15vw, 124px);
+  --hand-width: clamp(94px, min(22vw, 38dvh), 155px);
   --hand-height: calc(var(--hand-width) * 1.4);
   --fan-max-span: min(52vw, 340px);
   --fan-center: 50%;

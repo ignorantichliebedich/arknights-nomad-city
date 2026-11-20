@@ -91,13 +91,11 @@
 .city-landing-dust {
   fill: none;
   stroke: #e7d1a5;
-  stroke-width: 2;
+  stroke-width: 1.8;
+  stroke-linecap: round;
   transform-box: fill-box;
   transform-origin: center;
   animation: city-dust-settles 950ms ease-out both;
-}
-.city-landing-dust ellipse + ellipse {
-  stroke-dasharray: 4 7;
 }
 .batch-choices {
   padding: 24px;
@@ -207,13 +205,19 @@
 @keyframes city-touchdown {
   0% {
     opacity: 0;
-    transform: translateY(-42px);
+    transform: translate(-13px, -39px) rotate(-4deg);
   }
   22% {
     opacity: 1;
   }
-  62% {
-    transform: translateY(1px) scale(1.015, 0.975);
+  54% {
+    transform: translate(-2px, -6px) rotate(-1.8deg);
+  }
+  68% {
+    transform: translateY(1.6px) rotate(1deg);
+  }
+  83% {
+    transform: translateY(-1px) rotate(-0.55deg);
   }
   100% {
     transform: none;
@@ -221,11 +225,11 @@
 }
 @keyframes city-dust-settles {
   0%,
-  42% {
+  55% {
     opacity: 0;
     transform: scale(0.65);
   }
-  60% {
+  69% {
     opacity: 0.8;
   }
   100% {
@@ -320,25 +324,68 @@
     display: none;
   }
 }
+@property --city-progress {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
 @media (prefers-reduced-motion: no-preference) {
+  .city-travel {
+    --remaining: calc(1 - var(--city-progress));
+    --start-weight: calc(var(--remaining) * var(--remaining));
+    --bend-weight: calc(2 * var(--remaining) * var(--city-progress));
+    transform: translate(
+      calc(
+        var(--start-weight) * var(--depart-x) + var(--bend-weight) *
+          var(--bend-x)
+      ),
+      calc(
+        var(--start-weight) * var(--depart-y) + var(--bend-weight) *
+          var(--bend-y)
+      )
+    );
+    animation: city-follow-road var(--drive-time)
+      cubic-bezier(0.38, 0.04, 0.45, 1) both;
+  }
+  .city-travel .city-landing-dust {
+    animation-duration: var(--drive-time);
+  }
   .city-travel .piece-model {
     transform-box: fill-box;
     transform-origin: center bottom;
-    animation: city-travel-settle 480ms ease-out both;
+    animation: city-travel-settle var(--drive-time) ease-in-out both;
   }
   .city-arrival .piece-city > ellipse {
+    transform-box: fill-box;
+    transform-origin: center;
     animation: city-contact 900ms ease-out both;
   }
   .city-travel .piece-city > ellipse {
-    animation: city-contact 480ms ease-out both;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: city-contact var(--drive-time) ease-out both;
+  }
+}
+@keyframes city-follow-road {
+  from {
+    --city-progress: 0;
+  }
+  to {
+    --city-progress: 1;
   }
 }
 @keyframes city-travel-settle {
   0% {
-    transform: translateY(-7px);
+    transform: translateY(-2px);
   }
-  75% {
-    transform: translateY(-3px);
+  28% {
+    transform: translateY(-1px) rotate(var(--drive-tilt));
+  }
+  58% {
+    transform: translateY(-2.5px) rotate(calc(var(--drive-tilt) * -0.4));
+  }
+  83% {
+    transform: translateY(1px) rotate(calc(var(--drive-tilt) * -0.65));
   }
   100% {
     transform: none;
@@ -346,8 +393,8 @@
 }
 @keyframes city-contact {
   from {
-    opacity: 0.14;
-    scale: 1.2;
+    opacity: 0.12;
+    scale: 0.67;
   }
   to {
     opacity: 0.4;

@@ -1,5 +1,7 @@
 import {
   useEffect,
+  useLayoutEffect,
+  useMemo,
   useRef,
   useState,
   type PointerEvent,
@@ -12,21 +14,25 @@ import { slotPoint } from "../board-layout.ts";
 
 export type InfluenceTransfer = { from: string; to: string; owner: string };
 export function useInfluenceTravel(game: PlayerView) {
-  const slots = () =>
-    Object.fromEntries(
-      Object.entries(game.sites).flatMap(([site, s]) =>
-        s.slots.map((owner, i) => [`${site}:${i}`, owner]),
+  const current = useMemo(
+    () =>
+      Object.fromEntries(
+        Object.entries(game.sites).flatMap(([site, s]) =>
+          s.slots.map((owner, i) => [`${site}:${i}`, owner]),
+        ),
       ),
-    );
-  const previous = useRef(slots());
+    [game.sites],
+  );
+  const previous = useRef(current);
   const [flight, setFlight] = useState<InfluenceTransfer | null>(null);
-  useEffect(() => {
-    const current = slots();
+  const [entering, setEntering] = useState<string[]>([]);
+  const slotOwners = useMemo(() => JSON.stringify(current), [current]);
+  useLayoutEffect(() => {
     const removed = Object.keys(current).filter(
       (s) => previous.current[s] && !current[s],
     );
     const added = Object.keys(current).filter(
-      (s) => current[s] && !previous.current[s],
+      (s) => current[s] && previous.current[s] !== current[s],
     );
     const from = removed[0],
       to = added[0];
@@ -37,24 +43,29 @@ export function useInfluenceTravel(game: PlayerView) {
       previous.current[from] === owner;
     previous.current = current;
     setFlight(null);
+    setEntering([]);
     if (
-      !transfer ||
-      !owner ||
+      !added.length ||
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     )
       return;
-    setFlight({ from, to, owner });
-    const timer = setTimeout(() => setFlight(null), 680);
+    if (transfer && owner) setFlight({ from, to, owner });
+    else setEntering(added);
+    const timer = setTimeout(() => {
+      setFlight(null);
+      setEntering([]);
+    }, 700);
     return () => clearTimeout(timer);
-  }, [game.revision]);
-  if (!flight) return { arrival: null, overlay: null };
+  }, [slotOwners]);
+  if (!flight) return { entering, arrival: null, overlay: null };
   const from = influencePoint(game, flight.from),
     to = influencePoint(game, flight.to);
   return {
+    entering,
     arrival: flight.to,
     overlay: (
       <g
-        key={game.revision}
+        key={`${flight.from}>${flight.to}`}
         className="influence-travel"
         pointerEvents="none"
         style={

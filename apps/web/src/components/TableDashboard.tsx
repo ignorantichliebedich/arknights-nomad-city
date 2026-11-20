@@ -10,6 +10,7 @@ import type { PlayerView } from "../../../../packages/rules/src/types.ts";
 import { FlipNumber, PresidentBadge } from "./TableMotion.tsx";
 import { TablePiece } from "./TablePieces.tsx";
 import { PlayerResourceStrip, ResourceStock } from "./ResourceStock.tsx";
+import { MarkerBox } from "./MarkerBox.tsx";
 import { EntrepreneurPortrait } from "./EntrepreneurPortrait.tsx";
 import { oripathyEnterpriseImage } from "../../../../packages/rules/src/oripathy-data.ts";
 
@@ -34,9 +35,7 @@ export function TableDashboard({
       <section className="resource-tray" aria-label="我的资源配件盘">
         <div className="section-label">
           <h2>资源储备</h2>
-          <span>
-            可用标记 <b>{me.availableMarkers}</b>
-          </span>
+          <MarkerBox key={me.id} count={me.availableMarkers} seat={me.seat} />
         </div>
         <ResourceStock wallet={me.wallet} counter />
       </section>

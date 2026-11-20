@@ -23,6 +23,7 @@ import { TableFeedback } from "./components/TableFeedback.tsx";
 import { CardArtwork } from "./components/CardArtwork.tsx";
 import { RoleHand } from "./components/RoleHand.tsx";
 import { TableDashboard } from "./components/TableDashboard.tsx";
+import { MarkerBox } from "./components/MarkerBox.tsx";
 import { CityPanel } from "./components/CityPanel.tsx";
 import {
   ExpeditionAtmosphere,
@@ -1107,8 +1108,8 @@ function GameRoom({
                 aria-label="查看资源、玩家与城市"
                 aria-haspopup="dialog"
               >
-                {game.phase === "finished" ? "终局详情" : "配件盘"}{" "}
-                <span aria-hidden="true">↗</span>
+                <MarkerBox key={me!.id} count={me!.availableMarkers} seat={me!.seat} />
+                {game.phase === "finished" ? "终局详情" : "配件盘"}
               </button>
             </div>
           )}

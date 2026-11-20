@@ -45,8 +45,27 @@ async function center(page: Page, selector: string) {
 
 test("城市拖起显示虚线、无效落点不提交，合法落点松手立即移动扣费", async ({
   page,
+  browser,
 }, info) => {
-  const { id } = await fixture(page);
+  const { id, friendToken } = await fixture(page);
+  const friend = await browser.newPage({ viewport: page.viewportSize()! });
+  await friend.addInitScript(
+    ({ id, token }) => localStorage.setItem(`nomad:seat:${id}`, token),
+    { id, token: friendToken },
+  );
+  await friend.goto(page.url());
+  await expect(friend.locator(".connection")).toContainText("已连接");
+  await friend.evaluate(() => {
+    document.addEventListener("animationstart", (event) => {
+      if (event.animationName !== "city-follow-road") return;
+      const transform = new DOMMatrix(
+        getComputedStyle(event.target as Element).transform,
+      );
+      document.documentElement.dataset.cityDistance = String(
+        Math.hypot(transform.e, transform.f),
+      );
+    });
+  });
   const game = readGame(id);
   const me = game.players[0];
   const move = projectView(game, me.id).cityDestinations![0];
@@ -88,6 +107,14 @@ test("城市拖起显示虚线、无效落点不提交，合法落点松手立�
     page.locator(`.city-position[data-player="${me.id}"]`),
   ).toHaveAttribute("data-city", move.target);
   await expect(page.locator(".stock-ore strong")).toHaveText("17");
+  await expect
+    .poll(() =>
+      friend.evaluate(() =>
+        Number(document.documentElement.dataset.cityDistance ?? 0),
+      ),
+    )
+    .toBeGreaterThan(30);
+  await friend.close();
   await expect(page.locator(".stock-ore strong i")).toHaveText(["1", "7"]);
   expect(await revision(page)).toBe(before + 2);
   if (readGame(id).decision?.kind === "event") {

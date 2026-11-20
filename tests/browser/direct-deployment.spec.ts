@@ -24,6 +24,21 @@ test("主要行动直接点图预览部署，改选取消不消耗，双击确�
   const initial = read(id);
   const game = initial.game!;
   const me = game.players[0].id;
+  const stock = projectView(game, me).players[0].availableMarkers;
+  const cubes = page.locator(".game-sidebar .marker-box svg > use");
+  await expect(cubes).toHaveCount(stock);
+  await page.evaluate(() => {
+    document.addEventListener("animationstart", (e) => {
+      if (
+        e.animationName === "take-marker" ||
+        e.animationName === "marker-seat"
+      )
+        document.documentElement.setAttribute(
+          "data-tested-" + e.animationName,
+          "true",
+        );
+    });
+  });
   const choices = projectView(game, me).influencePlacements!;
   const first = choices[0];
   const second = choices.find(
@@ -88,6 +103,15 @@ test("主要行动直接点图预览部署，改选取消不消耗，双击确�
     String(initial.revision + 2),
   );
   const done = read(id).game!;
+  await expect(cubes).toHaveCount(stock - 1);
+  await expect(page.locator("html")).toHaveAttribute(
+    "data-tested-take-marker",
+    "true",
+  );
+  await expect(page.locator("html")).toHaveAttribute(
+    "data-tested-marker-seat",
+    "true",
+  );
   const [site, index] = selected.optionId.split(":");
   expect(done.sites[site].slots[Number(index)]).toBe(me);
   expect(done.mainRemaining).toBe(game.mainRemaining - 1);

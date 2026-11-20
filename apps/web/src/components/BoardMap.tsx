@@ -4,6 +4,7 @@ import {
   useRef,
   useState,
   type PointerEvent,
+  type CSSProperties,
 } from "react";
 import { RESOURCE_NAMES } from "../../../../packages/rules/src/data.ts";
 import { gameAudio } from "../audio.ts";
@@ -72,22 +73,64 @@ export function BoardMap({
     Object.fromEntries(game.players.map((p) => [p.id, p.city])),
   );
   const [landings, setLandings] = useState<
-    Record<string, "city-arrival" | "city-travel">
+    Record<
+      string,
+      { kind: "city-arrival" | "city-travel"; style?: CSSProperties }
+    >
   >({});
+  const [released, setReleased] = useState<{
+    target: string;
+    x: number;
+    y: number;
+  } | null>(null);
+  useEffect(() => {
+    if (!released) return;
+    const timer = window.setTimeout(() => setReleased(null), 1100);
+    return () => window.clearTimeout(timer);
+  }, [released]);
   const cityLocations = game.players.map((p) => `${p.id}:${p.city}`).join("|");
   useLayoutEffect(() => {
     const previous = previousCities.current;
     previousCities.current = Object.fromEntries(
       game.players.map((p) => [p.id, p.city]),
     );
+    if (me?.city === released?.target) setReleased(null);
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const changes = Object.fromEntries(
       game.players
         .filter((p) => p.city && p.city !== previous[p.id])
-        .map((p) => [
-          p.id,
-          previous[p.id] ? ("city-travel" as const) : ("city-arrival" as const),
-        ]),
+        .map((p) => {
+          const old = previous[p.id];
+          if (!old) return [p.id, { kind: "city-arrival" }] as const;
+          const end = siteLayout(game, p.city!);
+          const hand =
+            p.id === game.me && released?.target === p.city ? released : null;
+          const start = hand ?? siteLayout(game, old);
+          const road =
+            !hand &&
+            game.board.roads.find(
+              (r) => r.nodes.includes(old) && r.nodes.includes(p.city!),
+            );
+          const middle = road || {
+            x: (start.x + end.x) / 2,
+            y: (start.y + end.y) / 2,
+          };
+          return [
+            p.id,
+            {
+              kind: "city-travel",
+              style: {
+                "--depart-x": `${start.x - end.x}px`,
+                "--depart-y": `${start.y - end.y}px`,
+                // Quadratic control point puts the city over the road at half distance.
+                "--bend-x": `${2 * (middle.x - end.x) - (start.x - end.x) / 2}px`,
+                "--bend-y": `${2 * (middle.y - end.y) - (start.y - end.y) / 2}px`,
+                "--drive-tilt": start.x < end.x ? "-2deg" : "2deg",
+                "--drive-time": hand ? "300ms" : "720ms",
+              } as CSSProperties,
+            },
+          ] as const;
+        }),
     );
     if (Object.keys(changes).length)
       setLandings((existing) => ({ ...existing, ...changes }));
@@ -115,6 +158,8 @@ export function BoardMap({
     y: number;
     startX: number;
     startY: number;
+    gripX: number;
+    gripY: number;
     moved: boolean;
     target: string;
   } | null>(null);
@@ -170,6 +215,11 @@ export function BoardMap({
     if (e.currentTarget.hasPointerCapture(e.pointerId))
       e.currentTarget.releasePointerCapture(e.pointerId);
     if (drag.moved && dest) {
+      setReleased({
+        target: dest.target,
+        x: drag.x + drag.gripX,
+        y: drag.y + drag.gripY - 21,
+      });
       void gameAudio.play("select");
       onCityDrop(dest.target, dest.optionId);
     } else if (!drag.moved) onCityKeyboard();
@@ -315,7 +365,7 @@ export function BoardMap({
                 return (
                   <g
                     key={`${i}:${owner}`}
-                    className="map-piece"
+                    className={`map-piece ${travel.entering.includes(`${site.id}:${i}`) ? "influence-deposit" : ""}`}
                     {...influence.handle(`${site.id}:${i}`)}
                     style={{
                       opacity: travel.arrival === `${site.id}:${i}` ? 0 : 1,
@@ -392,11 +442,17 @@ export function BoardMap({
             const node = game.board.nodes.find((n) => n.id === p.city)!;
             const canDrag =
               p.id === game.me && destinations.length > 0 && !disabled;
+            const held =
+              p.id === game.me && released && released.target !== p.city
+                ? released
+                : null;
             return (
               <g
                 key={p.id}
-                className={`city-position ${canDrag ? "city-drag-handle" : ""} ${drag?.seat === p.seat ? "city-lifted" : ""}`}
-                style={{ transform: `translate(${node.x}px,${node.y + 12}px)` }}
+                className={`city-position ${canDrag ? "city-drag-handle" : ""} ${drag?.moved && drag.seat === p.seat ? "city-lifted" : ""}`}
+                style={{
+                  transform: `translate(${held?.x ?? node.x}px,${(held?.y ?? node.y) + 12}px)`,
+                }}
                 data-player={p.id}
                 data-city={p.city}
                 role={canDrag ? "button" : undefined}
@@ -423,6 +479,8 @@ export function BoardMap({
                     y: point.y,
                     startX: point.x,
                     startY: point.y,
+                    gripX: node.x - point.x,
+                    gripY: node.y + 12 - point.y,
                     moved: false,
                     target: "",
                   });
@@ -434,7 +492,8 @@ export function BoardMap({
               >
                 <g
                   key={p.city}
-                  className={landings[p.id]}
+                  className={landings[p.id]?.kind}
+                  style={landings[p.id]?.style}
                   onAnimationEnd={(e) => {
                     if (
                       e.animationName === "city-touchdown" ||
@@ -443,15 +502,15 @@ export function BoardMap({
                       clearLanding(p.id);
                   }}
                 >
-                  {landings[p.id] === "city-arrival" && (
+                  {landings[p.id] && (
                     <g
                       className="city-landing-dust"
                       aria-hidden="true"
                       pointerEvents="none"
                     >
-                      <ellipse rx="42" ry="17" cy="5" />
-                      <ellipse rx="29" ry="11" cy="5" />
-                      <path d="M-44 8l-12 4m96-2 14 5m-65 6-5 9m37-8 5 9" />
+                      <path d="m-25 8-8 1m-2-5-4-1m10 9-3 2m62-6 7 2m-4-6 5-1m-17 9 4 2" />
+                      <circle cx="-38" cy="10" r="1.1" />
+                      <circle cx="34" cy="13" r="1.4" />
                     </g>
                   )}
                   <TablePiece kind="city" seat={p.seat} />
@@ -512,13 +571,21 @@ export function BoardMap({
               </g>
             );
           })}
-        {drag && (
+        {drag?.moved && (
           <g className="drag-city" pointerEvents="none">
+            <ellipse
+              cx={drag.x + drag.gripX}
+              cy={drag.y + drag.gripY + 3}
+              rx="29"
+              ry="11"
+              fill="#231e18"
+              opacity=".3"
+            />
             <TablePiece
               kind="city"
               seat={drag.seat}
-              x={drag.x}
-              y={drag.y - 9}
+              x={drag.x + drag.gripX}
+              y={drag.y + drag.gripY - 9}
             />
             <text x={drag.x} y={drag.y - 62} textAnchor="middle">
               {drag.target

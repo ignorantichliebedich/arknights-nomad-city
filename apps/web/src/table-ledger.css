@@ -57,6 +57,40 @@
 .game-sidebar .section-label b {
   font-variant-numeric: tabular-nums;
 }
+.game-sidebar .resource-tray > .section-label {
+  align-items: center;
+  padding-block: 0 3px;
+}
+.marker-box {
+  display: inline-flex;
+  gap: 3px;
+  align-items: center;
+  white-space: nowrap;
+}
+.marker-box svg {
+  width: 60px;
+  height: 43px;
+  overflow: visible;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .marker-withdraw {
+    animation: take-marker 570ms both;
+  }
+}
+@keyframes take-marker {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  38% {
+    opacity: 1;
+    transform: translate(-2px, -12px) rotate(-6deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-23px, -21px) rotate(-13deg);
+  }
+}
 .stock-counter {
   margin-top: 6px;
 }

@@ -73,6 +73,21 @@ body:has(.app-shell.phone-layout),
 }
 .phone-resource-hud > button {
   min-width: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding-inline: 3px;
+}
+.phone-resource-hud .marker-box {
+  gap: 0;
+}
+.phone-resource-hud .marker-box-name {
+  display: none;
+}
+.phone-resource-hud .marker-box svg {
+  width: 27px;
+  height: 23px;
 }
 .phone-layout .phone-phase-bar {
   grid-column: 2;
