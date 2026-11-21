@@ -463,8 +463,9 @@
   font-size: 23px;
 }
 .hero-shortcuts {
-  display: flex;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px 20px;
   max-width: 410px;
   margin: 18px 0 0 8px;
 }
@@ -1037,10 +1038,10 @@
     z-index: 5;
     order: 3;
     margin: 16px 0 0;
-    gap: 12px;
+    gap: 0 12px;
   }
   .phone-layout .expedition-shortcut.subtle-button {
-    min-height: 64px;
+    min-height: 44px;
     padding: 10px;
     gap: 8px;
   }
@@ -1175,9 +1176,8 @@
     font-size: 24px;
   }
   .phone-layout .hero-shortcuts {
-    display: flex;
-    margin: 12px 0 0;
-    gap: 12px;
+    margin: 4px 0 0;
+    gap: 0 12px;
     max-width: 340px;
   }
   .phone-layout .expedition-shortcut.subtle-button {
@@ -1278,6 +1278,17 @@
   }
   .phone-layout .boot-progress-label {
     margin-top: 9px;
+  }
+}
+@media (orientation: landscape) and (max-height: 410px) {
+  .phone-layout .hero-kicker {
+    display: none;
+  }
+  .phone-layout .poster-title {
+    font-size: clamp(36px, 12dvh, 49px);
+  }
+  .phone-layout .hero-actions {
+    margin-top: 4px;
   }
 }
 @keyframes poster-wave-phone {

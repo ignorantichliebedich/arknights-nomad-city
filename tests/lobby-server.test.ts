@@ -29,6 +29,51 @@ async function post(url: string, body: unknown, token?: string) {
   });
   return { status: response.status, body: await response.json() };
 }
+it("三类来信独立入库，重试只产生一条记录，正文仅维护者可读", async () => {
+  const { app, url } = await start();
+  const endpoint = url + "/api/feedback";
+  for (const kind of ["suggestion", "bug", "idea"]) {
+    const id = randomBytes(16).toString("hex");
+    const letter = { id, kind, message: "  归档测试  " };
+    expect(await post(endpoint, letter)).toEqual({ status: 201, body: { id } });
+    expect((await post(endpoint, letter)).status).toBe(200);
+  }
+  expect((await post(endpoint, {})).status).toBe(429);
+  expect((await fetch(endpoint)).status).toBe(404);
+  expect(
+    app.store.db
+      .prepare("SELECT kind,message FROM feedback ORDER BY kind")
+      .all(),
+  ).toEqual(
+    ["bug", "idea", "suggestion"].map((kind) => ({
+      kind,
+      message: "归档测试",
+    })),
+  );
+  expect(app.store.count()).toBe(0);
+});
+
+it("来信校验类别、正文、编号，拒绝覆盖已有来信", async () => {
+  const { url } = await start();
+  const endpoint = url + "/api/feedback";
+  const letter = {
+    id: randomBytes(16).toString("hex"),
+    kind: "idea",
+    message: "灵感",
+  };
+  for (const fields of [
+    { kind: "constructor" },
+    { message: "   " },
+    { message: "字".repeat(2001) },
+    { id: "" },
+  ])
+    expect((await post(endpoint, { ...letter, ...fields })).status).toBe(400);
+  expect((await post(endpoint, letter)).status).toBe(201);
+  expect((await post(endpoint, { ...letter, message: "另一封" })).status).toBe(
+    400,
+  );
+});
+
 async function client(url: string, id: string, token: string) {
   const ws = new WebSocket(url),
     inbox: any[] = [];

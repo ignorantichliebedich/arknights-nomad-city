@@ -28,6 +28,10 @@ import { Matchmaker, lobbyFilters, playerCount } from "./matchmaking.ts";
 import { capacity, modeFor } from "../../../packages/shared/lobby.ts";
 import { RESOURCE_PACK_MANIFEST } from "../../../packages/shared/resource-pack.ts";
 import {
+  feedbackKinds,
+  feedbackLimit,
+} from "../../../packages/shared/feedback.ts";
+import {
   STATE_SYNC_VERSION,
   StateSender,
 } from "../../../packages/shared/state-sync.ts";
@@ -430,7 +434,8 @@ export function createGameServer(options: ServerOptions = {}) {
           (/^\/api\/rooms(?:\/[A-Z0-9]{6}\/(?:join|leave))?$/.test(
             url.pathname,
           ) ||
-            url.pathname === "/api/matchmaking")
+            url.pathname === "/api/matchmaking" ||
+            url.pathname === "/api/feedback")
         ) {
           rate(`http:${clientAddress(req)}`, 60);
           if (
@@ -466,6 +471,37 @@ export function createGameServer(options: ServerOptions = {}) {
               throw new Error("Invalid body");
           } catch {
             json(res, 400, { error: "请求需要有效 JSON" });
+            return;
+          }
+          if (url.pathname === "/api/feedback") {
+            rate("feedback:" + clientAddress(req), 6);
+            const { id, kind, message } = input;
+            if (typeof id !== "string" || !/^[0-9a-f]{32}$/.test(id))
+              throw new RuleError("来信编号无效");
+            if (typeof kind !== "string" || !Object.hasOwn(feedbackKinds, kind))
+              throw new RuleError("请选择来信类别");
+            if (
+              typeof message !== "string" ||
+              !message.trim() ||
+              message.length > feedbackLimit
+            )
+              throw new RuleError(`请输入 1 至 ${feedbackLimit} 字的来信`);
+            const body = message.trim();
+            const inserted = store.db
+              .prepare(
+                "INSERT INTO feedback (id,kind,message) VALUES (?,?,?) ON CONFLICT(id) DO NOTHING",
+              )
+              .run(id, kind, body).changes;
+            if (
+              !inserted &&
+              !store.db
+                .prepare(
+                  "SELECT 1 FROM feedback WHERE id=? AND kind=? AND message=?",
+                )
+                .get(id, kind, body)
+            )
+              throw new RuleError("来信编号已使用");
+            json(res, inserted ? 201 : 200, { id });
             return;
           }
           if (/^\/api\/rooms\/[A-Z0-9]{6}\/leave$/.test(url.pathname)) {

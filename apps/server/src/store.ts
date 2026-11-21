@@ -38,6 +38,7 @@ export class RoomStore {
     this.db
       .exec(`PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL; PRAGMA foreign_keys=ON;
  CREATE TABLE IF NOT EXISTS rooms(id TEXT PRIMARY KEY, revision INTEGER NOT NULL, body TEXT NOT NULL, updated_at TEXT NOT NULL);
+ CREATE TABLE IF NOT EXISTS feedback(id TEXT PRIMARY KEY, kind TEXT NOT NULL, message TEXT NOT NULL, created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
  CREATE TABLE IF NOT EXISTS commands(room_id TEXT NOT NULL REFERENCES rooms(id), player_id TEXT NOT NULL, command_id TEXT NOT NULL, response TEXT NOT NULL, PRIMARY KEY(room_id,player_id,command_id));
  CREATE TABLE IF NOT EXISTS metadata(key TEXT PRIMARY KEY,value TEXT NOT NULL); INSERT OR IGNORE INTO metadata VALUES('schema','1');
  CREATE TABLE IF NOT EXISTS public_rooms(id TEXT PRIMARY KEY REFERENCES rooms(id),body TEXT NOT NULL,created_at TEXT NOT NULL);

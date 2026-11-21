@@ -10,7 +10,7 @@
 ![玩家人数：2–4](https://img.shields.io/badge/玩家-2–4_人-9f382c?style=flat-square)
 ![平台：桌面与手机浏览器](https://img.shields.io/badge/平台-桌面_·_手机-242321?style=flat-square)
 
-[进入游戏](http://106.52.74.24) · [本地启动](docs/quickstart.md) · [操作指南](docs/how-to-play.md) · [更新记录](CHANGELOG.md)
+[进入游戏](http://106.52.74.24) · [本地启动](docs/quickstart.md) · [操作指南](docs/how-to-play.md) · [DIY 开发指南](docs/diy.md) · [更新记录](CHANGELOG.md)
 
 </div>
 

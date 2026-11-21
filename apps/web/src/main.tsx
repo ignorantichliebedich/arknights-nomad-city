@@ -100,6 +100,7 @@ import "./table-ledger.css";
 import "./table-folio.css";
 import "./phone-screen.css";
 import "./table-copy.css";
+import "./feedback-desk.css";
 import { PhonePages } from "./components/PhonePages.tsx";
 import { EntrepreneurPortrait } from "./components/EntrepreneurPortrait.tsx";
 import {
