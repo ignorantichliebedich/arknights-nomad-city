@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import { useEffect, useRef, useState } from "react";
 import {
   FACILITY_BY_ID,
@@ -61,7 +62,7 @@ export function SupplyWindow({
                 }
                 aria-label={`查看${card.name}的牌面`}
               >
-                <img src={card.image} alt={card.name} />
+                <img src={assetUrl(card.image)} alt={card.name} />
               </button>
               <strong>
                 {card.name}
@@ -135,7 +136,7 @@ export function SupplyWindow({
                   })
                 }
               >
-                <img src={card.image} alt={card.name} />
+                <img src={assetUrl(card.image)} alt={card.name} />
               </button>
               <div>
                 <strong>{card.name}</strong>
@@ -200,7 +201,7 @@ export function PatternPicker({
               })
             }
           >
-            <img src={card.image} alt={card.name} />
+            <img src={assetUrl(card.image)} alt={card.name} />
           </button>
           <h3>
             {card.name} · +{card.score} 分
@@ -222,7 +223,7 @@ export function PatternPicker({
               >
                 {built && (
                   <img
-                    src={FACILITY_BY_ID[built.cardId].image}
+                    src={assetUrl(FACILITY_BY_ID[built.cardId].image)}
                     alt={FACILITY_BY_ID[built.cardId].name}
                   />
                 )}
@@ -327,7 +328,7 @@ export function ReceiptContents({
     <div className="table-receipt">
       <img
         className="receipt-main-card"
-        src={receipt.image}
+        src={assetUrl(receipt.image)}
         alt={receipt.name}
       />
       <div>
@@ -357,7 +358,7 @@ export function ReceiptContents({
               {receipt.incoming.map((id) => (
                 <img
                   key={id}
-                  src={FACILITY_BY_ID[id.split("@")[0]].image}
+                  src={assetUrl(FACILITY_BY_ID[id.split("@")[0]].image)}
                   alt={FACILITY_BY_ID[id.split("@")[0]].name}
                 />
               ))}

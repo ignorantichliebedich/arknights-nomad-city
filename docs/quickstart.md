@@ -1,6 +1,6 @@
 # 本地运行与开发
 
-[返回项目首页](../README.md) · [棋桌操作](how-to-play.md) · [发布流程](release.md)
+[返回项目首页](../README.md) · [棋桌操作](how-to-play.md) · [资源包导入](resource-pack.md) · [发布流程](release.md)
 
 以下命令均在项目根目录运行。运行图像与音频按清单单独获取，Git 仓库中的展示截图不代替这些素材。
 

@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import { useLayoutEffect, useRef, useState } from "react";
 import {
   ENTERPRISE_IMAGES,
@@ -123,7 +124,7 @@ function BuildPicker({
                   onSelect(null);
                 }}
               >
-                <img src={card.image} alt="" />
+                <img src={assetUrl(card.image)} alt="" />
                 <strong>{card.name}</strong>
               </button>
               <button
@@ -168,7 +169,7 @@ function BuildPicker({
                 >
                   {built ? (
                     <img
-                      src={FACILITY_BY_ID[built.cardId].image}
+                      src={assetUrl(FACILITY_BY_ID[built.cardId].image)}
                       alt={FACILITY_BY_ID[built.cardId].name}
                     />
                   ) : (
@@ -328,7 +329,7 @@ export function ActionComposer({
                     aria-label="放大所选牌面"
                   >
                     <img
-                      src={highResolutionArt(preview.image)}
+                      src={assetUrl(highResolutionArt(preview.image))}
                       alt={preview.title}
                     />
                   </button>
@@ -362,7 +363,9 @@ export function ActionComposer({
                 selected.command.patternId && (
                   <div className="declare-preview">
                     <img
-                      src={PATTERN_BY_ID[selected.command.patternId].image}
+                      src={assetUrl(
+                        PATTERN_BY_ID[selected.command.patternId].image,
+                      )}
                       alt={PATTERN_BY_ID[selected.command.patternId].name}
                     />
                     <p>
@@ -449,7 +452,7 @@ export function ActionComposer({
                       aria-pressed={selected?.id === a.id}
                       onClick={() => onSelect(a)}
                     >
-                      {o?.image && <img src={o.image} alt="" />}
+                      {o?.image && <img src={assetUrl(o.image)} alt="" />}
                       {a.command.type === "main" && (
                         <ActionEmblem action={a.id} />
                       )}

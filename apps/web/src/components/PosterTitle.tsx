@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import type { CSSProperties } from "react";
 
 export const TITLE_GLYPHS = [..."明日方舟游城拓荒"].map(
@@ -29,7 +30,7 @@ export function PosterTitle() {
                   <span className="poster-paper" />
                   <span className="poster-fallback">{char}</span>
                   <img
-                    src={TITLE_GLYPHS[row * 4 + index]}
+                    src={assetUrl(TITLE_GLYPHS[row * 4 + index])}
                     alt=""
                     draggable={false}
                     onError={(event) => {

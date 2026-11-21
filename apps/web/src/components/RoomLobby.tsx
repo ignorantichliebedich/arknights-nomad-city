@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import type { CSSProperties } from "react";
 import {
   PLAYER_COLORS,
@@ -170,7 +171,7 @@ export function RoomLobby({
                     </div>
                     <div className="assembly-nameplate">
                       <img
-                        src={`/assets/city-model-${i}.svg`}
+                        src={assetUrl(`/assets/city-model-${i}.svg`)}
                         alt=""
                         draggable={false}
                       />
@@ -196,7 +197,7 @@ export function RoomLobby({
                   >
                     <span className="empty-seat-crosshair" aria-hidden="true">
                       <img
-                        src={`/assets/city-model-${i}.svg`}
+                        src={assetUrl(`/assets/city-model-${i}.svg`)}
                         alt=""
                         draggable={false}
                       />
@@ -310,11 +311,11 @@ export function RoomLobby({
           </div>
           <div className="dossier-map">
             <img
-              src={
+              src={assetUrl(
                 room.seats.length === 4
                   ? "/assets/board-4.webp"
-                  : "/assets/board-3.webp"
-              }
+                  : "/assets/board-3.webp",
+              )}
               alt="拓荒区棋盘预览"
             />
             <span>第 105 号拓荒区</span>
@@ -349,7 +350,7 @@ export function RoomLobby({
             <small>分享地址或房间码，即可入座。</small>
           </div>
           <div className="dossier-note">
-            <img src="/assets/resource-score.webp" alt="" />
+            <img src={assetUrl("/assets/resource-score.webp")} alt="" />
             <p>
               控制航道，经营城市。
               <br />

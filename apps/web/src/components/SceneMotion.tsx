@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import { useLayoutEffect, useRef, useState, type MouseEvent } from "react";
 import type { RoomView } from "../network.ts";
 import { useSceneCurtain } from "../useSceneCurtain.ts";
@@ -117,7 +118,7 @@ function SceneCurtain({ scene, onDone }: { scene: Scene; onDone: () => void }) {
         <span className="eyebrow">NOMAD CITY / DISTRICT 105</span>
         <div className="scene-city" aria-hidden="true">
           <i />
-          <img src={`/assets/city-model-${mine}.svg`} alt="" />
+          <img src={assetUrl(`/assets/city-model-${mine}.svg`)} alt="" />
         </div>
         <h2 id="scene-heading">
           {scene.kind === "game" ? "移动城市，启程。" : "欢迎入座，企业家。"}
@@ -131,7 +132,7 @@ function SceneCurtain({ scene, onDone }: { scene: Scene; onDone: () => void }) {
           {scene.room.seats.map((seat, i) => (
             <img
               key={seat.id}
-              src={`/assets/avatar-${i}.webp?v=founders`}
+              src={assetUrl(`/assets/avatar-${i}.webp?v=founders`)}
               alt=""
             />
           ))}

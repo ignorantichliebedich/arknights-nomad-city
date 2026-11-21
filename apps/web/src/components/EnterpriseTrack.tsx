@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import {
   oripathyEnterpriseImage,
   ORIPATHY_ENTERPRISE_TEXT,
@@ -115,7 +116,7 @@ export function EnterpriseComparison({
             <th key={p.id} scope="col">
               <img
                 className="comparison-avatar"
-                src={`/assets/avatar-${p.seat}.webp?v=founders`}
+                src={assetUrl(`/assets/avatar-${p.seat}.webp?v=founders`)}
                 alt=""
               />
               <span

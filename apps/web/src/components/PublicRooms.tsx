@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import { useEffect, useState } from "react";
 import {
   MODE_NAMES,
@@ -81,7 +82,7 @@ export function PublicRooms({
         </div>
       ) : !data.rooms.length ? (
         <div className="recruit-empty">
-          <img src="/assets/city-model-0.svg" alt="" />
+          <img src={assetUrl("/assets/city-model-0.svg")} alt="" />
           <h3>这片荒野，还在等待同行者。</h3>
           <p>此筛选下暂无在线公开房间。发起匹配，等待下一位企业家。</p>
           <button className="primary-button" onClick={onMatch}>
@@ -97,7 +98,7 @@ export function PublicRooms({
                 <span>公开招募</span>
               </div>
               <div className="public-room-title">
-                <img src={`/assets/city-model-${i % 4}.svg`} alt="" />
+                <img src={assetUrl(`/assets/city-model-${i % 4}.svg`)} alt="" />
                 <div>
                   <h3>{room.hostName}的拓荒邀约</h3>
                   <p>{MODE_NAMES[room.mode]}</p>

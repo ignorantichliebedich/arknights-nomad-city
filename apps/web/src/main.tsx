@@ -1,3 +1,4 @@
+import { assetUrl } from "./resource-media.ts";
 import React, { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import {
@@ -1123,7 +1124,7 @@ function GameRoom({
                   }
                 />
                 {activeId === game.players[game.first]?.id && (
-                  <img src="/assets/president.webp" alt="大总统" />
+                  <img src={assetUrl("/assets/president.webp")} alt="大总统" />
                 )}
                 第 {game.round}/8 回合 ·
                 <span aria-live="polite">
@@ -1277,7 +1278,7 @@ function GameRoom({
                     left: `${(-mapBounds(game).x / mapBounds(game).w) * 100}%`,
                     top: `${(-mapBounds(game).y / mapBounds(game).h) * 100}%`,
                   }}
-                  src="/assets/terrain-margin-v1.webp"
+                  src={assetUrl("/assets/terrain-margin-v1.webp")}
                   sizes={`${boardSide * zoom}px`}
                   alt=""
                   aria-hidden="true"
@@ -1291,8 +1292,8 @@ function GameRoom({
                     left: `${(-mapBounds(game).x / mapBounds(game).w) * 100}%`,
                     top: `${(-mapBounds(game).y / mapBounds(game).h) * 100}%`,
                   }}
-                  src={game.board.image.replace(".webp", "-hd.webp")}
-                  srcSet={`${game.board.image} 2400w, ${game.board.image.replace(".webp", "-hd.webp")} 5000w`}
+                  src={assetUrl(game.board.image.replace(".webp", "-hd.webp"))}
+                  srcSet={`${assetUrl(game.board.image)} 2400w, ${assetUrl(game.board.image.replace(".webp", "-hd.webp"))} 5000w`}
                   sizes={`${boardSide * zoom}px`}
                   alt=""
                   aria-hidden="true"

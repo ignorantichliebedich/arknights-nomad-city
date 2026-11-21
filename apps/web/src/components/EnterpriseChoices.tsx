@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import type { CSSProperties } from "react";
 import { oripathyEnterpriseImage } from "../../../../packages/rules/src/oripathy-data.ts";
 import {
@@ -119,7 +120,7 @@ export function EnterpriseChoices({
                 >
                   <span className="enterprise-offer-art" aria-hidden="true">
                     <img
-                      src={highResolutionArt(option!.image!)}
+                      src={assetUrl(highResolutionArt(option!.image!))}
                       alt=""
                       draggable={false}
                     />

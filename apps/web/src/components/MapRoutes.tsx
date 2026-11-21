@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import { RESOURCE_NAMES } from "../../../../packages/rules/src/data.ts";
 import { PhonePages } from "./PhonePages.tsx";
 import type {
@@ -239,7 +240,9 @@ export function RoutePanel({
                   >
                     {p && (
                       <img
-                        src={`/assets/avatar-${p.seat}.webp?v=founders`}
+                        src={assetUrl(
+                          `/assets/avatar-${p.seat}.webp?v=founders`,
+                        )}
                         alt=""
                       />
                     )}

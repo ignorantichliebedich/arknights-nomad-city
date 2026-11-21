@@ -1,9 +1,10 @@
+import { assetUrl } from "../resource-media.ts";
 export function FrontierPostcard({ oripathy }: { oripathy: boolean }) {
   return (
     <figure className="frontier-postcard">
       <div className="postcard-mount">
         <img
-          src="/assets/nomad-table-backdrop.webp"
+          src={assetUrl("/assets/nomad-table-backdrop.webp")}
           alt="官方铸基者宣传画：企业家们在夕阳下的拓荒区集结"
           draggable={false}
         />

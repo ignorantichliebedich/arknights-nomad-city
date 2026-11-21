@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import {
   PLAYER_COLORS,
   PLAYER_SYMBOLS,
@@ -106,7 +107,7 @@ export function TablePiece({
       <g className="piece-model">
         {city && (
           <image
-            href={`/assets/city-model-${seat}.svg`}
+            href={assetUrl(`/assets/city-model-${seat}.svg`)}
             x="-40"
             y="-48"
             width="80"
@@ -189,7 +190,7 @@ export function ResourceToken({
   return (
     <img
       className={`stock-token token-${type}${piece ? " wallet-piece" : ""}`}
-      src={piece ?? `/assets/resource-${type}.webp`}
+      src={assetUrl(piece ?? `/assets/resource-${type}.webp`)}
       alt=""
       aria-hidden="true"
       draggable={false}

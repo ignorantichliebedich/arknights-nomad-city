@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import { entrepreneurPresentation } from "../entrepreneur.ts";
 
 export function EntrepreneurPortrait({
@@ -21,13 +22,13 @@ export function EntrepreneurPortrait({
       role="img"
       aria-label={label}
     >
-      <image href={art[variant]} width="1200" height="1700" />
+      <image href={assetUrl(art[variant])} width="1200" height="1700" />
     </svg>
   ) : (
     <img
       className={`${className} entrepreneur-image`}
       data-entrepreneur={art.id}
-      src={art[variant]}
+      src={assetUrl(art[variant])}
       alt={label}
       draggable={false}
     />

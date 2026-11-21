@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import {
   useEffect,
   useLayoutEffect,
@@ -342,7 +343,9 @@ export function BoardMap({
                     stroke="#e3c890"
                   />
                   <image
-                    href={`/assets/table-resource-${state.resource}.webp`}
+                    href={assetUrl(
+                      `/assets/table-resource-${state.resource}.webp`,
+                    )}
                     x={layout.resource!.x + 3}
                     y={layout.resource!.y + 1}
                     width="35"

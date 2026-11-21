@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import { useRef, useState } from "react";
 import type { RoomView } from "../network.ts";
 import { capacity } from "../../../../packages/shared/lobby.ts";
@@ -37,7 +38,7 @@ export function InvitationPass({
         <span>{arranging ? "人机同行档案" : "好友通行凭证"}</span>
       </div>
       <div className="invitation-pass-code">
-        <img src="/assets/city-model-0.svg" alt="" />
+        <img src={assetUrl("/assets/city-model-0.svg")} alt="" />
         <div>
           <small>拓荒区编号</small>
           <strong>{room.id}</strong>
@@ -62,7 +63,10 @@ export function InvitationPass({
           {Array.from({ length: capacity(room) }, (_, i) => (
             <span key={i} className={room.seats[i] ? "occupied" : ""}>
               {room.seats[i] ? (
-                <img src={`/assets/avatar-${i}.webp?v=founders`} alt="" />
+                <img
+                  src={assetUrl(`/assets/avatar-${i}.webp?v=founders`)}
+                  alt=""
+                />
               ) : (
                 "＋"
               )}
@@ -94,7 +98,10 @@ export function InvitationPass({
               const index = room.seats.findIndex((s) => s.id === bot.id);
               return (
                 <div className="invitation-bot-seat" key={bot.id}>
-                  <img src={`/assets/avatar-${index}.webp?v=founders`} alt="" />
+                  <img
+                    src={assetUrl(`/assets/avatar-${index}.webp?v=founders`)}
+                    alt=""
+                  />
                   <div>
                     <strong>{bot.name}</strong>
                     <small>第 {index + 1} 席 · 自动准备</small>
@@ -116,7 +123,9 @@ export function InvitationPass({
             onClick={onAddBot}
           >
             <img
-              src={`/assets/city-model-${Math.min(room.seats.length, 3)}.svg`}
+              src={assetUrl(
+                `/assets/city-model-${Math.min(room.seats.length, 3)}.svg`,
+              )}
               alt=""
             />
             <span>

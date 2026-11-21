@@ -26,6 +26,7 @@ import { RoomStore } from "./store.ts";
 import type { Room, Seat } from "./store.ts";
 import { Matchmaker, lobbyFilters, playerCount } from "./matchmaking.ts";
 import { capacity, modeFor } from "../../../packages/shared/lobby.ts";
+import { RESOURCE_PACK_MANIFEST } from "../../../packages/shared/resource-pack.ts";
 import {
   STATE_SYNC_VERSION,
   StateSender,
@@ -70,6 +71,7 @@ type Client = {
   state?: StateSender;
 };
 export type ServerOptions = {
+  resourcePackCheck?: boolean;
   database?: string;
   webRoot?: string;
   allowedOrigins?: string[];
@@ -645,6 +647,13 @@ export function createGameServer(options: ServerOptions = {}) {
           json(res, 405, { error: "请求方法不支持" });
           return;
         }
+        if (
+          url.pathname === RESOURCE_PACK_MANIFEST &&
+          options.resourcePackCheck === false
+        ) {
+          json(res, 200, null);
+          return;
+        }
         let path: string;
         try {
           if (
@@ -692,12 +701,14 @@ export function createGameServer(options: ServerOptions = {}) {
           ".ogg": "audio/ogg",
           ".wav": "audio/wav",
           ".m4a": "audio/mp4",
+          ".zip": "application/zip",
         };
         const size = statSync(path).size;
         const type = mime[extname(path)] ?? "application/octet-stream";
-        const audio = type.startsWith("audio/");
+        const rangeSupported =
+          type.startsWith("audio/") || type === "application/zip";
         const range =
-          audio && req.method === "GET" && !req.headers["if-range"]
+          rangeSupported && req.method === "GET" && !req.headers["if-range"]
             ? mediaRange(req.headers.range, size)
             : null;
         if (range === "unsatisfiable") {
@@ -712,7 +723,7 @@ export function createGameServer(options: ServerOptions = {}) {
         }
         res.writeHead(range ? 206 : 200, {
           ...SECURITY_HEADERS,
-          ...(audio ? { "Accept-Ranges": "bytes" } : {}),
+          ...(rangeSupported ? { "Accept-Ranges": "bytes" } : {}),
           ...(range
             ? { "Content-Range": `bytes ${range.start}-${range.end}/${size}` }
             : {}),
@@ -720,7 +731,11 @@ export function createGameServer(options: ServerOptions = {}) {
           "Content-Type": type,
           "X-Content-Type-Options": "nosniff",
           "Cache-Control":
-            extname(path) === ".html" ? "no-cache" : "public, max-age=3600",
+            url.pathname === RESOURCE_PACK_MANIFEST
+              ? "no-store"
+              : extname(path) === ".html"
+                ? "no-cache"
+                : "public, max-age=3600",
         });
         if (req.method === "HEAD") res.end();
         else {

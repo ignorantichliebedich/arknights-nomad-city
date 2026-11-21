@@ -1,0 +1,60 @@
+.boot-emblem:not(:has(img)) > span {
+  display: block;
+  text-align: center;
+}
+
+.boot-pack-check {
+  position: absolute;
+  inset: auto 1rem 25%;
+  text-align: center;
+  color: var(--entry-muted);
+}
+
+.boot-pack-layout {
+  position: relative;
+  min-height: 100dvh;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  padding: 2rem 1rem;
+  background: #242321ed;
+}
+
+.boot-pack-panel {
+  width: min(100%, 32rem);
+  padding: clamp(1rem, 4vw, 2rem);
+  border: 1px solid var(--entry-line);
+  background: var(--entry-ink);
+  box-shadow: 6px 6px 0 #17161480;
+}
+
+.boot-pack-panel h1 {
+  font-size: 1.5rem;
+  margin: 0 0 1rem;
+}
+
+.boot-pack-panel h1:focus {
+  outline: none;
+}
+
+.boot-pack-panel p {
+  line-height: 1.55;
+  font-size: 0.95rem;
+  margin: 0 0 1rem;
+}
+
+.boot-pack-panel .boot-pack-notice {
+  color: #ffc7af;
+}
+
+.boot-pack-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.boot-pack-actions a {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}

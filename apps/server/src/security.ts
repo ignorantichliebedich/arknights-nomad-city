@@ -74,5 +74,5 @@ export const SECURITY_HEADERS = {
   "Permissions-Policy":
     "camera=(), microphone=(), geolocation=(), fullscreen=(self), autoplay=(self)",
   "Content-Security-Policy":
-    "default-src 'self'; connect-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+    "default-src 'self'; connect-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
 } as const;

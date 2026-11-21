@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import {
   useEffect,
   useLayoutEffect,
@@ -79,7 +80,7 @@ export function PresidentBadge({ compact = false }: { compact?: boolean }) {
           <span className="president-depth" aria-hidden="true">
             {Array.from({ length: 7 }, (_, i) => (
               <img
-                src="/assets/president.webp"
+                src={assetUrl("/assets/president.webp")}
                 alt=""
                 key={i}
                 style={{ transform: `translateZ(${-i}px)` }}
@@ -89,7 +90,7 @@ export function PresidentBadge({ compact = false }: { compact?: boolean }) {
         )}
         <img
           className="president-face"
-          src="/assets/president.webp"
+          src={assetUrl("/assets/president.webp")}
           alt="大总统"
         />
         {!compact && <span className="president-plinth" aria-hidden="true" />}
@@ -229,7 +230,9 @@ export function BoardEdgeHints({
           </span>
         </div>
         <img
-          src={`/assets/board-hint-${game.players.length === 4 ? 4 : 3}.webp`}
+          src={assetUrl(
+            `/assets/board-hint-${game.players.length === 4 ? 4 : 3}.webp`,
+          )}
           alt="官方地图上的终局区域分数、资源兑换与回合提示"
         />
         <p>

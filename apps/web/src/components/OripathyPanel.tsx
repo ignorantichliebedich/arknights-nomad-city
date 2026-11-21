@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import type {
   LegalAction,
   PlayerView,
@@ -78,7 +79,7 @@ export function OripathyChoices({
                 disabled={disabled || !action}
                 onClick={() => action && onSelect(action)}
               >
-                <img src={image} alt={label} draggable={false} />
+                <img src={assetUrl(image)} alt={label} draggable={false} />
                 <span>
                   {!action
                     ? owner

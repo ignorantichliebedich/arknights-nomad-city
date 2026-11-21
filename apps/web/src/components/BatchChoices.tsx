@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import { RESOURCE_NAMES } from "../../../../packages/rules/src/data.ts";
 import type {
   PlayerView,
@@ -32,7 +33,10 @@ export function BatchChoices({
           const name = RESOURCE_NAMES[option.id as Resource] ?? option.label;
           return (
             <article key={option.id} className={amount ? "is-picked" : ""}>
-              <img src={`/assets/table-resource-${option.id}.webp`} alt="" />
+              <img
+                src={assetUrl(`/assets/table-resource-${option.id}.webp`)}
+                alt=""
+              />
               <strong>{name}</strong>
               <div className="batch-stepper">
                 <button

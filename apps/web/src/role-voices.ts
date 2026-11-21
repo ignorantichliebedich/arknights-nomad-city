@@ -2,6 +2,7 @@ import { ROLE_BY_ID, ROLES } from "../../../packages/rules/src/data.ts";
 import type { PlayerView } from "../../../packages/rules/src/types.ts";
 import type { AudioPreferences, AudioCue } from "./audio-config.ts";
 import { readVoiceCatalog, type VoiceClip } from "./voice-catalog.ts";
+import { assetFetch, assetUrl } from "./resource-media.ts";
 export type RoleVoice = {
   roleId: string;
   kind: "cover" | "strategy" | "tactic";
@@ -79,7 +80,7 @@ export class RoleVoicePlayer {
     this.cue = cue;
   }
   load() {
-    this.loading ??= fetch("/audio/voices.json", { cache: "no-cache" })
+    this.loading ??= assetFetch("/audio/voices.json", { cache: "no-cache" })
       .then(async (response) => {
         if (!response.ok) return;
         const text = await response.text();
@@ -159,7 +160,7 @@ export class RoleVoicePlayer {
         this.duck(false);
         next();
       };
-      audio.src = clip.src;
+      audio.src = assetUrl(clip.src);
       audio.volume = this.prefs().volume * this.prefs().voiceVolume;
       this.duck(true);
       void audio.play().catch(() => {

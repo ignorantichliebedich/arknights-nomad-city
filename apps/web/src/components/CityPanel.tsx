@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import {
   useId,
   useRef,
@@ -59,7 +60,10 @@ export function CityPanel({
             title={p.name}
             onClick={() => onPlayerChange(p.id)}
           >
-            <img src={`/assets/avatar-${p.seat}.webp?v=founders`} alt="" />
+            <img
+              src={assetUrl(`/assets/avatar-${p.seat}.webp?v=founders`)}
+              alt=""
+            />
             <span className="city-owner-name">{p.name}</span>
             {p.id === game.me && <small>你</small>}
             <span className="city-owner-symbol" aria-hidden="true">
@@ -180,7 +184,11 @@ function CityContents({
                   }
                 >
                   {data ? (
-                    <img src={data.image} alt={data.name} draggable={false} />
+                    <img
+                      src={assetUrl(data.image)}
+                      alt={data.name}
+                      draggable={false}
+                    />
                   ) : (
                     <span className="empty-slot-mark" aria-hidden="true">
                       ＋
@@ -230,7 +238,7 @@ function CityContents({
                 onClick={() => showCard(card.id)}
               >
                 <img
-                  src={card.image}
+                  src={assetUrl(card.image)}
                   alt={`${card.name}完整牌面`}
                   draggable={false}
                 />
@@ -272,7 +280,7 @@ function CityContents({
             </div>
           ) : (
             <div className="building-empty-preview">
-              <img src={`/assets/city-model-${p.seat}.svg`} alt="" />
+              <img src={assetUrl(`/assets/city-model-${p.seat}.svg`)} alt="" />
               <h3 aria-live="polite">空闲格位</h3>
               <p>这里还没有设施。</p>
               <span>将鼠标移到已建建筑上，查看牌面与效果。</span>
@@ -358,7 +366,11 @@ function PersistentEffects({
                   })
                 }
               >
-                <img src={role.image} alt={role.name} loading="lazy" />
+                <img
+                  src={assetUrl(role.image)}
+                  alt={role.name}
+                  loading="lazy"
+                />
                 <span>
                   <strong>{role.name}</strong>
                   <small>
@@ -399,7 +411,11 @@ function PersistentEffects({
                           })
                         }
                       >
-                        <img src={card.image} alt={card.name} loading="lazy" />
+                        <img
+                          src={assetUrl(card.image)}
+                          alt={card.name}
+                          loading="lazy"
+                        />
                         <span>{card.name}</span>
                       </button>
                     );

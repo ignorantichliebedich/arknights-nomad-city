@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import { useState } from "react";
 import { FACILITIES, ROLES } from "../../../../packages/rules/src/data.ts";
 import { highResolutionArt } from "../art.ts";
@@ -23,7 +24,7 @@ function LessonDemo({ step }: { step: number }) {
           {[0, 1, 2, 3].map((seat) => (
             <div key={seat}>
               <img
-                src={`/assets/entrepreneur-${seat}.webp`}
+                src={assetUrl(`/assets/entrepreneur-${seat}.webp`)}
                 alt={`第 ${seat + 1} 席企业家`}
               />
               <span>SEAT 0{seat + 1}</span>
@@ -45,11 +46,11 @@ function LessonDemo({ step }: { step: number }) {
                 onClick={() => setPicked(role.id)}
               >
                 <img
-                  src={
+                  src={assetUrl(
                     confirmed && picked === role.id
                       ? "/assets/role-back.webp"
-                      : highResolutionArt(role.image)
-                  }
+                      : highResolutionArt(role.image),
+                  )}
                   alt=""
                 />
                 <span>
@@ -123,7 +124,7 @@ function LessonDemo({ step }: { step: number }) {
                   }}
                 >
                   <image
-                    href="/assets/city-model-0.svg"
+                    href={assetUrl("/assets/city-model-0.svg")}
                     x="-44"
                     y="-48"
                     width="88"
@@ -133,7 +134,7 @@ function LessonDemo({ step }: { step: number }) {
               )}
               {step === 4 && (
                 <image
-                  href="/assets/city-model-0.svg"
+                  href={assetUrl("/assets/city-model-0.svg")}
                   x="26"
                   y="122"
                   width="88"
@@ -158,7 +159,9 @@ function LessonDemo({ step }: { step: number }) {
                   }
                 >
                   <img
-                    src={`/assets/resource-${id === "A" ? "ore" : "rock"}.webp`}
+                    src={assetUrl(
+                      `/assets/resource-${id === "A" ? "ore" : "rock"}.webp`,
+                    )}
                     alt=""
                   />
                   {id}
@@ -208,12 +211,12 @@ function LessonDemo({ step }: { step: number }) {
               <div key={i}>
                 {i === 7 ? (
                   <>
-                    <img src="/assets/city-model-0.svg" alt="" />
+                    <img src={assetUrl("/assets/city-model-0.svg")} alt="" />
                     <small>城市核心</small>
                   </>
                 ) : [4, 6, 8].includes(i) ? (
                   <img
-                    src={FACILITIES[[4, 6, 8].indexOf(i)].image}
+                    src={assetUrl(FACILITIES[[4, 6, 8].indexOf(i)].image)}
                     alt="设施牌示意"
                   />
                 ) : (
@@ -229,13 +232,17 @@ function LessonDemo({ step }: { step: number }) {
         <div className="lesson-summary">
           <img
             className="lesson-score"
-            src="/assets/resource-score.webp"
+            src={assetUrl("/assets/resource-score.webp")}
             alt="得分"
           />
           <h4>从第一枚棋子，到城市的未来</h4>
           <div>
             {["rock", "ore", "iron", "prime", "cash"].map((type) => (
-              <img key={type} src={`/assets/resource-${type}.webp`} alt="" />
+              <img
+                key={type}
+                src={assetUrl(`/assets/resource-${type}.webp`)}
+                alt=""
+              />
             ))}
           </div>
           <p>实时分数 + 区域结算 + 资源结算</p>
@@ -403,7 +410,7 @@ export function HelpCenter({
                 {current.image && (
                   <img
                     className="guide-result-art"
-                    src={highResolutionArt(current.image)}
+                    src={assetUrl(highResolutionArt(current.image))}
                     alt={current.title}
                   />
                 )}

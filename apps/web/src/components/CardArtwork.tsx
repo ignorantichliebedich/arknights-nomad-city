@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import { useState } from "react";
 import { highResolutionArt } from "../art.ts";
 
@@ -14,7 +15,7 @@ export function CardArtwork({ src, title }: { src: string; title: string }) {
         {large ? "适应窗口" : "放大牌面"}
       </button>
       <div className="artwork-viewport">
-        <img src={highResolutionArt(src)} alt={title} />
+        <img src={assetUrl(highResolutionArt(src))} alt={title} />
       </div>
     </div>
   );

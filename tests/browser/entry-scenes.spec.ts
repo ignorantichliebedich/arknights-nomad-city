@@ -104,12 +104,14 @@ test("实际资源解码推进加载，选择窗口后播放音乐，双场景�
     () => (window as any).__entryPhases as { phase: string; at: number }[],
   );
   expect(phases.map((value) => value.phase)).toEqual([
+    "intro",
+    "pack",
     "loading",
     "settling",
     "choice",
   ]);
   expect(phases[1].at - phases[0].at).toBeGreaterThanOrEqual(1750);
-  expect(phases[2].at - phases[1].at).toBeGreaterThanOrEqual(150);
+  expect(phases[4].at - phases[3].at).toBeGreaterThanOrEqual(150);
   await finishIntro(page);
   await expect
     .poll(() => page.evaluate(() => (window as any).__musicStarts))

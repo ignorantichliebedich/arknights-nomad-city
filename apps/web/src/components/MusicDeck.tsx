@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import { gameAudio } from "../audio.ts";
 import type { AudioPreferences, MusicTrack } from "../audio-config.ts";
 
@@ -25,7 +26,7 @@ export function MusicDeck({
             {track.cover ? (
               <img
                 key={track.id}
-                src={track.cover}
+                src={assetUrl(track.cover)}
                 alt={`${track.title} 的音乐封面`}
               />
             ) : (

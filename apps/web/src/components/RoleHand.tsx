@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { ROLE_BY_ID } from "../../../../packages/rules/src/data.ts";
 import type {
@@ -257,7 +258,7 @@ export function RoleHand({
                 }}
               >
                 <img
-                  src={highResolutionArt(card.image)}
+                  src={assetUrl(highResolutionArt(card.image))}
                   alt={card.name}
                   draggable={false}
                 />
@@ -359,7 +360,7 @@ export function RoleHand({
         <div className="covered-flows">
           {me.coveredFlows.map((id) => (
             <button key={id} onClick={() => detail(id)}>
-              <img src={roleCardBack(me.seat, id)} alt="流形牌背" />
+              <img src={assetUrl(roleCardBack(me.seat, id))} alt="流形牌背" />
               <span>{ROLE_BY_ID[id].name} · 已额外盖放</span>
             </button>
           ))}
@@ -378,7 +379,7 @@ export function RoleHand({
             aria-label="查看本回合盖放的角色"
           >
             <img
-              src={roleCardBack(me.seat, me.selected)}
+              src={assetUrl(roleCardBack(me.seat, me.selected))}
               alt="本回合盖放的角色牌背"
             />
             <span>
@@ -402,12 +403,12 @@ export function RoleHand({
           <div className="card-placement-inner">
             <img
               className="placement-face"
-              src={highResolutionArt(ROLE_BY_ID[placed].image)}
+              src={assetUrl(highResolutionArt(ROLE_BY_ID[placed].image))}
               alt=""
             />
             <img
               className="placement-back"
-              src={roleCardBack(me.seat, placed)}
+              src={assetUrl(roleCardBack(me.seat, placed))}
               alt=""
             />
           </div>

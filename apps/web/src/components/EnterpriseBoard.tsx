@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import {
   oripathyEnterpriseImage,
   ORIPATHY_ENTERPRISE_TEXT,
@@ -58,11 +59,13 @@ export function EnterpriseBoard({
           }
         >
           <img
-            src={highResolutionArt(
-              game.oripathy
-                ? (oripathyEnterpriseImage(company) ??
-                    ENTERPRISE_IMAGES[company])
-                : ENTERPRISE_IMAGES[company],
+            src={assetUrl(
+              highResolutionArt(
+                game.oripathy
+                  ? (oripathyEnterpriseImage(company) ??
+                      ENTERPRISE_IMAGES[company])
+                  : ENTERPRISE_IMAGES[company],
+              ),
             )}
             alt={`${ENTERPRISE_NAMES[company]}原版企业板`}
             draggable={false}

@@ -31,6 +31,8 @@ const paths = [
   "deploy",
   "tools/backup.ts",
   "tools/package-deploy.ts",
+  "tools/render-prime-piece.ts",
+  "tools/resource-pack.ts",
   "tools/restore-assets.ts",
   "THIRD_PARTY_NOTICES.md",
   "SECURITY.md",

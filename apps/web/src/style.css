@@ -204,7 +204,8 @@ label {
 }
 .entry-art {
   position: relative;
-  background: #282a24 url("/assets/board-4.webp") center/cover;
+  background: #282a24 var(--media-board, url("/assets/board-4.webp"))
+    center/cover;
   overflow: hidden;
   color: #fbf3df;
   display: flex;
@@ -473,7 +474,7 @@ label {
 }
 .map-preview {
   height: 290px;
-  background: url("/assets/board-4.webp") center 42% / cover;
+  background: var(--media-board, url("/assets/board-4.webp")) center 42% / cover;
 }
 .lobby-reference > div:last-child {
   padding: 30px;

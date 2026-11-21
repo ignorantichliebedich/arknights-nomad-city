@@ -1,6 +1,9 @@
 services:
   game:
-    build: .
+    build:
+      context: .
+      args:
+        NOMAD_RESOURCE_PACK_URL: ${NOMAD_RESOURCE_PACK_URL:-}
     restart: unless-stopped
     read_only: true
     cap_drop: ["ALL"]

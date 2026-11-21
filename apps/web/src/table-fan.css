@@ -51,7 +51,8 @@ body:has(.game-layout) {
   position: absolute;
   z-index: -2;
   inset: -3%;
-  background: url("/assets/nomad-table-backdrop.webp") center / cover;
+  background: var(--media-backdrop, url("/assets/nomad-table-backdrop.webp"))
+    center / cover;
   opacity: 0.35;
   filter: saturate(0.7) brightness(0.75);
   animation: landscape-drift 34s ease-in-out infinite alternate;
@@ -100,10 +101,10 @@ body:has(.game-layout) {
   mask-mode: alpha;
 }
 .board-art.board-3 {
-  mask-image: url("/assets/board-mask-3.svg");
+  mask-image: var(--media-mask-3, url("/assets/board-mask-3.svg"));
 }
 .board-art.board-4 {
-  mask-image: url("/assets/board-mask-4.svg");
+  mask-image: var(--media-mask-4, url("/assets/board-mask-4.svg"));
 }
 .board-toolbar {
   position: absolute;

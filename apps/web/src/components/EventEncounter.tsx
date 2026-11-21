@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import type { CSSProperties } from "react";
 import type {
   LegalAction,
@@ -52,7 +53,7 @@ export function EventEncounter({
             })
           }
         >
-          <img src={art} alt={title} draggable={false} />
+          <img src={assetUrl(art)} alt={title} draggable={false} />
           <span className="event-magnify" aria-hidden="true">
             ↗
           </span>

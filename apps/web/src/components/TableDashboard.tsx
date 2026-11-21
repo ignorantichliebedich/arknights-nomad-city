@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import type { CSSProperties } from "react";
 import {
   ENTERPRISE_IMAGES,
@@ -122,7 +123,10 @@ export function TableDashboard({
             {Array.from({ length: 12 }, (_, i) => (
               <span key={i}>
                 {me.built[i] && (
-                  <img src={FACILITY_BY_ID[me.built[i].cardId].image} alt="" />
+                  <img
+                    src={assetUrl(FACILITY_BY_ID[me.built[i].cardId].image)}
+                    alt=""
+                  />
                 )}
               </span>
             ))}
@@ -151,7 +155,7 @@ export function TableDashboard({
             {game.market.slice(0, 3).map((id) => (
               <img
                 key={id}
-                src={FACILITY_BY_ID[id.split("@")[0]].image}
+                src={assetUrl(FACILITY_BY_ID[id.split("@")[0]].image)}
                 alt=""
               />
             ))}
@@ -174,11 +178,11 @@ export function TableDashboard({
               {game.activeEnterprises.slice(0, 2).map((id) => (
                 <img
                   key={id}
-                  src={
+                  src={assetUrl(
                     game.oripathy
                       ? (oripathyEnterpriseImage(id) ?? ENTERPRISE_IMAGES[id])
-                      : ENTERPRISE_IMAGES[id]
-                  }
+                      : ENTERPRISE_IMAGES[id],
+                  )}
                   alt=""
                 />
               ))}

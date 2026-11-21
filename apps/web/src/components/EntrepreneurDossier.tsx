@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import { useState, type CSSProperties } from "react";
 import {
   ENTREPRENEURS,
@@ -43,7 +44,7 @@ export function EntrepreneurDossier({
       className="oripathy-reference"
       onClick={() => onDetail({ title, image, text })}
     >
-      <img src={image} alt={title} loading="lazy" draggable={false} />
+      <img src={assetUrl(image)} alt={title} loading="lazy" draggable={false} />
       <span>{title} ↗</span>
     </button>
   );
@@ -169,7 +170,7 @@ export function EntrepreneurDossier({
                         }
                       >
                         <img
-                          src={face}
+                          src={assetUrl(face)}
                           alt={`第 ${round} 回合 ${d.side} 方案牌面`}
                           draggable={false}
                         />

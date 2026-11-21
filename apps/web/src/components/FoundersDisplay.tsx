@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import { useState } from "react";
 
 const FOUNDERS = [
@@ -36,7 +37,7 @@ export function FoundersDisplay() {
         >
           <span className="founder-print">
             <img
-              src={`/assets/entrepreneur-${i}.webp`}
+              src={assetUrl(`/assets/entrepreneur-${i}.webp`)}
               alt={name}
               draggable={false}
             />
