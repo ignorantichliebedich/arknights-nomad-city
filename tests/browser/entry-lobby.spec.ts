@@ -128,7 +128,7 @@ test("集结桌同步四人入座与准备，断线保留席位并阻止开局�
   await page.goto("/");
   await openHomeLobby(page);
   await page.getByLabel("企业家昵称").fill("一起向荒野出发的第一位企业家");
-  await page.getByRole("checkbox").check();
+  await page.getByRole("checkbox", { name: "创建房间时启用企业扩展" }).check();
   await clickRoomButton(page, "创建新房间");
   await expect(page.locator(".assembly-count")).toContainText("01");
   await expect(page.getByRole("button", { name: "开始拓荒" })).toBeDisabled();

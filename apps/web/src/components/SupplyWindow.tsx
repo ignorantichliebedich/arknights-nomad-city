@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import { useEffect, useRef, useState } from "react";
 import {
   FACILITY_BY_ID,
@@ -27,6 +28,8 @@ export function SupplyWindow({
   const build = game.actions.find(
     (a) => a.command.type === "main" && a.command.action === "build",
   );
+  const blueprint =
+    game.players.find((p) => p.id === game.me)?.oripathy?.blueprint ?? [];
   return (
     <section className="supply-workshop">
       <header className="supply-intro">
@@ -40,7 +43,7 @@ export function SupplyWindow({
         查看费用与能力，选定设施后依次安排城市格和付款。建设完成后展示补入的新牌。
       </p>
       <div className="supply-cards">
-        {game.market.map((instance, i) => {
+        {[...game.market, ...blueprint].map((instance, i) => {
           const card = FACILITY_BY_ID[instance.split("@")[0]];
           return (
             <article
@@ -59,12 +62,37 @@ export function SupplyWindow({
                 }
                 aria-label={`查看${card.name}的牌面`}
               >
-                <img src={card.image} alt={card.name} />
+                <img src={assetUrl(card.image)} alt={card.name} />
               </button>
               <strong>
                 {card.name}
                 <small> +{card.points} 分</small>
               </strong>
+              {blueprint.includes(instance) && (
+                <small>马丁 · 私有建设图纸</small>
+              )}
+              {!!game.oripathy?.marketUnder[instance]?.length && (
+                <div className="supply-stack">
+                  <small>供应叠层 · 只能建设最上层</small>
+                  {game.oripathy.marketUnder[instance].map((under, index) => {
+                    const c = FACILITY_BY_ID[under.split("@")[0]];
+                    return (
+                      <button
+                        key={under}
+                        onClick={() =>
+                          onDetail({
+                            title: `下层 ${index + 1} · ${c.name}`,
+                            image: c.image,
+                            text: facilityText(c.id),
+                          })
+                        }
+                      >
+                        下层 {index + 1} · {c.name} ↗
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
               <div className="supply-cost">
                 {Object.entries(card.cost).map(([r, n]) => (
                   <span key={r}>
@@ -108,7 +136,7 @@ export function SupplyWindow({
                   })
                 }
               >
-                <img src={card.image} alt={card.name} />
+                <img src={assetUrl(card.image)} alt={card.name} />
               </button>
               <div>
                 <strong>{card.name}</strong>
@@ -173,7 +201,7 @@ export function PatternPicker({
               })
             }
           >
-            <img src={card.image} alt={card.name} />
+            <img src={assetUrl(card.image)} alt={card.name} />
           </button>
           <h3>
             {card.name} · +{card.score} 分
@@ -195,7 +223,7 @@ export function PatternPicker({
               >
                 {built && (
                   <img
-                    src={FACILITY_BY_ID[built.cardId].image}
+                    src={assetUrl(FACILITY_BY_ID[built.cardId].image)}
                     alt={FACILITY_BY_ID[built.cardId].name}
                   />
                 )}
@@ -300,7 +328,7 @@ export function ReceiptContents({
     <div className="table-receipt">
       <img
         className="receipt-main-card"
-        src={receipt.image}
+        src={assetUrl(receipt.image)}
         alt={receipt.name}
       />
       <div>
@@ -330,7 +358,7 @@ export function ReceiptContents({
               {receipt.incoming.map((id) => (
                 <img
                   key={id}
-                  src={FACILITY_BY_ID[id.split("@")[0]].image}
+                  src={assetUrl(FACILITY_BY_ID[id.split("@")[0]].image)}
                   alt={FACILITY_BY_ID[id.split("@")[0]].name}
                 />
               ))}

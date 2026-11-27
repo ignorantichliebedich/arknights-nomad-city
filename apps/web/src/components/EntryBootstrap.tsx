@@ -3,11 +3,16 @@ import { useDisplayMode } from "../display-mode.ts";
 import { useEntryBoot } from "../useEntryBoot.ts";
 import { ENTRY_MOTION } from "../entry-motion.ts";
 import { FullscreenWelcome } from "./FullscreenWelcome.tsx";
+import { ResourcePackGate } from "./ResourcePackGate.tsx";
+import { assetUrl } from "../resource-media.ts";
+import "../resource-pack.css";
 
 export function EntryBootstrap({ children }: { children: ReactNode }) {
   const display = useDisplayMode();
   const {
     phase,
+    packReady,
+    acceptPack,
     pending,
     progress,
     complete,
@@ -48,7 +53,9 @@ export function EntryBootstrap({ children }: { children: ReactNode }) {
           }
         >
           <div className="boot-frame" aria-hidden="true" />
-          <div className="boot-scan" aria-hidden="true" />
+          <div className="boot-scan-clip" aria-hidden="true">
+            <div className="boot-scan" />
+          </div>
           <div className="boot-registration">
             <span>NOMAD CITY / THE FOUNDERS</span>
             <span>105 · 拓荒准备</span>
@@ -66,46 +73,60 @@ export function EntryBootstrap({ children }: { children: ReactNode }) {
               <i />
             </div>
             <span>明日方舟</span>
-            <img
-              src="/assets/official-arknights-logo.webp"
-              alt=""
-              width="420"
-              height="210"
-              onError={(event) => {
-                event.currentTarget.hidden = true;
-              }}
-            />
-          </div>
-          <div className="boot-progress">
-            <div
-              className="boot-track"
-              role="progressbar"
-              aria-label="首屏资源加载"
-              aria-valuemin={0}
-              aria-valuemax={100}
-              aria-valuenow={progress}
-            >
-              <i style={{ width: `${progress}%` }} />
-            </div>
-            <div className="boot-progress-label">
-              <span>
-                ▶ {pending ? "正在载入" : failures ? "可以启程" : "准备就绪"}{" "}
-                <b>{progress}%</b>
-              </span>
-              <span>
-                {complete} / {total} · NOMAD CITY
-              </span>
-            </div>
-            {failures > 0 && (
-              <p className="boot-resource-error">
-                {failures} 项图片暂未载入，可以重试或继续进入。
-              </p>
+            {packReady && (
+              <img
+                src={assetUrl("/assets/official-arknights-logo.webp")}
+                alt=""
+                width="420"
+                height="210"
+                onError={(event) => {
+                  event.currentTarget.hidden = true;
+                }}
+              />
             )}
           </div>
+          {(phase === "intro" || packReady) && (
+            <div className="boot-progress">
+              <div
+                className="boot-track"
+                role="progressbar"
+                aria-label={packReady ? "首屏资源加载" : "开场动画"}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={progress}
+              >
+                <i
+                  style={{ width: phase === "intro" ? "100%" : `${progress}%` }}
+                />
+              </div>
+              <div className="boot-progress-label">
+                <span>
+                  ▶{" "}
+                  {phase === "intro"
+                    ? "正在准备"
+                    : pending
+                      ? "正在载入"
+                      : failures
+                        ? "可以启程"
+                        : "准备就绪"}{" "}
+                  {packReady && <b>{progress}%</b>}
+                </span>
+                <span>
+                  {packReady && `${complete} / ${total} · `}NOMAD CITY
+                </span>
+              </div>
+              {failures > 0 && (
+                <p className="boot-resource-error">
+                  {failures} 项图片暂未载入，可以重试或继续进入。
+                </p>
+              )}
+            </div>
+          )}
           <footer className="boot-footer">
             <span>明日方舟 · 游城拓荒</span>
             <span>好友联机 / v{import.meta.env.VITE_APP_VERSION}</span>
           </footer>
+          {phase === "pack" && <ResourcePackGate onReady={acceptPack} />}
           {phase === "choice" &&
             (offerFullscreen ? (
               <FullscreenWelcome

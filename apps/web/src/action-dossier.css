@@ -1,78 +1,51 @@
 /* Operation sheets share the expedition kit's paper, ink and brass fittings. */
 .dossier-window {
-  --dossier-ink: #332e25;
-  --dossier-paper: #f0e8d7;
   --dossier-brass: #a48851;
-  color: var(--dossier-ink);
-  background:
-    repeating-linear-gradient(0deg, #8d744606 0 1px, transparent 1px 4px),
-    linear-gradient(115deg, #f7f1e5, var(--dossier-paper));
-  border: 1px solid #bfa474;
-  border-radius: 3px;
-  box-shadow:
-    0 28px 100px #100e0bcc,
-    0 0 0 5px #2c261fc2,
-    inset 0 0 0 4px #b59a6530;
   scrollbar-width: thin;
   scrollbar-color: #b49d73 #eee4d0;
-  animation: dossier-arrives 260ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  border: 0;
+  border-radius: 1px;
+  box-shadow:
+    0 2px 5px #15120e5c,
+    0 16px 38px #15120e55;
+  color: var(--print-ink);
+  background: var(--print-sheet);
 }
 .dossier-window::backdrop {
-  background: #1714109c;
-  backdrop-filter: blur(4px) saturate(0.7);
+  background: #171615b8;
+  backdrop-filter: none;
 }
 .dossier-window .modal-heading {
   flex-shrink: 0;
-  min-height: 65px;
   padding: 11px 23px;
-  color: #f3e5c8;
-  background:
-    linear-gradient(115deg, #b19a6820, transparent 50%),
-    repeating-linear-gradient(90deg, #e8d9ad04 0 1px, transparent 1px 5px),
-    #2d2821;
-  border-bottom: 3px double #a58a54;
-  box-shadow: inset 0 5px #b79b6533;
+  background: var(--print-sheet);
+  color: var(--print-ink);
+  border: 0;
+  border-bottom: 2px solid #50483b;
+  box-shadow: none;
+  min-height: 55px;
 }
 .dossier-window .modal-heading h2 {
   display: flex;
   align-items: center;
-  gap: 15px;
-  font-size: 20px;
-  font-family: Georgia, "Noto Serif SC", "Songti SC", SimSun, serif;
-  letter-spacing: 0.12em;
-}
-.dossier-window .modal-heading h2::before {
-  content: "";
-  display: block;
-  width: 23px;
-  height: 29px;
-  flex-shrink: 0;
-  transform: skew(-9deg);
-  border: 1px solid #c6ac72;
-  background: repeating-linear-gradient(
-      90deg,
-      transparent 0 3px,
-      #c6ac72 3px 4px,
-      transparent 4px 7px
-    )
-    center / 14px 19px no-repeat;
-  box-shadow: 3px 3px #b99b6226;
+  font: 700 clamp(20px, 2vw, 27px)/1.15 var(--print-serif);
+  letter-spacing: 0.06em;
 }
 .dossier-window .modal-heading .icon-button {
-  color: #e0cba0;
-  background: #bda4770c;
-  border: 1px solid #bda4774d;
-  border-radius: 2px;
   width: 34px;
   height: 34px;
   font-size: 22px;
   transition:
     background 160ms,
     color 160ms;
+  color: var(--print-muted);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
 }
 .dossier-window .modal-heading .icon-button:hover {
-  color: #fff3d7;
-  background: #bda47725;
+  color: var(--print-ink);
+  background: var(--print-tint);
 }
 .dossier-window :focus-visible {
   outline: 2px solid #91681c;
@@ -80,7 +53,7 @@
 }
 .dossier-window .modal-heading :focus-visible,
 .dossier-window .commit-tray :focus-visible {
-  outline-color: #f1cf85;
+  outline-color: var(--print-red);
 }
 .dossier-window.interaction-window {
   width: min(920px, calc(100vw - 48px));
@@ -122,55 +95,52 @@
 .dossier-window .action-button {
   min-height: 64px;
   padding: 12px 15px;
-  color: #473b29;
-  background: #fffcf28c;
-  border: 1px solid #c9b999;
   border-bottom-color: #b4a17c;
-  box-shadow: 0 2px 0 #d3c5a947;
-  transition:
-    background 160ms,
-    border-color 160ms,
-    box-shadow 160ms;
+  color: var(--print-ink);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--print-rule);
+  border-radius: 0;
+  box-shadow: none;
+  transition: background-color 140ms;
 }
 .dossier-window .action-button:hover:not(:disabled) {
-  background: #fffaf0;
   border-color: #a2864f;
-  box-shadow: 0 3px 8px #67512821;
+  background: #e7dfd0;
+  box-shadow: none;
 }
 .dossier-window .action-button.picked,
 .dossier-window .action-button.picked:hover:not(:disabled) {
-  color: #513814;
-  border-color: #967036;
-  background: #efdfb9;
-  box-shadow:
-    inset 3px 0 #9e783d,
-    0 2px 0 #c8b38a55;
+  color: var(--print-ink);
+  background: #e4dac8;
+  border-color: var(--print-rule);
+  box-shadow: inset 3px 0 var(--print-red);
 }
 .dossier-window .action-button > span:last-child {
-  color: #886e42;
+  color: var(--print-muted);
 }
 .dossier-window .action-button.end-action {
-  color: #f0dfba;
-  background: #514638;
-  border-color: #7e6c50;
   margin-top: 0;
+  color: var(--print-ink);
+  background: transparent;
+  border-color: var(--print-rule);
 }
 .dossier-window .action-button.end-action:hover:not(:disabled),
 .dossier-window .action-button.end-action.picked {
-  background: #65523b;
+  background: #e4dac8;
 }
 .dossier-window .action-button.end-action > span:last-child {
-  color: #e2c58c;
+  color: var(--print-muted);
 }
 .dossier-window .action-emblem {
   display: grid;
   place-items: center;
   flex: 0 0 42px !important;
   height: 42px;
-  color: #896b36;
-  border: 1px solid #c1a77675;
-  background: #dac69d26;
-  box-shadow: inset 0 0 0 3px #fffcf04d;
+  color: #7a6743;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
 }
 .action-emblem svg {
   display: block;
@@ -183,21 +153,22 @@
 .dossier-window .action-explanation {
   margin: 0 0 18px;
   padding: 14px 17px;
-  border: 1px solid #c3af86;
-  border-left: 3px solid #967136;
-  background: #e6d9bc70;
-  color: #5e4d32;
+  border: 0;
+  border-left: 2px solid #ac9263;
+  background: var(--print-tint);
+  color: var(--print-muted);
 }
 .dossier-window .action-explanation p {
   margin: 3px 0;
 }
 .dossier-window .choice-detail-button {
-  color: #7a6034;
-  background: #e8dcc4;
-  border-color: #c7b58f;
+  color: var(--print-ink);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--print-rule);
 }
 .dossier-window .choice-detail-button:hover {
-  background: #f8edda;
+  background: var(--print-tint);
 }
 .dossier-window .choice-search {
   background: #fffcf4;
@@ -219,16 +190,16 @@
   grid-template-columns: minmax(0, 1fr) auto;
   column-gap: 22px;
   padding: 15px 23px;
-  color: #f2e2c1;
-  background: linear-gradient(110deg, #3d3328, #2c2720);
-  border-top: 3px double #a58a54;
-  box-shadow: 0 -4px 12px #49381b0d;
+  color: var(--print-ink);
+  background: var(--print-stock);
+  border-top: 1px solid #b7aa93;
+  box-shadow: none;
 }
 .dossier-window .commit-caption {
   grid-column: 1;
-  color: #c5ad7f;
-  font-size: 10px;
   letter-spacing: 0.08em;
+  color: var(--print-muted);
+  font-size: 12px;
 }
 .dossier-window .commit-tray > strong {
   grid-column: 1;
@@ -247,24 +218,24 @@
   border-radius: 2px;
 }
 .dossier-window .primary-button {
-  background: #87632d;
-  border: 1px solid #bb9857;
-  color: #fff6de;
-  box-shadow: inset 0 0 0 2px #f0d5a013;
+  background: var(--print-red);
+  color: #fff7ea;
+  border: 0;
+  box-shadow: none;
 }
 .dossier-window .primary-button:hover:not(:disabled) {
-  background: #9c7334;
+  background: var(--print-red-hover);
 }
 .dossier-window .commit-tray .primary-button {
   min-width: 160px;
 }
 .dossier-window .commit-tray .secondary-button {
-  border: 1px solid #b79a654a;
-  color: #ddc89e;
   background: transparent;
+  border: 1px solid #ab9f8b;
+  color: var(--print-muted);
 }
 .dossier-window .commit-tray button:disabled {
-  opacity: 0.42;
+  opacity: 0.53;
 }
 .dossier-window .event-art {
   margin: 18px 0 18px 20px;
@@ -288,9 +259,9 @@
   border-color: #c6b18a;
 }
 .dossier-window .build-card > button.picked {
-  background: #efdfb9;
-  border-color: #957134;
-  box-shadow: inset 0 0 0 2px #957134;
+  border-color: var(--print-red);
+  background: var(--print-tint);
+  box-shadow: inset 3px 0 var(--print-red);
 }
 .dossier-window .build-card > button:last-child {
   color: #79613a;
@@ -404,26 +375,23 @@
   display: flex;
   flex-direction: column;
   padding: 5px;
-  border: 1px solid #bdae91;
-  border-bottom: 3px solid #af9b77;
-  background: #faf4e8;
-  box-shadow: 0 3px 8px #604c2f1a;
-  transition:
-    transform 180ms,
-    box-shadow 180ms,
-    border-color 180ms;
+  border: 0;
+  border-bottom: 1px solid var(--print-rule);
+  box-shadow: none;
+  background: #f8f3e8;
+  transition: background-color 140ms;
 }
 .enterprise-offer:hover,
 .enterprise-offer:focus-within {
   border-color: var(--brand-color);
-  box-shadow: 0 6px 15px #604c2f2a;
-  transform: translateY(-3px);
+  background: #fff9ed;
+  box-shadow: none;
+  transform: none;
 }
 .enterprise-offer.is-picked {
+  background: var(--print-tint);
   border-color: var(--brand-color);
-  box-shadow:
-    0 0 0 2px color-mix(in srgb, var(--brand-color), transparent 22%),
-    0 4px 12px #604c2f2a;
+  box-shadow: inset 0 -3px var(--brand-color);
 }
 .dossier-window .enterprise-offer-select.action-button {
   display: flex;
@@ -496,9 +464,9 @@
     color 160ms;
 }
 .is-picked .enterprise-offer-check {
-  background: var(--brand-color);
-  border-color: var(--brand-color);
-  color: #fff;
+  color: var(--print-sheet);
+  background: var(--print-ink);
+  border-color: var(--print-ink);
 }
 .enterprise-offer-profile {
   display: block;
@@ -538,9 +506,10 @@
   padding: 9px 12px;
   border: 0;
   border-top: 1px dashed #c4b392;
-  background: #ebe1cb;
-  color: #725c37;
   font-size: 11px;
+  color: var(--print-muted);
+  border-color: var(--print-rule);
+  background: transparent;
 }
 .dossier-window .enterprise-other-options {
   margin-top: 12px;
@@ -603,16 +572,6 @@
 .enterprise-offer-insight .enterprise-amount .stock-token {
   width: 15px;
   height: 16px;
-}
-@keyframes dossier-arrives {
-  from {
-    opacity: 0;
-    transform: translateY(12px) scale(0.985);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
 }
 @media (max-width: 850px) {
   .dossier-window .enterprise-offers .enterprise-choice-grid {

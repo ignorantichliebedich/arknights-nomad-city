@@ -85,7 +85,7 @@ async function checkCardLayout(page: Page) {
     await (img as HTMLImageElement).decode();
     await Promise.all(
       img
-        .closest(".event-encounter")!
+        .closest("dialog")!
         .getAnimations()
         .map((a) => a.finished),
     );

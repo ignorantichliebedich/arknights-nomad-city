@@ -7,7 +7,11 @@ import {
 } from "react";
 
 /** Pinch changes the camera only; two fingers cancel a piece drag before it can drop. */
-export function useMapTouch(zoom: number, onZoom: (zoom: number) => void) {
+export function useMapTouch(
+  zoom: number,
+  onZoom: (zoom: number) => void,
+  camera = true,
+) {
   const pointers = useRef(new Set<number>());
   const gesture = useRef<{
     distance: number;
@@ -65,6 +69,10 @@ export function useMapTouch(zoom: number, onZoom: (zoom: number) => void) {
         initial = gesture.current;
       if (!pair || !initial) return;
       const viewport = event.currentTarget;
+      if (!camera) {
+        quietUntil.current = performance.now() + 400;
+        return;
+      }
       onZoom(
         Math.max(
           1,

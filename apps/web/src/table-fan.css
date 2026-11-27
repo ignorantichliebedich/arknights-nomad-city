@@ -51,7 +51,8 @@ body:has(.game-layout) {
   position: absolute;
   z-index: -2;
   inset: -3%;
-  background: url("/assets/nomad-table-backdrop.webp") center / cover;
+  background: var(--media-backdrop, url("/assets/nomad-table-backdrop.webp"))
+    center / cover;
   opacity: 0.35;
   filter: saturate(0.7) brightness(0.75);
   animation: landscape-drift 34s ease-in-out infinite alternate;
@@ -100,10 +101,10 @@ body:has(.game-layout) {
   mask-mode: alpha;
 }
 .board-art.board-3 {
-  mask-image: url("/assets/board-mask-3.svg");
+  mask-image: var(--media-mask-3, url("/assets/board-mask-3.svg"));
 }
 .board-art.board-4 {
-  mask-image: url("/assets/board-mask-4.svg");
+  mask-image: var(--media-mask-4, url("/assets/board-mask-4.svg"));
 }
 .board-toolbar {
   position: absolute;
@@ -231,7 +232,7 @@ body:has(.game-layout) {
   width: 78px;
   height: 132px;
   transform-style: preserve-3d;
-  animation: president-turn 8s ease-in-out infinite alternate;
+  transform: rotateY(-12deg) rotateX(4deg);
 }
 .president-model > .president-face,
 .president-depth img {
@@ -290,8 +291,8 @@ body:has(.game-layout) {
   height: 47px;
 }
 .fan-hand {
-  --hand-width: 168px;
-  --hand-height: 235px;
+  --hand-width: clamp(190px, min(15vw, 28vh), 242px);
+  --hand-height: calc(var(--hand-width) * 1.4);
   --fan-max-span: 340px;
   --fan-center: 50%;
   position: absolute;
@@ -355,7 +356,7 @@ body:has(.game-layout) {
 .fan-hand .hand-cards {
   position: absolute;
   left: var(--fan-center);
-  bottom: calc(48px - var(--hand-height));
+  bottom: calc(16px - var(--hand-height));
   width: 0;
   height: calc(var(--hand-height) + 8px);
   padding: 0;
@@ -381,6 +382,9 @@ body:has(.game-layout) {
   transition: transform 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
   z-index: var(--fan-index);
   pointer-events: auto;
+}
+.fan-hand.is-folded .hand-slot {
+  transform: translateX(var(--fan-x)) rotate(calc(var(--fan-angle) * 0.18));
 }
 .fan-hand.is-expanded .hand-slot.is-picked {
   transform: translate(var(--fan-x), -20px) rotate(0deg) scale(1.06);
@@ -628,8 +632,74 @@ body:has(.game-layout) {
   font-weight: 800;
 }
 .influence-travel {
-  animation: influence-transfer 650ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  filter: drop-shadow(0 6px 4px #0007);
+  animation: influence-transfer 650ms cubic-bezier(0.48, 0.02, 0.26, 1) both;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .influence-travel .piece-model,
+  .influence-deposit .piece-model {
+    transform-box: fill-box;
+    transform-origin: 50% 92%;
+  }
+  .influence-travel .piece-model {
+    animation: marker-lift 650ms ease-in-out both;
+  }
+  .influence-deposit .piece-model {
+    animation: marker-seat 610ms both;
+  }
+  .influence-deposit .piece-influence > ellipse,
+  .influence-travel .piece-influence > ellipse {
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: marker-shadow 610ms ease-out both;
+  }
+}
+@keyframes marker-seat {
+  0% {
+    opacity: 0;
+    transform: translate(-8px, -28px) rotate(-13deg);
+  }
+  23% {
+    opacity: 1;
+    transform: translate(-5px, -18px) rotate(-9deg);
+  }
+  63% {
+    transform: translate(0, 1px) rotate(3deg);
+  }
+  80% {
+    transform: translate(0, -1.5px) rotate(-1deg);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes marker-lift {
+  0%,
+  100% {
+    transform: none;
+  }
+  28% {
+    transform: translateY(-14px) rotate(-8deg);
+  }
+  54% {
+    transform: translateY(-23px) rotate(-4deg);
+  }
+  87% {
+    transform: translateY(1px) rotate(2deg);
+  }
+}
+@keyframes marker-shadow {
+  from {
+    opacity: 0.1;
+    transform: scale(0.55);
+  }
+  70% {
+    opacity: 0.45;
+    transform: scale(1.06);
+  }
+  to {
+    opacity: 0.4;
+    transform: none;
+  }
 }
 @keyframes influence-transfer {
   from {
@@ -652,14 +722,6 @@ body:has(.game-layout) {
   }
   to {
     transform: scale(1.06) translateX(0.5%);
-  }
-}
-@keyframes president-turn {
-  from {
-    transform: rotateY(-12deg) rotateX(4deg);
-  }
-  to {
-    transform: rotateY(13deg) rotateX(4deg);
   }
 }
 @keyframes fan-confirm-arrives {
@@ -704,8 +766,6 @@ body:has(.game-layout) {
     --portrait-height: 410px;
   }
   .fan-hand {
-    --hand-width: 196px;
-    --hand-height: 274px;
     --fan-max-span: 460px;
   }
   .fan-hand.is-expanded .hand-cards {

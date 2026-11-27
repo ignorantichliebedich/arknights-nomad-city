@@ -9,6 +9,7 @@ process.env.E2E_DATABASE_PATH ??= resolve(
   mkdtempSync(resolve(tmpdir(), "nomad-e2e-")),
   "rooms.sqlite",
 );
+const baseURL = `http://127.0.0.1:${process.env.E2E_PORT ?? "3011"}`;
 export default defineConfig({
   testDir: "tests/browser",
   testIgnore: "**/mobile.spec.ts",
@@ -16,7 +17,7 @@ export default defineConfig({
   fullyParallel: false,
   workers: 1,
   use: {
-    baseURL: "http://127.0.0.1:3011",
+    baseURL,
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
   },
@@ -56,7 +57,7 @@ export default defineConfig({
   ],
   webServer: {
     command: "node tools/e2e-server.ts",
-    url: "http://127.0.0.1:3011/api/health",
+    url: baseURL + "/api/health",
     reuseExistingServer: process.env.E2E_REUSE_SERVER === "1",
     timeout: 20000,
   },

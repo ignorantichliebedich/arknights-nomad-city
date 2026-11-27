@@ -6,8 +6,14 @@ RUN pnpm install --frozen-lockfile
 COPY tsconfig.json ./
 COPY apps ./apps
 COPY packages ./packages
+COPY tools/render-prime-piece.ts tools/resource-pack.ts ./tools/
 COPY assets/original-labs.json ./assets/original-labs.json
 COPY assets/board-layout.json ./assets/board-layout.json
+ARG NOMAD_RESOURCE_PACK_GITHUB_URL
+ARG NOMAD_RESOURCE_PACK_BAIDU_URL
+ARG NOMAD_RESOURCE_PACK_BAIDU_CODE
+ARG NOMAD_RESOURCE_PACK_QUARK_URL
+ARG NOMAD_RESOURCE_PACK_QUARK_CODE
 RUN pnpm exec vite build --config apps/web/vite.config.ts
 
 FROM node:24-bookworm-slim

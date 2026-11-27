@@ -1,5 +1,7 @@
+import { assetUrl } from "../resource-media.ts";
 import { useRef, useState } from "react";
 import type { RoomView } from "../network.ts";
+import { capacity } from "../../../../packages/shared/lobby.ts";
 
 export function InvitationPass({
   room,
@@ -36,12 +38,16 @@ export function InvitationPass({
         <span>{arranging ? "人机同行档案" : "好友通行凭证"}</span>
       </div>
       <div className="invitation-pass-code">
-        <img src="/assets/city-model-0.svg" alt="" />
+        <img src={assetUrl("/assets/city-model-0.svg")} alt="" />
         <div>
           <small>拓荒区编号</small>
           <strong>{room.id}</strong>
           <span>
-            {room.expansion ? "铸基者 + 企业扩展" : "铸基者 · 基础版"}
+            {room.oripathy
+              ? `感染者 · ${room.expert ? "企业家抉择" : "常规玩法"}`
+              : room.expansion
+                ? "铸基者 + 企业扩展"
+                : "铸基者 · 基础版"}
           </span>
         </div>
       </div>
@@ -49,15 +55,18 @@ export function InvitationPass({
         <span>
           {room.game
             ? "已启程 · 原玩家可返回"
-            : room.seats.length === 4
-              ? "四席已满"
-              : `已入座 ${room.seats.length} / 4 · 余 ${4 - room.seats.length} 席`}
+            : room.seats.length === capacity(room)
+              ? "本桌已满"
+              : `已入座 ${room.seats.length} / ${capacity(room)} · 余 ${capacity(room) - room.seats.length} 席`}
         </span>
         <div aria-hidden="true">
-          {[0, 1, 2, 3].map((i) => (
+          {Array.from({ length: capacity(room) }, (_, i) => (
             <span key={i} className={room.seats[i] ? "occupied" : ""}>
               {room.seats[i] ? (
-                <img src={`/assets/avatar-${i}.webp?v=founders`} alt="" />
+                <img
+                  src={assetUrl(`/assets/avatar-${i}.webp?v=founders`)}
+                  alt=""
+                />
               ) : (
                 "＋"
               )}
@@ -89,7 +98,10 @@ export function InvitationPass({
               const index = room.seats.findIndex((s) => s.id === bot.id);
               return (
                 <div className="invitation-bot-seat" key={bot.id}>
-                  <img src={`/assets/avatar-${index}.webp?v=founders`} alt="" />
+                  <img
+                    src={assetUrl(`/assets/avatar-${index}.webp?v=founders`)}
+                    alt=""
+                  />
                   <div>
                     <strong>{bot.name}</strong>
                     <small>第 {index + 1} 席 · 自动准备</small>
@@ -107,21 +119,25 @@ export function InvitationPass({
           </div>
           <button
             className="invitation-add-bot"
-            disabled={disabled || room.seats.length >= 4}
+            disabled={disabled || room.seats.length >= capacity(room)}
             onClick={onAddBot}
           >
             <img
-              src={`/assets/city-model-${Math.min(room.seats.length, 3)}.svg`}
+              src={assetUrl(
+                `/assets/city-model-${Math.min(room.seats.length, 3)}.svg`,
+              )}
               alt=""
             />
             <span>
               <strong>
-                {room.seats.length >= 4 ? "四席已满" : "＋ 添加人机"}
+                {room.seats.length >= capacity(room)
+                  ? "本桌已满"
+                  : "＋ 添加人机"}
               </strong>
               <small>
-                {room.seats.length >= 4
+                {room.seats.length >= capacity(room)
                   ? "移除一位人机后可重新安排"
-                  : `余 ${4 - room.seats.length} 席 · 自动操作自己的城市`}
+                  : `余 ${capacity(room) - room.seats.length} 席 · 自动操作自己的城市`}
               </small>
             </span>
           </button>

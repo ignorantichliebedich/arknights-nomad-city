@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import { useLayoutEffect, useRef, useState } from "react";
 import {
   ENTERPRISE_IMAGES,
@@ -17,6 +18,8 @@ import { highResolutionArt } from "../art.ts";
 import { PatternPicker } from "./SupplyWindow.tsx";
 import { EnterpriseChoices, enterpriseForImage } from "./EnterpriseChoices.tsx";
 import { ActionEmblem } from "./ActionEmblem.tsx";
+import { ORIPATHY_ENTERPRISE_TEXT } from "../../../../packages/rules/src/oripathy-data.ts";
+import { OripathyChoices } from "./OripathyPanel.tsx";
 
 export type CardDetail = { title: string; image?: string; text?: string };
 type Choice = NonNullable<PlayerView["decision"]>["options"][number];
@@ -35,9 +38,7 @@ export function choiceDetail(game: PlayerView, option: Choice): CardDetail {
   const pattern = Object.values(PATTERN_BY_ID).find(
     (c) => c.image === option.image,
   );
-  const company = Object.keys(ENTERPRISE_IMAGES).find(
-    (id) => ENTERPRISE_IMAGES[id] === option.image,
-  );
+  const company = enterpriseForImage(option.image);
   const text = role
     ? `策略：${role.strategy}\n计谋：${role.tactic}`
     : facility
@@ -45,7 +46,9 @@ export function choiceDetail(game: PlayerView, option: Choice): CardDetail {
       : pattern
         ? pattern.description
         : company
-          ? ENTERPRISE_TEXT[company]
+          ? game.oripathy
+            ? (ORIPATHY_ENTERPRISE_TEXT[company] ?? ENTERPRISE_TEXT[company])
+            : ENTERPRISE_TEXT[company]
           : "";
   return {
     title:
@@ -121,7 +124,7 @@ function BuildPicker({
                   onSelect(null);
                 }}
               >
-                <img src={card.image} alt="" />
+                <img src={assetUrl(card.image)} alt="" />
                 <strong>{card.name}</strong>
               </button>
               <button
@@ -158,7 +161,7 @@ function BuildPicker({
                   disabled={disabled || !legal}
                   aria-label={`城市 ${i + 1}${built ? `，已有${FACILITY_BY_ID[built.cardId].name}` : "，空地"}`}
                   aria-pressed={cell === String(i)}
-                  className={cell === String(i) ? "picked" : ""}
+                  className={`${cell === String(i) ? "picked" : ""} ${built && legal ? "can-overbuild" : ""}`}
                   onClick={() => {
                     setCell(String(i));
                     onSelect(null);
@@ -166,13 +169,16 @@ function BuildPicker({
                 >
                   {built ? (
                     <img
-                      src={FACILITY_BY_ID[built.cardId].image}
+                      src={assetUrl(FACILITY_BY_ID[built.cardId].image)}
                       alt={FACILITY_BY_ID[built.cardId].name}
                     />
                   ) : (
                     <span>{cell === String(i) ? "◆" : "+"}</span>
                   )}
                   <small>{i + 1}</small>
+                  {built && legal && (
+                    <span className="overbuild-label">叠建</span>
+                  )}
                 </button>
               );
             })}
@@ -247,9 +253,17 @@ export function ActionComposer({
   const preview = option ? choiceDetail(game, option) : null;
   const me = game.players.find((p) => p.id === game.me)!;
   const role =
-    selected?.command.type === "role" && me.selected
-      ? ROLE_BY_ID[me.selected]
+    selected?.command.type === "role"
+      ? ROLE_BY_ID[
+          selected.command.mode?.startsWith("flow|")
+            ? selected.command.mode.split("|")[1]
+            : me.selected!
+        ]
       : null;
+  const roleMode = selected?.command.mode?.split("|").at(-1);
+  const isOripathyChoice = ["o:dilemma", "o:entrepreneur-draft"].includes(
+    decision?.kind ?? "",
+  );
   const boardChoice =
     decision?.kind !== "event" && game.actions.some((a) => a.target);
   const isBuild = decision?.kind === "build";
@@ -267,9 +281,15 @@ export function ActionComposer({
   useLayoutEffect(() => {
     // Enterprise dossiers show their summary below the cards; keep the selected
     // card in view when the offer list spans several rows.
-    if (selected && !isBuild && !isEnterpriseChoice && body.current)
+    if (
+      selected &&
+      !isBuild &&
+      !isEnterpriseChoice &&
+      !isOripathyChoice &&
+      body.current
+    )
       body.current.scrollTop = 0;
-  }, [selected?.id, isBuild, isEnterpriseChoice]);
+  }, [selected?.id, isBuild, isEnterpriseChoice, isOripathyChoice]);
   return (
     <>
       <div
@@ -292,63 +312,82 @@ export function ActionComposer({
                     ? "点选牌面或选项，查看效果后确认。"
                     : "选择主要行动，也可以先发动角色能力。"}
         </p>
-        {selected && !isBuild && !isEnterpriseChoice && hasExplanation && (
-          <div className="action-explanation">
-            {preview?.image &&
-              decision?.kind !== "event" &&
-              !me.hand.some((id) => ROLE_BY_ID[id].image === preview.image) && (
-                <button
-                  className="preview-art"
-                  onClick={() => onDetail(preview)}
-                  aria-label="放大所选牌面"
-                >
-                  <img
-                    src={highResolutionArt(preview.image)}
-                    alt={preview.title}
-                  />
-                </button>
+        {selected &&
+          !isBuild &&
+          !isEnterpriseChoice &&
+          !isOripathyChoice &&
+          hasExplanation && (
+            <div className="action-explanation">
+              {preview?.image &&
+                decision?.kind !== "event" &&
+                !me.hand.some(
+                  (id) => ROLE_BY_ID[id].image === preview.image,
+                ) && (
+                  <button
+                    className="preview-art"
+                    onClick={() => onDetail(preview)}
+                    aria-label="放大所选牌面"
+                  >
+                    <img
+                      src={assetUrl(highResolutionArt(preview.image))}
+                      alt={preview.title}
+                    />
+                  </button>
+                )}
+              {preview?.text &&
+                preview.text
+                  .split("\n")
+                  .slice(1)
+                  .map((line, i) => <p key={i}>{line}</p>)}
+              {role && (
+                <>
+                  <h3>{role.name}</h3>
+                  {roleMode?.split("-").map((mode, i) => (
+                    <p key={i}>
+                      <b>{mode === "strategy" ? "策略" : "计谋"}：</b>
+                      {mode === "strategy" ? role.strategy : role.tactic}
+                    </p>
+                  ))}
+                </>
               )}
-            {preview?.text &&
-              preview.text
-                .split("\n")
-                .slice(1)
-                .map((line, i) => <p key={i}>{line}</p>)}
-            {role && (
-              <>
-                <h3>{role.name}</h3>
-                {selected.command.mode?.split("-").map((mode, i) => (
-                  <p key={i}>
-                    <b>{mode === "strategy" ? "策略" : "计谋"}：</b>
-                    {mode === "strategy" ? role.strategy : role.tactic}
-                  </p>
-                ))}
-              </>
-            )}
-            {selected.command.type === "main" && (
-              <p>
-                {actionHelp[selected.id] ?? "开始行动后，按提示亲自选择目标。"}
-              </p>
-            )}
-            {selected.command.type === "end" && (
-              <p>结束你的本轮行动，交给下一位企业家。</p>
-            )}
-            {selected.command.type === "declare" &&
-              selected.command.patternId && (
-                <div className="declare-preview">
-                  <img
-                    src={PATTERN_BY_ID[selected.command.patternId].image}
-                    alt={PATTERN_BY_ID[selected.command.patternId].name}
-                  />
-                  <p>{PATTERN_BY_ID[selected.command.patternId].description}</p>
-                  <b>
-                    下一步：亲自挑选设施组合，确认后获得{" "}
-                    {PATTERN_BY_ID[selected.command.patternId].score} 分。
-                  </b>
-                </div>
+              {selected.command.type === "main" && (
+                <p>
+                  {actionHelp[selected.id] ??
+                    "开始行动后，按提示亲自选择目标。"}
+                </p>
               )}
-          </div>
-        )}
-        {hideOptions ? null : isEnterpriseChoice ? (
+              {selected.command.type === "end" && (
+                <p>结束你的本轮行动，交给下一位企业家。</p>
+              )}
+              {selected.command.type === "declare" &&
+                selected.command.patternId && (
+                  <div className="declare-preview">
+                    <img
+                      src={assetUrl(
+                        PATTERN_BY_ID[selected.command.patternId].image,
+                      )}
+                      alt={PATTERN_BY_ID[selected.command.patternId].name}
+                    />
+                    <p>
+                      {PATTERN_BY_ID[selected.command.patternId].description}
+                    </p>
+                    <b>
+                      下一步：亲自挑选设施组合，确认后获得{" "}
+                      {PATTERN_BY_ID[selected.command.patternId].score} 分。
+                    </b>
+                  </div>
+                )}
+            </div>
+          )}
+        {hideOptions ? null : isOripathyChoice ? (
+          <OripathyChoices
+            game={game}
+            selected={selected}
+            disabled={disabled}
+            onSelect={onSelect}
+            onDetail={onDetail}
+          />
+        ) : isEnterpriseChoice ? (
           <EnterpriseChoices
             game={game}
             actions={actions}
@@ -413,7 +452,7 @@ export function ActionComposer({
                       aria-pressed={selected?.id === a.id}
                       onClick={() => onSelect(a)}
                     >
-                      {o?.image && <img src={o.image} alt="" />}
+                      {o?.image && <img src={assetUrl(o.image)} alt="" />}
                       {a.command.type === "main" && (
                         <ActionEmblem action={a.id} />
                       )}

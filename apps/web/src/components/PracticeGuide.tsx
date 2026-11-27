@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { PhonePages } from "./PhonePages.tsx";
 import { RESOURCE_NAMES } from "../../../../packages/rules/src/data.ts";
 import type { Resource } from "../../../../packages/rules/src/types.ts";
 import { PRACTICE_LESSONS } from "../practice.ts";
@@ -55,54 +56,56 @@ export function PracticeGuide({
         <i aria-hidden="true">{expanded ? "−" : "＋"}</i>
       </button>
       {expanded && (
-        <div className="practice-guide-body">
-          <div className="practice-progress" aria-label="课程完成进度">
-            {PRACTICE_LESSONS.map((item, i) => (
-              <span
-                key={item.key}
-                className={`${snapshot.completed.includes(i) ? "done" : ""} ${snapshot.lesson === i ? "current" : ""}`}
-                title={item.title}
-              >
-                {snapshot.completed.includes(i) ? "✓" : i + 1}
-              </span>
-            ))}
-          </div>
-          <p className="practice-goal" aria-live="polite">
-            {complete
-              ? final
-                ? "七项实操已完成，可以进入人机房间独立玩一局。"
-                : "本课完成，操作结果已按正式规则结算。"
-              : goal}
-          </p>
-          <p>
-            {complete ? deltas.join(" · ") || "棋盘与标记已更新" : lesson.tip}
-          </p>
-          <small>每课准备独立练习场景 · 本机自动保存</small>
-          <div className="practice-guide-actions">
-            <button className="secondary-button" onClick={practice.restart}>
-              重练本课
-            </button>
-            {complete && !final && (
-              <button className="primary-button" onClick={practice.next}>
-                下一课 →
-              </button>
-            )}
-            {final && (
-              <button className="primary-button" onClick={practice.exit}>
-                退出练习 →
-              </button>
-            )}
-          </div>
-          {final && (
-            <div className="practice-replay">
+        <PhonePages label="实操任务" pageKey={`${snapshot.lesson}:${complete}`}>
+          <div className="practice-guide-body">
+            <div className="practice-progress" aria-label="课程完成进度">
               {PRACTICE_LESSONS.map((item, i) => (
-                <button key={item.key} onClick={() => practice.replay(i)}>
-                  {item.title}
-                </button>
+                <span
+                  key={item.key}
+                  className={`${snapshot.completed.includes(i) ? "done" : ""} ${snapshot.lesson === i ? "current" : ""}`}
+                  title={item.title}
+                >
+                  {snapshot.completed.includes(i) ? "✓" : i + 1}
+                </span>
               ))}
             </div>
-          )}
-        </div>
+            <p className="practice-goal" aria-live="polite">
+              {complete
+                ? final
+                  ? "七项实操已完成，可以进入人机房间独立玩一局。"
+                  : "本课完成，操作结果已按正式规则结算。"
+                : goal}
+            </p>
+            <p>
+              {complete ? deltas.join(" · ") || "棋盘与标记已更新" : lesson.tip}
+            </p>
+            <small>每课准备独立练习场景 · 本机自动保存</small>
+            <div className="practice-guide-actions">
+              <button className="secondary-button" onClick={practice.restart}>
+                重练本课
+              </button>
+              {complete && !final && (
+                <button className="primary-button" onClick={practice.next}>
+                  下一课 →
+                </button>
+              )}
+              {final && (
+                <button className="primary-button" onClick={practice.exit}>
+                  退出练习 →
+                </button>
+              )}
+            </div>
+            {final && (
+              <div className="practice-replay">
+                {PRACTICE_LESSONS.map((item, i) => (
+                  <button key={item.key} onClick={() => practice.replay(i)}>
+                    {item.title}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </PhonePages>
       )}
     </aside>
   );

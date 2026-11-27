@@ -11,6 +11,15 @@
   --accent: #a84b36;
   --gold: #c5a969;
   --surface: #ebe8df;
+  --print-stock: #e7dfcf;
+  --print-sheet: #f1ebdf;
+  --print-ink: #302c26;
+  --print-muted: #5b5348;
+  --print-rule: #c2b7a3;
+  --print-tint: #e5dccb;
+  --print-red: #933e30;
+  --print-red-hover: #7b3126;
+  --print-serif: "Songti SC", SimSun, serif;
 }
 * {
   box-sizing: border-box;
@@ -195,7 +204,8 @@ label {
 }
 .entry-art {
   position: relative;
-  background: #282a24 url("/assets/board-4.webp") center/cover;
+  background: #282a24 var(--media-board, url("/assets/board-4.webp"))
+    center/cover;
   overflow: hidden;
   color: #fbf3df;
   display: flex;
@@ -464,7 +474,7 @@ label {
 }
 .map-preview {
   height: 290px;
-  background: url("/assets/board-4.webp") center 42% / cover;
+  background: var(--media-board, url("/assets/board-4.webp")) center 42% / cover;
 }
 .lobby-reference > div:last-child {
   padding: 30px;

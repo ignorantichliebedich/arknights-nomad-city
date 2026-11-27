@@ -14,6 +14,17 @@
 
 云端上线必须在用户明确验收并授权该版本后执行，按 [发布流程](docs/release.md) 保留备份和回滚版本。GitHub Actions 只执行检查。
 
+## 玩家来信与 DIY
+
+首页「拓荒信箱」接受三类私下来信，每封最多 2000 字。维护者可在对应实例的 SQLite 数据库以只读模式执行以下查询，按收件时间查看内容。回执为来信编号的前八位。
+
+```sql
+SELECT created_at, upper(substr(id, 1, 8)) AS receipt, kind, message
+FROM feedback ORDER BY created_at DESC, rowid DESC;
+```
+
+玩家可从 [DIY 开发指南](docs/diy.md) 获取本地规则接口与可运行的人机示例。
+
 ## 文档范围
 
 公开文档保留玩家操作、规则依据、通用开发与部署方法、性能测量和素材出处。更新摘要集中在 `CHANGELOG.md`，截图放在 `docs/media/`；修改文档时同步检查相对链接。

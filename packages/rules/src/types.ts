@@ -21,7 +21,12 @@ export type Decision = {
   private?: boolean;
   kind: string;
   /** Public geometry of the acting player's unconfirmed collection plan. */
-  map?: { roads: string[]; selected: string[]; free: boolean };
+  map?: {
+    roads: string[];
+    selected: string[];
+    free: boolean;
+    tollExemptNodes?: string[];
+  };
 };
 /** Private, persisted choices. Only readiness and the viewer's decision are sent. */
 export type ParallelPhase = {
@@ -59,6 +64,7 @@ export type Facility = {
   copies: number;
   expansion?: boolean;
   index: number;
+  oripathy?: boolean;
 };
 export type Role = {
   id: string;
@@ -68,6 +74,7 @@ export type Role = {
   tactic: string;
   expansion?: boolean;
   operative?: boolean;
+  oripathy?: boolean;
 };
 export type NodeDef = {
   id: string;
@@ -92,7 +99,7 @@ export type Site = {
   slots: (string | null)[];
   publicRoad?: boolean;
 };
-export type Built = { cardId: string; used: boolean };
+export type Built = { cardId: string; used: boolean; layers?: Built[] };
 export type PatternClaim = {
   patternId: string;
   cooldown: number;
@@ -103,6 +110,10 @@ export type Persistent = {
   markers: number;
   stash: string[];
   once?: boolean;
+  owners?: string[];
+  node?: string;
+  cell?: string;
+  mortgageCardId?: string;
 };
 export type Player = {
   id: string;
@@ -124,6 +135,21 @@ export type Player = {
   privateRemoved: string[];
   tokenLimit: number;
   roleUsedThisTurn: boolean;
+  coveredFlows?: string[];
+  oripathy?: {
+    entrepreneur: string | null;
+    dilemmas: {
+      round: number;
+      side: "A" | "B";
+      used: boolean;
+      marker: boolean;
+    }[];
+    markers: number;
+    gangSlots: string[];
+    awards: string[];
+    blueprint: string[];
+    turnBlocked?: boolean;
+  };
 };
 export type GameEvent = {
   seq: number;
@@ -135,6 +161,7 @@ export type GameEvent = {
 export type ScoreLine = {
   playerId: string;
   ongoing: number;
+  expert?: Record<string, number>;
   regions: Record<string, number>;
   resources: Reward;
   total: number;
@@ -142,6 +169,18 @@ export type ScoreLine = {
 export type GameState = {
   rulesVersion: string;
   expansion: boolean;
+  oripathy?: {
+    expert: boolean;
+    entrepreneurs: string[];
+    security: string[];
+    contracts: string[];
+    awards: string[];
+    flows: string[];
+    lock: { owner: string; turn: number; region: string } | null;
+    gavial: { owner: string; node: string } | null;
+    turn: number;
+    marketUnder: Record<string, string[]>;
+  };
   revision: number;
   phase: "setup" | "select" | "actions" | "harvest" | "cleanup" | "finished";
   round: number;
@@ -150,6 +189,8 @@ export type GameState = {
   active: number;
   mainDone: boolean;
   mainRemaining: number;
+  /** Non-special credits within mainRemaining; absent in older saves. */
+  ordinaryMainRemaining?: number;
   extraOnly: boolean;
   roleBlocked: boolean;
   roleDualThisTurn: boolean;
@@ -178,8 +219,17 @@ export type GameState = {
   winners: string[];
 };
 export type Command = {
-  type: "choose" | "main" | "role" | "declare" | "special" | "end";
+  type:
+    | "choose"
+    | "choose-many"
+    | "main"
+    | "role"
+    | "declare"
+    | "special"
+    | "ability"
+    | "end";
   optionId?: string;
+  optionIds?: string[];
   action?: string;
   mode?: string;
   patternId?: string;
@@ -196,6 +246,11 @@ export type InfluencePlacement = {
   target: string;
   optionId: string;
   label: string;
+};
+export type BatchChoice = {
+  count: number;
+  label: string;
+  limits: Record<string, number>;
 };
 export type PlayerView = Omit<
   GameState,
@@ -226,6 +281,7 @@ export type PlayerView = Omit<
   })[];
   decision:
     | (Omit<Decision, "options"> & {
+        batch?: BatchChoice;
         options: (Omit<Option, "steps"> & { preview?: ChoicePreview })[];
       })
     | null;

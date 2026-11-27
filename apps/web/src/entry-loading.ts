@@ -1,4 +1,5 @@
 import { TITLE_GLYPHS } from "./components/PosterTitle.tsx";
+import { assetUrl } from "./resource-media.ts";
 
 export type ArtworkStatus = "pending" | "loaded" | "failed";
 export function entryArtwork(invited: boolean, restoring: boolean): string[] {
@@ -10,7 +11,6 @@ export function entryArtwork(invited: boolean, restoring: boolean): string[] {
   return [
     ...brand,
     "/assets/nomad-table-backdrop.webp",
-    "/assets/city-model-0.svg",
     ...(invited
       ? []
       : [
@@ -57,6 +57,6 @@ export function decodeArtwork(
       else finish(true);
     };
     img.onerror = () => finish(false);
-    img.src = src;
+    img.src = assetUrl(src);
   });
 }

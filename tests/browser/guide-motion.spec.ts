@@ -23,7 +23,7 @@ test("手牌悬停放大且离开自动收回，保留选牌并连贯移动到�
   });
   expect(
     await card.evaluate((el) => parseFloat(getComputedStyle(el).width)),
-  ).toBeGreaterThanOrEqual(168);
+  ).toBeGreaterThanOrEqual(190);
   await card.hover();
   await expect
     .poll(() =>
@@ -43,6 +43,19 @@ test("手牌悬停放大且离开自动收回，保留选牌并连贯移动到�
   await page.mouse.move(600, 110);
   await expect(fan).toHaveClass(/is-folded/);
   await expect(card).toHaveAttribute("aria-pressed", "true");
+  await expect
+    .poll(() =>
+      fan.evaluate((el) => {
+        const edge = el.closest(".table-area")!.getBoundingClientRect().bottom;
+        return Math.max(
+          ...Array.from(
+            el.querySelectorAll(".hand-card"),
+            (c) => edge - c.getBoundingClientRect().top,
+          ),
+        );
+      }),
+    )
+    .toBeLessThanOrEqual(26);
   await expect(page.locator(".fan-confirm")).toHaveCount(0);
   expect(await roomVersion(page)).toBe(before);
   expect(

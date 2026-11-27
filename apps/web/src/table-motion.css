@@ -183,16 +183,16 @@
   line-height: 1.1;
 }
 .number-up > strong {
-  animation: flip-in-up 650ms both;
+  animation: flip-in-up 240ms both;
 }
 .number-down > strong {
-  animation: flip-in-down 650ms both;
+  animation: flip-in-down 240ms both;
 }
 .number-up .flip-before {
-  animation: flip-out-up 650ms both;
+  animation: flip-out-up 240ms both;
 }
 .number-down .flip-before {
-  animation: flip-out-down 650ms both;
+  animation: flip-out-down 240ms both;
 }
 .number-delta {
   position: absolute;
@@ -203,7 +203,7 @@
   font-weight: 800;
   font-style: normal;
   white-space: nowrap;
-  animation: delta-rise 900ms both;
+  animation: delta-rise 600ms both;
   color: #b9eeb3;
 }
 .number-down .number-delta {
@@ -219,9 +219,6 @@
 .entrepreneur-score .flip-before {
   font-size: 23px;
 }
-.city-position {
-  transition: transform 850ms cubic-bezier(0.22, 0.7, 0.2, 1);
-}
 .city-drag-handle {
   cursor: grab;
   touch-action: none;
@@ -234,8 +231,8 @@
 .city-lifted {
   opacity: 0.25;
 }
-.drag-city {
-  filter: drop-shadow(0 14px 5px #0008);
+.drag-city .piece-city > ellipse {
+  visibility: hidden;
 }
 .drag-city text {
   fill: #fff0bc;
@@ -252,7 +249,7 @@
   animation: target-breathe 800ms infinite alternate;
 }
 .map-piece {
-  animation: marker-arrives 450ms backwards;
+  animation: none;
 }
 .route-line {
   fill: none;
@@ -260,7 +257,6 @@
   stroke-width: 4;
   stroke-dasharray: 9 7;
   stroke-linecap: round;
-  animation: route-flow 1.2s linear infinite;
 }
 .route-possible {
   opacity: 0.45;
@@ -271,7 +267,7 @@
 .route-selected .route-line {
   stroke: #c8f5a2;
   stroke-width: 6;
-  filter: drop-shadow(0 0 3px #4c8b48);
+  filter: none;
 }
 .route-fee rect {
   fill: #25342b;
@@ -836,6 +832,9 @@
 .supply-patterns article {
   color: #ece4c8;
 }
+.dragging-routes .route-line {
+  animation: route-flow 1.2s linear infinite;
+}
 @media (min-width: 1101px) and (max-width: 1699px) {
   .route-panel {
     width: 188px;
@@ -851,13 +850,6 @@
 @keyframes target-breathe {
   to {
     fill: #d3efa877;
-  }
-}
-@keyframes marker-arrives {
-  from {
-    opacity: 0;
-    transform: translateY(-16px);
-    filter: drop-shadow(0 -15px 4px #0008);
   }
 }
 @keyframes portrait-arrives {

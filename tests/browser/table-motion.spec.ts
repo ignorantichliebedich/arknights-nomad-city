@@ -45,8 +45,27 @@ async function center(page: Page, selector: string) {
 
 test("城市拖起显示虚线、无效落点不提交，合法落点松手立即移动扣费", async ({
   page,
+  browser,
 }, info) => {
-  const { id } = await fixture(page);
+  const { id, friendToken } = await fixture(page);
+  const friend = await browser.newPage({ viewport: page.viewportSize()! });
+  await friend.addInitScript(
+    ({ id, token }) => localStorage.setItem(`nomad:seat:${id}`, token),
+    { id, token: friendToken },
+  );
+  await friend.goto(page.url());
+  await expect(friend.locator(".connection")).toContainText("已连接");
+  await friend.evaluate(() => {
+    document.addEventListener("animationstart", (event) => {
+      if (event.animationName !== "city-follow-road") return;
+      const transform = new DOMMatrix(
+        getComputedStyle(event.target as Element).transform,
+      );
+      document.documentElement.dataset.cityDistance = String(
+        Math.hypot(transform.e, transform.f),
+      );
+    });
+  });
   const game = readGame(id);
   const me = game.players[0];
   const move = projectView(game, me.id).cityDestinations![0];
@@ -61,7 +80,10 @@ test("城市拖起显示虚线、无效落点不提交，合法落点松手立�
   await page.mouse.down();
   await page.mouse.move(origin.x - 15, origin.y + 18, { steps: 3 });
   await expect(page.locator(".drag-city")).toBeVisible();
-  await expect(page.locator(".route-line").first()).toBeVisible();
+  await expect(page.locator(".dragging-routes .route-line").first()).toHaveCSS(
+    "animation-name",
+    "route-flow",
+  );
   expect(await page.locator(".board-hit.legal").count()).toBeGreaterThan(0);
   const bounds = (await page.locator(".board-viewport").boundingBox())!;
   await page.mouse.move(bounds.x + 120, bounds.y + 30, { steps: 4 });
@@ -85,6 +107,15 @@ test("城市拖起显示虚线、无效落点不提交，合法落点松手立�
     page.locator(`.city-position[data-player="${me.id}"]`),
   ).toHaveAttribute("data-city", move.target);
   await expect(page.locator(".stock-ore strong")).toHaveText("17");
+  await expect
+    .poll(() =>
+      friend.evaluate(() =>
+        Number(document.documentElement.dataset.cityDistance ?? 0),
+      ),
+    )
+    .toBeGreaterThan(30);
+  await friend.close();
+  await expect(page.locator(".stock-ore strong i")).toHaveText(["1", "7"]);
   expect(await revision(page)).toBe(before + 2);
   if (readGame(id).decision?.kind === "event") {
     await expect(page.locator(".interaction-window")).toHaveCount(0);
@@ -100,6 +131,7 @@ test("采集在地图勾选、撤回、刷新保留路线，确认后按共用�
     for (const s of Object.values(g.sites)) s.slots.fill(null);
     const me = g.players[0];
     me.city = "A-01";
+    me.wallet.rock = 9;
     for (const n of ["A-02", "A-03"]) {
       g.sites[n].resource = "rock";
       g.sites[n].amount = 2;
@@ -144,6 +176,10 @@ test("采集在地图勾选、撤回、刷新保留路线，确认后按共用�
   await expect(page.locator(".harvest-check")).toHaveCount(1);
   await page.locator('.board-hit[data-site-id="A-03"]').click();
   await expect(page.locator(".harvest-check")).toHaveCount(2);
+  await expect(page.locator(".route-selected .route-line").first()).toHaveCSS(
+    "animation-name",
+    "none",
+  );
   const selected = readGame(id);
   const view = projectView(selected, selected.players[0].id);
   const done = view.decision!.options.find((o) => o.id === "done")!;
@@ -176,6 +212,7 @@ test("采集在地图勾选、撤回、刷新保留路线，确认后按共用�
   await expect(page.locator(".stock-rock .flip-number")).toHaveClass(
     /number-up/,
   );
+  await expect(page.locator(".stock-rock strong i")).toHaveText(["1", "3"]);
   expect(readGame(id).players[1].wallet.cash).toBeGreaterThan(
     initial.players[1].wallet.cash,
   );
@@ -239,13 +276,14 @@ test("原版企业家、大总统、边缘说明和新回合动画随公共状�
   ).toBeVisible();
   expect(
     await page
-      .locator(".stock-token")
+      .locator(".stock-token:not(.wallet-piece)")
       .evaluateAll((imgs) =>
         imgs.every((img) =>
           (img as HTMLImageElement).src.includes("/assets/resource-"),
         ),
       ),
   ).toBe(true);
+  await expect(page.locator(".resource-tray .wallet-piece")).toHaveCount(3);
   await expect(page.locator(".edge-hint-sheet")).toBeHidden();
   const tab = page.getByRole("button", { name: "回合与终局计分" });
   await tab.hover();

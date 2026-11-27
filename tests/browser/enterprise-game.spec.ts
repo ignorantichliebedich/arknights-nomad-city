@@ -3,21 +3,7 @@ import { test, expect } from "./fixtures/test.ts";
 import type { BrowserContext, Page } from "./fixtures/test.ts";
 import type { RoomView } from "../../apps/web/src/network.ts";
 import { RULES_VERSION } from "../../packages/rules/src/data.ts";
-
-function observeSocket() {
-  const NativeSocket = window.WebSocket;
-  class ObservedSocket extends NativeSocket {
-    constructor(url: string | URL, protocols?: string | string[]) {
-      super(url, protocols);
-      (window as any).__gameSocket = this;
-      this.addEventListener("message", (event) => {
-        const message = JSON.parse(event.data);
-        if (message.type === "state") (window as any).__gameRoom = message.room;
-      });
-    }
-  }
-  window.WebSocket = ObservedSocket;
-}
+import { observeSocket } from "./fixtures/state-observer.ts";
 
 for (const count of [2, 3, 4])
   test(`${count} 人正式企业扩展：自然建房至八回合结算`, async ({
@@ -134,12 +120,13 @@ for (const count of [2, 3, 4])
                   reject(new Error(message.message));
                 }
                 if (
-                  message.type === "state" &&
-                  message.room.revision > revision
+                  (message.type === "state" ||
+                    message.type === "state-delta") &&
+                  (window as any).__gameRoom.revision > revision
                 ) {
                   clearTimeout(timer);
                   socket.removeEventListener("message", receive);
-                  resolve(message.room);
+                  resolve((window as any).__gameRoom);
                 }
               }
               socket.addEventListener("message", receive);

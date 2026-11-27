@@ -137,7 +137,8 @@
   position: absolute;
   inset: 6px 12px 0 auto;
   width: 100px;
-  background: url("/assets/city-model-0.svg") center / contain no-repeat;
+  background: var(--media-city, url("/assets/city-model-0.svg")) center /
+    contain no-repeat;
   opacity: 0.14;
   z-index: -1;
 }
@@ -878,7 +879,8 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: url("/assets/nomad-table-backdrop.webp") center bottom / auto 160%;
+  background: var(--media-backdrop, url("/assets/nomad-table-backdrop.webp"))
+    center bottom / auto 160%;
   opacity: 0.11;
   pointer-events: none;
 }

@@ -1,3 +1,8 @@
+import { assetUrl } from "../resource-media.ts";
+import {
+  oripathyEnterpriseImage,
+  ORIPATHY_ENTERPRISE_TEXT,
+} from "../../../../packages/rules/src/oripathy-data.ts";
 import { useState, type CSSProperties } from "react";
 import {
   ENTERPRISE_IMAGES,
@@ -57,7 +62,13 @@ export function EnterprisePanel({
           >
             <span className="enterprise-brand-art" aria-hidden="true">
               <img
-                src={highResolutionArt(ENTERPRISE_IMAGES[id])}
+                src={assetUrl(
+                  highResolutionArt(
+                    game.oripathy
+                      ? (oripathyEnterpriseImage(id) ?? ENTERPRISE_IMAGES[id])
+                      : ENTERPRISE_IMAGES[id],
+                  ),
+                )}
                 alt=""
                 draggable={false}
               />
@@ -88,7 +99,10 @@ export function EnterprisePanel({
               style={{ "--seat-color": PLAYER_COLORS[p.seat] } as CSSProperties}
               onClick={() => setViewerId(p.id)}
             >
-              <img src={`/assets/avatar-${p.seat}.webp?v=founders`} alt="" />
+              <img
+                src={assetUrl(`/assets/avatar-${p.seat}.webp?v=founders`)}
+                alt=""
+              />
               <span>
                 {p.name}
                 {p.id === game.me && <small> · 你</small>}

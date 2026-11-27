@@ -165,7 +165,7 @@ export function chooseBotAction(view: PlayerView): LegalAction | null {
     if (kind === "toll")
       return id === view.me
         ? 20
-        : -view.players.find((p) => p.id === id)!.wallet.score;
+        : -(view.players.find((p) => p.id === id)?.wallet.score ?? 0);
     if (
       kind === "event" ||
       kind === "allocate" ||

@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import type { CSSProperties } from "react";
 import {
   ENTERPRISE_IMAGES,
@@ -10,6 +11,9 @@ import type { PlayerView } from "../../../../packages/rules/src/types.ts";
 import { FlipNumber, PresidentBadge } from "./TableMotion.tsx";
 import { TablePiece } from "./TablePieces.tsx";
 import { PlayerResourceStrip, ResourceStock } from "./ResourceStock.tsx";
+import { MarkerBox } from "./MarkerBox.tsx";
+import { EntrepreneurPortrait } from "./EntrepreneurPortrait.tsx";
+import { oripathyEnterpriseImage } from "../../../../packages/rules/src/oripathy-data.ts";
 
 export function TableDashboard({
   game,
@@ -32,11 +36,9 @@ export function TableDashboard({
       <section className="resource-tray" aria-label="我的资源配件盘">
         <div className="section-label">
           <h2>资源储备</h2>
-          <span>
-            可用标记 <b>{me.availableMarkers}</b>
-          </span>
+          <MarkerBox key={me.id} count={me.availableMarkers} seat={me.seat} />
         </div>
-        <ResourceStock wallet={me.wallet} />
+        <ResourceStock wallet={me.wallet} counter />
       </section>
       <section className="player-panel">
         <div className="section-label">
@@ -65,7 +67,7 @@ export function TableDashboard({
             aria-label={`查看${p.name}的城市与资源`}
           >
             <div className="entrepreneur-portrait">
-              <img src={`/assets/avatar-${p.seat}.webp?v=founders`} alt="" />
+              <EntrepreneurPortrait player={p} />
               <span>{PLAYER_SYMBOLS[p.seat]}</span>
             </div>
             {game.players[game.first]?.id === p.id && (
@@ -121,7 +123,10 @@ export function TableDashboard({
             {Array.from({ length: 12 }, (_, i) => (
               <span key={i}>
                 {me.built[i] && (
-                  <img src={FACILITY_BY_ID[me.built[i].cardId].image} alt="" />
+                  <img
+                    src={assetUrl(FACILITY_BY_ID[me.built[i].cardId].image)}
+                    alt=""
+                  />
                 )}
               </span>
             ))}
@@ -150,7 +155,7 @@ export function TableDashboard({
             {game.market.slice(0, 3).map((id) => (
               <img
                 key={id}
-                src={FACILITY_BY_ID[id.split("@")[0]].image}
+                src={assetUrl(FACILITY_BY_ID[id.split("@")[0]].image)}
                 alt=""
               />
             ))}
@@ -171,7 +176,15 @@ export function TableDashboard({
           >
             <div className="mini-enterprise" aria-hidden="true">
               {game.activeEnterprises.slice(0, 2).map((id) => (
-                <img key={id} src={ENTERPRISE_IMAGES[id]} alt="" />
+                <img
+                  key={id}
+                  src={assetUrl(
+                    game.oripathy
+                      ? (oripathyEnterpriseImage(id) ?? ENTERPRISE_IMAGES[id])
+                      : ENTERPRISE_IMAGES[id],
+                  )}
+                  alt=""
+                />
               ))}
             </div>
             <div>

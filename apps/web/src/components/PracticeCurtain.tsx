@@ -1,3 +1,4 @@
+import { assetUrl } from "../resource-media.ts";
 import type { CSSProperties } from "react";
 import { useSceneCurtain } from "../useSceneCurtain.ts";
 
@@ -47,7 +48,7 @@ export function PracticeCurtain({
         </div>
         <div className="practice-cut-city" aria-hidden="true">
           <i />
-          <img src="/assets/city-model-0.svg" alt="" />
+          <img src={assetUrl("/assets/city-model-0.svg")} alt="" />
           <span className="practice-cut-stamp">
             {entering ? "实操许可" : "记录封存"}
           </span>

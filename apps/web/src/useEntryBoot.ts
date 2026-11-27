@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { gameAudio } from "./audio.ts";
 import { readCredential } from "./network.ts";
 import {
@@ -12,7 +12,8 @@ import {
   shouldOfferFullscreen,
 } from "./components/FullscreenWelcome.tsx";
 
-type Phase = "loading" | "settling" | "choice" | "revealing" | "ready";
+type Phase =
+  "intro" | "pack" | "loading" | "settling" | "choice" | "revealing" | "ready";
 
 export function useEntryBoot() {
   const [route] = useState(() => {
@@ -32,8 +33,12 @@ export function useEntryBoot() {
   );
   const loaded = useRef(new Set<string>());
   const [attempt, setAttempt] = useState(0);
-  const [phase, setPhase] = useState<Phase>("loading");
-  const [introDone, setIntroDone] = useState(!offerFullscreen);
+  const [phase, setPhase] = useState<Phase>("intro");
+  const [packReady, setPackReady] = useState(false);
+  const acceptPack = useCallback(() => {
+    setPackReady(true);
+    setPhase("loading");
+  }, []);
   const failures = Object.values(status).filter((s) => s === "failed").length;
   const complete = Object.values(status).filter((s) => s === "loaded").length;
   const pending = Object.values(status).some((s) => s === "pending");
@@ -42,17 +47,17 @@ export function useEntryBoot() {
   );
 
   useEffect(() => {
-    gameAudio.preload();
-  }, []);
+    if (packReady) gameAudio.preload();
+  }, [packReady]);
   useEffect(() => {
-    if (!offerFullscreen) return;
     const timer = setTimeout(
-      () => setIntroDone(true),
-      motionDuration(ENTRY_MOTION.intro),
+      () => setPhase("pack"),
+      offerFullscreen ? motionDuration(ENTRY_MOTION.intro) : 0,
     );
     return () => clearTimeout(timer);
   }, [offerFullscreen]);
   useEffect(() => {
+    if (!packReady) return;
     const controller = new AbortController();
     for (const src of assets) {
       if (loaded.current.has(src)) continue;
@@ -63,11 +68,11 @@ export function useEntryBoot() {
       });
     }
     return () => controller.abort();
-  }, [assets, attempt]);
+  }, [assets, attempt, packReady]);
   useEffect(() => {
     // Animation and resource readiness are separate gates; progress stays factual.
-    if (phase === "loading" && !pending && introDone) setPhase("settling");
-  }, [phase, pending, introDone]);
+    if (phase === "loading" && !pending) setPhase("settling");
+  }, [phase, pending]);
   useEffect(() => {
     if (phase !== "settling") return;
     const timer = setTimeout(
@@ -101,6 +106,8 @@ export function useEntryBoot() {
   }
   return {
     phase,
+    packReady,
+    acceptPack,
     failures,
     complete,
     pending,

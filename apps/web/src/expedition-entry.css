@@ -23,7 +23,8 @@
   inset: -4%;
   background:
     linear-gradient(90deg, #171715bf, #211a1480 58%, #171512e3),
-    url("/assets/nomad-table-backdrop.webp") center bottom / auto 160%;
+    var(--media-backdrop, url("/assets/nomad-table-backdrop.webp")) center
+      bottom / auto 160%;
   opacity: 0.3;
   filter: saturate(0.55);
   animation: expedition-drift 38s ease-in-out infinite alternate;

@@ -8,6 +8,7 @@ import {
 } from "../../packages/rules/src/engine.ts";
 import type { RoomView } from "../../apps/web/src/network.ts";
 import { ROLE_BY_ID } from "../../packages/rules/src/data.ts";
+import { observeSocket } from "./fixtures/state-observer.ts";
 test.beforeEach(() => test.setTimeout(90000));
 
 import { clickRoomButton, roomRequest } from "./fixtures/rooms.ts";
@@ -38,6 +39,10 @@ test("秘密企业选择可以先查看完整效果，预览不提交行动", as
     .locator(".room-toolbar")
     .getAttribute("data-revision");
   await expect(page.locator(".enterprise-offer")).toHaveCount(4);
+  for (const level of await page
+    .locator(".enterprise-offer-level")
+    .allTextContents())
+    expect(level).toMatch(/^1 级/);
   const brand = page.locator(".enterprise-offer-art").first();
   await expect(brand.locator("img")).toHaveJSProperty("naturalWidth", 650);
   expect(
@@ -361,21 +366,6 @@ test("两个独立浏览器完成八回合，所有席位都能查看最终得�
   page,
 }) => {
   test.setTimeout(90000);
-  function observeSocket() {
-    const NativeSocket = window.WebSocket;
-    class ObservedSocket extends NativeSocket {
-      constructor(url: string | URL, protocols?: string | string[]) {
-        super(url, protocols);
-        (window as any).__gameSocket = this;
-        this.addEventListener("message", (event) => {
-          const message = JSON.parse(event.data);
-          if (message.type === "state")
-            (window as any).__gameRoom = message.room;
-        });
-      }
-    }
-    window.WebSocket = ObservedSocket;
-  }
   await page.addInitScript(observeSocket);
   await page.goto("/");
   await openHomeLobby(page);
@@ -440,10 +430,13 @@ test("两个独立浏览器完成八回合，所有席位都能查看最终得�
               ws.removeEventListener("message", receive);
               reject(new Error(message.message));
             }
-            if (message.type === "state" && message.room.revision > revision) {
+            if (
+              (message.type === "state" || message.type === "state-delta") &&
+              (window as any).__gameRoom.revision > revision
+            ) {
               clearTimeout(timer);
               ws.removeEventListener("message", receive);
-              resolve(message.room);
+              resolve((window as any).__gameRoom);
             }
           }
           ws.addEventListener("message", receive);

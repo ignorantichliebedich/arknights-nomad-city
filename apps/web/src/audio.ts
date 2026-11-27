@@ -9,6 +9,7 @@ import {
   type MusicTrack,
 } from "./audio-config.ts";
 import { RoleVoicePlayer, type RoleVoice } from "./role-voices.ts";
+import { assetFetch, assetUrl } from "./resource-media.ts";
 
 class GameAudio {
   private preferences: AudioPreferences;
@@ -115,7 +116,7 @@ class GameAudio {
     if (!this.files.has(file))
       this.files.set(
         file,
-        fetch("/audio/sfx/" + file + ".mp3")
+        assetFetch("/audio/sfx/" + file + ".mp3")
           .then((response) => (response.ok ? response.arrayBuffer() : null))
           .catch(() => null),
       );
@@ -200,7 +201,7 @@ class GameAudio {
     void this.unlock().then(() => this.play(cue));
   }
   loadMusic() {
-    this.trackRequest ??= fetch("/audio/music.json", { cache: "no-cache" })
+    this.trackRequest ??= assetFetch("/audio/music.json", { cache: "no-cache" })
       .then(async (response) => {
         if (!response.ok) return;
         const raw = await response.text();
@@ -269,8 +270,9 @@ class GameAudio {
       });
     }
     const element = this.musicElement;
-    if (element.getAttribute("src") !== track.src) {
-      element.src = track.src;
+    const source = assetUrl(track.src);
+    if (element.getAttribute("src") !== source) {
+      element.src = source;
       this.setPlayback("loading");
     }
     element.loop = prefs.musicMode === "repeat";
@@ -281,7 +283,7 @@ class GameAudio {
         if (error instanceof DOMException && error.name === "AbortError")
           return;
         if (
-          element.getAttribute("src") === track.src &&
+          element.getAttribute("src") === source &&
           this.preferences.music &&
           !this.preferences.muted &&
           !document.hidden
