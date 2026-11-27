@@ -53,8 +53,86 @@
   gap: 0.5rem;
 }
 
-.boot-pack-actions a {
-  display: inline-flex;
+.entry-bootstrap .modal.pack-download-window {
+  width: min(26rem, calc(100vw - 2rem));
+  height: auto;
+  max-height: calc(100dvh - 1.5rem);
+  border: 1px solid #8d7656;
+  border-radius: 0;
+  color: #312b24;
+  background: url("./art/paper-fibre.svg"), #f2e6cc;
+}
+
+.pack-download-window .modal-heading {
+  background: #e1d2b4;
+  border-bottom: 1px solid #a38a61;
+}
+
+.pack-download-body {
+  padding: clamp(0.75rem, 4vw, 1.5rem);
+}
+
+.pack-download-body p {
+  margin: 0 0 0.8rem;
+  font-size: 0.9rem;
+  color: #594c3b;
+}
+
+.pack-download-sources {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.pack-download-sources :is(a, li > div) {
+  display: flex;
   align-items: center;
+  gap: 0.75rem;
+  min-height: 46px;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid #a58c65;
+  color: inherit;
   text-decoration: none;
+}
+
+.pack-download-sources a {
+  background: #fffaec;
+}
+
+.pack-download-sources a:hover {
+  border-color: #963d30;
+  background: #f7e8cc;
+}
+
+.pack-download-sources a:focus-visible {
+  outline: 2px solid #963d30;
+  outline-offset: 2px;
+}
+
+.pack-download-sources a span {
+  margin-left: auto;
+  color: #963d30;
+}
+
+.pack-download-sources small {
+  color: #675541;
+}
+
+.pack-download-sources li > div {
+  border-style: dashed;
+}
+
+.pack-download-sources li > div small {
+  margin-left: auto;
+}
+
+.pack-download-window > .phone-pages {
+  flex: 0 1 auto;
+  max-height: calc(100dvh - 5rem);
+}
+
+.pack-download-window .phone-page-viewport {
+  flex-basis: auto;
 }

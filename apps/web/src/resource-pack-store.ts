@@ -1,5 +1,6 @@
 import {
   MAX_RESOURCE_PACK_BYTES,
+  readResourcePackDownloads,
   RESOURCE_PACK_MANIFEST,
   type ResourcePack,
 } from "../../../packages/shared/resource-pack.ts";
@@ -46,17 +47,14 @@ export async function readLatestPack() {
     !/^[a-f0-9]{64}$/.test(pack.version) ||
     !Number.isSafeInteger(pack.bytes) ||
     pack.bytes <= 0 ||
-    pack.bytes > MAX_RESOURCE_PACK_BYTES ||
-    typeof pack.download !== "string"
+    pack.bytes > MAX_RESOURCE_PACK_BYTES
   )
     throw new Error();
-  const url = new URL(pack.download, location.href);
-  if (
-    url.protocol !== "https:" &&
-    (url.protocol !== "http:" || url.origin !== location.origin)
-  )
-    throw new Error();
-  return pack;
+  return {
+    version: pack.version,
+    bytes: pack.bytes,
+    downloads: readResourcePackDownloads(pack.downloads),
+  };
 }
 
 export async function installPack(file: File, pack: ResourcePack) {

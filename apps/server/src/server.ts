@@ -692,15 +692,16 @@ export function createGameServer(options: ServerOptions = {}) {
         }
         let path: string;
         try {
+          const pathname = decodeURIComponent(url.pathname);
           if (
-            decodeURIComponent(url.pathname)
-              .split("/")
-              .some((segment) => segment.startsWith("."))
+            pathname.split("/").some((segment) => segment.startsWith(".")) ||
+            (pathname.toLowerCase().startsWith("/resource-packs/") &&
+              pathname !== RESOURCE_PACK_MANIFEST)
           ) {
             json(res, 404, { error: "文件不存在" });
             return;
           }
-          path = resolve(root, "." + decodeURIComponent(url.pathname));
+          path = resolve(root, "." + pathname);
         } catch {
           json(res, 400, { error: "文件地址无效" });
           return;
@@ -737,12 +738,10 @@ export function createGameServer(options: ServerOptions = {}) {
           ".ogg": "audio/ogg",
           ".wav": "audio/wav",
           ".m4a": "audio/mp4",
-          ".zip": "application/zip",
         };
         const size = statSync(path).size;
         const type = mime[extname(path)] ?? "application/octet-stream";
-        const rangeSupported =
-          type.startsWith("audio/") || type === "application/zip";
+        const rangeSupported = type.startsWith("audio/");
         const range =
           rangeSupported && req.method === "GET" && !req.headers["if-range"]
             ? mediaRange(req.headers.range, size)

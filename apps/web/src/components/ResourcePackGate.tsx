@@ -1,11 +1,16 @@
 import { useEffect, useRef, useState } from "react";
-import type { ResourcePack } from "../../../../packages/shared/resource-pack.ts";
+import {
+  resourcePackSourceIds,
+  resourcePackSources,
+  type ResourcePack,
+} from "../../../../packages/shared/resource-pack.ts";
 import { useLocalMedia } from "../resource-media.ts";
 import {
   installPack,
   readInstalledPack,
   readLatestPack,
 } from "../resource-pack-store.ts";
+import { Modal } from "./Modal.tsx";
 
 export function ResourcePackGate({ onReady }: { onReady: () => void }) {
   const [pack, setPack] = useState<ResourcePack>();
@@ -14,6 +19,7 @@ export function ResourcePackGate({ onReady }: { onReady: () => void }) {
   const [attempt, setAttempt] = useState(0);
   const [busy, setBusy] = useState(true);
   const [showActions, setShowActions] = useState(false);
+  const [showDownloads, setShowDownloads] = useState(false);
   const input = useRef<HTMLInputElement>(null);
   const title = useRef<HTMLHeadingElement>(null);
 
@@ -102,15 +108,17 @@ export function ResourcePackGate({ onReady }: { onReady: () => void }) {
         <div className="boot-pack-actions">
           {pack && (
             <>
-              <a
+              <button
+                type="button"
                 className="secondary-button"
-                href={pack.download}
-                download
-                target="_blank"
-                rel="noopener noreferrer"
+                aria-haspopup="dialog"
+                onClick={(event) => {
+                  event.currentTarget.focus();
+                  setShowDownloads(true);
+                }}
               >
                 下载资源包 · {(pack.bytes / 1024 ** 2).toFixed(1)} MiB
-              </a>
+              </button>
               <input
                 ref={input}
                 type="file"
@@ -140,6 +148,43 @@ export function ResourcePackGate({ onReady }: { onReady: () => void }) {
           </button>
         </div>
       </section>
+      {showDownloads && pack && (
+        <Modal
+          title="资源包下载"
+          className="pack-download-window"
+          onClose={() => setShowDownloads(false)}
+        >
+          <div className="pack-download-body">
+            <p>任选一个来源下载 ZIP，完成后回到此页导入。</p>
+            <ul className="pack-download-sources">
+              {resourcePackSourceIds.map((source) => {
+                const { label } = resourcePackSources[source];
+                const entry = pack.downloads[source];
+                return (
+                  <li key={source}>
+                    {entry ? (
+                      <a
+                        href={entry.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <strong>{label}</strong>
+                        {entry.code && <small>提取码 {entry.code}</small>}
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    ) : (
+                      <div>
+                        <strong>{label}</strong>
+                        <small>链接待配置</small>
+                      </div>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </Modal>
+      )}
     </main>
   );
 }

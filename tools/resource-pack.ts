@@ -7,10 +7,17 @@ import {
   MAX_RESOURCE_PACK_BYTES,
   RESOURCE_PACK_MANIFEST,
   resourceType,
+  type ResourcePackDownloads,
   type ResourcePack,
 } from "../packages/shared/resource-pack.ts";
 
-export function createResourcePack(publicDir: string, download?: string) {
+const publishedResourcePack = {
+  version: "2e36df79df724e7e1349112b0f0dd66185d73063c48f939b89297d0c3e743c39",
+  release:
+    "https://github.com/ignorantichliebedich/arknights-nomad-city/releases/download/resource-pack-2e36df79df72",
+};
+
+export function createResourcePack(publicDir: string) {
   function list(directory: string): string[] {
     const root = join(publicDir, directory);
     if (!existsSync(root)) return [];
@@ -41,19 +48,33 @@ export function createResourcePack(publicDir: string, download?: string) {
   if (archive.byteLength > MAX_RESOURCE_PACK_BYTES)
     throw new Error("素材包超过浏览器导入上限。");
   const version = createHash("sha256").update(archive).digest("hex");
-  const pathname = `/resource-packs/nomad-city-${version}.zip`;
-  const manifest: ResourcePack = {
+  return {
     version,
     bytes: archive.byteLength,
-    download: download || pathname,
+    filename: `nomad-city-${version}.zip`,
+    archive,
   };
-  return { manifest, pathname, archive };
 }
 
-export function resourcePackPlugin(download?: string): Plugin {
+export function resourcePackPlugin(downloads: ResourcePackDownloads): Plugin {
   let publicDir: string;
-  let pack: ReturnType<typeof createResourcePack> | undefined;
-  const current = () => (pack ??= createResourcePack(publicDir, download));
+  let manifest: ResourcePack | null | undefined;
+  function current() {
+    if (manifest !== undefined) return manifest;
+    const pack = createResourcePack(publicDir);
+    if (!pack) return (manifest = null);
+    const github =
+      downloads.github ??
+      (pack.version === publishedResourcePack.version
+        ? { url: `${publishedResourcePack.release}/${pack.filename}` }
+        : undefined);
+    manifest = {
+      version: pack.version,
+      bytes: pack.bytes,
+      downloads: { ...downloads, github },
+    };
+    return manifest;
+  }
   return {
     name: "nomad-resource-pack",
     configResolved(config) {
@@ -65,36 +86,22 @@ export function resourcePackPlugin(download?: string): Plugin {
           path.startsWith(publicDir) &&
           resourceType(path.slice(publicDir.length + 1).replaceAll("\\", "/"))
         )
-          pack = undefined;
+          manifest = undefined;
       });
       server.middlewares.use((req, res, next) => {
         const path = req.url?.split("?")[0];
-        if (!path?.startsWith("/resource-packs/")) return next();
-        const release = current();
-        if (path === RESOURCE_PACK_MANIFEST) {
-          res.setHeader("Content-Type", "application/json");
-          res.setHeader("Cache-Control", "no-store");
-          return res.end(JSON.stringify(release?.manifest ?? null));
-        }
-        if (!release || path !== release.pathname) return next();
-        res.setHeader("Content-Type", "application/zip");
-        res.setHeader("Content-Length", release.archive.byteLength);
-        res.end(req.method === "HEAD" ? undefined : release.archive);
+        if (path !== RESOURCE_PACK_MANIFEST) return next();
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Cache-Control", "no-store");
+        res.end(JSON.stringify(current()));
       });
     },
     generateBundle() {
-      const release = current();
       this.emitFile({
         type: "asset",
         fileName: RESOURCE_PACK_MANIFEST.slice(1),
-        source: JSON.stringify(release?.manifest ?? null),
+        source: JSON.stringify(current()),
       });
-      if (release)
-        this.emitFile({
-          type: "asset",
-          fileName: release.pathname.slice(1),
-          source: release.archive,
-        });
     },
   };
 }

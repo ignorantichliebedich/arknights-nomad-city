@@ -1,6 +1,6 @@
 {
   "name": "nomad-city-friends",
-  "version": "0.13.0",
+  "version": "0.14.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -27,6 +27,7 @@
     "backup": "node tools/backup.ts",
     "package:deploy": "node tools/package-deploy.ts",
     "package:windows": "node tools/package-windows.ts",
+    "resource-pack:export": "node tools/export-resource-pack.ts",
     "assets:catalog": "node tools/catalog.ts",
     "assets:check": "node tools/verify-assets.ts",
     "assets:restore": "node tools/restore-assets.ts",

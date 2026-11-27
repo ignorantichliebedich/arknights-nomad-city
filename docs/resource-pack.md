@@ -1,11 +1,13 @@
 # 游戏资源包
 
-开场动画结束后，页面读取发布版本的资源包信息，再检查这个浏览器里安装的版本。首次使用或资源已更新时，点击「下载资源包」，在原页面点「导入 ZIP」，直接选择下载的文件。导入完成后会自动检查，也可以手动点「重新检查」。如果朋友已经把同一份 ZIP 发给你，可以直接导入。
+开场动画结束后，页面检查浏览器里的资源包版本。首次使用或资源已更新时，点击「下载资源包」，在窗口中选择 GitHub、百度网盘或夸克网盘。下载后回到游戏页面点击「导入 ZIP」，选择原文件。已提前拿到同一份 ZIP 时，可直接导入。
 
 ZIP 在本机校验并保存到网站的 IndexedDB。使用同一浏览器和同一网址时可以在刷新或重启后继续使用。换浏览器、切换 IP 或域名、从 HTTP 换到 HTTPS、清除网站数据后，回到对应网址重新导入即可。联机仍由服务器同步。
 
 ## 构建和分发
 
-- 含运行素材的 `pnpm build` 自动生成 `apps/web/dist/resource-packs/current.json` 和 `nomad-city-<SHA256>.zip`。只修改代码时，只要包内文件内容不变，已安装的包可以继续使用。
-- 默认链接从游戏站下载。若要节约游戏服带宽，将构建产生的 ZIP 原样放到有权分发的外部下载站，再用 `NOMAD_RESOURCE_PACK_URL` 提供可直接下载的 HTTPS 链接。Docker Compose 从部署环境读取同名值，并在构建时写入版本信息。更新素材后，先准备并验证新的 ZIP 下载链接，再发布对应游戏构建。
-- ZIP 包含运行图片和音频，始终保存在忽略目录。没有运行素材的公开源码构建不会生成 ZIP。
+1. 准备本地运行素材，执行 `pnpm resource-pack:export`。ZIP 和 SHA-256 校验文件保存在忽略目录 `.data/releases/resource-packs/`。
+2. 将同一份 ZIP 原样上传到有权分发的目的地。已发布的 ZIP 校验值匹配时，游戏自动使用对应的 GitHub Release 地址。用 `NOMAD_RESOURCE_PACK_GITHUB_URL`、`NOMAD_RESOURCE_PACK_BAIDU_URL`、`NOMAD_RESOURCE_PACK_QUARK_URL` 可配置对应的 HTTPS 链接。需要提取码时设置 `NOMAD_RESOURCE_PACK_BAIDU_CODE` 或 `NOMAD_RESOURCE_PACK_QUARK_CODE`。窗口把这些分享信息展示给玩家。
+3. 将这些变量写入项目根目录的本地 `.env`，或传给 Docker Compose 构建。游戏构建仅生成版本、大小及下载链接清单，ZIP 由外部站点提供。发布前核对三个链接下载的文件与导出的 SHA-256 一致。
+
+只修改代码或分享地址时，只要包内容不变，浏览器可继续使用已安装的资源包。
